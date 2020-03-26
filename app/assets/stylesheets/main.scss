@@ -1,47 +1,115 @@
-*{
-    font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-}
+@import "variables";
 
-body{
-    background-color: #f6f6f6;
+*{
+    font-family: $font-stack;
+    box-sizing: border-box;
     padding: 0px;
     margin: 0px;
 }
 
-.main-content{
-    padding: 25px;
+body{
+    background-color: #f6f6f6;
 }
+
+h1, h2, h3, h4, h5{
+    color: $grey;
+    line-height: 1.1;
+}
+
+p{
+    color: $grey;
+    line-height: 1.5;
+}
+
+a{
+    color: $blue;
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+    }
+    &:focus{
+        color: $grey;
+        background: $yellow;
+        outline: 3px solid $yellow;
+    }
+}
+
+.button, input[type=submit], button{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    width: 100%;
+    cursor: pointer;
+    background: $blue;
+    border-radius: 5px;
+    box-shadow: 0px 5px 0px darken($blue, 10);
+    &:focus{
+        outline: none;
+        box-shadow: 0px 0px 0px 5px $yellow;
+    }
+    &:hover{
+        background: darken($blue, 5);
+    }
+    &:active{
+        background: darken($blue, 5);
+        box-shadow: none;
+        transform: translateY(5px)
+    }
+}
+
+.container{
+    max-width: $max-width;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+
+
+
 
 .site-header{
     background: white;
     padding: 15px;
     box-shadow: 0px 2px 2px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 30px;
+    .site-header__inner{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
     img{
       display: block;
     }
-  }
-
-table{
-    width: 100%;
 }
+
+.site-footer{
+    background: $grey;
+    padding: 50px 15px;
+  
+    .site-footer__notice{
+      color: $white;
+      margin-bottom: 20px;
+    }
+  
+    .site-footer__link{
+      color: $white;
+      display: inline-block;
+      margin-right: 15px;
+      &:focus{
+        color: $grey;
+      }
+    }
+}
+
 
 input[type=text]{
     font-size: 1rem;
     border: 2px solid black;
     padding: 10px;
-}
-
-button, input[type=submit]{
-    color: white;
-    background: #156BEC;
-    font-weight: bold;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
 }

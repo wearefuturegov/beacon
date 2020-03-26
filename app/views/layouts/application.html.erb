@@ -12,13 +12,25 @@
   <body>
 
     <header class="site-header">
-      <a href="/"><%= image_tag "logo.svg" %></a>
-
-      <a href="#">Log out</a>
+      <div class="site-header__inner container">
+        <a href="/"><%= image_tag "logo.svg" %></a>
+        <a href="#">Log out</a>
+      </div>
     </header>
 
-    <div class="main-content">
+    <div class="main-content container">
       <%= yield %>
     </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="site-footer__notice">© 2020 Buckinghamshire Council</p>
+        <nav class="site-footer__menu">
+          <a class="site-footer__link" href="https://www.buckinghamshire.gov.uk/about/cookies/">Privacy & cookies</a>
+          <a class="site-footer__link" href="https://docs.google.com/forms/d/e/1FAIpQLSdSsvGW-kMZQ2kf51fRYzkzXP_kZq7hi4hUVULr68Hj7PtpZw/viewform?usp=sf_link">Give feedback on this service</a>
+        </nav>
+      </div>
+    </footer>
+
   </body>
 </html>
