@@ -1,0 +1,72 @@
+<%= form_with(model: contact, local: true) do |form| %>
+  <% if contact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+      <ul>
+        <% contact.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :postcode %>
+    <%= form.text_field :postcode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :food %>
+    <%= form.check_box :food %>
+  </div>
+
+  <div class="field">
+    <%= form.label :finances %>
+    <%= form.check_box :finances %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pets %>
+    <%= form.check_box :pets %>
+  </div>
+
+  <div class="field">
+    <%= form.label :prescriptions %>
+    <%= form.check_box :prescriptions %>
+  </div>
+
+  <div class="field">
+    <%= form.label :social %>
+    <%= form.check_box :social %>
+  </div>
+
+  <div class="field">
+    <%= form.label :wellbeing %>
+    <%= form.check_box :wellbeing %>
+  </div>
+
+  <div class="field">
+    <%= form.label :other %>
+    <%= form.text_field :other %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
