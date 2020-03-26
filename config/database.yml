@@ -24,6 +24,11 @@ default: &default
 development:
   <<: *default
   database: i_have_i_need_development
+  # Docker-Compose connection settings
+  url: postgresql://localhost:5432/i_have_i_need_development
+  username: dev_local_user
+  password: password
+
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -58,6 +63,10 @@ development:
 test:
   <<: *default
   database: i_have_i_need_test
+  # Docker-Compose connection settings
+  url: postgresql://localhost:5432/i_have_i_need_test
+  username: test_local_user
+  password: password
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

@@ -1,0 +1,12 @@
+version: '3'
+services:
+  postgresql:
+    image: postgres:alpine
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: i_have_i_need_development
+      POSTGRES_USER: camden_local_user
+      POSTGRES_PASSWORD: password
