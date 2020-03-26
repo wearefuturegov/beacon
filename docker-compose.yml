@@ -8,5 +8,5 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_DB: i_have_i_need_development
-      POSTGRES_USER: camden_local_user
+      POSTGRES_USER: dev_local_user
       POSTGRES_PASSWORD: password
