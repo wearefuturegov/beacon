@@ -6,7 +6,7 @@ This is a platform for local authorities and voluntary organisations to manage d
 
 It's a rails app backed by a postgresql database.
 
-## Confirugation
+## Configuration
 
 Coming soon...
 
