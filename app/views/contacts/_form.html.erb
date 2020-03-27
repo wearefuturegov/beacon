@@ -1,80 +1,86 @@
-<%= form_with(model: contact, local: true) do |form| %>
-  <% if contact.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+<div class="two-thirds">
 
-      <ul>
-        <% contact.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <%= form_with(model: contact, local: true) do |form| %>
+    <% if contact.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+        <ul>
+          <% contact.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <section class="field-section">
+      <h2 class="field-section__title">About them</h2>
+
+      <div class="field">
+        <%= form.label :name, class: "field__label" %>
+        <%= form.text_field :name %>
+      </div>
+
+      <div class="field">
+        <%= form.label :phone, class: "field__label" %>
+        <%= form.text_field :phone %>
+      </div>
+
+      <div class="field">
+        <%= form.label :address, class: "field__label" %>
+        <%= form.text_field :address %>
+      </div>
+
+      <div class="field">
+        <%= form.label :postcode, class: "field__label" %>
+        <%= form.text_field :postcode %>
+      </div>
+    </section>
+    
+    <fieldset class="field-section">
+      <legend><h2 class="field-section__title">What kind of thing do they need?</h2></legend>
+
+      <div class="checkboxes">
+        <div class="checkbox">
+          <%= form.check_box :food, class: "checkbox__input" %>
+          <%= form.label :food, class: "checkbox__label" %>
+        </div>
+
+        <div class="checkbox">
+          <%= form.check_box :finances, class: "checkbox__input" %>
+          <%= form.label :finances, class: "checkbox__label" %>
+        </div>
+
+        <div class="checkbox">
+          <%= form.check_box :pets, class: "checkbox__input" %>
+          <%= form.label :pets, class: "checkbox__label" %>
+        </div>
+
+        <div class="checkbox">
+          <%= form.check_box :prescriptions, class: "checkbox__input" %>
+          <%= form.label :prescriptions, class: "checkbox__label" %>
+        </div>
+
+        <div class="checkbox">
+          <%= form.check_box :social, class: "checkbox__input" %>
+          <%= form.label :social, class: "checkbox__label" %>
+        </div>
+
+        <div class="checkbox">
+          <%= form.check_box :wellbeing, class: "checkbox__input" %>
+          <%= form.label :wellbeing, class: "checkbox__label" %>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= form.label :other, class: "field__label" %>
+        <%= form.text_field :other %>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <%= form.submit "Finish" %>
     </div>
   <% end %>
 
-  <section class="field-section">
-    <h2 class="field-section__title">About them</h2>
-
-    <div class="field">
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-
-    <div class="field">
-      <%= form.label :phone %>
-      <%= form.text_field :phone %>
-    </div>
-
-    <div class="field">
-      <%= form.label :address %>
-      <%= form.text_field :address %>
-    </div>
-
-    <div class="field">
-      <%= form.label :postcode %>
-      <%= form.text_field :postcode %>
-    </div>
-  </section>
-  
-  <fieldset class="field-section">
-    <legend><h2 class="field-section__title">What kind of thing do they need?</h2></legend>
-
-    <div class="checkbox">
-      <%= form.check_box :food, class: "checkbox__input" %>
-      <%= form.label :food, class: "checkbox__label" %>
-    </div>
-
-    <div class="checkbox">
-      <%= form.check_box :finances, class: "checkbox__input" %>
-      <%= form.label :finances, class: "checkbox__label" %>
-    </div>
-
-    <div class="checkbox">
-      <%= form.check_box :pets, class: "checkbox__input" %>
-      <%= form.label :pets, class: "checkbox__label" %>
-    </div>
-
-    <div class="checkbox">
-      <%= form.check_box :prescriptions, class: "checkbox__input" %>
-      <%= form.label :prescriptions, class: "checkbox__label" %>
-    </div>
-
-    <div class="checkbox">
-      <%= form.check_box :social, class: "checkbox__input" %>
-      <%= form.label :social, class: "checkbox__label" %>
-    </div>
-
-    <div class="checkbox">
-      <%= form.check_box :wellbeing, class: "checkbox__input" %>
-      <%= form.label :wellbeing, class: "checkbox__label" %>
-    </div>
-
-    <div class="field">
-      <%= form.label :other %>
-      <%= form.text_field :other %>
-    </div>
-  </fieldset>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

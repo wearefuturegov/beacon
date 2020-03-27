@@ -18,7 +18,7 @@ input[type=text]{
     font-weight: bold;
     color: white;
     border: none;
-    padding: 15px 20px;
+    padding: 15px 25px;
     width: 100%;
     cursor: pointer;
     background: $blue;
@@ -40,17 +40,37 @@ input[type=text]{
         box-shadow: none;
         transform: translateY(5px)
     }
+    @media screen and (min-width: $breakpoint-m){
+      display: inline-block;
+      min-width: 150px;
+      width: auto;
+    }
 }
 
 .field-section{
-    margin-bottom: 25px;
+  border: none;
+    margin-bottom: 55px;
     .field-section__title{
         font-size: 1.5rem;
+        margin-bottom: 20px;
     }
 }
 
 .field{
     margin-bottom: 25px;
+    .field__label{
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+}
+
+.checkboxes{
+  margin-bottom: 25px;
+  @media screen and (min-width: $breakpoint-m){
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+  }
 }
 
 .checkbox{
