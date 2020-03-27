@@ -8,7 +8,7 @@
 }
 
 body{
-    background-color: #f6f6f6;
+    background-color: $grey;
 }
 
 h1, h2, h3, h4, h5{
@@ -35,6 +35,8 @@ a{
 }
 
 .button, input[type=submit], button{
+    display: block;
+    text-align: center;
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
@@ -47,13 +49,17 @@ a{
     box-shadow: 0px 5px 0px darken($blue, 10);
     &:focus{
         outline: none;
+        color: white;
+        background: $blue;
         box-shadow: 0px 0px 0px 5px $yellow;
     }
     &:hover{
         background: darken($blue, 5);
+        text-decoration: none;
     }
     &:active{
         background: darken($blue, 5);
+        color: white;
         box-shadow: none;
         transform: translateY(5px)
     }
@@ -65,51 +71,35 @@ a{
     margin-right: auto;
 }
 
-
-
-
-
-
-
-
-.site-header{
-    background: white;
-    padding: 15px;
-    box-shadow: 0px 2px 2px rgba(0,0,0,0.05);
-    margin-bottom: 30px;
-    .site-header__inner{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    img{
-      display: block;
-    }
+.main-content{
+    background: $pale;
+    padding: 40px $outer-spacing;
 }
-
-.site-footer{
-    background: $grey;
-    padding: 50px 15px;
-  
-    .site-footer__notice{
-      color: $white;
-      margin-bottom: 20px;
-    }
-  
-    .site-footer__link{
-      color: $white;
-      display: inline-block;
-      margin-right: 15px;
-      &:focus{
-        color: $grey;
-      }
-    }
-}
-
 
 input[type=text]{
+    display: block;
+    width: 100%;
     font-size: 1rem;
     border: 2px solid black;
     padding: 10px;
+    &:focus{
+        outline: 3px solid $yellow;
+    }
+}
+
+.page-title{
+    margin: 0;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
+.field-section{
+    margin-bottom: 25px;
+    .field-section__title{
+        font-size: 1.5rem;
+    }
+}
+
+.field{
+    margin-bottom: 25px;
 }

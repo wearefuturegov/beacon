@@ -11,63 +11,67 @@
     </div>
   <% end %>
 
-  <h2>About them</h2>
+  <section class="field-section">
+    <h2 class="field-section__title">About them</h2>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
 
-  <div class="field">
-    <%= form.label :phone %>
-    <%= form.text_field :phone %>
-  </div>
+    <div class="field">
+      <%= form.label :phone %>
+      <%= form.text_field :phone %>
+    </div>
 
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address %>
-  </div>
+    <div class="field">
+      <%= form.label :address %>
+      <%= form.text_field :address %>
+    </div>
 
-  <div class="field">
-    <%= form.label :postcode %>
-    <%= form.text_field :postcode %>
-  </div>
+    <div class="field">
+      <%= form.label :postcode %>
+      <%= form.text_field :postcode %>
+    </div>
+  </section>
+  
+  <fieldset class="field-section">
+    <legend><h2 class="field-section__title">What kind of thing do they need?</h2></legend>
 
-  <h2>What kind of thing do they need?</h2>
+    <div class="field">
+      <%= form.label :food %>
+      <%= form.check_box :food %>
+    </div>
 
-  <div class="field">
-    <%= form.label :food %>
-    <%= form.check_box :food %>
-  </div>
+    <div class="field">
+      <%= form.label :finances %>
+      <%= form.check_box :finances %>
+    </div>
 
-  <div class="field">
-    <%= form.label :finances %>
-    <%= form.check_box :finances %>
-  </div>
+    <div class="field">
+      <%= form.label :pets %>
+      <%= form.check_box :pets %>
+    </div>
 
-  <div class="field">
-    <%= form.label :pets %>
-    <%= form.check_box :pets %>
-  </div>
+    <div class="field">
+      <%= form.label :prescriptions %>
+      <%= form.check_box :prescriptions %>
+    </div>
 
-  <div class="field">
-    <%= form.label :prescriptions %>
-    <%= form.check_box :prescriptions %>
-  </div>
+    <div class="field">
+      <%= form.label :social %>
+      <%= form.check_box :social %>
+    </div>
 
-  <div class="field">
-    <%= form.label :social %>
-    <%= form.check_box :social %>
-  </div>
+    <div class="field">
+      <%= form.label :wellbeing %>
+      <%= form.check_box :wellbeing %>
+    </div>
 
-  <div class="field">
-    <%= form.label :wellbeing %>
-    <%= form.check_box :wellbeing %>
-  </div>
-
-  <div class="field">
-    <%= form.label :other %>
-    <%= form.text_field :other %>
+    <div class="field">
+      <%= form.label :other %>
+      <%= form.text_field :other %>
+    </div>
   </div>
 
   <div class="actions">

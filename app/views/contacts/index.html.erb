@@ -1,6 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>People in need</h1>
+<h1 class="page-title">People in need</h1>
+
+<%= link_to 'Add a new person', new_contact_path, class: "button" %>
 
 <table>
   <thead>
@@ -23,7 +25,7 @@
   <tbody>
     <% @contacts.each do |contact| %>
       <tr>
-        <td><%= contact.name %></td>
+        <td><%= link_to contact.name, contact %></td>
         <td><%= contact.phone %></td>
         <td><%= contact.address %></td>
         <td><%= contact.postcode %></td>
@@ -34,14 +36,7 @@
         <td><%= contact.social %></td>
         <td><%= contact.wellbeing %></td>
         <td><%= contact.other %></td>
-        <td><%= link_to 'Show', contact %></td>
-        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-        <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Contact', new_contact_path %>

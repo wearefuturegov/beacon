@@ -1,6 +1,7 @@
-<h1>Editing Contact</h1>
+<%= link_to 'Back', contacts_path %>
+
+<h1 class="page-title">Editing <%= @contact.name %></h1>
 
 <%= render 'form', contact: @contact %>
 
-<%= link_to 'Show', @contact %> |
-<%= link_to 'Back', contacts_path %>
+<%= link_to 'Show', @contact %>
