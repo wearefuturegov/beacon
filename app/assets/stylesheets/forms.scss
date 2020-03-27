@@ -1,0 +1,102 @@
+@import "variables";
+
+input[type=text]{
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    border: 2px solid black;
+    padding: 10px;
+    &:focus{
+        outline: 3px solid $yellow;
+    }
+}
+
+.button, input[type=submit], button{
+    display: block;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    width: 100%;
+    cursor: pointer;
+    background: $blue;
+    border-radius: 5px;
+    box-shadow: 0px 5px 0px darken($blue, 10);
+    &:focus{
+        outline: none;
+        color: white;
+        background: $blue;
+        box-shadow: 0px 0px 0px 5px $yellow;
+    }
+    &:hover{
+        background: darken($blue, 5);
+        text-decoration: none;
+    }
+    &:active{
+        background: darken($blue, 5);
+        color: white;
+        box-shadow: none;
+        transform: translateY(5px)
+    }
+}
+
+.field-section{
+    margin-bottom: 25px;
+    .field-section__title{
+        font-size: 1.5rem;
+    }
+}
+
+.field{
+    margin-bottom: 25px;
+}
+
+.checkbox{
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 50px;
+    padding-top: 10px;
+    &:focus-within label:before{
+      outline: 3px solid $yellow;
+    }
+    .checkbox__input{
+      font-size: 2rem;
+      -webkit-appearance:none;
+      width:35px;
+      height:35px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      &:checked + label:after{
+        position: absolute;
+        content: "";
+        display: block;
+        height: 28px;
+        width: 28px;
+        left: 5px;
+        top: 5px;
+        background-image: url("data:image/svg+xml,%3Csvg width='28' height='24' viewBox='0 0 28 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M27.1608 5.08025L9.59935 23.3259L0.837891 14.2231L5.16081 10.0623L9.59935 14.6738L22.8379 0.919434L27.1608 5.08025Z' fill='%232A2828'/%3E%3C/svg%3E%0A");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+    .checkbox__label{
+      cursor: pointer;
+      color: $grey;
+      &:before{
+        content: "";
+        display: inline-block;
+        background: $white;
+        border: 2px solid $grey;
+        width: 35px;
+        height: 35px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+    }
+  }
+  

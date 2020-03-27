@@ -34,37 +34,6 @@ a{
     }
 }
 
-.button, input[type=submit], button{
-    display: block;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    width: 100%;
-    cursor: pointer;
-    background: $blue;
-    border-radius: 5px;
-    box-shadow: 0px 5px 0px darken($blue, 10);
-    &:focus{
-        outline: none;
-        color: white;
-        background: $blue;
-        box-shadow: 0px 0px 0px 5px $yellow;
-    }
-    &:hover{
-        background: darken($blue, 5);
-        text-decoration: none;
-    }
-    &:active{
-        background: darken($blue, 5);
-        color: white;
-        box-shadow: none;
-        transform: translateY(5px)
-    }
-}
-
 .container{
     max-width: $max-width;
     margin-left: auto;
@@ -76,30 +45,8 @@ a{
     padding: 40px $outer-spacing;
 }
 
-input[type=text]{
-    display: block;
-    width: 100%;
-    font-size: 1rem;
-    border: 2px solid black;
-    padding: 10px;
-    &:focus{
-        outline: 3px solid $yellow;
-    }
-}
-
 .page-title{
     margin: 0;
     font-size: 1.8rem;
     margin-bottom: 30px;
-}
-
-.field-section{
-    margin-bottom: 25px;
-    .field-section__title{
-        font-size: 1.5rem;
-    }
-}
-
-.field{
-    margin-bottom: 25px;
 }
