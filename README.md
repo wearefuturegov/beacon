@@ -1,24 +1,15 @@
-# README
+# I have/I need platform
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+🚨This is **PRE-ALPHA** and not yet ready for use 🚨
 
-Things you may want to cover:
+This is a platform for local authorities and voluntary organisations to manage demand and supply of community services during the coronavirus pandemic.
 
-* Ruby version
+It's a rails app backed by a postgresql database.
 
-* System dependencies
+## Running it locally
 
-* Configuration
+Coming soon...
 
-* Database creation
+## Running it on the web
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Coming soon...
