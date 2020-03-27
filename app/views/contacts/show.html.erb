@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to contacts_path, class: "go-back" do %>
+    <%= image_tag "back.svg", alt: "" %><span>Go back</span>
+<% end %>
+
 <h1 class="page-title"><%= @contact.name %></h1>
 
 <p>
@@ -54,4 +58,3 @@
 
 <%= link_to 'Destroy', @contact, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Edit', edit_contact_path(@contact) %> |
-<%= link_to 'Back', contacts_path %>

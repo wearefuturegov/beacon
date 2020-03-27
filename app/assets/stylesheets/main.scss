@@ -51,6 +51,24 @@ a{
 
 .page-title{
     margin: 0;
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 30px;
 }
+
+.go-back{
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-decoration: none;
+    margin-bottom: 15px;
+    img{
+      height: 15px;
+      margin-right: 7px;
+    }
+    &:hover span{
+      text-decoration: underline;
+    }
+    &:focus img{
+        filter: grayscale(1)
+    }
+  }
