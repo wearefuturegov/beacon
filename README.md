@@ -12,7 +12,34 @@ Coming soon...
 
 ## Running it locally
 
-Coming soon...
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/wearefuturegov/i-have-i-need
+    ```
+1. Install Rails dependencies:
+
+    ```bash
+    bundle install
+    ```
+
+1. Install JavaScript dependencies:
+
+    ```bash
+    yarn install
+    ```
+
+1. Start postgres Docker image via `docker-compose`:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+1. Load the schema:
+
+    ```bash
+    rails db:schema:load
+    ```
 
 ## Running it on the web
 
