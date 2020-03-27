@@ -10,23 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_26_132702) do
+ActiveRecord::Schema.define(version: 2020_03_27_204232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "contacts", force: :cascade do |t|
-    t.string "name"
-    t.string "phone"
+    t.string "first_name"
+    t.string "middle_names"
+    t.string "surname"
     t.string "address"
     t.string "postcode"
-    t.boolean "food"
-    t.boolean "finances"
-    t.boolean "pets"
-    t.boolean "prescriptions"
-    t.boolean "social"
-    t.boolean "wellbeing"
-    t.string "other"
+    t.string "telephone"
+    t.string "mobile"
+    t.jsonb "nhs_import_data"
+    t.boolean "is_vulnerable"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
