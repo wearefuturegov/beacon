@@ -6,10 +6,18 @@ This is a platform for local authorities and voluntary organisations to manage d
 
 It's a rails app backed by a postgresql database.
 
+## Confirugation
+
+Coming soon...
+
 ## Running it locally
 
 Coming soon...
 
 ## Running it on the web
+
+Coming soon...
+
+## Roadmap
 
 Coming soon...
