@@ -100,9 +100,9 @@ ActiveRecord::Schema.define(version: 2020_03_28_094820) do
     t.bigint "organisation_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "email"
-    t.datetime "invited"
-    t.boolean "admin"
+    t.text "email", null: false
+    t.datetime "invited", null: false
+    t.boolean "admin", default: false, null: false
     t.datetime "last_logged_in"
     t.index ["organisation_id"], name: "index_users_on_organisation_id"
   end

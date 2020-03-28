@@ -1,0 +1,33 @@
+.table-title-section {
+  // todo: make this vertical align elements
+  margin-bottom: 30px;
+  & .page-title {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.table {
+  width: 100%;
+  padding: 8px;
+  border-collapse: collapse;
+
+  & tbody tr {
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  & th, & td {
+    text-align: left;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  & th, {
+    color: #54585A;
+    font-weight: initial;
+  }
+
+  & td:nth-child(1) {
+    font-weight: bold;
+  }
+}

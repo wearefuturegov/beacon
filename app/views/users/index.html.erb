@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<div class="table-title-section">
+  <h1 class="page-title">Users</h1>
+  <%= link_to 'Invite user', new_user_path, class: "button pull-right" %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Invited</th>
+      <th>Last logged in</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= time_ago_in_words(user.invited) %> ago</td>
+        <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>
+        <td><%= user.role_title %></td>
+        <td><a href="#">Remove</a></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
