@@ -1,7 +1,7 @@
 version: '3'
 services:
   postgresql:
-    image: postgres:alpine
+    image: postgres:11.7-alpine
     volumes:
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
