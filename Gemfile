@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.7'
 
+gem 'auth0', '~> 4.9'
 gem 'omniauth-auth0', '~> 2.2'
 gem 'omniauth-rails_csrf_protection', '~> 0.1'
 gem 'acts-as-taggable-on', '~> 6.0'
