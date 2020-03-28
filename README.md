@@ -64,3 +64,8 @@ Coming soon...
 | SMTP_USERNAME | Username for SMTP server |
 | SMTP_PASSWORD | Password for SMTP server |
 | SMTP_PORT     | Port for SMTP server     |
+
+## MailDev
+When running in development mode, emails are sent to maildev, running via docker-compose
+
+Visit http://localhost:1080/ to view sent emails
