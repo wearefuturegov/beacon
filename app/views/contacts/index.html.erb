@@ -1,42 +1,31 @@
 <p id="notice"><%= notice %></p>
 
-<h1 class="page-title">People in need</h1>
+<div class="table-title-section">
+  <h1 class="page-title">People in need</h1>
+</div>
 
-<%= link_to 'Add a new person', new_contact_path, class: "button" %>
-
-<table>
+<table class="table">
   <thead>
     <tr>
+      <th>Assigned</th>
       <th>Name</th>
-      <th>Phone</th>
-      <th>Address</th>
-      <th>Postcode</th>
-      <th>Food</th>
-      <th>Finances</th>
-      <th>Pets</th>
-      <th>Prescriptions</th>
-      <th>Social</th>
-      <th>Wellbeing</th>
-      <th>Other</th>
-      <th colspan="3"></th>
+      <th>No. of tasks</th>
+      <th>Priority</th>
+      <th>Data logged</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @contacts.each do |contact| %>
-      <tr>
-        <td><%= link_to contact.name, contact %></td>
-        <td><%= contact.phone %></td>
-        <td><%= contact.address %></td>
-        <td><%= contact.postcode %></td>
-        <td><%= contact.food %></td>
-        <td><%= contact.finances %></td>
-        <td><%= contact.pets %></td>
-        <td><%= contact.prescriptions %></td>
-        <td><%= contact.social %></td>
-        <td><%= contact.wellbeing %></td>
-        <td><%= contact.other %></td>
-      </tr>
-    <% end %>
+  <% @contacts.each do |contact| %>
+    <tr>
+      <td></td>
+      <td><%= contact.name %></td>
+      <td><%= "#{contact.tasks_count} Tasks (#{contact.completed_tasks_count}x completed)" %></td>
+      <td><%= contact.priority %></td>
+      <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
+      <td><%= link_to 'View', '#' %></td>
+    </tr>
+  <% end%>
   </tbody>
 </table>
