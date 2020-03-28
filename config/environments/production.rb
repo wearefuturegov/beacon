@@ -116,4 +116,14 @@ Rails.application.configure do
     new_path = "#{env['SCRIPT_NAME']}#{OmniAuth.config.path_prefix}/failure?message=#{message_key}&error_description=#{error_description}"
     Rack::Response.new(['302 Moved'], 302, 'Location' => new_path).finish
   }
+
+  ActionMailer::Base.smtp_settings = {
+      :domain => ENV['SMTP_DOMAIN'],
+      :address => ENV['SMTP_ADDRESS'],
+      :user_name => ENV['SMTP_USERNAME'],
+      :password => ENV['SMTP_PASSWORD'],
+      :port => ENV['SMTP_PORT'],
+      :authentication => :plain,
+      :enable_starttls_auto => true
+  }
 end
