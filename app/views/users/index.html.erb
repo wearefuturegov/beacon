@@ -21,7 +21,11 @@
       <tr>
         <td><%= user.email %></td>
         <td><%= time_ago_in_words(user.invited) %> ago</td>
-        <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>
+        <% if user.last_logged_in %>
+          <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>
+          <% else %>
+          <td> Never </td>
+        <% end %>
         <td><%= user.role_title %></td>
         <td><a href="#">Remove</a></td>
       </tr>

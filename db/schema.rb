@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 2020_03_28_094820) do
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.bigint "organisation_id", null: false
+    t.bigint "organisation_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "email", null: false
