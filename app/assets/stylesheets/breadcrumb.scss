@@ -1,0 +1,15 @@
+.breadcrumb {
+  list-style: none;
+  margin-bottom: 24px;
+
+  & li {
+    display: inline;
+    font-size: 16px;
+  }
+
+  li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+  }
+}

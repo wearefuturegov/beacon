@@ -9,6 +9,11 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
+      .site-header__inner_links {
+        flex: 1;
+        margin-left: 46px;
+      }
     }
     img{
       display: block;

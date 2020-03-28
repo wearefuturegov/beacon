@@ -1,0 +1,41 @@
+<%= form_with(model: user, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
+
+  <section class="field-section">
+    <% if user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+          <% user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :email, "Their email address", class: "field__label" %>
+      <%= form.text_field :email %>
+    </div>
+  </section>
+
+  <fieldset class="field-section">
+    <div class="field">
+      <%= form.label :admin, "Does this user need permission to invite other users?", class: "field__label" %>
+      <div class="radio">
+        <%= form.radio_button :admin, false %>
+        <label for="user_admin_false"></label>
+        <p>Yes</p>
+      </div>
+      <div class="radio">
+        <%= form.radio_button :admin, true %>
+        <label for="user_admin_true"></label>
+        <p>No</p>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="actions">
+    <%= form.submit "Send invite" %>
+  </div>
+<% end %>

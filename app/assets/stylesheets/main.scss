@@ -44,6 +44,14 @@ a{
     max-width: 66.67%;
 }
 
+p.lede {
+  margin-top: 75px;
+  margin-bottom: 75px;
+  color: $grey-pale;
+  font-size: 23px;
+  line-height: 150%;
+}
+
 .main-content{
     background: $pale;
     padding: 40px $outer-spacing;
