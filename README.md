@@ -29,16 +29,22 @@ Coming soon...
     yarn install
     ```
 
-1. Start postgres Docker image via `docker-compose`:
+1. Start PostgresQL Docker image via `docker-compose`:
 
     ```bash
     docker-compose up -d
     ```
 
-1. Load the schema:
+1. Setup the database:
 
     ```bash
-    rails db:schema:load
+    rails db:setup
+    ```
+
+1. Start the Rails server:
+
+    ```bash
+    rails server
     ```
 
 ## Running it on the web
