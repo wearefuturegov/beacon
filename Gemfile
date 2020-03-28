@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.7'
 
+gem 'omniauth-auth0', '~> 2.2'
+gem 'omniauth-rails_csrf_protection', '~> 0.1'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'jbuilder', '~> 2.7'
@@ -33,6 +35,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-rails'
