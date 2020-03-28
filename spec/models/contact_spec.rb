@@ -17,4 +17,10 @@ RSpec.describe Contact, type: :model do
       .backed_by_column_of_type(:string)
       .with_suffix
   end
+
+  it '#name' do
+    contact = build :contact, first_name: 'John', surname: 'Doe'
+
+    expect(contact.name).to eq 'John Doe'
+  end
 end
