@@ -7,28 +7,29 @@
 
 <table class="table">
   <thead>
-    <tr>
-      <th>Email</th>
-      <th>Invited</th>
-      <th>Last logged in</th>
-      <th>Role</th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>Email</th>
+    <th>Invited</th>
+    <th>Last logged in</th>
+    <th>Role</th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.email %></td>
-        <td><%= time_ago_in_words(user.invited) %> ago</td>
-        <% if user.last_logged_in %>
-          <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>
-          <% else %>
-          <td> Never </td>
-        <% end %>
-        <td><%= user.role_title %></td>
-        <td><a href="#">Remove</a></td>
-      </tr>
-    <% end %>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= time_ago_in_words(user.invited) %> ago</td>
+      <% if user.last_logged_in %>
+        <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>
+      <% else %>
+        <td> Never</td>
+      <% end %>
+      <td><%= user.role_title %></td>
+      <td><%= link_to 'Remove', user_path(user),
+                      data: {:confirm => 'Are you sure?'}, :method => :delete %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
