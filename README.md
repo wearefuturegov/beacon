@@ -54,3 +54,18 @@ Coming soon...
 ## Roadmap
 
 Coming soon...
+
+## Environment Variables
+
+| Name          | Description              |
+|---------------|--------------------------|
+| SMTP_DOMAIN   | HELO domain              |
+| SMTP_ADDRESS  | Address for SMTP server  |
+| SMTP_USERNAME | Username for SMTP server |
+| SMTP_PASSWORD | Password for SMTP server |
+| SMTP_PORT     | Port for SMTP server     |
+
+## MailDev
+When running in development mode, emails are sent to maildev, running via docker-compose
+
+Visit http://localhost:1080/ to view sent emails
