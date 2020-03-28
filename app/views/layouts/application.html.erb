@@ -17,7 +17,12 @@
         <div class="site-header__inner_links">
           <a href="/users">Users</a>
         </div>
-        <a href="#">Log out</a>
+        <% if current_user %>
+          <%= current_user.email %>
+          (<%= link_to 'Logout', auth.sign_out_path %>)
+        <% else %>
+          <%= link_to 'Login', auth.sign_in_path %>
+        <% end %>
       </div>
     </header>
 

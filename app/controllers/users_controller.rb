@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:destroy]
+  #before_action :require_user!
 
   # GET /users
   def index

@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :uncompleted_tasks, -> { uncompleted }, class_name: 'Task'
   has_many :uncompleted_contacts, through: :uncompleted_tasks, source: :contact
   has_many :completed_contacts, through: :completed_tasks, source: :contact
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  passwordless_with :email
 
   def role_title
     admin ? 'Admin' : 'User'
