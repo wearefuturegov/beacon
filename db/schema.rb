@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 2020_03_28_140438) do
     t.datetime "invited", null: false
     t.boolean "admin", default: false, null: false
     t.datetime "last_logged_in"
-    t.index ["email"], name: "index_users_on_email"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organisation_id"], name: "index_users_on_organisation_id"
   end
 
