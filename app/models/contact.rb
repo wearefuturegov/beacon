@@ -5,4 +5,6 @@ class Contact < ApplicationRecord
   acts_as_ordered_taggable
 
   validates :first_name, presence: true
+
+  enum priority: { low: 'low', medium: 'medium', high: 'high' }, _suffix: true
 end

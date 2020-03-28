@@ -8,5 +8,6 @@ FactoryBot.define do
     telephone { Faker::PhoneNumber.phone_number }
     mobile { Faker::PhoneNumber.cell_phone }
     is_vulnerable { true }
+    priority { 'medium' }
   end
 end
