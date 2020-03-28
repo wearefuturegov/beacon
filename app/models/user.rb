@@ -15,14 +15,7 @@ class User < ApplicationRecord
     admin ? 'Admin' : 'User'
   end
 
-  def self.find_or_create_with_auth(auth)
-    User.where(:email => auth.info.email).first || User.create_with_auth(auth)
-  end
-
-  def self.create_with_auth(auth)
-    create! do |user|
-      user.email = auth.info.email
-      user.invited = Time.now
-    end
+  def self.omniauth(auth)
+    User.find_by!(:email => auth.info.email)
   end
 end

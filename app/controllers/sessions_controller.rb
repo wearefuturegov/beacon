@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
 
   def create
-    @user = User.find_or_create_with_auth(auth_hash)
+    @user = User.omniauth(auth_hash)
     reset_session
     session[:user_id] = @user.id
     redirect_to request.env['omniauth.origin'] || root_path,
