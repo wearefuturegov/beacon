@@ -15,4 +15,8 @@ class User < ApplicationRecord
   def role_title
     admin ? 'Admin' : 'User'
   end
+
+  def name
+    [first_name, last_name].join(' ')
+  end
 end

@@ -14,4 +14,7 @@ class Task < ApplicationRecord
 
 
   validates :name, presence: true
+
+  delegate :name, :priority, to: :contact, prefix: true
+  delegate :name, to: :user, prefix: true
 end

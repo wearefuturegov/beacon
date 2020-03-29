@@ -11,7 +11,8 @@
       <th>Name</th>
       <th>No. of tasks</th>
       <th>Priority</th>
-      <th>Data logged</th>
+      <th>Date logged</th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -23,7 +24,7 @@
       <td><%= contact.name %></td>
       <td><%= "#{contact.tasks_count} Tasks (#{contact.completed_tasks_count}x completed)" %></td>
       <td><%= contact.priority %></td>
-      <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
+      <td><%= format_datetime(contact.created_at) %></td>
       <td><%= link_to 'View', contact %></td>
       <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
     </tr>

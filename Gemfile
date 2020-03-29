@@ -8,6 +8,7 @@ gem 'acts-as-taggable-on', '~> 6.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'counter_culture', '~> 2.0'
 gem 'jbuilder', '~> 2.7'
+gem 'kaminari'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
@@ -37,6 +38,7 @@ end
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
 end
