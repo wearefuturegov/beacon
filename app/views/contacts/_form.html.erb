@@ -14,17 +14,22 @@
     <% end %>
 
     <section class="field-section">
-      <div class="flex margin-bottom-70">
-        <div class="field">
-          <%= form.label :first_name, class: "field__label" %>
-          <%= form.text_field :first_name %>
+      <fieldset class="field-section margin-bottom-70">
+        <div class="flex">
+          <div class="field">
+            <%= form.label :first_name, class: "field__label" %>
+            <%= form.text_field :first_name %>
+          </div>
+          <div class="field">
+            <%= form.label :middle_names, class: "field__label" %>
+            <%= form.text_field :middle_names %>
+          </div>
         </div>
-
-        <div class="field">
-          <%= form.label :last_name, class: "field__label" %>
-          <%= form.text_field :last_name %>
+        <div class="field field-half-width">
+          <%= form.label :surname, class: "field__label" %>
+          <%= form.text_field :surname %>
         </div>
-      </div>
+      </fieldset>
 
       <fieldset class="field-section">
         <legend><h2 class="field-section__title">Where do they live?</h2></legend>
@@ -49,9 +54,13 @@
           </div>
 
           <div class="field">
-            <%= form.label :phone_number, class: "field__label" %>
-            <%= form.text_field :phone_number %>
+            <%= form.label :telephone, "Landline", class: "field__label" %>
+            <%= form.text_field :telephone %>
           </div>
+        </div>
+        <div class="field field-half-width">
+          <%= form.label :mobile, class: "field__label" %>
+          <%= form.text_field :mobile %>
         </div>
       </fieldset>
     </section>

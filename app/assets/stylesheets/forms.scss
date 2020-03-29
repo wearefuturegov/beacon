@@ -205,7 +205,10 @@ input[type=text]{
   }
 }
 
-.field.field-half-width {
-  width: 50%;
+@media (min-width: 768px) {
+  .field.field-half-width {
+    // todo: improve this
+    width: calc(50% - 13px);
+  }
 }
   
