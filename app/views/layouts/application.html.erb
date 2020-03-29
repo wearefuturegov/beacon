@@ -18,7 +18,12 @@
           <%= link_to_unless_current 'People', contacts_path, controller: :contacts %>
           <%= link_to_unless_current 'Users', users_path, controller: :users %>
         </div>
-        <%= link_to 'Log out', '#' %>
+        <% if current_user %>
+          <%= current_user.email %>
+          (<%= link_to 'Logout', auth.sign_out_path %>)
+        <% else %>
+          <%= link_to 'Login', auth.sign_in_path %>
+        <% end %>
       </div>
     </header>
 
