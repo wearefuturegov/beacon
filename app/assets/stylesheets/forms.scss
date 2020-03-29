@@ -162,4 +162,53 @@ input[type=text]{
     }
   }
 }
+
+.flex {
+  display: flex;
+  flex-direction: row;
+
+  & .field {
+    margin-right: 26px;
+    &:last-child {
+      margin-right: 0px;
+    }
+
+    flex: 1;
+  }
+}
+
+
+// small screens
+.flex {
+  display: flex;
+  flex-direction: column;
+
+  & .field {
+    margin-right: 0px;
+    flex: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .flex {
+    display: flex;
+    flex-direction: row;
+
+    & .field {
+      margin-right: 26px;
+      &:last-child {
+        margin-right: 0px;
+      }
+
+      flex: 1;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .field.field-half-width {
+    // todo: improve this
+    width: calc(50% - 13px);
+  }
+}
   

@@ -1,9 +1,11 @@
-<%= link_to contacts_path, class: "go-back" do %>
-    <%= image_tag "back.svg", alt: "" %><span>Go back</span>
-<% end %>
+<ol class="breadcrumb">
+  <li><%= link_to "Contacts", contacts_path %></li>
+  <li>Edit</li>
+</ol>
 
-<h1 class="page-title">Editing <%= @contact.name %></h1>
+<section class="two-thirds">
+  <h1 class="page-title">Editing <%= @contact.name %></h1>
+  <p class="lede">Use this feature to update the details of a person in need, so we have their most recent information.</p>
+</section>
 
 <%= render 'form', contact: @contact %>
-
-<%= link_to 'Show', @contact %>
