@@ -1,9 +1,12 @@
 class ContactsController < ApplicationController
 
-  before_action :set_contact, only: [:edit, :update]
+  before_action :set_contact, only: [:edit, :update, :show]
 
   def index
     @contacts = Contact.all
+  end
+
+  def show
   end
 
   # GET /contacts/1/edit
