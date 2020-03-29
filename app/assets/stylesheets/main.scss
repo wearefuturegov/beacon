@@ -40,8 +40,14 @@ a{
     margin-right: auto;
 }
 
-.two-thirds{
-    max-width: 66.67%;
+.two-thirds {
+  max-width: 66.67%;
+}
+
+@media (max-width: 768px) {
+  .two-thirds{
+    max-width: 100%;
+  }
 }
 
 p.lede {

@@ -14,73 +14,50 @@
     <% end %>
 
     <section class="field-section">
-      <h2 class="field-section__title">About them</h2>
+      <div class="flex margin-bottom-70">
+        <div class="field">
+          <%= form.label :first_name, class: "field__label" %>
+          <%= form.text_field :first_name %>
+        </div>
 
-      <div class="field">
-        <%= form.label :name, class: "field__label" %>
-        <%= form.text_field :name %>
+        <div class="field">
+          <%= form.label :last_name, class: "field__label" %>
+          <%= form.text_field :last_name %>
+        </div>
       </div>
 
-      <div class="field">
-        <%= form.label :phone, class: "field__label" %>
-        <%= form.text_field :phone %>
-      </div>
+      <fieldset class="field-section">
+        <legend><h2 class="field-section__title">Where do they live?</h2></legend>
 
-      <div class="field">
-        <%= form.label :address, class: "field__label" %>
-        <%= form.text_field :address %>
-      </div>
+        <div class="field">
+          <%= form.label :address, class: "field__label" %>
+          <%= form.text_field :address %>
+        </div>
 
-      <div class="field">
-        <%= form.label :postcode, class: "field__label" %>
-        <%= form.text_field :postcode %>
-      </div>
+        <div class="field field-half-width">
+          <%= form.label :postcode, class: "field__label" %>
+          <%= form.text_field :postcode %>
+        </div>
+      </fieldset>
+
+      <fieldset class="field-section">
+        <legend><h2 class="field-section__title">How can we reach them?</h2></legend>
+        <div class="flex">
+          <div class="field">
+            <%= form.label :email, class: "field__label" %>
+            <%= form.text_field :email %>
+          </div>
+
+          <div class="field">
+            <%= form.label :phone_number, class: "field__label" %>
+            <%= form.text_field :phone_number %>
+          </div>
+        </div>
+      </fieldset>
     </section>
-    
-    <fieldset class="field-section">
-      <legend><h2 class="field-section__title">What kind of thing do they need?</h2></legend>
-
-      <div class="checkboxes">
-        <div class="checkbox">
-          <%= form.check_box :food, class: "checkbox__input" %>
-          <%= form.label :food, class: "checkbox__label" %>
-        </div>
-
-        <div class="checkbox">
-          <%= form.check_box :finances, class: "checkbox__input" %>
-          <%= form.label :finances, class: "checkbox__label" %>
-        </div>
-
-        <div class="checkbox">
-          <%= form.check_box :pets, class: "checkbox__input" %>
-          <%= form.label :pets, class: "checkbox__label" %>
-        </div>
-
-        <div class="checkbox">
-          <%= form.check_box :prescriptions, class: "checkbox__input" %>
-          <%= form.label :prescriptions, class: "checkbox__label" %>
-        </div>
-
-        <div class="checkbox">
-          <%= form.check_box :social, class: "checkbox__input" %>
-          <%= form.label :social, class: "checkbox__label" %>
-        </div>
-
-        <div class="checkbox">
-          <%= form.check_box :wellbeing, class: "checkbox__input" %>
-          <%= form.label :wellbeing, class: "checkbox__label" %>
-        </div>
-      </div>
-
-      <div class="field">
-        <%= form.label :other, class: "field__label" %>
-        <%= form.text_field :other %>
-      </div>
-    </fieldset>
 
     <div class="actions">
-      <%= form.submit "Finish" %>
+      <%= form.submit "Next" %>
     </div>
   <% end %>
-
 </div>
