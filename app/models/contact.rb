@@ -1,5 +1,6 @@
 class Contact < ApplicationRecord
   belongs_to :contact_list, optional: true
+  has_many :notes, dependent: :destroy
   has_many :tasks, dependent: :destroy
   has_many :uncompleted_tasks, -> { uncompleted }, class_name: 'Task'
   has_many :completed_tasks, -> { completed }, class_name: 'Task'
