@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :contacts, only: [:index, :show, :edit, :update] do
-    resources :notes
+    resources :notes, only: [:create]
   end
 
   resources :users, only: [:index, :new, :create, :destroy]
