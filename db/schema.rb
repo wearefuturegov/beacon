@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2020_03_29_100626) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.text "note"
+    t.text "body"
     t.bigint "contact_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
