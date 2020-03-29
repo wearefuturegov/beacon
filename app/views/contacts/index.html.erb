@@ -24,7 +24,8 @@
       <td><%= "#{contact.tasks_count} Tasks (#{contact.completed_tasks_count}x completed)" %></td>
       <td><%= contact.priority %></td>
       <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
-      <td><%= link_to 'View', '#' %></td>
+      <td><%= link_to 'View', contact %></td>
+      <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
     </tr>
   <% end%>
   </tbody>

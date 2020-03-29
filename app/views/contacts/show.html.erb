@@ -1,60 +1,50 @@
 <p id="notice"><%= notice %></p>
 
 <%= link_to contacts_path, class: "go-back" do %>
-    <%= image_tag "back.svg", alt: "" %><span>Go back</span>
+  <%= image_tag "back.svg", alt: "" %><span>Go back</span>
 <% end %>
 
-<h1 class="page-title"><%= @contact.name %></h1>
+<h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
 
-<p>
-  <strong>Phone:</strong>
-  <%= @contact.phone %>
-</p>
+<div>
+  <p>
+    <strong>Phone:</strong>
+    <%= @contact.telephone %>
+  </p>
+  <p>
+    <strong>Mobile:</strong>
+    <%= @contact.mobile %>
+  </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @contact.address %>
-</p>
+  <p>
+    <strong>Address:</strong>
+    <%= @contact.address %>
+  </p>
 
-<p>
-  <strong>Postcode:</strong>
-  <%= @contact.postcode %>
-</p>
+  <p>
+    <strong>Postcode:</strong>
+    <%= @contact.postcode %>
+  </p>
 
-<p>
-  <strong>Food:</strong>
-  <%= @contact.food %>
-</p>
+</div>
 
-<p>
-  <strong>Finances:</strong>
-  <%= @contact.finances %>
-</p>
+    <table class="table">
+      <% @contact.notes.each do |note| %>
+      <tbody>
+      <tr>
+        <td style="vertical-align: top"><%= "Previous notes:" if note == @contact.notes.first %></td>
+        <td><%= note.body %></td>
+      </tr>
+      <% end %>
+      </tbody>
+    </table>
 
-<p>
-  <strong>Pets:</strong>
-  <%= @contact.pets %>
-</p>
-
-<p>
-  <strong>Prescriptions:</strong>
-  <%= @contact.prescriptions %>
-</p>
-
-<p>
-  <strong>Social:</strong>
-  <%= @contact.social %>
-</p>
-
-<p>
-  <strong>Wellbeing:</strong>
-  <%= @contact.wellbeing %>
-</p>
-
-<p>
-  <strong>Other:</strong>
-  <%= @contact.other %>
-</p>
-
-<%= link_to 'Destroy', @contact, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Edit', edit_contact_path(@contact) %> |
+<%= form_with(model: [@contact, @contact.notes.build], local: true) do |form| %>
+  <p>
+    <%= form.label 'Add a note' %><br>
+    <%= form.text_area :body, class: 'note-textarea'%>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
