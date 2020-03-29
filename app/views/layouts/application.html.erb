@@ -13,9 +13,10 @@
 
     <header class="site-header">
       <div class="site-header__inner container">
-        <a href="/"><%= image_tag "logo.svg" %></a>
+        <%= link_to image_tag('logo.svg'), root_path %>
         <div class="site-header__inner_links">
-          <a href="/users">Users</a>
+          <%= link_to_unless_current 'People', contacts_path, controller: :contacts %>
+          <%= link_to_unless_current 'Users', users_path, controller: :users %>
         </div>
         <% if current_user %>
           <%= current_user.email %>

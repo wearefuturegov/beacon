@@ -21,15 +21,15 @@
 
   <fieldset class="field-section">
     <div class="field">
-      <%= form.label :admin, "Does this user need permission to invite other users?", class: "field__label" %>
-      <div class="radio">
-        <%= form.radio_button :admin, false %>
-        <label for="user_admin_false"></label>
-        <p>Yes</p>
-      </div>
+      <%= form.label :admin, "Is this user an admin?", class: "field__label" %>
       <div class="radio">
         <%= form.radio_button :admin, true %>
         <label for="user_admin_true"></label>
+        <p>Yes</p>
+      </div>
+      <div class="radio">
+        <%= form.radio_button :admin, false %>
+        <label for="user_admin_false"></label>
         <p>No</p>
       </div>
     </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_28_181510) do
+ActiveRecord::Schema.define(version: 2020_03_29_100626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,8 +44,19 @@ ActiveRecord::Schema.define(version: 2020_03_28_181510) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "contact_list_id"
     t.string "priority"
+    t.integer "tasks_count", default: 0
+    t.integer "uncompleted_tasks_count", default: 0
+    t.integer "completed_tasks_count", default: 0
     t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
     t.index ["priority"], name: "index_contacts_on_priority"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "contact_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contact_id"], name: "index_notes_on_contact_id"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -127,6 +138,7 @@ ActiveRecord::Schema.define(version: 2020_03_28_181510) do
   add_foreign_key "contact_list_users", "contact_lists"
   add_foreign_key "contact_list_users", "users"
   add_foreign_key "contacts", "contact_lists"
+  add_foreign_key "notes", "contacts"
   add_foreign_key "taggings", "tags"
   add_foreign_key "tasks", "contacts"
   add_foreign_key "tasks", "users"
