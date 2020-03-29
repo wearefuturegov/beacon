@@ -1,20 +1,16 @@
 class ContactsController < ApplicationController
-
   before_action :set_contact, only: [:edit, :update, :show]
 
   def index
-    @contacts = Contact.all
+    @contacts = Contact.all.page(params[:page])
   end
 
   def show
   end
 
-  # GET /contacts/1/edit
   def edit
   end
 
-  # PATCH/PUT /contacts/1
-  # PATCH/PUT /contacts/1.json
   def update
     if @contact.update(contact_params)
       redirect_to contacts_path, notice: 'Contact was successfully updated.'
@@ -24,9 +20,10 @@ class ContactsController < ApplicationController
   end
 
   private
-    def set_contact
-      @contact = Contact.find(params[:id])
-    end
+
+  def set_contact
+    @contact = Contact.find(params[:id])
+  end
 
   def contact_params
     params.require(:contact).permit(:first_name, :middle_names, :surname, :address, :postcode, :email, :telephone, :mobile)
