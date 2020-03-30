@@ -1,0 +1,56 @@
+@import "variables";
+
+$contact-background-grey: #c7c7c7;
+$contact-background-grey-dark: #a8a8a8;
+
+.contact-profile {
+  display: flex;
+
+  &__left, &__right {
+    flex: 1
+  }
+
+  &__left {
+    margin-right: 72px;
+
+    &__row >*:last-child {
+      text-align: right;
+      width: 50px;
+      flex: 0;
+    }
+
+    & .contact-profile__row {
+      border-top: 1px $contact-background-grey dashed;
+    }
+  }
+
+  &__right {
+    background: $contact-background-grey;
+    padding: 32px;
+
+    &__title {
+      display: flex;
+      border-bottom: 1px dashed $contact-background-grey-dark;
+      padding-bottom: 32px;
+
+      & span {
+        flex: 1;
+      }
+    }
+
+    .contact-profile__row >*:first-child {
+      width: 100px;
+      flex: none;
+    }
+  }
+
+  &__row {
+    display: flex;
+    padding-top: 18px;
+    padding-bottom: 18px;
+
+    & > * {
+      flex: 1;
+    }
+  }
+}

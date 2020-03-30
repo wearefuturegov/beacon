@@ -9,26 +9,44 @@
 
 <h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
 
-<div class="two-thirds">
-  <%= link_to 'Edit details', edit_contact_path(@contact) %>
-  <div class="margin-bottom-70">
-    <p>
-      <strong>Phone:</strong>
-      <%= @contact.telephone %>
-    </p>
-    <p>
-      <strong>Mobile:</strong>
-      <%= @contact.mobile %>
-    </p>
-
-    <p>
+<div class="contact-profile">
+  <div class="contact-profile__left">
+    <div class="contact-profile__row">
+      <strong>NHS number</strong><span>876545678</span><span><a href="#">Edit</a></span>
+    </div>
+    <div class="contact-profile__row">
+      <strong>Medical conditions</strong><span>876545678</span><span><a href="#">Edit</a></span>
+    </div>
+    <div class="contact-profile__row">
+      <strong>Essential supplies</strong><span>876545678</span><span><a href="#">Edit</a></span>
+    </div>
+    <div class="contact-profile__row">
+      <strong>Notes</strong><span>876545678</span><span><a href="#">Edit</a></span>
+    </div>
+  </div>
+  <div class="contact-profile__right">
+    <div class="contact-profile__right__title">
+      <span>Contact Details</span>
+      <%= link_to 'Edit', edit_contact_path(@contact) %>
+    </div>
+    <div class="contact-profile__row">
       <strong>Address:</strong>
       <%= @contact.address %>
-    </p>
+    </div>
 
-    <p>
+    <div class="contact-profile__row">
       <strong>Postcode:</strong>
       <%= @contact.postcode %>
-    </p>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Phone:</strong>
+      <%= @contact.telephone %>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Mobile:</strong>
+      <%= @contact.mobile %>
+    </div>
   </div>
 </div>
