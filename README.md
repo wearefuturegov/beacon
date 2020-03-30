@@ -9,15 +9,19 @@ It's a rails app backed by a postgresql database.
 ## Running it locally
 
 ```
-    git clone https://github.com/wearefuturegov/i-have-i-need
-    bundle install
-    # install javascript dependencies
-    yarn install
-    # launch postgres server via docker
-    docker-compose up -d
-    # run create databases, run migrations and seeds
-    rails db:setup
-    rails server
+git clone https://github.com/wearefuturegov/i-have-i-need
+bundle install
+
+# install javascript dependencies
+yarn install
+
+# launch postgres server via docker
+docker-compose up -d
+
+# run create databases, run migrations and seeds
+rails db:setup
+
+rails server
 ```
 
 It'll be on localhost:3000.
