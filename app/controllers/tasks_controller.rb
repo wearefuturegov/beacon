@@ -11,7 +11,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params.merge(contact: @contact))
     unless @task.valid?
       @users = User.all
-      render 'contacts/show'
+      render 'contacts/show_tasks'
       return
     end
 

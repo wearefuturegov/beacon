@@ -1,6 +1,6 @@
 <div class="tab_buttons margin-bottom-70">
   <%= link_to 'Profile', contact_path(@contact) %>
-  <%= link_to "View #{@contact.first_name}'s Tasks (#{@contact.tasks.count})", { controller: :contacts, action: :show_tasks }, class: 'active' %>
+  <%= link_to "View #{@contact.first_name}'s Tasks (#{@contact.tasks.count})", { controller: :contacts, action: :show_tasks, id: @contact.id }, class: 'active' %>
 </div>
 
 <h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
