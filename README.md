@@ -8,45 +8,24 @@ It's a rails app backed by a postgresql database.
 
 ## Running it locally
 
-1. Clone the repository:
-
-    ```bash
+```
     git clone https://github.com/wearefuturegov/i-have-i-need
-    ```
-1. Install Rails dependencies:
-
-    ```bash
     bundle install
-    ```
-
-1. Install JavaScript dependencies:
-
-    ```bash
+    # install javascript dependencies
     yarn install
-    ```
-
-1. Start PostgresQL Docker image via `docker-compose`:
-
-    ```bash
+    # launch postgres server via docker
     docker-compose up -d
-    ```
-
-1. Setup the database:
-
-    ```bash
+    # run create databases, run migrations and seeds
     rails db:setup
-    ```
-
-1. Start the Rails server:
-
-    ```bash
     rails server
-    ```
+```
+
+It'll be on localhost:3000.
     
 ### How emails work
 When running in development mode, emails are sent to maildev, running via docker-compose
 
-Visit http://localhost:1080/ to view sent emails
+Visit localhost:1080 to view sent emails
 
 ## Running it on the web
 
