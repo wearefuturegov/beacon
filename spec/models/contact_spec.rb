@@ -21,6 +21,8 @@ RSpec.describe Contact, type: :model do
       .with_suffix
   end
 
+  it { is_expected.to be_versioned }
+
   it '#name' do
     contact = build :contact, first_name: 'John', surname: 'Doe'
 

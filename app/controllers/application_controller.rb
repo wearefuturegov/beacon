@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   http_basic_authenticate_with name: 'camden', password: 'camden'
   helper_method :current_user
 
+  before_action :set_paper_trail_whodunnit
+
   private
 
     def current_user

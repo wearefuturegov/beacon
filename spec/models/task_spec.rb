@@ -22,4 +22,6 @@ RSpec.describe Task, type: :model do
       expect(described_class.completed).to eq [completed_task]
     end
   end
+
+  it { is_expected.to be_versioned }
 end

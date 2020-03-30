@@ -6,6 +6,7 @@ class Contact < ApplicationRecord
   has_many :completed_tasks, -> { completed }, class_name: 'Task'
 
   acts_as_ordered_taggable
+  has_paper_trail
 
   validates :first_name, presence: true
 
