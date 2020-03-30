@@ -2,7 +2,7 @@
 
 🚨This is **PRE-ALPHA** and not yet ready for use 🚨
 
-This is a platform for local authorities and voluntary organisations to manage demand and supply of community services during the coronavirus pandemic.
+This is a tool for local authorities and voluntary organisations to record and triage the needs of vulnerable people in their jurisdiction, and assign those needs to those who can meet them.
 
 It's a rails app backed by a postgresql database.
 
