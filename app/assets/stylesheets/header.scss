@@ -1,25 +1,60 @@
 @import "variables";
 
 .site-header{
-    background: white;
-    padding: 15px $outer-spacing;
-    box-shadow: 0px 2px 2px rgba(0,0,0,0.05);
-    .site-header__inner{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+  background: white;
+  padding: 15px $outer-spacing;
+  box-shadow: 0px 2px 2px rgba(0,0,0,0.05);
+
+  .site-header__inner{
+    @media screen and (min-width: $breakpoint-m){
+      display: flex;
+      flex-direction: row;
+      align-items: center;
     }
-    .site-header__nav {
-      flex: 1;
-      margin-left: 46px;
-      list-style: none;
+  }
+
+  .site-header__logo{
+    display: inline-block;
+    margin-bottom: 15px;
+    @media screen and (min-width: $breakpoint-m){
+      margin-bottom: 0px;
+      margin-right: 40px;
     }
-    .site-header__nav-link{
-      display: inline-block;
-      margin-right: 10px;
+  }
+
+  .site-header__nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    @media screen and (min-width: $breakpoint-m){
+      width: 100%;
+      font-size: 1.1rem;
     }
-    img{
-      display: block;
+  }
+
+  .site-header__links{
+    list-style: none;
+  }
+
+  .site-header__link{
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 12px;
+    &:last-of-type{
+      margin-right: 0px;
     }
+  }
+
+}
+
+
+.current-user{
+  display: none;
+  @media screen and (min-width: $breakpoint-l){
+    display: inline-block;
+    margin-right: 10px;
+    color: $grey-pale;
+  }
 }
