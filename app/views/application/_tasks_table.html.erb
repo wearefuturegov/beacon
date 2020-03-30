@@ -13,7 +13,11 @@
   <tbody>
     <% tasks.each do |task| %>
     <tr>
-      <td><%= task.user_name %></td>
+      <% if task.user %>
+        <td>Assigned to <%= task.user_name %></td>
+      <% else %>
+        <td>No user</td>
+      <% end %>
       <td><%= task.contact_name %></td>
       <td><%= task.name %></td>
       <td><%= task.contact_priority %></td>
