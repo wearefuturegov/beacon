@@ -13,6 +13,7 @@ module Passwordless
     def new
       @email_field = email_field
       @session = Session.new
+      render :layout => 'login'
     end
 
     # post '/sign_in'
@@ -31,7 +32,7 @@ module Passwordless
         end
       end
 
-      render
+      render :layout => 'login'
     end
 
     # get '/sign_in/:token'
