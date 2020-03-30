@@ -1,34 +1,47 @@
 @import "variables";
 
-.tag{
-  display: inline-block;
-  padding: 5px 15px;
-  font-size: 0.9rem;
-  background: $yellow;
-  text-transform: capitalize;
+// .tag{
+//   display: inline-block;
+//   padding: 5px 15px;
+//   font-size: 0.9rem;
+//   background: $yellow;
+//   text-transform: capitalize;
+// }
+
+.table-holder{
+  overflow-x: auto;
+  margin-bottom: 35px;
 }
 
 .table {
-  width: 100%;
+width: 100%;
   padding: 8px;
   border-collapse: collapse;
   color: $grey;
 
+  // add row borders
   tbody tr {
     border-top: 1px solid rgba(0, 0, 0, 0.4);
   }
 
+  // cells
   th, & td {
     text-align: left;
     padding-top: 30px;
     padding-bottom: 30px;
+    padding-right: 40px;
+    &:last-of-type{
+      padding-right: 0px;
+    }
   }
 
+  // header row
   th {
     color: $grey-pale;
     font-weight: initial;
   }
 
+  // first cell is bold
   td:nth-child(1) {
     font-weight: bold;
   }
@@ -36,4 +49,6 @@
   small{
     color: $grey-pale;
   }
+
+
 }

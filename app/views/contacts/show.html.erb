@@ -2,11 +2,14 @@
 <p class="notice"><%= notice %></p>
 <% end %>
 
-<%= link_to contacts_path, class: "go-back" do %>
-  <%= image_tag "back.svg", alt: "" %><span>Go back</span>
-<% end %>
+<ol class="breadcrumb">
+  <li><%= link_to "People in need", contacts_path %></li>
+  <li>Person</li>
+</ol>
 
-<h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
+<div class="page-header">
+  <h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
+</div>
 
 <div>
   <p>

@@ -2,39 +2,41 @@
   <p class="notice"><%= notice %></p>
 <% end %>
 
-<div class="table-title-section">
+<div class="page-header">
   <h1 class="page-title">People in need</h1>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Assigned</th>
-      <th>Name</th>
-      <th>Tasks</th>
-      <th>Priority</th>
-      <th>Date logged</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="table-holder">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Assigned</th>
+        <th>Name</th>
+        <th>Tasks</th>
+        <th>Priority</th>
+        <th>Date logged</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
 
-  <tbody>
-  <% @contacts.each do |contact| %>
-    <tr>
-      <td></td>
-      <td><strong><%= link_to contact.name, contact %></strong></td>
-      <td>
-        <%= contact.tasks_count %>
-        <small>(<%= contact.completed_tasks_count %> completed)</small>
-      </td>
-      <td>
-        <span class="tag"><%= contact.priority %></span>
-      </td>
-      <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
-    </tr>
-  <% end%>
-  </tbody>
-</table>
+    <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td></td>
+        <td><strong><%= link_to contact.name, contact %></strong></td>
+        <td>
+          <%= contact.tasks_count %>
+          <small>(<%= contact.completed_tasks_count %> completed)</small>
+        </td>
+        <td>
+          <span class="tag"><%= contact.priority %></span>
+        </td>
+        <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
+      </tr>
+    <% end%>
+    </tbody>
+  </table>
+</div>
 
 <%= paginate @contacts %>
