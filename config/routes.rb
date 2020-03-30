@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :contacts, only: [:index, :show, :edit, :update] do
-    resources :notes, only: [:create]
+    resources :tasks, only: [:create]
   end
   resources :tasks, only: [:index]
   resources :my_tasks, only: [:index], path: 'my-tasks'

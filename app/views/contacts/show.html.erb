@@ -2,53 +2,72 @@
 <p class="notice"><%= notice %></p>
 <% end %>
 
-<%= link_to contacts_path, class: "go-back" do %>
-  <%= image_tag "back.svg", alt: "" %><span>Go back</span>
-<% end %>
+<ol class="breadcrumb">
+  <li><%= link_to "Contacts", contacts_path %></li>
+  <li>View</li>
+</ol>
 
 <h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
 
-<div>
-  <p>
-    <strong>Phone:</strong>
-    <%= @contact.telephone %>
-  </p>
-  <p>
-    <strong>Mobile:</strong>
-    <%= @contact.mobile %>
-  </p>
-
-  <p>
-    <strong>Address:</strong>
-    <%= @contact.address %>
-  </p>
-
-  <p>
-    <strong>Postcode:</strong>
-    <%= @contact.postcode %>
-  </p>
-
+<div class="two-thirds">
   <%= link_to 'Edit details', edit_contact_path(@contact) %>
+  <div class="margin-bottom-70">
+    <p>
+      <strong>Phone:</strong>
+      <%= @contact.telephone %>
+    </p>
+    <p>
+      <strong>Mobile:</strong>
+      <%= @contact.mobile %>
+    </p>
 
+    <p>
+      <strong>Address:</strong>
+      <%= @contact.address %>
+    </p>
+
+    <p>
+      <strong>Postcode:</strong>
+      <%= @contact.postcode %>
+    </p>
+  </div>
 </div>
 
-    <table class="table">
-      <% @contact.notes.each do |note| %>
-      <tbody>
-      <tr>
-        <td style="vertical-align: top"><%= "Previous notes:" if note == @contact.notes.first %></td>
-        <td><%= note.body %></td>
-      </tr>
-      <% end %>
-      </tbody>
-    </table>
+<table class="table">
+  <tbody>
+  <% @contact.tasks.each do |task| %>
+    <tr>
+      <td><%= task.name %></td>
+      <td><%# todo: task notes count %></td>
+      <td>Assigned to <%= task.user.name_or_email %></td>
+      <td>Due <%= task.due_by %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 
-<%= form_with(model: [@contact, @contact.notes.build], local: true) do |form| %>
-  <p>
-    <%= form.label 'Add a note' %><br>
-    <%= form.text_area :body, class: 'note-textarea'%>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
+<%= form_with(model: [@contact, @contact.tasks.build], local: true) do |form| %>
+  <section class="field-section">
+    <fieldset class="field-section margin-bottom-70">
+      <div class="field">
+        <%= form.label 'Add a task' %><br>
+        <%= form.text_area :name, class: 'note-textarea'%>
+      </div>
+      <div class="flex">
+        <div class="field">
+          <%= form.label 'Assigned' %><br>
+          <%= form.text_field :name %>
+        </div>
+        <div class="field">
+          <%= form.label 'Category' %><br>
+          <%= form.text_field :name %>
+        </div>
+        <div class="field">
+          <%= form.label 'Due by' %><br>
+          <%= form.text_field :name %>
+        </div>
+      </div>
+    </fieldset>
+  </section>
+  <%= form.submit %>
 <% end %>
