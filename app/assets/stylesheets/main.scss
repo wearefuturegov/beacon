@@ -22,35 +22,31 @@ p{
 }
 
 a{
-    color: $blue;
-    text-decoration: none;
-    &:hover{
-        text-decoration: underline;
-    }
-    &:focus{
-        color: $grey;
-        background: $yellow;
-        outline: 3px solid $yellow;
-    }
-}
-
-.container{
-    max-width: $max-width;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.two-thirds {
-  max-width: 66.67%;
-}
-
-@media (max-width: 768px) {
-  .two-thirds{
-    max-width: 100%;
+  color: $blue;
+  text-decoration: none;
+  &:hover{
+    text-decoration: underline;
+  }
+  &:focus{
+    color: $grey;
+    background: $yellow;
+    outline: 3px solid $yellow;
   }
 }
 
-p.lede {
+.container{
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.two-thirds {
+  @media screen and (min-width: $breakpoint-m){
+    max-width: 66.67%;
+  }
+}
+
+.lede {
   margin-top: 75px;
   margin-bottom: 75px;
   color: $grey-pale;
