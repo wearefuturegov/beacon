@@ -6,10 +6,6 @@ This is a platform for local authorities and voluntary organisations to manage d
 
 It's a rails app backed by a postgresql database.
 
-## Configuration
-
-Coming soon...
-
 ## Running it locally
 
 1. Clone the repository:
@@ -46,6 +42,11 @@ Coming soon...
     ```bash
     rails server
     ```
+    
+### How emails work
+When running in development mode, emails are sent to maildev, running via docker-compose
+
+Visit http://localhost:1080/ to view sent emails
 
 ## Running it on the web
 
@@ -55,7 +56,7 @@ Coming soon...
 
 Coming soon...
 
-## Environment Variables
+## Environment variables
 
 | Name          | Description              |
 |---------------|--------------------------|
@@ -64,8 +65,3 @@ Coming soon...
 | SMTP_USERNAME | Username for SMTP server |
 | SMTP_PASSWORD | Password for SMTP server |
 | SMTP_PORT     | Port for SMTP server     |
-
-## MailDev
-When running in development mode, emails are sent to maildev, running via docker-compose
-
-Visit http://localhost:1080/ to view sent emails
