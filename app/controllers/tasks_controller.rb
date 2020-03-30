@@ -16,7 +16,7 @@ class TasksController < ApplicationController
     end
 
     @task.save
-    redirect_to contact_path(@contact)
+    redirect_to controller: :contacts, action: :show_tasks, id: @contact.id
   end
 
   private
