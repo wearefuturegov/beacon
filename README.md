@@ -24,12 +24,12 @@ rails db:setup
 rails server
 ```
 
-It'll be on localhost:3000.
+It'll be on **localhost:3000**.
     
 ### How emails work
-When running in development mode, emails are sent to maildev, running via docker-compose
+When running in development mode, emails are sent to [maildev](https://www.npmjs.com/package/maildev), running via `docker-compose`.
 
-Visit localhost:1080 to view sent emails
+Visit **localhost:1080** to view sent emails.
 
 ## Running it on the web
 
