@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :contacts, only: [:index, :show, :edit, :update] do
     resources :tasks, only: [:create]
   end
-  resources :tasks, only: [:index]
+  resources :tasks, only: [:index, :show]
   resources :my_tasks, only: [:index], path: 'my-tasks'
   resources :users, only: [:index, :new, :create, :destroy]
   passwordless_for :users, at: '/', as: :auth

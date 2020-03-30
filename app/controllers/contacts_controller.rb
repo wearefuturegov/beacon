@@ -6,6 +6,8 @@ class ContactsController < ApplicationController
   end
 
   def show
+    @users = User.all
+    @task = Task.new
   end
 
   def edit
