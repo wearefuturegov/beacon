@@ -8,14 +8,14 @@ default: &default
 development:
   <<: *default
   url: postgresql://localhost/i_have_i_need_development
-  # username: dev_local_user
-  # password: password
+  username: dev_local_user
+  password: password
 
 test:
   <<: *default
   url: postgresql://localhost/i_have_i_need_test
-  # username: test_local_user
-  # password: password
+  username: test_local_user
+  password: password
 
 production:
   <<: *default
