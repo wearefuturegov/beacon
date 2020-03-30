@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+<p class="notice"><%= notice %></p>
+<% end %>
 
 <%= link_to contacts_path, class: "go-back" do %>
   <%= image_tag "back.svg", alt: "" %><span>Go back</span>

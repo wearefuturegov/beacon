@@ -14,15 +14,19 @@
     <header class="site-header">
       <div class="site-header__inner container">
         <%= link_to image_tag('logo.svg'), root_path %>
-        <div class="site-header__inner_links">
-          <%= link_to_unless_current 'People', contacts_path, controller: :contacts %>
-          <%= link_to_unless_current 'Users', users_path, controller: :users %>
-        </div>
+        <ul class="site-header__nav">
+          <li class="site-header__nav-link">
+            <%= link_to_unless_current 'People', contacts_path, controller: :contacts %>
+          </li>
+          <li class="site-header__nav-link">
+            <%= link_to_unless_current 'Users', users_path, controller: :users %>
+          </li>
+        </ul>
         <% if current_user %>
           <%= current_user.email %>
-          (<%= link_to 'Logout', auth.sign_out_path %>)
+          (<%= link_to 'Logo ut', auth.sign_out_path %>)
         <% else %>
-          <%= link_to 'Login', auth.sign_in_path %>
+          <%= link_to 'Log in', auth.sign_in_path %>
         <% end %>
       </div>
     </header>
