@@ -7,15 +7,32 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 ActiveRecord::Base.transaction do
+  puts "Seeding the database..."
+
   FactoryBot.create_list(:organisation, 2).each do |organisation|
-    FactoryBot.create_list(:user, 2, organisation: organisation).each do |user|
+    FactoryBot.create_list(:user, 5, organisation: organisation).each do |user|
       contact_list = FactoryBot.create :contact_list
 
       FactoryBot.create :contact_list_user, contact_list: contact_list, user: user
 
-      contacts = FactoryBot.create_list :contact, 5, contact_list: contact_list
+      contacts = FactoryBot.create_list :contact, 50, contact_list: contact_list
 
-      FactoryBot.create :task, contact: contacts.last, user: user
+      contacts.each do |contact|
+        [0, 1, 2, 3].sample.times do
+          FactoryBot.create :note, contact: contact
+        end
+      end
+
+      contacts.first(10).each do |contact|
+        [1, 2, 3].sample.times do
+          FactoryBot.create :task,
+                            contact: contact,
+                            user: user,
+                            completed_on: [nil, [1,2,3].sample.days.ago].sample
+        end
+      end
     end
   end
+
+  puts "Finished seeding the database."
 end

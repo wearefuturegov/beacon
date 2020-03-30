@@ -2,6 +2,8 @@ class Task < ApplicationRecord
   belongs_to :contact, counter_cache: true
   belongs_to :user
 
+  has_paper_trail
+
   scope :completed, -> { where.not(completed_on: nil) }
   scope :uncompleted, -> { where(completed_on: nil)  }
 
@@ -14,4 +16,7 @@ class Task < ApplicationRecord
 
 
   validates :name, presence: true
+
+  delegate :name, :priority, to: :contact, prefix: true
+  delegate :name, to: :user, prefix: true
 end

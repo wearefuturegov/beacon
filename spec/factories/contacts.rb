@@ -1,4 +1,6 @@
 FactoryBot.define do
+  priorities = ['low', 'medium', 'high']
+
   factory :contact do
     first_name { Faker::Name.first_name }
     middle_names { Faker::Name.middle_name }
@@ -8,6 +10,12 @@ FactoryBot.define do
     telephone { Faker::PhoneNumber.phone_number }
     mobile { Faker::PhoneNumber.cell_phone }
     is_vulnerable { true }
-    priority { 'medium' }
+    priority { priorities.sample }
+
+    priorities.each do |priority|
+      trait "#{priority}_priority" do
+        priority { priority }
+      end
+    end
   end
 end

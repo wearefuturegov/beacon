@@ -12,7 +12,13 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   passwordless_with :email
 
+  has_paper_trail
+
   def role_title
     admin ? 'Admin' : 'User'
+  end
+
+  def name
+    [first_name, last_name].join(' ')
   end
 end
