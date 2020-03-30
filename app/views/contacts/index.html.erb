@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+  <p class="notice"><%= notice %></p>
+<% end %>
 
 <div class="table-title-section">
   <h1 class="page-title">People in need</h1>
@@ -9,7 +11,7 @@
     <tr>
       <th>Assigned</th>
       <th>Name</th>
-      <th>No. of tasks</th>
+      <th>Tasks</th>
       <th>Priority</th>
       <th>Date logged</th>
       <th></th>
@@ -21,12 +23,15 @@
   <% @contacts.each do |contact| %>
     <tr>
       <td></td>
-      <td><%= contact.name %></td>
-      <td><%= "#{contact.tasks_count} Tasks (#{contact.completed_tasks_count}x completed)" %></td>
-      <td><%= contact.priority %></td>
-      <td><%= format_datetime(contact.created_at) %></td>
-      <td><%= link_to 'View', contact %></td>
-      <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+      <td><strong><%= link_to contact.name, contact %></strong></td>
+      <td>
+        <%= contact.tasks_count %>
+        <small>(<%= contact.completed_tasks_count %> completed)</small>
+      </td>
+      <td>
+        <span class="tag"><%= contact.priority %></span>
+      </td>
+      <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
     </tr>
   <% end%>
   </tbody>

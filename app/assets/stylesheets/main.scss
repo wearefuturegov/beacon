@@ -61,6 +61,9 @@ p.lede {
 .main-content{
     background: $pale;
     padding: 40px $outer-spacing;
+    @media screen and (min-width: $breakpoint-l){
+      padding: 70px $outer-spacing;
+    }
 }
 
 .page-title{
@@ -86,3 +89,10 @@ p.lede {
         filter: grayscale(1)
     }
   }
+
+.notice{
+  padding: 20px;
+  background: transparentize($blue, 0.9);
+  margin-bottom: 30px;
+  border-left: 5px solid $blue;
+}

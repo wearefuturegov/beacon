@@ -1,3 +1,5 @@
+@import "variables";
+
 .table-title-section {
   // todo: make this vertical align elements
   margin-bottom: 30px;
@@ -11,6 +13,7 @@
   width: 100%;
   padding: 8px;
   border-collapse: collapse;
+  color: $grey;
 
   & tbody tr {
     border-top: 1px solid rgba(0, 0, 0, 0.4);
@@ -23,11 +26,15 @@
   }
 
   & th, {
-    color: #54585A;
+    color: $grey-pale;
     font-weight: initial;
   }
 
   & td:nth-child(1) {
     font-weight: bold;
+  }
+
+  small{
+    color: $grey-pale;
   }
 }
