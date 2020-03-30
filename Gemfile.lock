@@ -133,6 +133,9 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    paper_trail (10.3.1)
+      activerecord (>= 4.2)
+      request_store (~> 1.1)
     passwordless (0.9.0)
       bcrypt (~> 3.1.11)
       rails (>= 5.1.4)
@@ -184,6 +187,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.7.0)
+    request_store (1.5.0)
+      rack (>= 1.4)
     rspec-core (3.9.1)
       rspec-support (~> 3.9.1)
     rspec-expectations (3.9.1)
@@ -273,6 +278,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   kaminari
   listen (>= 3.0.5, < 3.2)
+  paper_trail
   passwordless (~> 0.9)
   pg (>= 0.18, < 2.0)
   pry-byebug
