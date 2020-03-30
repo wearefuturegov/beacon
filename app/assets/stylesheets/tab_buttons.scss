@@ -1,0 +1,23 @@
+@import "variables";
+
+.tab_buttons {
+
+  & a {
+    display: inline-block;
+    width: 230px;
+    height: 50px;
+    text-align: center;
+    vertical-align: center;
+    line-height: 50px;
+
+    background: $blue;
+    color: $white;
+    text-decoration: none;
+  }
+
+  & a.active {
+    background: none;
+    box-shadow:inset 0 0 0 2px $blue;
+    color: $blue;
+  }
+}

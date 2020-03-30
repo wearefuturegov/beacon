@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :contacts, only: [:index, :show, :edit, :update] do
     resources :tasks, only: [:create]
   end
+  get '/contacts/:id/tasks', to: 'contacts#show_tasks'
+
   resources :tasks, only: [:index, :show]
   resources :my_tasks, only: [:index], path: 'my-tasks'
   resources :users, only: [:index, :new, :create, :destroy]

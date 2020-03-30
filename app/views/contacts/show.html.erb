@@ -2,10 +2,10 @@
 <p class="notice"><%= notice %></p>
 <% end %>
 
-<ol class="breadcrumb">
-  <li><%= link_to "Contacts", contacts_path %></li>
-  <li>View</li>
-</ol>
+<div class="tab_buttons margin-bottom-70">
+  <%= link_to 'Profile', contact_path(@contact), class: 'active' %>
+  <%= link_to "View #{@contact.first_name}'s Tasks (#{@contact.tasks.count})", controller: :contacts, action: :show_tasks %>
+</div>
 
 <h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
 
@@ -32,59 +32,3 @@
     </p>
   </div>
 </div>
-
-<table class="table">
-  <tbody>
-  <% @contact.tasks.each do |task_item| %>
-    <tr>
-      <td><%= task_item.name %></td>
-      <td><%# todo: task notes count %></td>
-      <% if task_item.user %>
-        <td>Assigned to <%= task_item.user.name_or_email %></td>
-      <% else %>
-        <td>Unassigned</td>
-      <% end %>
-      <td><%= task_item.due_by.strftime("Due %m/%d/%Y at %I:%M%p") %></td>
-      <td><%= link_to 'View', task_path(task_item) %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<%= form_with(model: @task, url: [@contact, @task], local: true) do |form| %>
-  <% if @task.errors.any? %>
-    <div class="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
-
-      <ul>
-        <% @task.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <section class="field-section">
-    <fieldset class="field-section margin-bottom-70">
-      <div class="field">
-        <%= form.label 'Add a task' %><br>
-        <%= form.text_area :name, class: 'note-textarea'%>
-      </div>
-      <div class="flex">
-        <div class="field">
-          <%= form.label 'Assigned' %><br>
-          <%= form.collection_select :user_id, @users, :id, :name_or_email, include_blank: 'Unassigned'  %>
-        </div>
-        <div class="field">
-          <%= form.label 'Category' %><br>
-          <%= form.select "category", options_for_select(%w(food medicine)) %>
-        </div>
-        <div class="field">
-          <%= form.label 'Due by' %><br>
-          <%= form.text_field :due_by %>
-        </div>
-      </div>
-    </fieldset>
-  </section>
-  <%= form.submit %>
-<% end %>
