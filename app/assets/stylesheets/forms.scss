@@ -1,10 +1,10 @@
 @import "variables";
 
-input[type=text]{
+input[type=text], textarea{
     display: block;
     width: 100%;
     font-size: 1rem;
-    border: 2px solid black;
+    border: 2px solid $grey;
     padding: 10px;
     &:focus{
         outline: 3px solid $yellow;
@@ -36,7 +36,7 @@ input[type=text]{
     }
     &:active{
         background: darken($blue, 5);
-        color: white;
+        color: $white;
         box-shadow: none;
         transform: translateY(5px)
     }
@@ -59,6 +59,7 @@ input[type=text]{
 .field{
     margin-bottom: 25px;
     .field__label{
+      color: $grey;
       display: inline-block;
       margin-bottom: 5px;
     }
