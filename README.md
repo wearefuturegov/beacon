@@ -2,50 +2,34 @@
 
 🚨This is **PRE-ALPHA** and not yet ready for use 🚨
 
-This is a platform for local authorities and voluntary organisations to manage demand and supply of community services during the coronavirus pandemic.
+This is a tool for local authorities and voluntary organisations to record and triage the needs of vulnerable people in their jurisdiction, and assign those needs to those who can meet them.
 
 It's a rails app backed by a postgresql database.
 
-## Configuration
-
-Coming soon...
-
 ## Running it locally
 
-1. Clone the repository:
+```
+git clone https://github.com/wearefuturegov/i-have-i-need
+bundle install
 
-    ```bash
-    git clone https://github.com/wearefuturegov/i-have-i-need
-    ```
-1. Install Rails dependencies:
+# install javascript dependencies
+yarn install
 
-    ```bash
-    bundle install
-    ```
+# launch postgres server via docker
+docker-compose up -d
 
-1. Install JavaScript dependencies:
+# run create databases, run migrations and seeds
+rails db:setup
 
-    ```bash
-    yarn install
-    ```
+rails server
+```
 
-1. Start PostgresQL Docker image via `docker-compose`:
+It'll be on **localhost:3000**.
+    
+### How emails work
+When running in development mode, emails are sent to [maildev](https://www.npmjs.com/package/maildev), running via `docker-compose`.
 
-    ```bash
-    docker-compose up -d
-    ```
-
-1. Setup the database:
-
-    ```bash
-    rails db:setup
-    ```
-
-1. Start the Rails server:
-
-    ```bash
-    rails server
-    ```
+Visit **localhost:1080** to view sent emails.
 
 ## Running it on the web
 
@@ -55,7 +39,7 @@ Coming soon...
 
 Coming soon...
 
-## Environment Variables
+## Environment variables
 
 | Name          | Description              |
 |---------------|--------------------------|
@@ -64,8 +48,3 @@ Coming soon...
 | SMTP_USERNAME | Username for SMTP server |
 | SMTP_PASSWORD | Password for SMTP server |
 | SMTP_PORT     | Port for SMTP server     |
-
-## MailDev
-When running in development mode, emails are sent to maildev, running via docker-compose
-
-Visit http://localhost:1080/ to view sent emails

@@ -2,38 +2,40 @@
 <p class="notice"><%= notice %></p>
 <% end %>
 
-<div class="table-title-section">
+<div class="page-header page-header--with-button">
   <h1 class="page-title">Users</h1>
   <%= link_to 'Invite user', new_user_path, class: "button pull-right" %>
 </div>
 
-<table class="table">
-  <thead>
-  <tr>
-    <th>Email</th>
-    <th>Invited</th>
-    <th>Last logged in</th>
-    <th>Role</th>
-    <th></th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @users.each do |user| %>
+<div class="table-holder">
+  <table class="table">
+    <thead>
     <tr>
-      <td><%= user.email %></td>
-      <td><%= time_ago_in_words(user.invited) %> ago</td>
-      <% if user.last_logged_in %>
-        <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>
-      <% else %>
-        <td> Never</td>
-      <% end %>
-      <td><%= user.role_title %></td>
-      <td><%= link_to 'Remove', user_path(user),
-                      data: {:confirm => 'Are you sure?'}, :method => :delete %></td>
+      <th>Email</th>
+      <th>Invited</th>
+      <th>Last logged in</th>
+      <th>Role</th>
+      <th></th>
     </tr>
-  <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= time_ago_in_words(user.invited) %> ago</td>
+        <% if user.last_logged_in %>
+          <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>
+        <% else %>
+          <td> Never</td>
+        <% end %>
+        <td><%= user.role_title %></td>
+        <td><%= link_to 'Remove', user_path(user),
+                        data: {:confirm => 'Are you sure?'}, :method => :delete %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
 
 <%= paginate @users %>

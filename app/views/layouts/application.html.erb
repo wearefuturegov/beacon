@@ -1,33 +1,40 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>IHaveINeed</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
+<html lang="en">
+  <%= render "shared/head"%>
   <body>
 
     <header class="site-header">
       <div class="site-header__inner container">
-        <%= link_to image_tag('logo.svg'), root_path %>
-        <div class="site-header__inner_links">
-          <%= link_to_unless_current 'To-do list', tasks_path, controller: :tasks %>
-          <%= link_to_unless_current 'My to-do list', my_tasks_path, controller: :my_tasks %>
-          <%= link_to_unless_current 'People', contacts_path, controller: :contacts %>
-          <%= link_to_unless_current 'Users', users_path, controller: :users %>
-        </div>
-        <% if current_user %>
-          <%= current_user.email %>
-          (<%= link_to 'Log out', auth.sign_out_path %>)
-        <% else %>
-          <%= link_to 'Log in', auth.sign_in_path %>
-        <% end %>
+
+        <%= link_to image_tag('logo.svg'), root_path, alt: "Camden Council", class: "site-header__logo" %>
+
+        <nav class="site-header__nav">
+          <ul class="site-header__links">
+            <li class="site-header__link"><%= link_to_unless_current 'Tasks', my_tasks_path, controller: :my_tasks %></li>
+            <li class="site-header__link"><%= link_to_unless_current 'People', contacts_path, controller: :contacts %></li>
+            <li class="site-header__link"><%= link_to_unless_current 'Users', users_path, controller: :users %></li>
+          </ul>
+
+          <div class="site-header__right-menu">
+            <% if current_user %>
+              <span class="current-user"><%= current_user.email %></span>
+              <%= link_to 'Log out', auth.sign_out_path %>
+            <% else %>
+              <%= link_to 'Log in', auth.sign_in_path %>
+            <% end %>
+          </div>
+        </nav>
+
       </div>
     </header>
+
+
+    <section class="beta-banner">
+      <div class="beta-banner__inner container">
+        <strong class="beta-banner__tag">Beta</strong>
+        <p class="beta-banner__message">We're updating this tool every day — <a href="https://docs.google.com/forms/d/e/1FAIpQLSd-YKjZ_2lToYJiwgJM06AnU1crd1BwDQvidLecnetkDENlgw/viewform?usp=sf_link">your feedback</a> helps us improve it.</p>
+      </div>
+    </section>
 
     <div class="main-content">
       <div class="container">
@@ -39,8 +46,8 @@
       <div class="container">
         <p class="site-footer__notice">© 2020 Council name here</p>
         <nav class="site-footer__menu">
-          <a class="site-footer__link" href="">Privacy & cookies</a>
-          <a class="site-footer__link" href="">Give feedback on this service</a>
+          <a class="site-footer__link" href="#">Privacy & cookies</a>
+          <a class="site-footer__link" href="https://docs.google.com/forms/d/e/1FAIpQLSd-YKjZ_2lToYJiwgJM06AnU1crd1BwDQvidLecnetkDENlgw/viewform?usp=sf_link">Give feedback on this service</a>
         </nav>
       </div>
     </footer>

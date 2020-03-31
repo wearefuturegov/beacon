@@ -1,0 +1,32 @@
+<div class="table-holder">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Assigned to</th>
+        <th>Name</th>
+        <th>Need type</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Date logged</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% tasks.each do |task| %>
+      <tr>
+        <% if task.user %>
+          <td>Assigned to <%= task.user_name %></td>
+        <% else %>
+          <td>No user</td>
+        <% end %>
+        <td><%= task.contact_name %></td>
+        <td><%= task.name %></td>
+        <td><%= task.contact_priority %></td>
+        <td><%= status(task.completed_on) %></td>
+        <td><%= format_datetime(task.created_at) %></td>
+      </tr>
+      <% end%>
+    </tbody>
+  </table>
+</div>
+<%= paginate tasks %>

@@ -5,6 +5,11 @@
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
+    color: $grey;
+}
+
+*::-moz-focus-inner {
+  border: 0;
 }
 
 body{
@@ -22,54 +27,73 @@ p{
 }
 
 a{
-    color: $blue;
-    text-decoration: none;
-    &:hover{
-        text-decoration: underline;
-    }
-    &:focus{
-        color: $grey;
-        background: $yellow;
-        outline: 3px solid $yellow;
-    }
-}
-
-.container{
-    max-width: $max-width;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.two-thirds {
-  max-width: 66.67%;
-}
-
-@media (max-width: 768px) {
-  .two-thirds{
-    max-width: 100%;
+  color: $blue;
+  text-decoration: none;
+  &:hover{
+    text-decoration: underline;
+  }
+  &:focus{
+    color: $grey;
+    background: $yellow;
+    outline: 3px solid $yellow;
   }
 }
 
-p.lede {
-  margin-top: 75px;
-  margin-bottom: 75px;
-  color: $grey-pale;
+.container{
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.two-thirds {
+  @media screen and (min-width: $breakpoint-m){
+    max-width: 66.67%;
+  }
+}
+
+.lede {
+  margin-top: 45px;
+  margin-bottom: 45px;
+  color: $grey;
   font-size: 23px;
-  line-height: 150%;
+  line-height: 1.5;
+  @media screen and (min-width: $breakpoint-m){
+    margin-bottom: 65px;
+  }
 }
 
 .main-content{
     background: $pale;
-    padding: 40px $outer-spacing;
+    padding: 40px $outer-spacing 60px $outer-spacing;
     @media screen and (min-width: $breakpoint-l){
-      padding: 70px $outer-spacing;
+      padding: 80px $outer-spacing;
     }
 }
 
+.page-header{
+  margin-bottom: 30px;
+  &.page-header--with-button{
+    @media screen and (min-width: $breakpoint-m){
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .button{
+      margin-top: 30px;
+      @media screen and (min-width: $breakpoint-m){
+        margin-top: 0px;
+      }
+    }
+  }
+}
+
 .page-title{
-    margin: 0;
-    font-size: 2rem;
-    margin-bottom: 30px;
+  margin: 0;
+  font-size: 2.5rem;
+  @media screen and (min-width: $breakpoint-l){
+    font-size: 3rem;
+  }
 }
 
 .go-back{
@@ -78,6 +102,9 @@ p.lede {
     font-size: 1.2rem;
     text-decoration: none;
     margin-bottom: 15px;
+    span{
+      color: $blue;
+    }
     img{
       height: 15px;
       margin-right: 7px;
@@ -85,8 +112,13 @@ p.lede {
     &:hover span{
       text-decoration: underline;
     }
-    &:focus img{
-        filter: grayscale(1)
+    &:focus {
+      span{
+        color: $grey;
+      }
+      img{
+          filter: grayscale(1)
+      }
     }
   }
 
@@ -95,4 +127,93 @@ p.lede {
   background: transparentize($blue, 0.9);
   margin-bottom: 30px;
   border-left: 5px solid $blue;
+}
+
+.tabs{
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 45px;
+  @media screen and (min-width: $breakpoint-m){
+    max-width: 500px;
+  }
+  .tabs__tab{
+    color: $blue;
+    border: 2px solid $blue;
+    flex: 1;
+    position: relative;
+    width: 50%;
+    text-align: center;
+    padding: 10px 20px;
+    &:first-child{
+      border-radius: 5px 0px 0px 5px;
+    }
+    &:last-child{
+      border-radius: 0px 5px 5px 0px;
+    }
+    &:focus{
+      outline: none;
+      z-index: 2;
+      box-shadow: 0px 0px 0px 5px $yellow;
+      background: none;
+    }
+  }
+  .tabs__tab--current{
+    color: $white;
+    background: $blue;
+  }
+}
+
+.pagination{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1.1rem;
+  span{
+    margin: 0px 10px;
+  }
+}
+
+.error{
+  padding: 25px;
+  border-left: 5px solid $red;
+  color: $red;
+  margin-bottom: 25px;
+  h2, li{
+    color: $red;
+  }
+  h2{
+    margin-bottom: 20px;
+  }
+  ul{
+    margin-left: 25px;
+  }
+  li{
+    margin-top: 5px;
+    padding-left: 10px;
+  }
+}
+
+.beta-banner{
+  background: $pale;
+  padding: 10px 15px 0px 15px;
+  font-size: 0.9rem;
+  .beta-banner__inner{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .beta-banner__tag{
+    background: $yellow;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    margin-right: 10px;
+    color: $grey;
+  }
+  .beta-banner__message{
+    padding-top: 1px;
+  }
 }

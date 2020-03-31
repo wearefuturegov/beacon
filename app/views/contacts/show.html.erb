@@ -2,12 +2,21 @@
 <p class="notice"><%= notice %></p>
 <% end %>
 
+<<<<<<< HEAD
 <div class="tab_buttons margin-bottom-70">
   <%= link_to 'Profile', contact_path(@contact), class: 'active' %>
   <%= link_to "View #{@contact.first_name}'s Tasks (#{@contact.tasks.count})", controller: :contacts, action: :show_tasks %>
 </div>
+=======
+<ol class="breadcrumb">
+  <li><%= link_to "People in need", contacts_path %></li>
+  <li>Person</li>
+</ol>
+>>>>>>> master
 
-<h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
+<div class="page-header">
+  <h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
+</div>
 
 <div class="contact-profile">
   <div class="contact-profile__left">

@@ -1,10 +1,12 @@
 <ol class="breadcrumb">
-  <li><%= link_to "Contacts", contacts_path %></li>
+  <li><%= link_to "People in need", contacts_path %></li>
   <li>Edit</li>
 </ol>
 
 <section class="two-thirds">
-  <h1 class="page-title">Editing <%= @contact.name %></h1>
+  <div class="page-header">
+    <h1 class="page-title">Editing <%= @contact.name %></h1>
+  </div>
   <p class="lede">Use this feature to update the details of a person in need, so we have their most recent information.</p>
 </section>
 
