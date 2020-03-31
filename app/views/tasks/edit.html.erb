@@ -1,0 +1,94 @@
+<% if notice %>
+  <p class="notice"><%= notice %></p>
+<% end %>
+
+<ol class="breadcrumb">
+  <li><%= link_to "People", contacts_path %></li>
+  <li><%= link_to @task.contact.first_name, @task.contact %></li>
+  <li><%= link_to "Tasks", tasks_path %></li>
+  <li><%= @task.name %></li>
+</ol>
+
+<%= form_with(model: @task, local: true) do |form| %>
+  <% if @task.errors.any? %>
+    <div class="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+        <% @task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <section class="field-section">
+    <fieldset class="field-section margin-bottom-70">
+      <div class="field">
+        <%= form.label 'Description' %><br>
+        <%= form.text_field :name %>
+      </div>
+      <div class="flex">
+        <div class="field">
+          <%= form.label 'Assigned' %><br>
+          <%= form.collection_select :user_id, @users, :id, :name_or_email, include_blank: 'Unassigned'  %>
+        </div>
+        <div class="field">
+          <%= form.label 'Category' %><br>
+          <%= form.select "category", options_for_select(%w(food medicine)) %>
+        </div>
+        <div class="field">
+          <%= form.label 'Due by' %><br>
+          <%= form.text_field :due_by %>
+        </div>
+      </div>
+    </fieldset>
+  </section>
+  <%= form.submit "Save" %>
+<% end %>
+
+<hr>
+
+<h2>For <%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h2>
+
+<div class="contact-profile">
+  <div class="contact-profile__left">
+    <div class="contact-profile__row">
+      <strong>Address</strong><span><%= @contact.address %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Phone:</strong>
+      <%= @contact.telephone %>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Mobile:</strong>
+      <%= @contact.mobile %>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>NHS Number</strong><span>PLACEHOLDER</span>
+    </div>
+
+  </div>
+  <div class="contact-profile__right">
+    <div class="contact-profile__row">
+      <strong>Priority</strong>
+      <%= @contact.priority %>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Needs:</strong>
+      PLACEHOLDER
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Additional Information</strong>
+      PLACEHOLDER
+    </div>
+  </div>
+</div>
+<div>
+  <%= link_to "More about #{@contact.name}", contact_path(@contact) %>
+</div>
