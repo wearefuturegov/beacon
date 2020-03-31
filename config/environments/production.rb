@@ -7,6 +7,8 @@ Rails.application.configure do
   # use sendgrid to send emails
   config.action_mailer.delivery_method = SendGridActionMailerAdapter::DeliveryMethod
 
+  config.action_mailer.default_url_options = { host: 'beacon.support' }
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
