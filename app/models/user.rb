@@ -21,4 +21,9 @@ class User < ApplicationRecord
   def name
     [first_name, last_name].join(' ')
   end
+
+  def name_or_email
+    name_value = name
+    name_value.blank? ? email : name_value
+  end
 end

@@ -2,7 +2,7 @@
 
   <%= form_with(model: contact, local: true) do |form| %>
     <% if contact.errors.any? %>
-      <div id="error_explanation">
+      <div class="error" id="error_explanation">
         <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
 
         <ul>
@@ -13,9 +13,7 @@
       </div>
     <% end %>
 
-    <section class="field-section">
-      <fieldset class="field-section margin-bottom-70">
-        <div class="flex">
+      <fieldset class="field-section field-section--two-cols">
           <div class="field">
             <%= form.label :first_name, class: "field__label" %>
             <%= form.text_field :first_name %>
@@ -24,28 +22,27 @@
             <%= form.label :middle_names, class: "field__label" %>
             <%= form.text_field :middle_names %>
           </div>
-        </div>
-        <div class="field field-half-width">
+        <div class="field">
           <%= form.label :surname, class: "field__label" %>
           <%= form.text_field :surname %>
         </div>
       </fieldset>
 
-      <fieldset class="field-section">
+      <fieldset class="field-section field-section--two-cols">
         <legend><h2 class="field-section__title">Where do they live?</h2></legend>
 
-        <div class="field">
+        <div class="field field--span-two-cols">
           <%= form.label :address, class: "field__label" %>
           <%= form.text_field :address %>
         </div>
 
-        <div class="field field-half-width">
+        <div class="field">
           <%= form.label :postcode, class: "field__label" %>
           <%= form.text_field :postcode %>
         </div>
       </fieldset>
 
-      <fieldset class="field-section">
+      <fieldset class="field-section field-section--two-cols">
         <legend><h2 class="field-section__title">How can we reach them?</h2></legend>
         <div class="flex">
           <div class="field">
@@ -58,7 +55,7 @@
             <%= form.text_field :telephone %>
           </div>
         </div>
-        <div class="field field-half-width">
+        <div class="field">
           <%= form.label :mobile, class: "field__label" %>
           <%= form.text_field :mobile %>
         </div>
