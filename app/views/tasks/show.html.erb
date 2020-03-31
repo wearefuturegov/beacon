@@ -1,0 +1,75 @@
+<% if notice %>
+  <p class="notice"><%= notice %></p>
+<% end %>
+
+<ol class="breadcrumb">
+  <li><%= link_to "People", contacts_path %></li>
+  <li><%= link_to @task.contact.first_name, @task.contact %></li>
+  <li><%= link_to "Tasks", tasks_path %></li>
+  <li><%= @task.name %></li>
+</ol>
+
+<h1 class="page-title"><%= @task.name %></h1>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <td><%= @task.name %></td>
+      <td><%= @task.completed_on.present? ? 'Complete' : 'Incomplete' %></td>
+      <% if @task.user %>
+        <td>Assigned to <%= @task.user.name_or_email %></td>
+      <% else %>
+        <td>Unassigned</td>
+      <% end %>
+      <td><%= @task.category %></td>
+      <td><%= @task.due_by.strftime("%d/%m/%Y %I:%M%p") %></td>
+      <td><%= link_to 'Edit', edit_task_path(@task) %></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2>For <%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h2>
+
+<div class="contact-profile">
+  <div class="contact-profile__left">
+    <div class="contact-profile__row">
+      <strong>Address</strong><span><%= @contact.address %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Phone:</strong>
+      <%= @contact.telephone %>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Mobile:</strong>
+      <%= @contact.mobile %>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>NHS Number</strong><span>PLACEHOLDER</span>
+    </div>
+
+  </div>
+  <div class="contact-profile__right">
+    <div class="contact-profile__row">
+      <strong>Priority</strong>
+      <%= @contact.priority %>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Needs:</strong>
+      PLACEHOLDER
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Additional Information</strong>
+      PLACEHOLDER
+    </div>
+  </div>
+</div>
+<div>
+  <%= link_to "More about #{@contact.name}", contact_path(@contact) %>
+</div>
