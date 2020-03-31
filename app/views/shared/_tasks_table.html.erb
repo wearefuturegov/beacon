@@ -38,12 +38,14 @@
       </th>
       <th></th>
       <th>
-        <%= select_tag("search_status", options_for_select(['To do', 'Completed'], ['To do', 'Completed'])) %>
+        <%= select_tag("search_status", options_for_select(['Select a status', 'To do', 'Completed'], 'Select a status')) %>
       </th>
       <th>
-        <%= select_tag("search_status", options_for_select(%w(High Medium Low), %w(High Medium Low)))  %>
+        <%= select_tag("search_priority", options_for_select(['Select a priority', 'High', 'Medium', 'Low'], 'Select a priority'))  %>
       </th>
-      <th></th>
+      <th>
+        <%= select_tag("search_category", options_for_select(['Select a category', 'Food', 'Medicine'], 'Select a category'))  %>
+      </th>
       <th></th>
     </tr>
     </tfoot>
