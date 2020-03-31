@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update]
 
   def index
-    @tasks = Task.includes(:contact, :user).page(params[:page])
+    @users = User.all
+    @tasks = Task.includes(:contact, :user)
   end
 
   def show

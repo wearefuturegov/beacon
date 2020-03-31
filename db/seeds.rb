@@ -28,6 +28,7 @@ ActiveRecord::Base.transaction do
           FactoryBot.create :task,
                             contact: contact,
                             user: user,
+                            category: %w(Food Medicine Other).sample,
                             completed_on: [nil, [1,2,3].sample.days.ago].sample
         end
       end
