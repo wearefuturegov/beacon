@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  before_action :require_user!
   before_action :set_task, only: [:show, :edit, :update]
 
   def index
