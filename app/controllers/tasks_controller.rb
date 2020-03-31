@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.includes(:contact, :user).page(params[:page])
+    @tasks = Task.includes(:contact, :user)
   end
 
   def show

@@ -10,7 +10,7 @@
 
         <nav class="site-header__nav">
           <ul class="site-header__links">
-            <li class="site-header__link"><%= link_to_unless_current 'Tasks', my_tasks_path, controller: :my_tasks %></li>
+            <li class="site-header__link"><%= link_to_unless_current 'Tasks', tasks_path, controller: :tasks %></li>
             <li class="site-header__link"><%= link_to_unless_current 'People', contacts_path, controller: :contacts %></li>
             <li class="site-header__link"><%= link_to_unless_current 'Users', users_path, controller: :users %></li>
           </ul>
