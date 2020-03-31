@@ -1,0 +1,24 @@
+<ol class="breadcrumb">
+  <li><%= link_to "People in need", contacts_path %></li>
+  <li><%= link_to "Needs", contacts_path %></li>
+  <li>Add needs</li>
+</ol>
+
+<%= form_with(model: [@contacts, @needs],  url: contact_needs_path, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
+  <% needs.each do |need| %>
+    <fieldset class="field-section field-section--inline">
+      <legend class="field-section__title"><%= need %></legend>
+      <div class="radio">
+        <%= form.radio_button :"#{need.parameterize.underscore}", true %>
+        <label for="needs_<%= need.parameterize.underscore %>_true" class="radio__label">Yes</label>
+      </div>
+      <div class="radio">
+        <%= form.radio_button :"#{need.parameterize.underscore}", false %>
+        <label for="needs_<%= need.parameterize.underscore %>_false" class="radio__label">No</label>
+      </div>
+    </fieldset>
+  <% end %>
+  <div class="actions">
+    <%= form.submit "Add needs" %>
+  </div>
+<% end %>

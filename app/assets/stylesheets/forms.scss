@@ -74,6 +74,11 @@ button{
       column-gap: 40px;
     }
   }
+
+  &--inline {
+    width: 49%;
+    display: inline-block;
+  }
 }
 
 .field{
