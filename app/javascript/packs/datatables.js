@@ -2,7 +2,7 @@ const $  = require( 'jquery' );
 const dt = require('datatables.net-dt');
 require('datatables.net-dt/css/jquery.dataTables.css');
 
-document.addEventListener('turbolinks:load', () => {
+$(document).ready(() => {
     if ($(".dataTables_wrapper").length > 0) return;
 
     const element = $('.tasks-table').first();
