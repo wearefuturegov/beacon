@@ -1,6 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # use sendgrid to send emails
+  config.action_mailer.delivery_method = SendGridActionMailerAdapter::DeliveryMethod
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
