@@ -1,3 +1,7 @@
+<% if @contact.is_vulnerable %>
+<p class="error">This is a vulnerable person</p>
+<% end %>
+
 <% if notice %>
 <p class="notice"><%= notice %></p>
 <% end %>

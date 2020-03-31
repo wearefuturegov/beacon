@@ -70,9 +70,29 @@
         <%= form.label :additional_info, class: "field__label" %>
         <%= form.text_area :additional_info %>
       </div>
+
+    </fieldset>
+
+    <fieldset class="field-section field-section--two-cols">
+      <legend><h2 class="field-section__title">Is this person particularly vulnerable or high priority?</h2></legend>
+
+      <div class="notice">
+        <b>By vulnerable we mean:</b>
+        <ul>
+          <li>Over 70 years old</li>
+          <li>Under 70 years old and has an underlying health condition (i.e. normally asked by the NHS to get a flu jab)</li>
+          <li>Pregnant</li>
+        </ul>
+      </div>
+
       <div class="field field--span-two-cols">
-        <%= form.label :priority, class: "field__label" %>
-        <%= form.select :priority, ['low', 'medium', 'high'] %>
+        <%= form.label :is_vulnerable, class: "field__label" %>
+
+        <%= form.radio_button :is_vulnerable, true, :id => "is_vulnerable_true" %>
+        <label for="is_vulnerable_true" class="radio__label">Yes</label>
+
+        <%= form.radio_button :is_vulnerable, false, :id => "is_vulnerable_false" %>
+        <label for="is_vulnerable_false" class="radio__label">No</label>
       </div>
     </fieldset>
 

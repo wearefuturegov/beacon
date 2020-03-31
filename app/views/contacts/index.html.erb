@@ -13,7 +13,7 @@
         <th>Assigned</th>
         <th>Name</th>
         <th>Tasks</th>
-        <th>Priority</th>
+        <th>Vulnerable</th>
         <th>Date logged</th>
         <th></th>
         <th></th>
@@ -30,7 +30,9 @@
           <small>(<%= contact.completed_tasks_count %> completed)</small>
         </td>
         <td>
-          <span class="tag"><%= contact.priority %></span>
+          <% if contact.is_vulnerable %>
+            Vulnerable
+          <% end %>
         </td>
         <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
       </tr>
