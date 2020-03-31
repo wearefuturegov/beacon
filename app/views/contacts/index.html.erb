@@ -10,7 +10,6 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Assigned</th>
         <th>Name</th>
         <th>Tasks</th>
         <th>Priority</th>
@@ -23,7 +22,6 @@
     <tbody>
     <% @contacts.each do |contact| %>
       <tr>
-        <td></td>
         <td><strong><%= link_to contact.name, contact %></strong></td>
         <td>
           <%= contact.tasks_count %>
