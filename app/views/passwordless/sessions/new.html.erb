@@ -1,0 +1,12 @@
+<p>To get started, enter the email address you recieved the invite to.</p>
+
+<%= form_for @session, url: send(Passwordless.mounted_as).sign_in_path do |f| %>
+  <% email_field_name = :"passwordless[#{@email_field}]" %>
+
+  <div class="field">
+    <%= label_tag email_field_name, "Email address", class: "field__label" %>
+    <%= text_field_tag email_field_name, params.fetch(email_field_name, nil), required: true, type: "email" %>
+  </div>
+
+  <%= f.submit "Start log in" %>
+<% end %>

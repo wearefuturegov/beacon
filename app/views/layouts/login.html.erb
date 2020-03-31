@@ -6,13 +6,11 @@
 
     <%= link_to image_tag('logo.svg'), root_path, alt: "Camden Council" %>
 
-    <div class="login-panel">
-      <div class="container">
-        <%= yield %>
-      </div>
+    <div class="login-panel <%= yield :class %>">
+      <%= yield %>
     </div>
 
-    Having trouble? <a href="">Email us</a>
+    <p>Having trouble? <a href="">Email us</a></p>
 
   </body>
 </html>
