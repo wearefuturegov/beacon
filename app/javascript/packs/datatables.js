@@ -21,7 +21,10 @@ $(document).ready( function () {
         $(searchElement).on('keyup change clear', function() {
             if (searchElement.nodeName === "SELECT") {
                 const searchText = searchElement.options[searchElement.selectedIndex].text;
-                column.search(searchText).draw();
+                if (searchText.startsWith("Select a"))
+                    column.search("").draw();
+                else
+                    column.search(searchText).draw();
             } else {
                 column.search(searchElement.value).draw();
             }
