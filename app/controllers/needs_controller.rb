@@ -15,6 +15,7 @@ class NeedsController < ApplicationController
         @contact.tasks.build(name: key.humanize, due_by: DateTime.now + 7.days).save
       end
     end
+    redirect_to controller: :contacts, action: :show_tasks, id: @contact.id
   end
 
   private
