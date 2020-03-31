@@ -6,7 +6,7 @@
 </div>
 
 <div class="page-header">
-  <h1 class="page-title">My Tasks (<%= @tasks.length %>)</h1>
+  <h1 class="page-title">My tasks <span class="page-title__count">(<%= @tasks.length %>)</span></h1>
 </div>
 
 <%= render 'shared/tasks_table', tasks: @tasks %>

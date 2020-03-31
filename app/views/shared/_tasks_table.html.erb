@@ -1,57 +1,56 @@
-<div class="table-holder">
-  <table class="table tasks-table">
-    <thead>
+<table class="table tasks-table">
+  <thead>
+  <tr>
+    <th>Assigned to</th>
+    <th>Person</th>
+    <th>Need</th>
+    <th>Status</th>
+    <th>Vulnerable</th>
+    <th>Category</th>
+    <th>Date logged</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% tasks.each do |task| %>
     <tr>
-      <th>Assigned to</th>
-      <th>Name</th>
-      <th>Need type</th>
-      <th style="width: 125px">Status</th>
-      <th style="width: 125px">Vulnerable</th>
-      <th style="width: 125px">Category</th>
-      <th>Date logged</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% tasks.each do |task| %>
-      <tr>
-        <% if task.user %>
-          <td><%= task.user_name %></td>
+      <% if task.user %>
+        <td><%= task.user_name %></td>
+      <% else %>
+        <td>Unassigned</td>
+      <% end %>
+      <td><%= link_to(task.contact_name, contact_path(task.contact.id)) %></td>
+      <td><strong><%= link_to task.name, task %></strong></td>
+      <td><%= status(task.completed_on) %></td>
+      <td>
+        <% if task.contact_is_vulnerable %>
+          <%= image_tag "red-tick.svg", alt: "vulnerable" %>
         <% else %>
-          <td>Unassigned</td>
+          —
         <% end %>
-        <td><%= link_to(task.contact_name, contact_path(task.contact.id)) %></td>
-        <td><%= link_to task.name, task %></td>
-        <td><%= status(task.completed_on) %></td>
-        <td>
-          <% if task.contact_is_vulnerable %>
-            Vulnerable
-          <% end %>
-        </td>
-        <td><%= task.category %>
-        <td><%= format_datetime(task.created_at) %></td>
-      </tr>
-    <% end %>
-    </tbody>
-    <tfoot>
-    <tr>
-      <th>
-        <%= select_tag("search_user", options_from_collection_for_select(@users, :id, :name_or_email), prompt: 'Select a user')  %>
-      </th>
-      <th>
-        <input id="search_name" type="text"/>
-      </th>
-      <th></th>
-      <th>
-        <%= select_tag("search_status", options_for_select(task_statuses), prompt: 'Select a status') %>
-      </th>
-      <th>
-        <%= select_tag("search_is_vulnerable", options_for_select(task_is_vulnerable_options), prompt: 'Select a vulnerable option')  %>
-      </th>
-      <th>
-        <%= select_tag("search_category", options_for_select(task_categories), prompt: 'Select a category')  %>
-      </th>
-      <th></th>
+      </td>
+      <td><%= task.category %>
+      <td><%= format_datetime(task.created_at) %></td>
     </tr>
-    </tfoot>
-  </table>
-</div>
+  <% end %>
+  </tbody>
+  <tfoot>
+  <tr>
+    <th>
+      <%= select_tag("search_user", options_from_collection_for_select(@users, :id, :name_or_email), prompt: 'Select a user')  %>
+    </th>
+    <th>
+    </th>
+    <th></th>
+    <th>
+      <%= select_tag("search_status", options_for_select(task_statuses), prompt: 'Select a status') %>
+    </th>
+    <th>
+      <%= select_tag("search_is_vulnerable", options_for_select(task_is_vulnerable_options), prompt: 'Select a vulnerable option')  %>
+    </th>
+    <th>
+      <%= select_tag("search_category", options_for_select(task_categories), prompt: 'Select a category')  %>
+    </th>
+    <th></th>
+  </tr>
+  </tfoot>
+</table>

@@ -71,7 +71,10 @@ a{
 }
 
 .page-header{
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  @media screen and (min-width: $breakpoint-m){
+    margin-bottom: 55px;
+  }
   &.page-header--with-button{
     @media screen and (min-width: $breakpoint-m){
       display: flex;
@@ -93,6 +96,10 @@ a{
   font-size: 2.5rem;
   @media screen and (min-width: $breakpoint-l){
     font-size: 3rem;
+  }
+  .page-title__count{
+    color: $grey-pale;
+    font-weight: normal;
   }
 }
 
@@ -123,10 +130,22 @@ a{
   }
 
 .notice{
+  display: block;
   padding: 20px;
   background: transparentize($blue, 0.9);
   margin-bottom: 30px;
   border-left: 5px solid $blue;
+  ul{
+    margin-top: 10px;
+    margin-left: 25px;
+    li{
+      padding-left: 10px;
+      margin-bottom: 10px;
+      &:last-of-type{
+        margin-bottom: 0px;
+      }
+    }
+  }
 }
 
 .tabs{
@@ -165,18 +184,6 @@ a{
   }
 }
 
-.pagination{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  font-size: 1.1rem;
-  span{
-    margin: 0px 10px;
-  }
-}
-
 .error{
   padding: 25px;
   border-left: 5px solid $red;
@@ -185,15 +192,19 @@ a{
   h2, li{
     color: $red;
   }
+  ul{
+    margin-top: 10px;
+    margin-left: 25px;
+    li{
+      padding-left: 10px;
+      margin-bottom: 10px;
+      &:last-of-type{
+        margin-bottom: 0px;
+      }
+    }
+  }
   h2{
     margin-bottom: 20px;
-  }
-  ul{
-    margin-left: 25px;
-  }
-  li{
-    margin-top: 5px;
-    padding-left: 10px;
   }
 }
 
@@ -215,5 +226,21 @@ a{
   }
   .beta-banner__message{
     padding-top: 1px;
+  }
+}
+
+.vulnerable-banner{
+  background: transparentize($red, 0.7);
+  padding: 25px;
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  .container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  img{
+    margin-right: 15px;
   }
 }

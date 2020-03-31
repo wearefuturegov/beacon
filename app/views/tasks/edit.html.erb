@@ -1,5 +1,7 @@
 <% if @contact.is_vulnerable %>
-<p class="error">This is a vulnerable person</p>
+  <div class="vulnerable-banner">
+    <div class="container"><%= image_tag "exclamation.svg", alt: "" %> This is a vulnerable person</div>
+  </div>
 <% end %>
 
 <% if notice %>

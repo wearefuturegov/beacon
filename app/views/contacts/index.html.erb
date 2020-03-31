@@ -32,8 +32,10 @@
           <% end %>
         </td>
         <td>
-          <% if contact.is_vulnerable %>
-            Vulnerable
+          <% if contact.is_vulnerable? %>
+            <%= image_tag "red-tick.svg", alt: "vulnerable" %>
+          <% else %>
+            —
           <% end %>
         </td>
         <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
