@@ -11,6 +11,7 @@ FactoryBot.define do
     mobile { Faker::PhoneNumber.cell_phone }
     is_vulnerable { true }
     priority { priorities.sample }
+    additional_info {}
 
     priorities.each do |priority|
       trait "#{priority}_priority" do
