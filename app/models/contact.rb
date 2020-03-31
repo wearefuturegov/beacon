@@ -11,7 +11,7 @@ class Contact < ApplicationRecord
   validates :first_name, presence: true
 
   enum priority: { low: 'low', medium: 'medium', high: 'high' }, _suffix: true
-
+  
   def name
     [first_name, surname].join(' ')
   end

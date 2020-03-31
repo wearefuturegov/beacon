@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_30_122432) do
+ActiveRecord::Schema.define(version: 2020_03_31_094721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2020_03_30_122432) do
     t.integer "uncompleted_tasks_count", default: 0
     t.integer "completed_tasks_count", default: 0
     t.text "email"
+    t.string "additional_info"
     t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
     t.index ["priority"], name: "index_contacts_on_priority"
   end

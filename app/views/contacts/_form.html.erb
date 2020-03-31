@@ -62,6 +62,21 @@
       </fieldset>
     </section>
 
+
+    <fieldset class="field-section field-section--two-cols">
+      <legend><h2 class="field-section__title">What should we know about them?</h2></legend>
+
+      <div class="field field--span-two-cols">
+        <%= form.label :additional_info, class: "field__label" %>
+        <%= form.text_area :additional_info %>
+      </div>
+      <div class="field field--span-two-cols">
+        <%= form.label :priority, class: "field__label" %>
+        <%= form.select :priority, ['low', 'medium', 'high'] %>
+      </div>
+    </fieldset>
+
+
     <div class="actions">
       <%= form.submit "Save changes" %>
     </div>
