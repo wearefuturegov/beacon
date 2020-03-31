@@ -24,8 +24,12 @@
       <tr>
         <td><strong><%= link_to contact.name, contact %></strong></td>
         <td>
-          <%= contact.tasks_count %>
-          <small>(<%= contact.completed_tasks_count %> completed)</small>
+          <% if contact.tasks_count > 0 %>
+            <%= pluralize(contact.uncompleted_tasks_count, 'need') %>
+            <% if contact.completed_tasks_count > 0 %>
+              <small>(<%= contact.completed_tasks_count %> completed)</small>
+            <% end %>
+          <% end %>
         </td>
         <td>
           <span class="tag"><%= contact.priority %></span>
