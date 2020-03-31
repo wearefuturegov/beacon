@@ -48,3 +48,4 @@ Coming soon...
 | SMTP_USERNAME | Username for SMTP server |
 | SMTP_PASSWORD | Password for SMTP server |
 | SMTP_PORT     | Port for SMTP server     |
+|SENDGRID_API_KEY| Sendgrid API key (production only |
