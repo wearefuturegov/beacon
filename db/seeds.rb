@@ -17,12 +17,6 @@ ActiveRecord::Base.transaction do
 
       contacts = FactoryBot.create_list :contact, 50, contact_list: contact_list
 
-      contacts.each do |contact|
-        [0, 1, 2, 3].sample.times do
-          FactoryBot.create :note, contact: contact
-        end
-      end
-
       contacts.first(10).each do |contact|
         [1, 2, 3].sample.times do
           FactoryBot.create :task,

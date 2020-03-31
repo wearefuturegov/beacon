@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Note, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:contact) }
+    it { is_expected.to belong_to(:task) }
   end
 
   describe 'validations' do
