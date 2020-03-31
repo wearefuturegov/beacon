@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
+  include ParamsConcern
   before_action :set_task, only: [:show, :edit, :update]
-
+  helper_method :get_param
+  
   def index
     @users = User.all
     @tasks = Task.includes(:contact, :user)
