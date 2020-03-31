@@ -5,23 +5,26 @@ require('datatables.net-dt/css/jquery.dataTables.css');
 $(document).ready( function () {
     const element = $('.table').first();
     const table = element.DataTable();
-    element.find('tfoot th').each(function(){
-       const title = $(this).text();
-       const search = $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
 
-       table.columns().every(function() {
+    document.addEventListener("turbolinks:before-cache", function() {
+        if (table !== null) {
+            table.destroy();
+        }
+    });
 
-       });
-        table.columns().every( function () {
-            var that = this;
+    element.find('tfoot th').each((footerIndex, footerElement) => {
+        let searchElement = $(footerElement).find('input, select').first();
+        if (searchElement === null) return;
+        searchElement = searchElement[0];
 
-            $( 'input', this.footer() ).on( 'keyup change clear', function () {
-                if ( that.search() !== this.value ) {
-                    that
-                        .search( this.value )
-                        .draw();
-                }
-            } );
+        const column = table.columns(footerIndex);
+        $(searchElement).on('keyup change clear', function() {
+            if (searchElement.nodeName === "SELECT") {
+                const searchText = searchElement.options[searchElement.selectedIndex].text;
+                column.search(searchText).draw();
+            } else {
+                column.search(searchElement.value).draw();
+            }
         });
     });
 });

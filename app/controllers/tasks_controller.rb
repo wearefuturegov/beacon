@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   def index
+    @users = User.all
     @tasks = Task.includes(:contact, :user)
   end
 
