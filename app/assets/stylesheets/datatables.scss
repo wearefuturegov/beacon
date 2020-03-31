@@ -11,3 +11,11 @@
     width: auto;
   }
 }
+
+.dataTable tfoot {
+  input {
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+}
