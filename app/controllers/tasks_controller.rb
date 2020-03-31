@@ -29,6 +29,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to task_path(@task), notice: 'Contact was successfully updated.'
     else
+      @users = User.all
       render :edit
     end
   end
