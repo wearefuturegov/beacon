@@ -5,6 +5,8 @@ require "bcrypt"
 module Passwordless
   # Controller for managing Passwordless sessions
   class SessionsController < ApplicationController
+    skip_before_action :require_user!
+
     include ControllerHelpers
 
     # get '/sign_in'
