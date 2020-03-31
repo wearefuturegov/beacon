@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:contact).counter_cache(true) }
-    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:user).optional(true) }
   end
 
   describe 'validations' do

@@ -1,7 +1,8 @@
 @import "variables";
 
-input[type=text], 
-input[type=email], 
+input[type=text],
+select,
+input[type=email],
 textarea{
     display: block;
     width: 100%;
@@ -13,8 +14,12 @@ textarea{
     }
 }
 
-.button, 
-input[type=submit], 
+select {
+  background: #FFF;
+}
+
+.button,
+input[type=submit],
 button{
     display: block;
     text-align: center;
@@ -177,5 +182,70 @@ button{
       border-radius: 100%;
       background: $grey;
     }
+  }
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+
+  & .field {
+    margin-right: 26px;
+    &:last-child {
+      margin-right: 0px;
+    }
+
+    flex: 1;
+  }
+}
+
+
+// small screens
+.flex {
+  display: flex;
+  flex-direction: column;
+
+  & .field {
+    margin-right: 0px;
+    flex: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .flex {
+    display: flex;
+    flex-direction: row;
+
+    & .field {
+      margin-right: 26px;
+      &:last-child {
+        margin-right: 0px;
+      }
+
+      flex: 1;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .field.field-half-width {
+    // todo: improve this
+    width: calc(50% - 13px);
+  }
+}
+
+form .error_explanation {
+  padding: 18px;
+  color: $red-error;
+  border: 4px solid $red-error;
+  margin-bottom: 32px;
+
+  & h2 {
+    margin-bottom: 16px;
+    color: $red-error;
+  }
+
+  & ul {
+    list-style-type: none;
   }
 }

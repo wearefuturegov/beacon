@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :contact, counter_cache: true
-  belongs_to :user
+  belongs_to :user, optional: true
 
   has_paper_trail
 
@@ -15,7 +15,7 @@ class Task < ApplicationRecord
                   }
 
 
-  validates :name, presence: true
+  validates :name, :due_by, presence: true
 
   delegate :name, :priority, to: :contact, prefix: true
   delegate :name, to: :user, prefix: true
