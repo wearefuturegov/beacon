@@ -38,7 +38,7 @@ https://heroku.com/deploy)
 
 Suitable for 12-factor app hosting like [Heroku](http://heroku.com).
 
-[Sendgrid] delivers emails in production. You need to make sure the API key environment variable is set.
+[Sendgrid](https://sendgrid.com/) delivers emails in production. You need to make sure the API key environment variable is set.
 
 ## Roadmap
 
