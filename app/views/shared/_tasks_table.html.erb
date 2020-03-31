@@ -6,7 +6,7 @@
       <th>Name</th>
       <th>Need type</th>
       <th style="width: 125px">Status</th>
-      <th style="width: 125px">Priority</th>
+      <th style="width: 125px">Vulnerable</th>
       <th style="width: 125px">Category</th>
       <th>Date logged</th>
     </tr>
@@ -22,7 +22,11 @@
         <td><%= link_to(task.contact_name, contact_path(task.contact.id)) %></td>
         <td><%= link_to task.name, task %></td>
         <td><%= status(task.completed_on) %></td>
-        <td><%= task.contact_priority %></td>
+        <td>
+          <% if task.contact_is_vulnerable %>
+            Vulnerable
+          <% end %>
+        </td>
         <td><%= task.category %>
         <td><%= format_datetime(task.created_at) %></td>
       </tr>
@@ -41,7 +45,7 @@
         <%= select_tag("search_status", options_for_select(task_statuses), prompt: 'Select a status') %>
       </th>
       <th>
-        <%= select_tag("search_priority", options_for_select(task_priorities), prompt: 'Select a priority')  %>
+        <%= select_tag("search_is_vulnerable", options_for_select(task_is_vulnerable_options), prompt: 'Select a vulnerable option')  %>
       </th>
       <th>
         <%= select_tag("search_category", options_for_select(task_categories), prompt: 'Select a category')  %>
