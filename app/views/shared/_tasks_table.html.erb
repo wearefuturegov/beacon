@@ -5,9 +5,9 @@
       <th>Assigned to</th>
       <th>Name</th>
       <th>Need type</th>
-      <th>Status</th>
-      <th>Priority</th>
-      <th>Category</th>
+      <th style="width: 125px">Status</th>
+      <th style="width: 125px">Priority</th>
+      <th style="width: 125px">Category</th>
       <th>Date logged</th>
     </tr>
     </thead>
@@ -38,13 +38,13 @@
       </th>
       <th></th>
       <th>
-        <%= select_tag("search_status", options_for_select(['Select a status', 'To do', 'Completed'], 'Select a status')) %>
+        <%= select_tag("search_status", options_for_select(['To do', 'Completed']), prompt: 'Select a status') %>
       </th>
       <th>
-        <%= select_tag("search_priority", options_for_select(['Select a priority', 'High', 'Medium', 'Low'], 'Select a priority'))  %>
+        <%= select_tag("search_priority", options_for_select(%w(High Medium Low)), prompt: 'Select a priority')  %>
       </th>
       <th>
-        <%= select_tag("search_category", options_for_select(['Select a category', 'Food', 'Medicine'], 'Select a category'))  %>
+        <%= select_tag("search_category", options_for_select(%w(Food Medicine)), prompt: 'Select a category')  %>
       </th>
       <th></th>
     </tr>
