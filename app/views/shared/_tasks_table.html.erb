@@ -1,32 +1,53 @@
 <div class="table-holder">
-  <table class="table">
+  <table class="table tasks-table">
     <thead>
-      <tr>
-        <th>Assigned to</th>
-        <th>Name</th>
-        <th>Need type</th>
-        <th>Status</th>
-        <th>Priority</th>
-        <th>Date logged</th>
-      </tr>
+    <tr>
+      <th>Assigned to</th>
+      <th>Name</th>
+      <th>Need type</th>
+      <th style="width: 125px">Status</th>
+      <th style="width: 125px">Priority</th>
+      <th style="width: 125px">Category</th>
+      <th>Date logged</th>
+    </tr>
     </thead>
-
     <tbody>
-      <% tasks.each do |task| %>
+    <% tasks.each do |task| %>
       <tr>
         <% if task.user %>
-          <td>Assigned to <%= task.user_name %></td>
+          <td><%= task.user_name %></td>
         <% else %>
           <td>Unassigned</td>
         <% end %>
-        <td><%= task.contact_name %></td>
+        <td><%= link_to(task.contact_name, contact_path(task.contact.id)) %></td>
         <td><%= task.name %></td>
-        <td><%= task.contact_priority %></td>
         <td><%= status(task.completed_on) %></td>
+        <td><%= task.contact_priority %></td>
+        <td><%= task.category %>
         <td><%= format_datetime(task.created_at) %></td>
       </tr>
-      <% end%>
+    <% end %>
     </tbody>
+    <tfoot>
+    <tr>
+      <th>
+        <%= select_tag("search_user", options_from_collection_for_select(@users, :id, :name_or_email), prompt: 'Select a user')  %>
+      </th>
+      <th>
+        <input id="search_name" type="text"/>
+      </th>
+      <th></th>
+      <th>
+        <%= select_tag("search_status", options_for_select(task_statuses), prompt: 'Select a status') %>
+      </th>
+      <th>
+        <%= select_tag("search_priority", options_for_select(task_priorities), prompt: 'Select a priority')  %>
+      </th>
+      <th>
+        <%= select_tag("search_category", options_for_select(task_categories), prompt: 'Select a category')  %>
+      </th>
+      <th></th>
+    </tr>
+    </tfoot>
   </table>
 </div>
-<%= paginate tasks %>
