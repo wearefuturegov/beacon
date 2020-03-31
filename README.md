@@ -33,7 +33,12 @@ Visit **localhost:1080** to view sent emails.
 
 ## Running it on the web
 
-Coming soon...
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](
+https://heroku.com/deploy)
+
+Suitable for 12-factor app hosting like [Heroku](http://heroku.com).
+
+[Sendgrid] delivers emails in production. You need to make sure the API key environment variable is set.
 
 ## Roadmap
 
