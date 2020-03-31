@@ -1,6 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # force ssl in production
+  config.force_ssl = true
+
   # use sendgrid to send emails
   config.action_mailer.delivery_method = SendGridActionMailerAdapter::DeliveryMethod
 
