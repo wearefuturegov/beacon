@@ -25,9 +25,11 @@ rails server
 ```
 
 It'll be on **localhost:3000**.
+
+You can log in using **admin@example.com**.
     
 ### How emails work
-When running in development mode, emails are sent to [maildev](https://www.npmjs.com/package/maildev), running via `docker-compose`.
+When running in development mode, [emails](https://guides.rubyonrails.org/action_mailer_basics.html) are sent to [maildev](https://www.npmjs.com/package/maildev), running via `docker-compose`.
 
 Visit **localhost:1080** to view sent emails.
 
