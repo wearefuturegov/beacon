@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :contacts, only: [:index, :show, :edit, :update] do
     resources :tasks, only: [:create]
+    resources :needs, only: [:new, :create]
   end
   get '/contacts/:id/tasks', to: 'contacts#show_tasks'
 

@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_action :set_contact, only: [:edit, :update, :show, :show_tasks]
+  before_action :set_contact, only: [:edit, :update, :show, :show_tasks, :add_needs]
 
   def index
     @contacts = Contact.all.page(params[:page])
@@ -14,6 +14,10 @@ class ContactsController < ApplicationController
   end
 
   def edit
+  end
+
+  def add_needs
+    @needs_form = Needs.new
   end
 
   def update
