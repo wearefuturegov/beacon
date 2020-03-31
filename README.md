@@ -1,4 +1,4 @@
-# I have/I need platform
+# Beacon
 
 🚨This is **PRE-ALPHA** and not yet ready for use 🚨
 
