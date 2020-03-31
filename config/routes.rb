@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   end
   get '/contacts/:id/tasks', to: 'contacts#show_tasks'
 
-  resources :tasks, only: [:index, :show, :edit, :update]
+  resources :tasks, only: [:index, :show, :edit, :update] do
+    resources :notes
+  end
   resources :my_tasks, only: [:index], path: 'my-tasks'
   resources :users, only: [:index, :new, :create, :destroy]
   passwordless_for :users, at: '/', as: :auth

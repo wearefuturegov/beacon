@@ -73,3 +73,24 @@
 <div>
   <%= link_to "More about #{@contact.name}", contact_path(@contact) %>
 </div>
+
+<table class="table">
+  <% @task.notes.each do |note| %>
+    <tbody>
+    <tr>
+      <td style="vertical-align: top"><%= "Previous notes:" if note == @task.notes.first %></td>
+      <td><%= note.body %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= form_with(model: [@task, @task.notes.build], local: true) do |form| %>
+  <p>
+    <%= form.label 'Add a note' %><br>
+    <%= form.text_area :body, class: 'note-textarea'%>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
