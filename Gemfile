@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.7'
+ruby '2.6.0'
 
 gem 'passwordless', '~> 0.9'
 gem 'acts-as-taggable-on', '~> 6.0'
