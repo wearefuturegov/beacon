@@ -2,8 +2,10 @@ const $  = require( 'jquery' );
 const dt = require('datatables.net-dt');
 require('datatables.net-dt/css/jquery.dataTables.css');
 
-$(document).ready( function () {
-    const element = $('.table').first();
+document.addEventListener('turbolinks:load', () => {
+    if ($(".dataTables_wrapper").length > 0) return;
+
+    const element = $('.tasks-table').first();
     const table = element.DataTable();
 
     document.addEventListener("turbolinks:before-cache", function() {
