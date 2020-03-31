@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
   resources :contacts, only: [:index, :show, :edit, :update] do
-    resources :tasks, only: [:create]
     resources :needs, only: [:new, :create]
   end
-  get '/contacts/:id/tasks', to: 'contacts#show_tasks'
+  get '/contacts/:id/needs', to: 'contacts#show_needs'
 
-  resources :tasks, only: [:index, :show, :edit, :update] do
+  resources :needs, only: [:index, :show, :edit, :update] do
     resources :notes
   end
-  resources :my_tasks, only: [:index], path: 'my-tasks'
+  resources :my_needs, only: [:index], path: 'my-needs'
   resources :users, only: [:index, :new, :create, :destroy]
   passwordless_for :users, at: '/', as: :auth
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

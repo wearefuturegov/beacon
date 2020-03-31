@@ -11,7 +11,7 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Tasks</th>
+        <th>Needs</th>
         <th>Vulnerable</th>
         <th>Date logged</th>
         <th></th>
@@ -24,10 +24,10 @@
       <tr>
         <td><strong><%= link_to contact.name, contact %></strong></td>
         <td>
-          <% if contact.tasks_count > 0 %>
-            <%= pluralize(contact.uncompleted_tasks_count, 'need') %>
-            <% if contact.completed_tasks_count > 0 %>
-              <small>(<%= contact.completed_tasks_count %> completed)</small>
+          <% if contact.needs_count > 0 %>
+            <%= pluralize(contact.uncompleted_needs_count, 'need') %>
+            <% if contact.completed_needs_count > 0 %>
+              <small>(<%= contact.completed_needs_count %> completed)</small>
             <% end %>
           <% end %>
         </td>

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Task, type: :model do
+RSpec.describe Need, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:contact).counter_cache(true) }
     it { is_expected.to belong_to(:user).optional(true) }
@@ -12,15 +12,15 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'scopes' do
-    let!(:uncompleted_task) { create :task }
-    let!(:completed_task) { create :task, :completed }
+    let!(:uncompleted_need) { create :need }
+    let!(:completed_need) { create :need, :completed }
 
     it '.completed' do
-      expect(described_class.uncompleted).to eq [uncompleted_task]
+      expect(described_class.uncompleted).to eq [uncompleted_need]
     end
 
     it '.uncompleted' do
-      expect(described_class.completed).to eq [completed_task]
+      expect(described_class.completed).to eq [completed_need]
     end
   end
 

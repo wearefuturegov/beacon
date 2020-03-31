@@ -8,18 +8,18 @@
 
 <ol class="breadcrumb">
   <li><%= link_to "People", contacts_path %></li>
-  <li><%= link_to @task.contact.first_name, @task.contact %></li>
-  <li><%= link_to "Tasks", tasks_path %></li>
-  <li><%= @task.name %></li>
+  <li><%= link_to @need.contact.first_name, @need.contact %></li>
+  <li><%= link_to "Needs", needs_path %></li>
+  <li><%= @need.name %></li>
 </ol>
 
-<%= form_with(model: @task, local: true) do |form| %>
-  <% if @task.errors.any? %>
+<%= form_with(model: @need, local: true) do |form| %>
+  <% if @need.errors.any? %>
     <div class="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+      <h2><%= pluralize(@need.errors.count, "error") %> prohibited this need from being saved:</h2>
 
       <ul>
-        <% @task.errors.full_messages.each do |message| %>
+        <% @need.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>

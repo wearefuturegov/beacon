@@ -1,4 +1,4 @@
-class Task < ApplicationRecord
+class Need < ApplicationRecord
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
   has_many :notes, dependent: :destroy
@@ -9,10 +9,10 @@ class Task < ApplicationRecord
   scope :uncompleted, -> { where(completed_on: nil)  }
 
   counter_culture :contact,
-                  column_name: proc { |model| model.completed_on ? 'completed_tasks_count' : 'uncompleted_tasks_count' },
+                  column_name: proc { |model| model.completed_on ? 'completed_needs_count' : 'uncompleted_needs_count' },
                   column_names: {
-                    Task.uncompleted => :uncompleted_tasks_count,
-                    Task.completed => :completed_tasks_count
+                    Need.uncompleted => :uncompleted_needs_count,
+                    Need.completed => :completed_needs_count
                   }
 
 

@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<div class="tabs">
+  <div class="tabs__tab tabs__tab--current">Just mine</div>
+  <%= link_to "All", needs_path, controller: :needs, class: "tabs__tab" %>
+</div>
+
+<div class="page-header">
+  <h1 class="page-title">My Needs (<%= @needs.length %>)</h1>
+</div>
+
+<%= render 'shared/needs_table', needs: @needs %>
+<%= javascript_pack_tag 'datatables' %>

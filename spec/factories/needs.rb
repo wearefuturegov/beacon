@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :task do
+  factory :need do
     contact
     user
 

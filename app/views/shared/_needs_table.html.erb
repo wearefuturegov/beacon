@@ -1,5 +1,5 @@
 <div class="table-holder">
-  <table class="table tasks-table">
+  <table class="table needs-table">
     <thead>
     <tr>
       <th>Assigned to</th>
@@ -12,23 +12,23 @@
     </tr>
     </thead>
     <tbody>
-    <% tasks.each do |task| %>
+    <% needs.each do |need| %>
       <tr>
-        <% if task.user %>
-          <td><%= task.user_name %></td>
+        <% if need.user %>
+          <td><%= need.user_name %></td>
         <% else %>
           <td>Unassigned</td>
         <% end %>
-        <td><%= link_to(task.contact_name, contact_path(task.contact.id)) %></td>
-        <td><%= link_to task.name, task %></td>
-        <td><%= status(task.completed_on) %></td>
+        <td><%= link_to(need.contact_name, contact_path(need.contact.id)) %></td>
+        <td><%= link_to need.name, need %></td>
+        <td><%= status(need.completed_on) %></td>
         <td>
-          <% if task.contact_is_vulnerable %>
+          <% if need.contact_is_vulnerable %>
             Vulnerable
           <% end %>
         </td>
-        <td><%= task.category %>
-        <td><%= format_datetime(task.created_at) %></td>
+        <td><%= need.category %>
+        <td><%= format_datetime(need.created_at) %></td>
       </tr>
     <% end %>
     </tbody>
@@ -42,13 +42,13 @@
       </th>
       <th></th>
       <th>
-        <%= select_tag("search_status", options_for_select(task_statuses), prompt: 'Select a status') %>
+        <%= select_tag("search_status", options_for_select(need_statuses), prompt: 'Select a status') %>
       </th>
       <th>
-        <%= select_tag("search_is_vulnerable", options_for_select(task_is_vulnerable_options), prompt: 'Select a vulnerable option')  %>
+        <%= select_tag("search_is_vulnerable", options_for_select(need_is_vulnerable_options), prompt: 'Select a vulnerable option')  %>
       </th>
       <th>
-        <%= select_tag("search_category", options_for_select(task_categories), prompt: 'Select a category')  %>
+        <%= select_tag("search_category", options_for_select(need_categories), prompt: 'Select a category')  %>
       </th>
       <th></th>
     </tr>

@@ -8,26 +8,26 @@
 
 <ol class="breadcrumb">
   <li><%= link_to "People", contacts_path %></li>
-  <li><%= link_to @task.contact.first_name, @task.contact %></li>
-  <li><%= link_to "Tasks", tasks_path %></li>
-  <li><%= @task.name %></li>
+  <li><%= link_to @need.contact.first_name, @need.contact %></li>
+  <li><%= link_to "Needs", needs_path %></li>
+  <li><%= @need.name %></li>
 </ol>
 
-<h1 class="page-title"><%= @task.name %></h1>
+<h1 class="page-title"><%= @need.name %></h1>
 
 <table class="table">
   <tbody>
     <tr>
-      <td><%= @task.name %></td>
-      <td><%= @task.completed_on.present? ? 'Complete' : 'Incomplete' %></td>
-      <% if @task.user %>
-        <td>Assigned to <%= @task.user.name_or_email %></td>
+      <td><%= @need.name %></td>
+      <td><%= @need.completed_on.present? ? 'Complete' : 'Incomplete' %></td>
+      <% if @need.user %>
+        <td>Assigned to <%= @need.user.name_or_email %></td>
       <% else %>
         <td>Unassigned</td>
       <% end %>
-      <td><%= @task.category %></td>
-      <td><%= @task.due_by.strftime("%d/%m/%Y %I:%M%p") %></td>
-      <td><%= link_to 'Edit', edit_task_path(@task) %></td>
+      <td><%= @need.category %></td>
+      <td><%= @need.due_by.strftime("%d/%m/%Y %I:%M%p") %></td>
+      <td><%= link_to 'Edit', edit_need_path(@need) %></td>
     </tr>
   </tbody>
 </table>
@@ -74,10 +74,10 @@
 </div>
 
 <table class="table">
-  <% @task.notes.each do |note| %>
+  <% @need.notes.each do |note| %>
     <tbody>
     <tr>
-      <td style="vertical-align: top"><%= "Previous notes:" if note == @task.notes.first %></td>
+      <td style="vertical-align: top"><%= "Previous notes:" if note == @need.notes.first %></td>
       <td><%= note.user.name_or_email %></td>
       <td><%= note.body %></td>
     </tr>
@@ -85,7 +85,7 @@
   </tbody>
 </table>
 
-<%= form_with(model: [@task, @task.notes.build], local: true) do |form| %>
+<%= form_with(model: [@need, @need.notes.build], local: true) do |form| %>
   <p>
     <%= form.label 'Add a note' %><br>
     <%= form.text_area :body, class: 'note-textarea'%>

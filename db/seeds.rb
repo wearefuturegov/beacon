@@ -19,7 +19,7 @@ ActiveRecord::Base.transaction do
 
       contacts.first(10).each do |contact|
         [1, 2, 3].sample.times do
-          FactoryBot.create :task,
+          FactoryBot.create :need,
                             contact: contact,
                             user: user,
                             category: %w(Food Medicine Other).sample,
