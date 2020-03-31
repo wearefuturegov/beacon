@@ -20,7 +20,7 @@
           <td>Unassigned</td>
         <% end %>
         <td><%= link_to(task.contact_name, contact_path(task.contact.id)) %></td>
-        <td><%= task.name %></td>
+        <td><%= link_to task.name, task %></td>
         <td><%= status(task.completed_on) %></td>
         <td><%= task.contact_priority %></td>
         <td><%= task.category %>

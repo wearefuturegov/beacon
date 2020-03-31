@@ -79,6 +79,7 @@
     <tbody>
     <tr>
       <td style="vertical-align: top"><%= "Previous notes:" if note == @task.notes.first %></td>
+      <td><%= note.user.name_or_email %></td>
       <td><%= note.body %></td>
     </tr>
   <% end %>
