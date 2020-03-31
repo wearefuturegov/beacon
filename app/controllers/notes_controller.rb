@@ -1,5 +1,4 @@
 class NotesController < ApplicationController
-
   def create
     @contact = Contact.find(params[:contact_id])
     @note = @contact.notes.create(note_params)
