@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   belongs_to :organisation, optional: true
   has_many :contact_list_users
+  has_many :notes
   has_many :contact_lists, through: :contact_list_users
   has_many :contacts, through: :contact_lists
   has_many :tasks, dependent: :destroy
