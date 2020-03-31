@@ -1,4 +1,6 @@
 class NotesController < ApplicationController
+  before_action :require_user!
+
   def create
     @contact = Contact.find(params[:contact_id])
     @note = @contact.notes.create(note_params)

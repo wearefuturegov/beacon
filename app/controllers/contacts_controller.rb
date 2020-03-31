@@ -1,4 +1,5 @@
 class ContactsController < ApplicationController
+  before_action :require_user!
   before_action :set_contact, only: [:edit, :update, :show, :show_tasks]
 
   def index
