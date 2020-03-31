@@ -55,7 +55,7 @@
         </div>
         <div class="field">
           <%= form.label 'Category' %><br>
-          <%= form.select "category", options_for_select(%w(food medicine)) %>
+          <%= form.select "category", options_for_select(task_categories) %>
         </div>
         <div class="field">
           <%= form.label 'Due by' %><br>
