@@ -1,11 +1,11 @@
 default: &default
   hackney:
-    support_email: "support@hackney.gov.uk"
+    support_email: "help@beacon.support"
     copyright_notice: "© 2020 Hackney Council"
     logo_path: "hackney.svg"
 
   camden:
-    support_email: "support@camden.gov.uk"
+    support_email: "help@beacon.support"
     copyright_notice: "© 2020 Camden Council"
     logo_path: "camden.svg"
 

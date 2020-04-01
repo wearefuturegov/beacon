@@ -12,14 +12,6 @@ RSpec.describe Contact, type: :model do
     it { is_expected.to validate_presence_of :first_name }
   end
 
-  it '.priority' do
-    expect(subject)
-      .to define_enum_for(:priority)
-      .with_values(low: 'low', medium: 'medium', high: 'high')
-      .backed_by_column_of_type(:string)
-      .with_suffix
-  end
-
   it { is_expected.to be_versioned }
 
   it '#name' do

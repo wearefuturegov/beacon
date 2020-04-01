@@ -1,6 +1,6 @@
 const $  = require( 'jquery' );
 const dt = require('datatables.net-dt');
-require('datatables.net-dt/css/jquery.dataTables.css');
+// require('datatables.net-dt/css/jquery.dataTables.css');
 
 $(document).ready(() => {
     if ($(".dataTables_wrapper").length > 0) return;

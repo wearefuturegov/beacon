@@ -31,3 +31,12 @@ ActiveRecord::Base.transaction do
 
   puts "Finished seeding the database."
 end
+
+# make an initial user for sake of the readme
+User.create(
+  email: "admin@example.com",
+  first_name: "Example",
+  last_name: "User",
+  admin: true,
+  invited: "2020-03-25 00:00:00"
+)

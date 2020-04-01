@@ -1,13 +1,13 @@
 class NotesController < ApplicationController
   def create
-    @contact = Contact.find(params[:contact_id])
-    @note = @contact.notes.create(note_params)
-    redirect_to contact_path(@contact)
+    @task = Task.find(params[:task_id])
+    @note = @task.notes.create(note_params.merge(user: current_user))
+    redirect_to task_path(@task)
   end
 
   private
+
   def note_params
     params.require(:note).permit(:body)
   end
-
 end

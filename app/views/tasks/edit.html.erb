@@ -1,3 +1,9 @@
+<% if @contact.is_vulnerable %>
+  <div class="vulnerable-banner">
+    <div class="container"><%= image_tag "exclamation.svg", alt: "" %> This is a vulnerable person</div>
+  </div>
+<% end %>
+
 <% if notice %>
   <p class="notice"><%= notice %></p>
 <% end %>
@@ -73,11 +79,6 @@
 
   </div>
   <div class="contact-profile__right">
-    <div class="contact-profile__row">
-      <strong>Priority</strong>
-      <%= @contact.priority %>
-    </div>
-
     <div class="contact-profile__row">
       <strong>Needs:</strong>
       PLACEHOLDER

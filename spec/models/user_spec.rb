@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:contact_lists).through(:contact_list_users) }
     it { is_expected.to have_many(:contacts).through(:contact_lists) }
     it { is_expected.to have_many(:tasks).dependent(:destroy) }
+    it { is_expected.to have_many(:notes).dependent(:destroy) }
     it { is_expected.to have_many(:assigned_contacts).through(:tasks).source(:contact) }
     it { is_expected.to have_many(:uncompleted_tasks).conditions(completed_on: nil) }
     it { is_expected.to have_many(:completed_tasks).conditions('completed_on IS NOT NULL') }

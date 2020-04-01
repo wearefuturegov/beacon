@@ -6,11 +6,18 @@
     <header class="site-header">
       <div class="site-header__inner container">
 
-        <%= link_to image_tag('logo.svg'), root_path, alt: "Camden Council", class: "site-header__logo" %>
+        <%= link_to image_tag('logo-camden.svg'), root_path, alt: "Camden Council", class: "site-header__logo" %>
 
         <nav class="site-header__nav">
           <ul class="site-header__links">
-            <li class="site-header__link"><%= link_to_unless_current 'Tasks', tasks_path, controller: :tasks %></li>
+            <li class="site-header__link site-header__link--has-submenu">
+              <%= link_to_unless_current 'Tasks', tasks_path, controller: :tasks %>
+              <ul class="site-header__submenu">
+                <li class="site-header__submenu-link"><a href="#">Example</a></li>
+                <li class="site-header__submenu-link"><a href="#">Example</a></li>
+                <li class="site-header__submenu-link"><a href="#">Example</a></li>
+              </ul>
+            </li>
             <li class="site-header__link"><%= link_to_unless_current 'People', contacts_path, controller: :contacts %></li>
             <li class="site-header__link"><%= link_to_unless_current 'Users', users_path, controller: :users %></li>
           </ul>
@@ -44,9 +51,9 @@
 
     <footer class="site-footer">
       <div class="container">
-        <p class="site-footer__notice">© 2020 Council name here</p>
+        <p class="site-footer__notice">© 2020 Camden Council</p>
         <nav class="site-footer__menu">
-          <a class="site-footer__link" href="#">Privacy & cookies</a>
+          <a class="site-footer__link" href="https://www.camden.gov.uk/data-protection-privacy-and-cookies">Privacy & cookies</a>
           <a class="site-footer__link" href="https://docs.google.com/forms/d/e/1FAIpQLSd-YKjZ_2lToYJiwgJM06AnU1crd1BwDQvidLecnetkDENlgw/viewform?usp=sf_link">Give feedback on this service</a>
         </nav>
       </div>

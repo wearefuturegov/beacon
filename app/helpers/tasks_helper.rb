@@ -7,8 +7,8 @@ module TasksHelper
     ['To do', 'Completed']
   end
 
-  def task_priorities
-    %w(High Medium Low)
+  def task_is_vulnerable_options
+    ['Vulnerable']
   end
 
   def task_categories

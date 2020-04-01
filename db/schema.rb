@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_123258) do
+ActiveRecord::Schema.define(version: 2020_03_31_192200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,14 +43,12 @@ ActiveRecord::Schema.define(version: 2020_03_31_123258) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "contact_list_id"
-    t.string "priority"
     t.integer "tasks_count", default: 0
     t.integer "uncompleted_tasks_count", default: 0
     t.integer "completed_tasks_count", default: 0
     t.text "email"
     t.string "additional_info"
     t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
-    t.index ["priority"], name: "index_contacts_on_priority"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -58,7 +56,9 @@ ActiveRecord::Schema.define(version: 2020_03_31_123258) do
     t.bigint "task_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
     t.index ["task_id"], name: "index_notes_on_task_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 2020_03_31_123258) do
   add_foreign_key "contact_list_users", "users"
   add_foreign_key "contacts", "contact_lists"
   add_foreign_key "notes", "tasks"
+  add_foreign_key "notes", "users"
   add_foreign_key "taggings", "tags"
   add_foreign_key "tasks", "contacts"
   add_foreign_key "tasks", "users"

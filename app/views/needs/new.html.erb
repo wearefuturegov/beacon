@@ -1,0 +1,43 @@
+<ol class="breadcrumb">
+  <li><%= link_to "People in need", contacts_path %></li>
+  <li><%= link_to "Needs", contacts_path %></li>
+  <li>Add needs</li>
+</ol>
+
+<div class="page-header">
+  <h1 class="page-title">Add needs</h1>
+</div>
+
+<%= form_with(model: [@contacts, @needs], url: contact_needs_path, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
+  <% needs.each_with_index do |need, index| %>
+    <fieldset class="field-section">
+      <%= form.hidden_field "needs_list[#{index}][name]", :value => need.parameterize.underscore, :id => "needs_name_#{index}" %>
+      
+      <legend class="field-section__title"><%= need %></legend>
+      
+      <div class="radio">
+        <%= form.radio_button "needs_list[#{index}][active]", true, :id => "needs_active_#{index}_true" %>
+        <label for="needs_active_<%= index %>_true" class="radio__label">Yes</label>
+      </div>
+      
+      <div class="radio">
+        <%= form.radio_button "needs_list[#{index}][active]", false, :id => "needs_active_#{index}_false" %>
+        <label for="needs_active_<%= index %>_false" class="radio__label">No</label>
+      </div>
+
+      <div class="field">
+        <label for="<%= "needs_desc_#{index}" %>" class="field__label">Describe more about how we can help</label>
+        <%= form.text_area "needs_list[#{index}][description]", :id => "needs_desc_#{index}" %>
+      </div>
+    </fieldset>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :other_need, class: "field__label" %>
+    <%= form.text_field :other_need %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Add needs" %>
+  </div>
+<% end %>

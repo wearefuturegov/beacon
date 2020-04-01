@@ -1,75 +1,102 @@
-<% if notice %>
-  <p class="notice"><%= notice %></p>
-<% end %>
 
-<ol class="breadcrumb">
-  <li><%= link_to "People", contacts_path %></li>
-  <li><%= link_to @task.contact.first_name, @task.contact %></li>
-  <li><%= link_to "Tasks", tasks_path %></li>
-  <li><%= @task.name %></li>
-</ol>
+    <% if @contact.is_vulnerable %>
+      <div class="vulnerable-banner">
+        <div class="container"><%= image_tag "exclamation.svg", alt: "" %> This is a vulnerable person</div>
+      </div>
+    <% end %>
 
-<h1 class="page-title"><%= @task.name %></h1>
+    <% if notice %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
 
-<table class="table">
-  <tbody>
-    <tr>
-      <td><%= @task.name %></td>
-      <td><%= @task.completed_on.present? ? 'Complete' : 'Incomplete' %></td>
-      <% if @task.user %>
-        <td>Assigned to <%= @task.user.name_or_email %></td>
-      <% else %>
-        <td>Unassigned</td>
-      <% end %>
-      <td><%= @task.category %></td>
-      <td><%= @task.due_by.strftime("%d/%m/%Y %I:%M%p") %></td>
-      <td><%= link_to 'Edit', edit_task_path(@task) %></td>
-    </tr>
-  </tbody>
-</table>
+    <ol class="breadcrumb">
+      <li><%= link_to "People", contacts_path %></li>
+      <li><%= link_to @task.contact.name, @task.contact %></li>
+      <li><%= @task.name %></li>
+    </ol>
 
-<hr>
-
-<h2>For <%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h2>
-
-<div class="contact-profile">
-  <div class="contact-profile__left">
-    <div class="contact-profile__row">
-      <strong>Address</strong><span><%= @contact.address %></span>
+    <div class="page-header">
+      <h1 class="page-title"><%= @task.name %></h1>
     </div>
 
-    <div class="contact-profile__row">
-      <strong>Phone:</strong>
-      <%= @contact.telephone %>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td><%= @task.name %></td>
+          <td><%= @task.completed_on.present? ? 'Complete' : 'Incomplete' %></td>
+          <% if @task.user %>
+            <td>Assigned to <%= @task.user.name_or_email %></td>
+          <% else %>
+            <td>Unassigned</td>
+          <% end %>
+          <td><%= @task.category %></td>
+          <td><%= @task.due_by.strftime("%d/%m/%Y %I:%M%p") %></td>
+          <td><%= link_to 'Edit', edit_task_path(@task) %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2>For <%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h2>
+
+    <div class="contact-profile">
+      <div class="contact-profile__left">
+        <div class="contact-profile__row">
+          <strong>Address</strong><span><%= @contact.address %></span>
+        </div>
+
+        <div class="contact-profile__row">
+          <strong>Phone:</strong>
+          <%= @contact.telephone %>
+        </div>
+
+        <div class="contact-profile__row">
+          <strong>Mobile:</strong>
+          <%= @contact.mobile %>
+        </div>
+
+        <div class="contact-profile__row">
+          <strong>NHS Number</strong><span>PLACEHOLDER</span>
+        </div>
+
+      </div>
+      <div class="contact-profile__right">
+        <div class="contact-profile__row">
+          <strong>Needs:</strong>
+          PLACEHOLDER
+        </div>
+
+        <div class="contact-profile__row">
+          <strong>Additional Information</strong>
+          PLACEHOLDER
+        </div>
+      </div>
+    </div>
+    <div>
+      <%= link_to "More about #{@contact.name}", contact_path(@contact) %>
     </div>
 
-    <div class="contact-profile__row">
-      <strong>Mobile:</strong>
-      <%= @contact.mobile %>
-    </div>
+<section class="notes">
+  <h2>Notes (<%= @task.notes.count %>)</h2>
 
-    <div class="contact-profile__row">
-      <strong>NHS Number</strong><span>PLACEHOLDER</span>
-    </div>
-
+  <div class="notes-list">
+    <% @task.notes.each do |note| %>
+      <div class="note">
+        <header class="note__header">
+          <strong class="note__author"><%= note.user.name_or_email %></strong>
+          <span class="note__created"><%= note.created_at.strftime("%-d %B %Y %k:%M%P") %></span>
+        </header>
+        <p class="two-thirds"><%= note.body %></p>
+      </div>
+    <% end %>
   </div>
-  <div class="contact-profile__right">
-    <div class="contact-profile__row">
-      <strong>Priority</strong>
-      <%= @contact.priority %>
-    </div>
 
-    <div class="contact-profile__row">
-      <strong>Needs:</strong>
-      PLACEHOLDER
+  <%= form_with(model: [@task, @task.notes.build], local: true) do |form| %>
+    <div class="field">
+      <%= form.label :body, 'Add a note', class: "field__label" %>
+      <%= form.text_area :body, class: 'note-textarea' %>
     </div>
-
-    <div class="contact-profile__row">
-      <strong>Additional Information</strong>
-      PLACEHOLDER
-    </div>
-  </div>
-</div>
-<div>
-  <%= link_to "More about #{@contact.name}", contact_path(@contact) %>
-</div>
+    <%= form.submit %>
+  <% end %>
+</section>

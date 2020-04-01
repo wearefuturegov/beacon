@@ -10,10 +10,9 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Assigned</th>
         <th>Name</th>
         <th>Tasks</th>
-        <th>Priority</th>
+        <th>Vulnerable</th>
         <th>Date logged</th>
         <th></th>
         <th></th>
@@ -23,14 +22,21 @@
     <tbody>
     <% @contacts.each do |contact| %>
       <tr>
-        <td></td>
         <td><strong><%= link_to contact.name, contact %></strong></td>
         <td>
-          <%= contact.tasks_count %>
-          <small>(<%= contact.completed_tasks_count %> completed)</small>
+          <% if contact.tasks_count > 0 %>
+            <%= pluralize(contact.uncompleted_tasks_count, 'need') %>
+            <% if contact.completed_tasks_count > 0 %>
+              <small>(<%= contact.completed_tasks_count %> completed)</small>
+            <% end %>
+          <% end %>
         </td>
         <td>
-          <span class="tag"><%= contact.priority %></span>
+          <% if contact.is_vulnerable? %>
+            <%= image_tag "red-tick.svg", alt: "vulnerable" %>
+          <% else %>
+            —
+          <% end %>
         </td>
         <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
       </tr>

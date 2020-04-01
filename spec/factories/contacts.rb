@@ -9,14 +9,7 @@ FactoryBot.define do
     postcode { Faker::Address.postcode }
     telephone { Faker::PhoneNumber.phone_number }
     mobile { Faker::PhoneNumber.cell_phone }
-    is_vulnerable { true }
-    priority { priorities.sample }
+    is_vulnerable { Faker::Boolean.boolean(true_ratio: 0.3) }
     additional_info {}
-
-    priorities.each do |priority|
-      trait "#{priority}_priority" do
-        priority { priority }
-      end
-    end
   end
 end

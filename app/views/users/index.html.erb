@@ -22,7 +22,7 @@
     <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.email %></td>
+        <td><strong><%= user.email %></strong></td>
         <td><%= time_ago_in_words(user.invited) %> ago</td>
         <% if user.last_logged_in %>
           <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>
@@ -31,7 +31,7 @@
         <% end %>
         <td><%= user.role_title %></td>
         <td><%= link_to 'Remove', user_path(user),
-                        data: {:confirm => 'Are you sure?'}, :method => :delete %></td>
+                        data: {:confirm => "Are you sure you want to delete this user? They won't be able to log in any more and this can't be undone."}, :method => :delete %></td>
       </tr>
     <% end %>
     </tbody>

@@ -1,8 +1,14 @@
-# I have/I need platform
+# 🔥 Beacon
 
 🚨This is **PRE-ALPHA** and not yet ready for use 🚨
 
 This is a tool for local authorities and voluntary organisations to record and triage the needs of vulnerable people in their jurisdiction, and assign those needs to those who can meet them.
+
+It deals in:
+
+- 👩‍💻 **people in need**, who might be added by contact centre staff
+- ✅ **tasks/needs**, which can be created under a person in need, given a need type and claimed by users
+- 👩‍🔬 **users**, invited by email address whitelisting
 
 It's a rails app backed by a postgresql database.
 
@@ -25,9 +31,11 @@ rails server
 ```
 
 It'll be on **localhost:3000**.
+
+You can log in using **admin@example.com**.
     
 ### How emails work
-When running in development mode, emails are sent to [maildev](https://www.npmjs.com/package/maildev), running via `docker-compose`.
+When running in development mode, [emails](https://guides.rubyonrails.org/action_mailer_basics.html) are sent to [maildev](https://www.npmjs.com/package/maildev), running via `docker-compose`.
 
 Visit **localhost:1080** to view sent emails.
 
