@@ -3,11 +3,14 @@ class ApplicationController < ActionController::Base
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'
-  helper_method :current_user
+  helper_method :current_user, :copyright
 
   before_action :set_paper_trail_whodunnit
 
   private
+    def copyright
+      ENV['COUNCIL_COPYRIGHT'] || '© 2020 Abc Council'
+    end
 
     def current_user
       @current_user ||= authenticate_by_session(User)
