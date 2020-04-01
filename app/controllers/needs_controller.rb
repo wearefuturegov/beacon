@@ -1,10 +1,19 @@
 class NeedsController < ApplicationController
+  include ParamsConcern
   before_action :set_need, only: [:show, :edit, :update]
   before_action :set_contact, only: [:new, :create]
+
+  helper_method :get_param
 
   def index
     @users = User.all
     @needs = Need.includes(:contact, :user)
+    if params['search_user'].present?
+      selected_user = User.find(params['search_user'])
+      @needs = selected_user.needs.includes(:contact, :user).page(params[:page])
+    else      
+      @needs = Need.includes(:contact, :user)
+    end
   end
 
   def show
