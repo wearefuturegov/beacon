@@ -10,19 +10,19 @@ class ApplicationController < ActionController::Base
   private
 
     def load_council_config
-      Rails.configuration.councils[ENV['council'] || 'demo']
+      Rails.configuration.councils[ENV['council'] || :demo]
     end
 
     def council_name
-      load_council_config['name']
+      load_council_config[:name]
     end
     
     def copyright
-      load_council_config['copyright_notice']
+      load_council_config[:copyright_notice]
     end
 
     def privacy_link
-      load_council_config['privacy_link']
+      load_council_config[:privacy_link]
     end
 
     def current_user
