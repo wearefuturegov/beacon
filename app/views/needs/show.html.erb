@@ -11,27 +11,27 @@
 
     <ol class="breadcrumb">
       <li><%= link_to "People", contacts_path %></li>
-      <li><%= link_to @task.contact.name, @task.contact %></li>
-      <li><%= @task.name %></li>
+      <li><%= link_to @need.contact.name, @need.contact %></li>
+      <li><%= @need.name %></li>
     </ol>
 
     <div class="page-header">
-      <h1 class="page-title"><%= @task.name %></h1>
+      <h1 class="page-title"><%= @need.name %></h1>
     </div>
 
     <table class="table">
       <tbody>
         <tr>
-          <td><%= @task.name %></td>
-          <td><%= @task.completed_on.present? ? 'Complete' : 'Incomplete' %></td>
-          <% if @task.user %>
-            <td>Assigned to <%= @task.user.name_or_email %></td>
+          <td><%= @need.name %></td>
+          <td><%= @need.completed_on.present? ? 'Complete' : 'Incomplete' %></td>
+          <% if @need.user %>
+            <td>Assigned to <%= @need.user.name_or_email %></td>
           <% else %>
             <td>Unassigned</td>
           <% end %>
-          <td><%= @task.category %></td>
-          <td><%= @task.due_by.strftime("%d/%m/%Y %I:%M%p") %></td>
-          <td><%= link_to 'Edit', edit_task_path(@task) %></td>
+          <td><%= @need.category %></td>
+          <td><%= @need.due_by.strftime("%d/%m/%Y %I:%M%p") %></td>
+          <td><%= link_to 'Edit', edit_need_path(@need) %></td>
         </tr>
       </tbody>
     </table>
@@ -78,10 +78,10 @@
     </div>
 
 <section class="notes">
-  <h2>Notes (<%= @task.notes.count %>)</h2>
+  <h2>Notes (<%= @need.notes.count %>)</h2>
 
   <div class="notes-list">
-    <% @task.notes.each do |note| %>
+    <% @need.notes.each do |note| %>
       <div class="note">
         <header class="note__header">
           <strong class="note__author"><%= note.user.name_or_email %></strong>
@@ -92,7 +92,7 @@
     <% end %>
   </div>
 
-  <%= form_with(model: [@task, @task.notes.build], local: true) do |form| %>
+  <%= form_with(model: [@need, @need.notes.build], local: true) do |form| %>
     <div class="field">
       <%= form.label :body, 'Add a note', class: "field__label" %>
       <%= form.text_area :body, class: 'note-textarea' %>

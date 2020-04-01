@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :note do
-    task
+    need
     user
     body { Faker::Lorem.sentence }
   end

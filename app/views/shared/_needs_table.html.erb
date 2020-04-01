@@ -1,0 +1,56 @@
+<table class="table needs-table">
+  <thead>
+  <tr>
+    <th>Assigned to</th>
+    <th>Person</th>
+    <th>Need</th>
+    <th>Status</th>
+    <th>Vulnerable</th>
+    <th>Category</th>
+    <th>Date logged</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% needs.each do |need| %>
+    <tr>
+      <% if need.user %>
+        <td><%= need.user_name %></td>
+      <% else %>
+        <td>Unassigned</td>
+      <% end %>
+      <td><%= link_to(need.contact_name, contact_path(need.contact.id)) %></td>
+      <td><strong><%= link_to need.name, need %></strong></td>
+      <td><%= status(need.completed_on) %></td>
+      <td>
+        <% if need.contact_is_vulnerable %>
+          <%= image_tag "red-tick.svg", alt: "vulnerable" %>
+        <% else %>
+          —
+        <% end %>
+      </td>
+      <td><%= need.category %>
+      <td><%= format_datetime(need.created_at) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot>
+  <tr>
+    <th>
+      <%= select_tag("search_user", options_from_collection_for_select(@users, :id, :name_or_email), prompt: 'Select a user')  %>
+    </th>
+    <th>
+    </th>
+    <th></th>
+    <th>
+      <%= select_tag("search_status", options_for_select(need_statuses), prompt: 'Select a status') %>
+    </th>
+    <th>
+      <%= select_tag("search_is_vulnerable", options_for_select(need_is_vulnerable_options), prompt: 'Select a vulnerable option')  %>
+    </th>
+    <th>
+      <%= select_tag("search_category", options_for_select(need_categories), prompt: 'Select a category')  %>
+    </th>
+    <th></th>
+  </tr>
+  </tfoot>
+</table>

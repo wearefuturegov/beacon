@@ -5,7 +5,7 @@ const dt = require('datatables.net-dt');
 $(document).ready(() => {
     if ($(".dataTables_wrapper").length > 0) return;
 
-    const element = $('.tasks-table').first();
+    const element = $('.needs-table').first();
     const table = element.DataTable();
 
     document.addEventListener("turbolinks:before-cache", function() {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_192200) do
+ActiveRecord::Schema.define(version: 2020_03_31_204313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,21 +43,34 @@ ActiveRecord::Schema.define(version: 2020_03_31_192200) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "contact_list_id"
-    t.integer "tasks_count", default: 0
-    t.integer "uncompleted_tasks_count", default: 0
-    t.integer "completed_tasks_count", default: 0
+    t.integer "needs_count", default: 0
+    t.integer "uncompleted_needs_count", default: 0
+    t.integer "completed_needs_count", default: 0
     t.text "email"
     t.string "additional_info"
     t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
   end
 
+  create_table "needs", force: :cascade do |t|
+    t.bigint "contact_id", null: false
+    t.bigint "user_id"
+    t.string "name", null: false
+    t.datetime "due_by"
+    t.datetime "completed_on"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "category"
+    t.index ["contact_id"], name: "index_needs_on_contact_id"
+    t.index ["user_id"], name: "index_needs_on_user_id"
+  end
+
   create_table "notes", force: :cascade do |t|
     t.text "body", null: false
-    t.bigint "task_id", null: false
+    t.bigint "need_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.index ["task_id"], name: "index_notes_on_task_id"
+    t.index ["need_id"], name: "index_notes_on_need_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
@@ -111,19 +124,6 @@ ActiveRecord::Schema.define(version: 2020_03_31_192200) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "tasks", force: :cascade do |t|
-    t.bigint "contact_id", null: false
-    t.bigint "user_id"
-    t.string "name", null: false
-    t.datetime "due_by"
-    t.datetime "completed_on"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "category"
-    t.index ["contact_id"], name: "index_tasks_on_contact_id"
-    t.index ["user_id"], name: "index_tasks_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -152,10 +152,10 @@ ActiveRecord::Schema.define(version: 2020_03_31_192200) do
   add_foreign_key "contact_list_users", "contact_lists"
   add_foreign_key "contact_list_users", "users"
   add_foreign_key "contacts", "contact_lists"
-  add_foreign_key "notes", "tasks"
+  add_foreign_key "needs", "contacts"
+  add_foreign_key "needs", "users"
+  add_foreign_key "notes", "needs"
   add_foreign_key "notes", "users"
   add_foreign_key "taggings", "tags"
-  add_foreign_key "tasks", "contacts"
-  add_foreign_key "tasks", "users"
   add_foreign_key "users", "organisations"
 end
