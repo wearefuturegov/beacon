@@ -10,7 +10,7 @@ class NeedsController < ApplicationController
     @needs = Need.includes(:contact, :user)
     if params['search_user'].present?
       selected_user = User.find(params['search_user'])
-      @needs = selected_user.tasks.includes(:contact, :user).page(params[:page])
+      @needs = selected_user.needs.includes(:contact, :user).page(params[:page])
     else      
       @needs = Need.includes(:contact, :user)
     end
