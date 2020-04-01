@@ -24,7 +24,7 @@
         <!-- has to be empty -->
       </th>
       <th>
-        <%= select_tag("category", options_for_select(need_categories, :selected => get_param_capitalized('category')), prompt: 'Select a category') %>
+        <%= select_tag("category", content_tag(:option,'Other',:value => "Other", :selected => params["category"] == "Other") + options_for_select(needs, :selected => get_param_capitalized('category')), prompt: 'Select a category') %>
       </th>
       <th>
         <!-- has to be empty -->
