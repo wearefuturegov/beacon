@@ -6,11 +6,13 @@ class NeedsController < ApplicationController
   helper_method :get_param
 
   def index
+    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit)
     @users = User.all
-    @needs = Need.includes(:contact, :user).page(params[:page])
+    @needs = Need.includes(:contact, :user)
     @needs = @needs.filter_by_category(params[:category]) if params[:category].present?
     @needs = @needs.filter_by_user_id(params[:user_id]) if params[:user_id].present?
     @needs = @needs.filter_by_status(params[:status]) if params[:status].present?
+    @needs = @needs.order("#{params[:order]} #{params[:order_dir]}") if params[:order].present? && params[:order_dir].present?
     @needs = @needs.page(params[:page])
   end
 
