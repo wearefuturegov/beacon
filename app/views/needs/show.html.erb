@@ -1,83 +1,88 @@
+<% if @contact.is_vulnerable %>
+  <div class="vulnerable-banner">
+    <div class="container"><%= image_tag "exclamation.svg", alt: "" %> This is a vulnerable person</div>
+  </div>
+<% end %>
 
-    <% if @contact.is_vulnerable %>
-      <div class="vulnerable-banner">
-        <div class="container"><%= image_tag "exclamation.svg", alt: "" %> This is a vulnerable person</div>
+<% if notice %>
+  <p class="notice"><%= notice %></p>
+<% end %>
+
+<ol class="breadcrumb">
+  <li><%= link_to "People in need", contacts_path %></li>
+  <li>Person</li>
+</ol>
+
+<div class="tabs">
+  <div class="tabs__tab"><%= link_to 'Profile' , @need.contact %></div>
+  <%= link_to "#{@contact.first_name}'s Needs (#{@contact.needs.count})", contact_needs_path(@contact), class: 'tabs__tab tabs__tab--current' %>
+</div>
+
+<div class="page-header page-header--with-button">
+  <h1 class="page-title"><%= @need.category.humanize %></h1>
+  <%= link_to 'Edit need', edit_need_path(@need), class: 'button pull-right' %>
+</div>
+
+<div class="contact-profile">
+  <div class="contact-profile__left">
+    <div class="contact-profile__row">
+      <strong>Assigned to</strong>
+      <span>
+        <% if @need.user %>
+          <%= @need.user.name_or_email %>
+        <% else %>
+          Unassigned
+        <% end %>
+      </span>
+    </div>
+    <div class="contact-profile__row">
+      <strong>Status</strong>
+      <span><%= @need.status %></span>
+    </div>
+    <div class="contact-profile__row">
+      <strong>Description</strong>
+      <span><%= @need.name %></span>
+    </div>
+  </div>
+  <div class="contact-profile__right">
+    <div class="contact-profile__right__title">
+      <span>Profile</span>
+    </div>
+    <div class="contact-profile__row">
+      <strong>Address:</strong>
+      <%= @contact.address %>
+    </div>
+
+    <% if @contact.telephone %>
+      <div class="contact-profile__row">
+        <strong>Phone:</strong>
+        <%= @contact.telephone %>
       </div>
     <% end %>
 
-    <% if notice %>
-      <p class="notice"><%= notice %></p>
+    <% if @contact.mobile %>
+      <div class="contact-profile__row">
+        <strong>Mobile:</strong>
+        <%= @contact.mobile %>
+      </div>
     <% end %>
 
-    <div class="tabs">
-      <%= link_to "#{@contact.first_name}'s Needs (#{@contact.needs.count})", contact_needs_path(@contact), class: 'tabs__tab tabs__tab--current' %>
-      <div class="tabs__tab"><%= link_to 'Profile' , @need.contact %></div>
-      <div class="tabs__tab tabs__tab--edit"><%= link_to 'Edit' , edit_need_path(@need) %></div>
-    </div>
-
-    <div class="go-back"><%= link_to 'Back' , contact_needs_path(@contact) %></div>
-
-    <table class="table">
-      <thead>
-      <tr>
-        <td>Created on</td>
-        <td>Assigned to</td>
-        <td>Status</td>
-      </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="need__created"><%= @need.created_at.strftime("%d/%m/%Y") %></td>
-
-          <% if @need.user %>
-            <td><%= @need.user.name_or_email %></td>
-          <% else %>
-            <td>Unassigned</td>
-          <% end %>
-          <td><%= @need.status %></td>
-
-        </tr>
-      </tbody>
-    </table>
-
-    <div>Need</div>
-
-    <div class="page-header">
-      <h1 class="page-title"><%= @need.category %></h1>
-    </div>
-
-
-
-    <div class="contact-profile">
-      <div class="contact-profile__left">
-        <div class="contact-profile__row">
-          <strong>Description</strong><span><%= @need.name %></span>
-        </div>
+    <% if @contact.additional_info %>
+      <div class="contact-profile__row">
+        <strong>Additional info:</strong>
+        <%= @contact.additional_info %>
       </div>
-    </div>
-    Profile info
-    <hr>
-
-    <div class="contact-profile">
-      <div class="contact-profile__left">
-        <div class="contact-profile__row">
-          <strong>Name</strong><span><%= @contact.name %></span>
-        </div>
-
-        <div class="contact-profile__row">
-          <strong>Tel.</strong><%= @contact.telephone %>
-        </div>
-
-        <div class="contact-profile__row">
-          <strong>Additional Info:</strong>
-          <%= @contact.additional_info %>
-        </div>
-
-      </div>
-    </div>
+    <% end %>
+  </div>
+</div>
 
 <section class="notes">
-  <h2>Notes (<%= @need.notes.count %>)</h2>
+  <h2>
+    Notes
+    <% if @need.notes.count > 0 %>
+      (<%= @need.notes.count %>)
+    <% end %>
+  </h2>
 
   <%= form_with(model: [@need, @need.notes.build], local: true) do |form| %>
     <div class="field">
