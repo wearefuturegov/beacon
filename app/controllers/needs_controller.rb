@@ -7,13 +7,11 @@ class NeedsController < ApplicationController
 
   def index
     @users = User.all
-    @needs = Need.includes(:contact, :user)
-    if params['search_user'].present?
-      selected_user = User.find(params['search_user'])
-      @needs = selected_user.needs.includes(:contact, :user).page(params[:page])
-    else      
-      @needs = Need.includes(:contact, :user)
-    end
+    @needs = Need.includes(:contact, :user).page(params[:page])
+    @needs = @needs.filter_by_category(params[:category]) if params[:category].present?
+    @needs = @needs.filter_by_user_id(params[:user_id]) if params[:user_id].present?
+    @needs = @needs.filter_by_status(params[:status]) if params[:status].present?
+    @needs = @needs.page(params[:page])
   end
 
   def show
