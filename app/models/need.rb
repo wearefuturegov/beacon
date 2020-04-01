@@ -8,7 +8,13 @@ class Need < ApplicationRecord
   scope :completed, -> { where.not(completed_on: nil) }
   scope :uncompleted, -> { where(completed_on: nil) }
   scope :filter_by_category, -> (category) { where(category: category) }
-  scope :filter_by_user_id, -> (user_id) { where(user_id: user_id) }
+  scope :filter_by_user_id, -> (user_id) do
+    if user_id == "Unassigned"
+      where(user_id: nil)
+    else
+      where(user_id: user_id)
+    end
+  end
   scope :filter_by_status, -> (status) do
     status = status.downcase
       if status == 'to do'
