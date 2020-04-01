@@ -29,7 +29,7 @@
           <% else %>
             <td>Unassigned</td>
           <% end %>
-          <td><%= @need.category %></td>
+          <td><%= @need.category.humanize %></td>
           <td><%= @need.due_by.strftime("%d/%m/%Y %I:%M%p") %></td>
           <td><%= link_to 'Edit', edit_need_path(@need) %></td>
         </tr>
