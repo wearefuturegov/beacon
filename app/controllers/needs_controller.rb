@@ -11,11 +11,11 @@ class NeedsController < ApplicationController
     # temporary static filters to solve performance issues
     if params["needs_list"].present?
       if params["needs_list"] == 'my_to_do'
-        @needs = Need.all.page(params[:page])
+        @needs = Need.where(user_id: current_user.id, completed_on: nil).order(created_at: :desc).page(params[:page])
       elsif params["needs_list"] == 'all_unmet'
-        @needs = Need.all.page(params[:page])
+        @needs = Need.where(user_id: nil, completed_on: nil).order(created_at: :desc).page(params[:page])
       elsif params["needs_list"] == 'all_needs'
-        @needs = Need.all.page(params[:page])
+        @needs = Need.order(created_at: :desc).page(params[:page])
       end
       return
     end
