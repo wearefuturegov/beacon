@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
     def load_council_config
-      Rails.configuration.councils[ENV['council'] || :demo]
+      Rails.configuration.councils[ENV['COUNCIL'] || :demo]
     end
 
     def council_name
