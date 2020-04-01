@@ -16,7 +16,7 @@ class NeedsController < ApplicationController
     if params[:order].present? && params[:order_dir].present?
       sort_column = Need.column_names.include?(params[:order]) ? params[:order] : 'created_at'
       sort_order = %w(asc desc).include?(params[:order_dir].downcase) ? params[:order_dir] : 'desc'
-      @needs = @needs.order("#{sort_column} #{sort_order}") if params[:order].present? && params[:order_dir].present?
+      @needs = @needs.order("#{sort_column} #{sort_order}")
     else
       @needs = @needs.order(created_at: :desc)
     end
