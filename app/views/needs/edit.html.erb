@@ -50,7 +50,7 @@
     </tr>
     </tbody>
   </table>
-<% end %>
+
 
 <div>Need</div>
 
@@ -63,10 +63,13 @@
 <div class="contact-profile">
   <div class="contact-profile__left">
     <div class="contact-profile__row">
-      <strong>Description</strong><span><%= @need.name %></span>
+      <strong><%= form.label 'Description' %></strong><span><%= form.text_area :name %></span>
     </div>
   </div>
 </div>
+
+<% end %>
+
 Profile info
 <hr>
 
