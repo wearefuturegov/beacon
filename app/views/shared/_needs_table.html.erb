@@ -4,18 +4,18 @@
     <th>Assigned to</th>
     <th>Person</th>
     <th>Need
-      <%= link_to '↑', @params.merge(order: 'name', order_dir: 'ASC') %>
-      <%= link_to '↓', @params.merge(order: 'name', order_dir: 'DESC') %>
+      <%= link_to 'Asc', @params.merge(order: 'name', order_dir: 'ASC') %>
+      <%= link_to 'Desc', @params.merge(order: 'name', order_dir: 'DESC') %>
     </th>
     <th>Status</th>
     <th>Vulnerable</th>
     <th>Category
-      <%= link_to '↑', @params.merge(order: 'category', order_dir: 'ASC') %>
-      <%= link_to '↓', @params.merge(order: 'category', order_dir: 'DESC') %>
+      <%= link_to 'Asc', @params.merge(order: 'category', order_dir: 'ASC') %>
+      <%= link_to 'Desc', @params.merge(order: 'category', order_dir: 'DESC') %>
     </th>
     <th>Date logged
-      <%= link_to '↑', @params.merge(order: 'created_at', order_dir: 'ASC') %>
-      <%= link_to '↓', @params.merge(order: 'created_at', order_dir: 'DESC') %>
+      <%= link_to 'Asc', @params.merge(order: 'created_at', order_dir: 'ASC') %>
+      <%= link_to 'Desc', @params.merge(order: 'created_at', order_dir: 'DESC') %>
     </th>
   </tr>
   </thead>

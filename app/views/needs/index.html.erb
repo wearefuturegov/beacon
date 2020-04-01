@@ -1,10 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<div class="tabs">
-  <%= link_to "Just mine", my_needs_path, controller: :my_needs, class: "tabs__tab" %>
-  <div class="tabs__tab tabs__tab--current">All</div>
-</div>
-
 <div class="page-header">
   <h1 class="page-title">All needs <span class="page-title__count">(<%= @needs.total_count %>)</span></h1>
 </div>
