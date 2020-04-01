@@ -6,18 +6,27 @@
       <%= select_tag("search_user", options_from_collection_for_select(@users, :id, :name_or_email, :selected => get_param_capitalized('search_user')), prompt: 'Select a user')  %>
     </th>
     <th>
+      <!-- has to be empty -->
+    </th>
+    <th>
+      <!-- has to be empty -->
+    </th>
     <th>
       <%= select_tag("search_status", options_for_select(need_statuses,  :selected => get_param_capitalized('search_status')), prompt: 'Select a status') %>
     </th>
     <th>
+    <!-- has to be empty -->
+  </th>
+    <th>
       <%= select_tag("search_category", options_for_select(need_categories, :selected => get_param_capitalized('search_category')), prompt: 'Select a category')  %>
     </th>
     <th>
-      <input type="submit" id="submit-filters" style="display: none">
+      <!-- has to be empty -->
     </th>
   </tr>
   </tfoot>
 </table>
+  <input type="submit" id="submit-filters" style="display: none">
 <br/>
 <% end %>
 

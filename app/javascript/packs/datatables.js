@@ -3,6 +3,9 @@ const dt = require('datatables.net-dt');
 // require('datatables.net-dt/css/jquery.dataTables.css');
 
 this.setFilterValues = function(searchElement, column){
+    if (searchElement === null || searchElement === undefined) {
+        return;
+    }
      if (searchElement.nodeName === "SELECT") {
             if (searchElement.options[searchElement.selectedIndex].value === "") {
                 column.search("").draw();
@@ -13,6 +16,7 @@ this.setFilterValues = function(searchElement, column){
         } else {
             column.search(searchElement.value).draw();
         }
+    
 };
 
 $(document).ready(() => {
@@ -36,7 +40,10 @@ $(document).ready(() => {
         const column = table.columns(footerIndex);
 
         $(searchElement).on('keyup change clear', () => {
-            this.setFilterValues(searchElement, column);
+            $('#submit-filters').click();
         });
+
+       this.setFilterValues(searchElement, column);
+
     });
 });
