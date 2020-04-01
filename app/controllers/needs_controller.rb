@@ -15,10 +15,15 @@ class NeedsController < ApplicationController
   end
 
   def create
-    needs_params["needs_list"].each do |key, value|
+    needs_params["needs_list"].each do |_, value|
       if value["active"] == "true"
-        need_name = value["description"].blank? ? value["name"].humanize : value["description"]
-        @contact.needs.build(category: value["name"].humanize, name: need_name, due_by: DateTime.now + 7.days).save
+        need_category = value["name"].humanize
+        need_description = value["description"]
+        if need_description.blank?
+          need_description = "#{@contact.name} needs #{need_category}"
+        end
+
+        @contact.needs.build(category: need_category, name: need_description, due_by: DateTime.now + 7.days).save
       end
     end
 
