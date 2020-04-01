@@ -34,7 +34,7 @@ class NeedsController < ApplicationController
   def create
     needs_params["needs_list"].each do |_, value|
       if value["active"] == "true"
-        need_category = value["name"].humanize
+        need_category = value["name"].humanize.downcase
         need_description = value["description"]
         if need_description.blank?
           need_description = "#{@contact.name} needs #{need_category}"
@@ -45,7 +45,7 @@ class NeedsController < ApplicationController
     end
 
     if needs_params["other_need"]
-      @contact.needs.build(category: "Other", name: needs_params["other_need"], due_by: DateTime.now + 7.days).save
+      @contact.needs.build(category: "other", name: needs_params["other_need"], due_by: DateTime.now + 7.days).save
     end
 
     redirect_to controller: :contacts, action: :show_needs, id: @contact.id

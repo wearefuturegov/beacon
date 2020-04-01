@@ -37,7 +37,7 @@
           —
         <% end %>
       </td>
-      <td><%= need.category %>
+      <td><%= need.category.humanize %>
       <td><%= format_datetime(need.created_at) %></td>
     </tr>
   <% end %>
