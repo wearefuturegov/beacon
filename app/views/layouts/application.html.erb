@@ -11,11 +11,11 @@
         <nav class="site-header__nav">
           <ul class="site-header__links">
             <li class="site-header__link site-header__link--has-submenu">
-              <%= link_to_unless_current 'Needs', needs_path, controller: :needs %>
+              <%= link_to 'Needs', needs_path, controller: :needs %>
               <ul class="site-header__submenu">
-                <li class="site-header__submenu-link"><a href="#">Example</a></li>
-                <li class="site-header__submenu-link"><a href="#">Example</a></li>
-                <li class="site-header__submenu-link"><a href="#">Example</a></li>
+                <li class="site-header__submenu-link"><%= link_to 'To do', controller: :needs, action: :index, needs_list: 'my_to_do' %></li>
+                <li class="site-header__submenu-link"><%= link_to 'Unmet', controller: :needs, action: :index, needs_list: 'all_unmet' %></li>
+                <li class="site-header__submenu-link"><%= link_to 'All', controller: :needs, action: :index, needs_list: 'all_needs' %></li>
               </ul>
             </li>
             <li class="site-header__link"><%= link_to_unless_current 'People', contacts_path, controller: :contacts %></li>

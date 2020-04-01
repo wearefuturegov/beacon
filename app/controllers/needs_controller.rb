@@ -7,11 +7,23 @@ class NeedsController < ApplicationController
 
   def index
     @users = User.all
-    @needs = Need.includes(:contact, :user)
+
+    # temporary static filters to solve performance issues
+    if params["needs_list"].present?
+      if params["needs_list"] == 'my_to_do'
+        @needs = Need.all.page(params[:page])
+      elsif params["needs_list"] == 'all_unmet'
+        @needs = Need.all.page(params[:page])
+      elsif params["needs_list"] == 'all_needs'
+        @needs = Need.all.page(params[:page])
+      end
+      return
+    end
+
     if params['search_user'].present?
       selected_user = User.find(params['search_user'])
       @needs = selected_user.needs.includes(:contact, :user).page(params[:page])
-    else      
+    else
       @needs = Need.includes(:contact, :user)
     end
   end
@@ -51,20 +63,22 @@ class NeedsController < ApplicationController
   end
 
   private
-    def set_need
-      @need = Need.find(params[:id])
-      @contact = @need.contact
-    end
 
-    def set_contact
-      @contact = Contact.find(params[:contact_id])
-    end
+  def set_need
+    @need = Need.find(params[:id])
+    @contact = @need.contact
+  end
 
-    def need_params
-      params.require(:need).permit(:name, :due_by, :user_id, :category)
-    end
+  def set_contact
+    @contact = Contact.find(params[:contact_id])
+  end
 
-    def needs_params
-      params.require(:needs).permit!
-    end
+  def need_params
+    params.require(:need).permit(:name, :due_by, :user_id, :category)
+  end
+
+  def needs_params
+    params.require(:needs).permit!
+  end
+
 end

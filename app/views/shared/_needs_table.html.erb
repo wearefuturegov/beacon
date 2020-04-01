@@ -1,3 +1,4 @@
+<% unless params["needs_list"] %>
 <table class="table needs-table">
   <tfoot>
   <tr>
@@ -17,8 +18,8 @@
   </tr>
   </tfoot>
 </table>
-
 <br/>
+<% end %>
 
 <table class="table data-table">
   <thead>
@@ -56,5 +57,3 @@
   <% end %>
   </tbody>
 </table>
-
-<%= javascript_pack_tag 'datatables' %>

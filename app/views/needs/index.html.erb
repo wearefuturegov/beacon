@@ -6,9 +6,19 @@
 </div>
 
 <div class="page-header">
-  <h1 class="page-title">All needs <span class="page-title__count">(<%= @needs.length %>)</span></h1>
+  <% if params["needs_list"].present? %>
+    <h1 class="page-title"><%= params["needs_list"].humanize %></h1>
+    <% else %>
+    <h1 class="page-title">All needs <span class="page-title__count">(<%= @needs.length %>)</span></h1>
+  <% end %>
 </div>
 
 <form action="/needs" method="get">
   <%= render 'shared/needs_table', needs: @needs %>
 </form>
+
+<% if params["needs_list"].present? %>
+  <%= paginate(@needs) %>
+  <% else %>
+  <%= javascript_pack_tag 'datatables' %>
+<% end %>
