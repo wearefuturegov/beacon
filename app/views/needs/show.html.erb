@@ -88,7 +88,7 @@
   <% end %>
 
   <div class="notes-list">
-    <% @need.notes.each do |note| %>
+    <% @need.notes.reverse_each do |note| %>
       <% next if note == @need.notes.last %>
       <div class="note">
         <header class="note__header">
