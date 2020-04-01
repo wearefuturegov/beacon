@@ -54,11 +54,13 @@ Coming soon...
 
 ## Environment variables
 
-| Name          | Description              |
-|---------------|--------------------------|
-| SMTP_DOMAIN   | HELO domain              |
-| SMTP_ADDRESS  | Address for SMTP server  |
-| SMTP_USERNAME | Username for SMTP server |
-| SMTP_PASSWORD | Password for SMTP server |
-| SMTP_PORT     | Port for SMTP server     |
-|SENDGRID_API_KEY| Sendgrid API key (production only |
+| Name             | Description                         |
+|------------------|-------------------------------------|
+| SMTP_DOMAIN      | HELO domain                         |
+| SMTP_ADDRESS     | Address for SMTP server             |
+| SMTP_USERNAME    | Username for SMTP server            |
+| SMTP_PASSWORD    | Password for SMTP server            |
+| SMTP_PORT        | Port for SMTP server                |
+| COUNCIL          | Config key for `councils.yml`       |
+| SENDGRID_API_KEY | Sendgrid API key (production only   |
+| MAILER_URL       | Default URL for action mailer       |

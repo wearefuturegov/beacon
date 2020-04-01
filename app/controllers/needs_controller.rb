@@ -6,14 +6,22 @@ class NeedsController < ApplicationController
   helper_method :get_param
 
   def index
+    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit)
     @users = User.all
     @needs = Need.includes(:contact, :user)
-    if params['search_user'].present?
-      selected_user = User.find(params['search_user'])
-      @needs = selected_user.needs.includes(:contact, :user).page(params[:page])
-    else      
-      @needs = Need.includes(:contact, :user)
+    @needs = @needs.filter_by_category(params[:category]) if params[:category].present?
+    @needs = @needs.filter_by_user_id(params[:user_id]) if params[:user_id].present?
+    @needs = @needs.filter_by_status(params[:status]) if params[:status].present?
+
+    if params[:order].present? && params[:order_dir].present?
+      sort_column = Need.column_names.include?(params[:order]) ? params[:order] : 'created_at'
+      sort_order = %w(asc desc).include?(params[:order_dir].downcase) ? params[:order_dir] : 'desc'
+      @needs = @needs.order("#{sort_column} #{sort_order}")
+    else
+      @needs = @needs.order(created_at: :desc)
     end
+
+    @needs = @needs.page(params[:page])
   end
 
   def show
@@ -26,7 +34,7 @@ class NeedsController < ApplicationController
   def create
     needs_params["needs_list"].each do |_, value|
       if value["active"] == "true"
-        need_category = value["name"].humanize
+        need_category = value["name"].humanize.downcase
         need_description = value["description"]
         if need_description.blank?
           need_description = "#{@contact.name} needs #{need_category}"
@@ -37,7 +45,7 @@ class NeedsController < ApplicationController
     end
 
     if needs_params["other_need"]
-      @contact.needs.build(category: "Other", name: needs_params["other_need"], due_by: DateTime.now + 7.days).save
+      @contact.needs.build(category: "other", name: needs_params["other_need"], due_by: DateTime.now + 7.days).save
     end
 
     redirect_to controller: :contacts, action: :show_needs, id: @contact.id
