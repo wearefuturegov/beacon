@@ -1,4 +1,26 @@
 <table class="table tasks-table">
+  <tfoot>
+  <tr>
+    <th>
+      <%= select_tag("search_user", options_from_collection_for_select(@users, :id, :name_or_email, :selected => get_param_capitalized('search_user')), prompt: 'Select a user')  %>
+    </th>
+    <th>
+    <th>
+      <%= select_tag("search_status", options_for_select(task_statuses,  :selected => get_param_capitalized('search_status')), prompt: 'Select a status') %>
+    </th>
+    <th>
+      <%= select_tag("search_category", options_for_select(task_categories, :selected => get_param_capitalized('search_category')), prompt: 'Select a category')  %>
+    </th>
+    <th>
+      <input type="submit" id="submit-filters" style="display: none">
+    </th>
+  </tr>
+  </tfoot>
+</table>
+
+<br/>
+
+<table class="table data-table">
   <thead>
   <tr>
     <th>Assigned to</th>
@@ -33,24 +55,5 @@
     </tr>
   <% end %>
   </tbody>
-  <tfoot>
-  <tr>
-    <th>
-      <%= select_tag("search_user", options_from_collection_for_select(@users, :id, :name_or_email), prompt: 'Select a user')  %>
-    </th>
-    <th>
-    </th>
-    <th></th>
-    <th>
-      <%= select_tag("search_status", options_for_select(task_statuses,  :selected => get_param_capitalized('status')), prompt: 'Select a status') %>
-    </th>
-    <th>
-      <%= select_tag("search_is_vulnerable", options_for_select(task_is_vulnerable_options, :selected => get_param_capitalized('status')), prompt: 'Select a vulnerable option')  %>
-    </th>
-    <th>
-      <%= select_tag("search_category", options_for_select(task_categories, :selected => get_param_capitalized('status')), prompt: 'Select a category')  %>
-    </th>
-    <th></th>
-  </tr>
-  </tfoot>
 </table>
+<%= javascript_pack_tag 'datatables' %>

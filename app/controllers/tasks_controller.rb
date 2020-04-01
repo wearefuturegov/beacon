@@ -5,7 +5,12 @@ class TasksController < ApplicationController
   
   def index
     @users = User.all
-    @tasks = Task.includes(:contact, :user)
+    if params['search_user'].present?
+      selected_user = User.find(params['search_user'])
+      @tasks = selected_user.tasks.includes(:contact, :user).page(params[:page])
+    else      
+      @tasks = Task.includes(:contact, :user)
+    end
   end
 
   def show

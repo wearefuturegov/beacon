@@ -9,5 +9,6 @@
   <h1 class="page-title">All tasks <span class="page-title__count">(<%= @tasks.length %>)</span></h1>
 </div>
 
-<%= render 'shared/tasks_table', tasks: @tasks %>
-<%= javascript_pack_tag 'datatables' %>
+<form action="/tasks" method="get">
+  <%= render 'shared/tasks_table', tasks: @tasks %>
+</form>
