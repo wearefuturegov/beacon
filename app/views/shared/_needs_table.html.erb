@@ -1,44 +1,22 @@
-<table class="table needs-table">
-  <tfoot>
-  <tr>
-    <th>
-      <%= select_tag("search_user", options_from_collection_for_select(@users, :id, :name_or_email, :selected => get_param_capitalized('search_user')), prompt: 'Select a user')  %>
-    </th>
-    <th>
-      <!-- has to be empty -->
-    </th>
-    <th>
-      <!-- has to be empty -->
-    </th>
-    <th>
-      <%= select_tag("search_status", options_for_select(need_statuses,  :selected => get_param_capitalized('search_status')), prompt: 'Select a status') %>
-    </th>
-    <th>
-    <!-- has to be empty -->
-  </th>
-    <th>
-      <%= select_tag("search_category", options_for_select(need_categories, :selected => get_param_capitalized('search_category')), prompt: 'Select a category')  %>
-    </th>
-    <th>
-      <!-- has to be empty -->
-    </th>
-  </tr>
-  </tfoot>
-</table>
-  <input type="submit" id="submit-filters" style="display: none">
-
-<br/>
-
 <table class="table data-table">
   <thead>
   <tr>
     <th>Assigned to</th>
     <th>Person</th>
-    <th>Need</th>
+    <th>Need
+      <%= link_to 'Asc', @params.merge(order: 'name', order_dir: 'ASC') %>
+      <%= link_to 'Desc', @params.merge(order: 'name', order_dir: 'DESC') %>
+    </th>
     <th>Status</th>
     <th>Vulnerable</th>
-    <th>Category</th>
-    <th>Date logged</th>
+    <th>Category
+      <%= link_to 'Asc', @params.merge(order: 'category', order_dir: 'ASC') %>
+      <%= link_to 'Desc', @params.merge(order: 'category', order_dir: 'DESC') %>
+    </th>
+    <th>Date logged
+      <%= link_to 'Asc', @params.merge(order: 'created_at', order_dir: 'ASC') %>
+      <%= link_to 'Desc', @params.merge(order: 'created_at', order_dir: 'DESC') %>
+    </th>
   </tr>
   </thead>
   <tbody>
@@ -66,4 +44,4 @@
   </tbody>
 </table>
 
-<%= javascript_pack_tag 'datatables' %>
+<%= paginate(@needs) %>
