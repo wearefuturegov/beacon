@@ -6,7 +6,7 @@
 </div>
 
 <div class="page-header">
-  <h1 class="page-title">All Needs (<%= @needs.length %>) </h1>
+  <h1 class="page-title">All needs <span class="page-title__count">(<%= @needs.length %>)</span></h1>
 </div>
 
 <%= render 'shared/needs_table', needs: @needs %>

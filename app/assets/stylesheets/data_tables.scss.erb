@@ -1,0 +1,143 @@
+@import "variables";
+
+.table-holder{  
+  overflow-x: auto;  
+  margin-bottom: 35px;
+  @media screen and (min-width: $breakpoint-m){
+    overflow-x: inherit;
+  }
+}
+
+.table {
+  width: 100%;
+  padding: 8px;
+  border-collapse: collapse;
+  color: $grey;
+
+  tbody tr {
+    border-top: 1px solid transparentize($grey, 0.5);
+  }
+
+  th, td {
+    text-align: left;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 40px;
+    &:last-of-type{
+      padding-right: 0px;
+    }
+  }
+
+  th {
+    color: $grey-pale;
+    font-weight: initial;
+  }
+
+  small{
+    color: $grey-pale;
+  }
+
+  tfoot{
+    tr{
+      background: $white;
+    }
+    th{
+      padding-top: 15px;
+      padding-bottom: 15px;
+      padding-right: 15px;
+      &:first-child{
+        padding-left: 15px;
+      }    
+      select{
+        font-size: 0.9rem;
+        padding: 7px;
+      }
+    }
+  }
+
+  thead th{
+    cursor: pointer;
+    &:hover{
+      color: $blue;
+      text-decoration: underline;
+    }
+    &:focus{
+      outline: none;
+    }
+    &:after{
+      content: "";
+      display: inline-block;
+      margin-left: 7px;
+      margin-right: 5px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 99 center;
+      height: 12px;
+      width: 12px;
+    }
+  }
+  .sorting:after{
+    background-image: url(<%= image_path "unsorted.svg" %>);
+  }
+  .sorting_asc:after{
+    background-image: url(<%= image_path "sort-asc.svg" %>);
+  }
+  .sorting_desc:after{
+    background-image: url(<%= image_path "sort-desc.svg" %>);
+  }
+
+}
+
+.dataTables_info{
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.dataTables_empty{
+  font-size: 1.4rem;
+  color: $grey-pale;
+  font-weight: 400;
+}
+
+.pagination, .dataTables_paginate{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1.1rem;
+  span, .paginate_button {
+    margin: 0px 10px;
+    cursor: pointer;
+    &.current{
+      color: $grey;
+      cursor: auto;
+    }
+  }
+}
+.dataTables_paginate{
+  margin-top: 35px;
+  margin-bottom: -35px;
+}
+
+.dataTables_length{
+  float: left;
+  margin-bottom: 15px;
+  select{
+    width: 60px;
+    display: inline-block;
+    font-size: 0.9rem;
+    padding: 7px;
+  }
+}
+
+.dataTables_filter{
+  float: right;
+  input[type="search"]{
+    width: 250px;
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 0.9rem;
+    padding: 7px;
+  }
+} 

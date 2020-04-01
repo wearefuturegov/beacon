@@ -3,10 +3,12 @@
 .site-footer{
   background: $grey;
   padding: 50px $outer-spacing;
+
   .site-footer__notice{
     color: $white;
     margin-bottom: 20px;
   }
+  
   .site-footer__link{
     color: $white;
     display: inline-block;
