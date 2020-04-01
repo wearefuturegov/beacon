@@ -12,7 +12,13 @@ class NeedsController < ApplicationController
     @needs = @needs.filter_by_category(params[:category]) if params[:category].present?
     @needs = @needs.filter_by_user_id(params[:user_id]) if params[:user_id].present?
     @needs = @needs.filter_by_status(params[:status]) if params[:status].present?
-    @needs = @needs.order("#{params[:order]} #{params[:order_dir]}") if params[:order].present? && params[:order_dir].present?
+
+    if params[:order].present? && params[:order_dir].present?
+      sort_column = Need.column_names.include?(params[:order]) ? params[:order] : raise('Invalid sort column')
+      sort_order = %w(asc desc).include?(params[:order_dir].downcase) ? params[:order_dir] : raise('Invalid sort order column')
+      @needs = @needs.order("#{sort_column} #{sort_order}") if params[:order].present? && params[:order_dir].present?
+    end
+
     @needs = @needs.page(params[:page])
   end
 
