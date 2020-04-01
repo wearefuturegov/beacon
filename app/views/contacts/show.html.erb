@@ -25,16 +25,28 @@
 <div class="contact-profile">
   <div class="contact-profile__left">
     <div class="contact-profile__row">
-      <strong>NHS number</strong><span>placeholder</span><span><a href="#">Edit</a></span>
+      <strong>NHS number</strong><span>placeholder</span>
+      <span>
+        <%= link_to 'Edit', edit_contact_path(@contact) %>
+      </span>
     </div>
     <div class="contact-profile__row">
-      <strong>Medical conditions</strong><span>placeholder</span><span><a href="#">Edit</a></span>
+      <strong>Medical conditions</strong><span>placeholder</span>
+      <span>
+        <%= link_to 'Edit', edit_contact_path(@contact) %>
+      </span>
     </div>
     <div class="contact-profile__row">
-      <strong>Essential supplies</strong><span>placeholder</span><span><a href="#">Edit</a></span>
+      <strong>Essential supplies</strong><span>placeholder</span>
+      <span>
+       <%= link_to 'Edit', edit_contact_path(@contact) %>
+      </span>
     </div>
     <div class="contact-profile__row">
-      <strong>Notes</strong><span>placeholder</span><span><a href="#">Edit</a></span>
+      <strong>Notes</strong><span>placeholder</span>
+      <span>
+        <%= link_to 'Edit', edit_contact_path(@contact) %>
+      </span>
     </div>
   </div>
   <div class="contact-profile__right">
