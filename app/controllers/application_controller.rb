@@ -3,13 +3,26 @@ class ApplicationController < ActionController::Base
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'
-  helper_method :current_user, :copyright
+  helper_method :current_user, :copyright, :council_name, :privacy_link
 
   before_action :set_paper_trail_whodunnit
 
   private
+
+    def load_council_config
+      YAML.load_file("#{Rails.root.to_s}/config/councils.yml")[ENV['COUNCIL'] || 'demo']
+    end
+
+    def council_name
+      load_council_config['name']
+    end
+    
     def copyright
-      ENV['COUNCIL_COPYRIGHT'] || '© 2020 Abc Council'
+      load_council_config['copyright_notice']
+    end
+
+    def privacy_link
+      load_council_config['privacy_link']
     end
 
     def current_user
