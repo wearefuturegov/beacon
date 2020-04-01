@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
     def load_council_config
-      YAML.load_file("#{Rails.root.to_s}/config/councils.yml")[ENV['COUNCIL'] || 'demo']
+      Rails.configuration.councils[ENV['council'] || 'demo']
     end
 
     def council_name

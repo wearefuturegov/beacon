@@ -1,3 +1,4 @@
+default: &default
   demo:
     name: "Demo Council"
     support_email: "help@beacon.support"
