@@ -13,9 +13,9 @@ jobs:
       postgres:
         image: postgres:11.7-alpine
         env:
-          POSTGRES_USER: dev_local_user
+          POSTGRES_USER: test_local_user
           POSTGRES_PASSWORD: password
-          POSTGRES_DB: i_have_i_need_development
+          POSTGRES_DB: i_have_i_need_test
         ports:
           # will assign a random free host port
           - 5432/tcp
