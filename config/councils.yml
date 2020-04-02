@@ -3,7 +3,7 @@ default: &default
     name: "Demo Council"
     support_email: "help@beacon.support"
     copyright_notice: "© 2020 Demo Council"
-    logo_path: "logo-camden.svg"
+    logo_path: "logo-demo.svg"
     privacy_link: "#"
     default_from_address: "noreply@beacon.support"
 
