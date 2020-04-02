@@ -26,7 +26,7 @@ ActiveRecord::Base.transaction do
         [1, 2, 3].sample.times do
           FactoryBot.create :need,
                             contact: contact,
-                            user: user,
+                            user: [user, nil].sample,
                             category: need_categories.sample,
                             completed_on: [nil, [1,2,3].sample.days.ago].sample
         end
