@@ -10,13 +10,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
+  # from database.yml for test env
+  #url: postgresql://localhost/i_have_i_need_test
+  #username: test_local_user
+  #password: password
+
     services:
       postgres:
         image: postgres:11.7-alpine
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: ci_db_test
+          POSTGRES_USER: test_local_user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: i_have_i_need_test
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
@@ -41,24 +46,22 @@ jobs:
         bundle install --jobs 4 --retry 3
     - name: Setup database
       env:
-        RAILS_ENV: ci
+        RAILS_ENV: test
+        POSTGRES_USER: test_local_user
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: i_have_i_need_test
         POSTGRES_HOST: localhost
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: ci_db_test
         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
         SECRET_KEY_BASE: fcd3d03a727ad50a19d2a89555bc9683
       run: |
         bundle exec rails db:setup
     - name: Run tests
       env:
-        RAILS_ENV: ci
         POSTGRES_HOST: localhost
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: ci_db_test
+        POSTGRES_USER: test_local_user
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: i_have_i_need_test
         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
         SECRET_KEY_BASE: fcd3d03a727ad50a19d2a89555bc9683
       run: |
-        echo "pre spec RAILS_ENV: $RAILS_ENV"
         bundle exec rails spec
