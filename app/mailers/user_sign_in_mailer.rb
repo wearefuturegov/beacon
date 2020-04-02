@@ -1,6 +1,6 @@
 class UserSignInMailer < ApplicationMailer
-  default :from => 'noreply@https://i-have-i-need.herokuapp.com'
-
+  default :from => 'help@beacon.support'
+  
   def send_invite_email(user)
     mail(:to => user.email, :subject => "You've been invited")
   end
