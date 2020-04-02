@@ -1,6 +1,8 @@
-<div style="text-align: center">
-    <img src="https://github.com/wearefuturegov/beacon/blob/master/app/assets/images/logo-demo.svg?raw=true" alt="Beacon" style="max-width: 200px;"/>
-</div>
+<p align="center">
+  <a href="https://beacon-support-staging.herokuapp.com">
+    <img src="https://github.com/wearefuturegov/beacon/blob/master/app/assets/images/logo-demo.svg?raw=true" width="300px"               
+  </a>
+</p>
 
 ---
 
