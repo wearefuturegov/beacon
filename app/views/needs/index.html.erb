@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <div class="page-header">
-  <h1 class="page-title">All needs <span class="page-title__count">(<%= @needs.total_count %>)</span></h1>
+  <h1 class="page-title">Needs <span class="page-title__count">(<%= @needs.total_count %>)</span></h1>
 </div>
 
 <%= form_with(url: needs_url, method: :get, local: true) do %>
