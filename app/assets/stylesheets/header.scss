@@ -82,6 +82,8 @@
     .site-header__link--has-submenu:hover .site-header__submenu,
     .site-header__link--has-submenu:focus-within .site-header__submenu{
       display: block;
+      z-index: 1;
+      width: 230px;
     }
 
   }
