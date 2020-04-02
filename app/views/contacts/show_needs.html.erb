@@ -22,24 +22,22 @@
 <table class="table">
   <thead>
   <tr>
-    <th>Name</th>
-    <th>Notes</th>
-    <th>Assigned</th>
+    <th>Need type</th>
     <th>Date added</th>
+    <th>Assigned to</th>
     <th></th>
   </tr>
   </thead>
   <tbody>
   <% @contact.needs.each do |need_item| %>
     <tr>
-      <td><%= need_item.name %></td>
-      <td><%# todo: need notes count %></td>
+      <td><%= need_item.category.humanize %></td>
+      <td><%= need_item.created_at.strftime("%d/%m/%Y at %I:%M%p") %></td>
       <% if need_item.user %>
         <td>Assigned to <%= need_item.user.name_or_email %></td>
       <% else %>
         <td>Unassigned</td>
       <% end %>
-      <td><%= need_item.created_at.strftime("%d/%m/%Y at %I:%M%p") %></td>
       <td><%= link_to 'View', need_path(need_item) %></td>
     </tr>
   <% end %>
