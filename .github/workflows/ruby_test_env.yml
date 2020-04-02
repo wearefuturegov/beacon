@@ -1,8 +1,9 @@
-name: Ruby
+name: Ruby Test Env
+# As opposed to the ci env used before on the Ruby action
 
 on:
   push:
-    branches: [ richard_ci_testing ]
+    branches: [ richard_ci_testing_test_env ]
 
 jobs:
   build:
