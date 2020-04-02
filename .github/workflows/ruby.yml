@@ -48,8 +48,7 @@ jobs:
         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
         SECRET_KEY_BASE: fcd3d03a727ad50a19d2a89555bc9683
       run: |
-        bundle exec rails db:create
-        bundle exec rails db:schema:load
+        bundle exec rails db:setup
     - name: Run tests
       env:
         RAILS_ENV: ci
