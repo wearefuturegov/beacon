@@ -22,4 +22,11 @@ RSpec.describe User, type: :model do
 
     expect(user.name).to eq 'John Doe'
   end
+
+  it '#name_or_email' do
+    user1 = build :user, first_name: 'John', last_name: 'Doe'
+    expect(user1.name_or_email).to eq 'John Doe'
+    user2 = build :user, first_name: '', last_name: '', email: 'jane@gmail.com'
+    expect(user2.name_or_email).to eq 'jane@gmail.com'
+  end
 end
