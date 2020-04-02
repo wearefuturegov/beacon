@@ -8,8 +8,9 @@
     <em>Record and triage needs, get people the right support</em>         
 </p>
 
-
 ---
+
+![Ruby](https://github.com/wearefuturegov/beacon/workflows/Ruby/badge.svg)
 
 🚨This is **BETA** software and may be buggy 🚨
 
