@@ -30,14 +30,14 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
-group :test do
+group :test, :ci do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'webdrivers'
 end
 
-group :development, :test do
+group :development, :test, :ci do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-byebug'
