@@ -1,6 +1,6 @@
 # 🔥 Beacon
 
-🚨This is **PRE-ALPHA** and not yet ready for use 🚨
+🚨This is **BETA** software and may be buggy 🚨
 
 This is a tool for local authorities and voluntary organisations to record and triage the needs of vulnerable people in their jurisdiction, and assign those needs to those who can meet them.
 
