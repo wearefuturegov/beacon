@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://beacon-support-staging.herokuapp.com">
     <img src="https://github.com/wearefuturegov/beacon/blob/master/app/assets/images/beacon.png?raw=true" width="300px"               
-  </a>
 </p>
+  
+Record and triage needs, get people the support they need.
 
 ---
 
