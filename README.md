@@ -18,7 +18,7 @@ This is a tool for local authorities and voluntary organisations to record and t
 It deals in:
 
 - 👩‍💻 **people in need**, who might be added by contact centre staff
-- ✅ **tasks/needs**, which can be created under a person in need, given a need type and claimed by users
+- ✅ **needs**, which can be created under a person in need, given a need type and claimed by users
 - 👩‍🔬 **users**, invited by email address whitelisting
 
 It's a rails app backed by a postgresql database.
