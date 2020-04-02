@@ -36,3 +36,7 @@ en:
         user: "Assignee"
         name: "Task body"
         due_by: "Due by date"
+
+  passwordless:
+    mailer:
+      subject: "Finish logging in"
