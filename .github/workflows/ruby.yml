@@ -13,14 +13,13 @@ jobs:
       postgres:
         image: postgres:11.7-alpine
         env:
-          POSTGRES_USER: test_local_user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: i_have_i_need_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ci_db_test
         ports:
-          # will assign a random free host port
-          - 5432/tcp
+          - 5432:5432
         # needed because the postgres container does not provide a healthcheck
-        options: --network-alias postgresql --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - uses: actions/checkout@v2
@@ -28,8 +27,19 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.5.7
-    - name: Build and test with Rake
+    - name: Build with Rake
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
         bundle exec rake
+    - name: Setup database
+      env:
+        RAILS_ENV: ci
+        POSTGRES_HOST: postgres
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: ci_db_test
+        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+      run: |
+        bundle exec rails db:create
+        bundle exec rails db:schema:load
