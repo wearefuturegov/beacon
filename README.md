@@ -1,8 +1,11 @@
 <p align="center">
-    <img src="https://github.com/wearefuturegov/beacon/blob/master/app/assets/images/beacon.png?raw=true" width="300px"               
+    <img src="https://github.com/wearefuturegov/beacon/blob/master/app/assets/images/beacon.png?raw=true" width="350px" />               
 </p>
   
-Record and triage needs, get people the support they need.
+<p align="center">
+    <em>Record and triage needs, get people the right support</em>         
+</p>
+
 
 ---
 
