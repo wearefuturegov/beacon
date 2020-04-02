@@ -1,3 +1,9 @@
+<% if @contact.is_vulnerable %>
+  <div class="vulnerable-banner">
+    <div class="container"><%= image_tag "exclamation.svg", alt: "" %> This is a vulnerable person</div>
+  </div>
+<% end %>
+
 <ol class="breadcrumb">
   <li><%= link_to "People in need", contacts_path %></li>
   <li>Person</li>
@@ -5,7 +11,7 @@
 
 <div class="tabs">
   <%= link_to 'Profile', contact_path(@contact), class: 'tabs__tab' %>
-  <div class="tabs__tab tabs__tab--current">View <%= @contact.first_name %>'s Needs (<%= @contact.needs.count %>)</div>
+  <div class="tabs__tab tabs__tab--current"><%= @contact.first_name %>'s Needs (<%= @contact.needs.count %>)</div>
 </div>
 
 <div class="page-header page-header--with-button">
