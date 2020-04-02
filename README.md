@@ -1,5 +1,7 @@
 <p align="center">
-    <img src="https://github.com/wearefuturegov/beacon/blob/master/app/assets/images/beacon.png?raw=true" width="350px" />               
+    <a href="https://beacon-support-staging.herokuapp.com/">
+        <img src="https://github.com/wearefuturegov/beacon/blob/master/app/assets/images/beacon.png?raw=true" width="350px" />               
+    </a>
 </p>
   
 <p align="center">
