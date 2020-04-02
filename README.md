@@ -1,5 +1,5 @@
 <div style="text-align: center">
-    <img src="https://raw.githubusercontent.com/wearefuturegov/beacon/master/app/assets/images/logo-demo.svg?raw=true" alt="Beacon" style="max-width: 200px;"/>
+    <img src="https://github.com/wearefuturegov/beacon/blob/master/app/assets/images/logo-demo.svg?raw=true" alt="Beacon" style="max-width: 200px;"/>
 </div>
 
 ---
