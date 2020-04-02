@@ -1,4 +1,6 @@
-# 🔥 Beacon
+<div style="text-align: center">
+    <img src="https://raw.githubusercontent.com/wearefuturegov/beacon/master/app/assets/images/logo-demo.svg" alt="Beacon" style="max-width: 200px;"/>
+</div>
 
 🚨This is **BETA** software and may be buggy 🚨
 
