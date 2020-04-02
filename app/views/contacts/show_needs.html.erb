@@ -24,6 +24,7 @@
   <tr>
     <th>Need type</th>
     <th>Date added</th>
+    <th>Status</th>
     <th>Assigned to</th>
     <th></th>
   </tr>
@@ -33,6 +34,7 @@
     <tr>
       <td><%= need_item.category.humanize %></td>
       <td><%= need_item.created_at.strftime("%d/%m/%Y at %I:%M%p") %></td>
+      <td><%= need_item.status %></td>
       <% if need_item.user %>
         <td>Assigned to <%= need_item.user.name_or_email %></td>
       <% else %>
