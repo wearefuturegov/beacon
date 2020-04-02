@@ -31,3 +31,6 @@ test:
 
 production:
   <<: *default
+
+ci:
+  <<: *default

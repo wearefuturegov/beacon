@@ -39,7 +39,8 @@ jobs:
         POSTGRES_PASSWORD: postgres
         POSTGRES_DB: ci_db_test
         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
-        COUNCIL: demo
+        COUNCIL: :demo
+        SECRET_KEY_BASE: fcd3d03a727ad50a19d2a89555bc9683
       run: |
         bundle exec rails db:create
         bundle exec rails db:schema:load
