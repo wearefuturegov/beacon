@@ -3,7 +3,7 @@ name: Ruby Test Env
 
 on:
   push:
-    branches: [ richard_ci_testing_test_env ]
+    branches: [ master ]
 
 jobs:
   build:
