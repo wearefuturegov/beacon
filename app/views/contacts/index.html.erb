@@ -6,6 +6,32 @@
   <h1 class="page-title">People in need</h1>
 </div>
 
+<% if params[:search] %>
+  <div class="filtered-notice notice">
+    Showing <%= pluralize(@contacts.size, 'result') %>
+    for <strong><%= params[:search] %></strong>.
+    <%= link_to 'Clear search', contacts_path %>.
+  </div>
+<% end %>
+
+<details class="filters">
+  <summary class="filters__summary">Search</summary>
+  <%= form_with(url: contacts_url, method: :get, local: true) do %>
+    <table class="table needs-table">
+      <tfoot>
+      <tr>
+        <div class="field">
+          <%= label_tag :search, 'Search by name or postcode', class: 'field__label' %>
+          <%= text_field_tag :search, params[:search] %>
+        </div>
+      </tr>
+      </tfoot>
+    </table>
+    <%= button_tag 'Search', type: 'submit', name: nil %>
+  <% end %>
+</details>
+
+
 <div class="table-holder">
   <table class="table">
     <thead>

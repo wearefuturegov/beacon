@@ -2,7 +2,14 @@ class ContactsController < ApplicationController
   before_action :set_contact, only: [:edit, :update, :show, :show_needs, :add_needs]
 
   def index
-    @contacts = Contact.all.page(params[:page])
+    @params = params.permit(:search)
+    @contacts = Contact.all
+
+    if @params[:search].present?
+      @contacts = @contacts.search(@params[:search])
+    end
+
+    @contacts = @contacts.page(@params[:page])
   end
 
   def show_needs

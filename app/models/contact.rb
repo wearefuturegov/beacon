@@ -1,4 +1,6 @@
 class Contact < ApplicationRecord
+  include PgSearch::Model
+
   belongs_to :contact_list, optional: true
   has_many :needs, dependent: :destroy
   has_many :uncompleted_needs, -> { uncompleted }, class_name: 'Need'
@@ -8,6 +10,8 @@ class Contact < ApplicationRecord
   has_paper_trail
 
   validates :first_name, presence: true
+
+  pg_search_scope :search, against: [:first_name, :surname, :postcode]
 
   def name
     [first_name, surname].join(' ')
