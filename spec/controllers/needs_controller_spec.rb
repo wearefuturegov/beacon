@@ -1,9 +1,21 @@
 require 'rails_helper'
 require 'spec_helper'
 
-RSpec.describe NeedsController do
+class NeedsTestController < NeedsController
+  skip_before_action :require_user!
+end
+
+
+RSpec.describe NeedsTestController do
 
   before(:each) do
+    # test route
+    routes.draw do
+      resources :needs_test, only: [:index, :show, :edit, :update, :create, :new] do
+        resources :needs, only: [:new, :create]
+      end
+      get '/contacts/:id/needs', to: 'contacts#show_needs'
+    end
     controller.instance_variable_set(:@current_user, {})
   end
 
@@ -82,7 +94,7 @@ RSpec.describe NeedsController do
 
       expect(@builder).to receive(:save).twice
       post :create, params: { contact_id: 1, :needs => {:needs_list => needs_list}}
-      expect(response).to redirect_to controller: :contacts, action: :show_needs, id: 1
+      expect(response).to be_redirect
     end
 
     it "sets a default description if none is provided" do
@@ -90,7 +102,7 @@ RSpec.describe NeedsController do
 
       expect(@builder).to receive(:build).with(hash_including(:name => "Contact name needs category")).once
       post :create, params: { contact_id: 1, :needs => {:needs_list => needs_list}}
-      expect(response).to redirect_to controller: :contacts, action: :show_needs, id: 1
+      expect(response).to be_redirect
     end
 
     it "sets the description from the provided description if provided" do
@@ -98,7 +110,7 @@ RSpec.describe NeedsController do
 
       expect(@builder).to receive(:build).with(hash_including(:name => "test description")).once
       post :create, params: { contact_id: 1, :needs => {:needs_list => needs_list}}
-      expect(response).to redirect_to controller: :contacts, action: :show_needs, id: 1
+      expect(response).to be_redirect
     end
 
     it "adds an 'other' need if a description is provided" do
@@ -106,7 +118,7 @@ RSpec.describe NeedsController do
 
       expect(@builder).to receive(:build).with(hash_including(:name => "test other description")).once
       post :create, params: { contact_id: 1, :needs => {:needs_list => needs_list, :other_need => "test other description"}}
-      expect(response).to redirect_to controller: :contacts, action: :show_needs, id: 1
+      expect(response).to be_redirect
     end
   end
 end
