@@ -94,7 +94,7 @@ RSpec.describe NeedsTestController do
 
       expect(@builder).to receive(:save).twice
       post :create, params: { contact_id: 1, :needs => {:needs_list => needs_list}}
-      expect(response).to be_redirect
+      expect(response).to redirect_to controller: :contacts, action: :show_needs, id: 1
     end
 
     it "sets a default description if none is provided" do
@@ -102,7 +102,7 @@ RSpec.describe NeedsTestController do
 
       expect(@builder).to receive(:build).with(hash_including(:name => "Contact name needs category")).once
       post :create, params: { contact_id: 1, :needs => {:needs_list => needs_list}}
-      expect(response).to be_redirect
+      expect(response).to redirect_to controller: :contacts, action: :show_needs, id: 1
     end
 
     it "sets the description from the provided description if provided" do
@@ -110,7 +110,7 @@ RSpec.describe NeedsTestController do
 
       expect(@builder).to receive(:build).with(hash_including(:name => "test description")).once
       post :create, params: { contact_id: 1, :needs => {:needs_list => needs_list}}
-      expect(response).to be_redirect
+      expect(response).to redirect_to controller: :contacts, action: :show_needs, id: 1
     end
 
     it "adds an 'other' need if a description is provided" do
@@ -118,7 +118,7 @@ RSpec.describe NeedsTestController do
 
       expect(@builder).to receive(:build).with(hash_including(:name => "test other description")).once
       post :create, params: { contact_id: 1, :needs => {:needs_list => needs_list, :other_need => "test other description"}}
-      expect(response).to be_redirect
+      expect(response).to redirect_to controller: :contacts, action: :show_needs, id: 1
     end
   end
 end
