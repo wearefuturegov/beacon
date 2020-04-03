@@ -6,7 +6,7 @@ class NeedsController < ApplicationController
   helper_method :get_param
 
   def index
-    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
+    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent, :page_size)
     @users = User.all
     @needs = Need.includes(:contact, :user)
     @needs = @needs.filter_by_category(params[:category]) if params[:category].present?
