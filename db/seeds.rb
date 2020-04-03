@@ -19,7 +19,7 @@ ActiveRecord::Base.transaction do
 
       contacts = FactoryBot.create_list :contact, 50, contact_list: contact_list
 
-      need_categories = ['groceries and cooked meals', 'physical and mental wellbeing', 'financial support',
+      need_categories = ['phone triage', 'groceries and cooked meals', 'physical and mental wellbeing', 'financial support',
                         'staying social', 'prescription pickups', 'book drops and entertainment', 'dog walking', 'other']
 
       contacts.first(10).each do |contact|
