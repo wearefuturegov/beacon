@@ -16,7 +16,7 @@ module NeedsHelper
   end
 
   def needs
-    ['Phone Triage','Groceries and cooked meals', 'Physical and mental wellbeing', 'Financial support',
+    ['Phone triage','Groceries and cooked meals', 'Physical and mental wellbeing', 'Financial support',
      'Staying Social', 'Prescription pickups', 'Book drops and entertainment', 'Dog walking']
   end
 end
