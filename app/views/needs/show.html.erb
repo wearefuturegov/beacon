@@ -10,7 +10,8 @@
 
 <ol class="breadcrumb">
   <li><%= link_to "People in need", contacts_path %></li>
-  <li>Person</li>
+  <li><%= link_to @need.contact.name , @need.contact %></li>
+  <li>Need</li>
 </ol>
 
 <div class="tabs">
