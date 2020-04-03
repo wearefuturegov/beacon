@@ -60,6 +60,8 @@ Suitable for 12-factor app hosting like [Heroku](http://heroku.com).
 
 [Sendgrid](https://sendgrid.com/) delivers emails in production. You need to make sure the API key environment variable is set.
 
+It has a `Procfile` that will automatically run pending rails migrations on every deploy, to reduce downtime.
+
 ## Roadmap
 
 Coming soon...
