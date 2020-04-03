@@ -21,8 +21,8 @@ class NeedsController < ApplicationController
     else
       @needs = @needs.order(created_at: :desc)
     end
-
-    @needs = @needs.page(params[:page])
+    page_size = params[:page_size].to_i > 0 ? params[:page_size] : 10
+    @needs = @needs.page(params[:page]).per(page_size)
   end
 
   def show
