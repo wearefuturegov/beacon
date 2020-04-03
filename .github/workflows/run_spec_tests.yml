@@ -3,9 +3,9 @@ name: Ruby Test Env
 
 on:
   push:
-    branches: [ master ]
+    branches: [ richard_ci_testing_without_secret_key_base ]
   pull_request:
-    branches: [ master ]
+    branches: [ richard_ci_testing_without_secret_key_base ]
 
 jobs:
   build:
@@ -49,7 +49,6 @@ jobs:
         POSTGRES_DB: i_have_i_need_test
         POSTGRES_HOST: localhost
         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
-        SECRET_KEY_BASE: fcd3d03a727ad50a19d2a89555bc9683
       run: |
         bundle exec rails db:drop
         bundle exec rails db:create
@@ -62,6 +61,5 @@ jobs:
         POSTGRES_PASSWORD: password
         POSTGRES_DB: i_have_i_need_test
         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
-        SECRET_KEY_BASE: fcd3d03a727ad50a19d2a89555bc9683
       run: |
         bundle exec rails spec
