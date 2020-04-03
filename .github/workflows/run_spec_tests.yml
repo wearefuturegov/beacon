@@ -3,9 +3,9 @@ name: Ruby Test Env
 
 on:
   push:
-    branches: [ richard_ci_testing_without_secret_key_base ]
+    branches: [ master ]
   pull_request:
-    branches: [ richard_ci_testing_without_secret_key_base ]
+    branches: [ master ]
 
 jobs:
   build:
