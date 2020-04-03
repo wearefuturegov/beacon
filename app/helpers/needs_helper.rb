@@ -7,6 +7,11 @@ module NeedsHelper
     ['To do', 'Completed']
   end
 
+  def page_sizes
+    [10, 100, 1000, 10000]
+  end
+
+
   def need_is_vulnerable_options
     ['Vulnerable']
   end
