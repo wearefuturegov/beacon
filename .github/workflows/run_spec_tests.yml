@@ -34,9 +34,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        key: ${{ runner.os }}-gems1-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
-          ${{ runner.os }}-gems-
+          ${{ runner.os }}-gems1-
     - name: Install gems
       run: |
         bundle config path vendor/bundle
@@ -44,11 +44,6 @@ jobs:
     - name: Setup database
       env:
         RAILS_ENV: test
-        POSTGRES_USER: test_local_user
-        POSTGRES_PASSWORD: password
-        POSTGRES_DB: i_have_i_need_test
-        POSTGRES_HOST: localhost
-        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
       run: |
         bundle exec rails db:drop
         bundle exec rails db:create
