@@ -21,28 +21,12 @@ class NeedsController < ApplicationController
     else
       @needs = @needs.order(created_at: :desc)
     end
-    page_size = params[:page_size].to_i > 0 ? params[:page_size] : 10
-    @needs = @needs.page(params[:page]).per(page_size)
+    @needs = @needs.page(params[:page]) unless request.format == 'csv'
 
-  end
-
-  def export
-    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit)
-    @users = User.all
-    @needs = Need.includes(:contact, :user)
-    @needs = @needs.filter_by_category(params[:category]) if params[:category].present?
-    @needs = @needs.filter_by_user_id(params[:user_id]) if params[:user_id].present?
-    @needs = @needs.filter_by_status(params[:status]) if params[:status].present?
-
-    if params[:order].present? && params[:order_dir].present?
-      sort_column = Need.column_names.include?(params[:order]) ? params[:order] : 'created_at'
-      sort_order = %w(asc desc).include?(params[:order_dir].downcase) ? params[:order_dir] : 'desc'
-      @needs = @needs.order("#{sort_column} #{sort_order}")
-    else
-      @needs = @needs.order(created_at: :desc)
+    respond_to do |format|
+      format.html
+      format.csv { send_data @needs.to_csv, filename: "needs-#{Date.today}.csv" }
     end
-
-    send_data @needs.to_csv, filename: "needs-#{Date.today}.csv"
   end
 
   def show

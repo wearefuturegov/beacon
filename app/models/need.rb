@@ -45,17 +45,17 @@ class Need < ApplicationRecord
 
   validates :name, presence: true
 
-  delegate :name, :is_vulnerable, to: :contact, prefix: true
+  delegate :name, :is_vulnerable, :address, :telephone, to: :contact, prefix: true
   delegate :name, to: :user, prefix: true
 
   def self.to_csv
-    attributes = %w{contact name is_vulnerable }
+    attributes = %w{contact_name category name status contact_address contact_telephone contact_is_vulnerable is_urgent created_at}
 
     CSV.generate(headers: true) do |csv|
-      csv << self.attribute_names
+      csv << attributes
 
       all.each do |record|
-        csv << record.attributes.values
+        csv << attributes.map{ |attr| record.send(attr) }
       end
     end
   end
