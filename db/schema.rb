@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2020_04_03_095904) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "category"
-    t.boolean "is_urgent"
+    t.boolean "is_urgent", default: false
     t.index ["contact_id"], name: "index_needs_on_contact_id"
     t.index ["user_id"], name: "index_needs_on_user_id"
   end
