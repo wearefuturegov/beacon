@@ -50,11 +50,5 @@ jobs:
         bundle exec rails db:migrate
         bundle exec rails db:seed
     - name: Run tests
-      env:
-        POSTGRES_HOST: localhost
-        POSTGRES_USER: test_local_user
-        POSTGRES_PASSWORD: password
-        POSTGRES_DB: i_have_i_need_test
-        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
       run: |
         bundle exec rails spec
