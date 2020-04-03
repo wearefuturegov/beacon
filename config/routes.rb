@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   end
   get '/contacts/:id/needs', to: 'contacts#show_needs'
 
-  get '/needs/export', to: 'needs#export'
-
   resources :needs, only: [:index, :show, :edit, :update] do
     resources :notes
   end
