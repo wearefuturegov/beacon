@@ -1,13 +1,25 @@
-# 🔥 Beacon
+<p align="center">
+    <a href="https://beacon-support-staging.herokuapp.com/">
+        <img src="https://github.com/wearefuturegov/beacon/blob/master/app/assets/images/beacon.png?raw=true" width="350px" />               
+    </a>
+</p>
+  
+<p align="center">
+    <em>Record and triage needs, get people the right support</em>         
+</p>
 
-🚨This is **PRE-ALPHA** and not yet ready for use 🚨
+---
+
+![Ruby](https://github.com/wearefuturegov/beacon/workflows/Ruby/badge.svg)
+
+🚨This is **BETA** software and may be buggy 🚨
 
 This is a tool for local authorities and voluntary organisations to record and triage the needs of vulnerable people in their jurisdiction, and assign those needs to those who can meet them.
 
 It deals in:
 
 - 👩‍💻 **people in need**, who might be added by contact centre staff
-- ✅ **tasks/needs**, which can be created under a person in need, given a need type and claimed by users
+- ✅ **needs**, which can be created under a person in need, given a need type and claimed by users
 - 👩‍🔬 **users**, invited by email address whitelisting
 
 It's a rails app backed by a postgresql database.
@@ -47,6 +59,8 @@ https://heroku.com/deploy)
 Suitable for 12-factor app hosting like [Heroku](http://heroku.com).
 
 [Sendgrid](https://sendgrid.com/) delivers emails in production. You need to make sure the API key environment variable is set.
+
+It has a `Procfile` that will automatically run pending rails migrations on every deploy, to reduce downtime.
 
 ## Roadmap
 

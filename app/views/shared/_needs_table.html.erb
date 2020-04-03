@@ -17,6 +17,15 @@
       <th>Vulnerable</th>
       <th>
         <div class="sorter">
+          Urgent
+          <div class="sorter__controls">
+            <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'is_urgent', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
+            <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'is_urgent', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
+          </div>
+        </div>
+      </th>
+      <th>
+        <div class="sorter">
           Category
           <div class="sorter__controls">
             <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'category', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
@@ -53,7 +62,14 @@
             —
           <% end %>
         </td>
-        <td><%= need.category.humanize %>
+        <td>
+          <% if need.is_urgent %>
+            <%= image_tag "red-tick.svg", alt: "urgent" %>
+          <% else %>
+            —
+          <% end %>
+        </td>
+        <td><%= humanize_text(need.category) %>
         <td><%= format_datetime(need.created_at) %></td>
       </tr>
     <% end %>

@@ -13,7 +13,7 @@
     <fieldset class="field-section">
       <%= form.hidden_field "needs_list[#{index}][name]", :value => need.parameterize.underscore, :id => "needs_name_#{index}" %>
       
-      <legend class="field-section__title"><%= need %></legend>
+      <legend class="field-section__title"><h3><%= need %></h3></legend>
       
       <div class="radio">
         <%= form.radio_button "needs_list[#{index}][active]", true, :id => "needs_active_#{index}_true" %>
@@ -28,6 +28,11 @@
       <div class="field">
         <label for="<%= "needs_desc_#{index}" %>" class="field__label">Describe more about how we can help</label>
         <%= form.text_area "needs_list[#{index}][description]", :id => "needs_desc_#{index}" %>
+      </div>
+
+      <div class="checkbox">
+        <%= form.check_box "needs_list[#{index}][is_urgent]", :id => "needs_is_urgent_#{index}", class: 'checkbox__input' %>
+        <label for="<%= "needs_is_urgent_#{index}" %>" class="checkbox__label">Urgent need</label>
       </div>
     </fieldset>
   <% end %>

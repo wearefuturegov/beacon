@@ -28,6 +28,7 @@ ActiveRecord::Base.transaction do
                             contact: contact,
                             user: [user, nil].sample,
                             category: need_categories.sample,
+                            is_urgent: [true, false].sample,
                             completed_on: [nil, [1,2,3].sample.days.ago].sample
         end
       end

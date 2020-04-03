@@ -1,4 +1,4 @@
-<p>To get started, enter the email address you recieved the invite to.</p>
+<p>To get started, enter the email address you received the invite to.</p>
 
 <%= form_for @session, url: send(Passwordless.mounted_as).sign_in_path do |f| %>
   <% email_field_name = :"passwordless[#{@email_field}]" %>
