@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+        *{
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        a{
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 15px 0px;
+            background: #3A6CB5;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <%= image_tag logo_path, alt: "logo", width: "250px; margin-bottom: 35px" %>
+
+    <p>Click the link to finish signing into Beacon:</p>
+
+    <p><a href="<%=  @magic_link %>">Finish signing in</a></p>
+
+    <p>It will work for the next 30 minutes.</p>
+
+    <p>If you didn't request this link, feel free to ignore it.</p>
+
+</body>
+</html>
