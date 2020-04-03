@@ -78,3 +78,6 @@
 </div>
 
 <%= paginate(@needs) %>
+
+<br/>
+<%= link_to "Export", build_csv_link(request.original_url), :format => 'csv' %>

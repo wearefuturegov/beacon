@@ -7,11 +7,6 @@ module NeedsHelper
     ['To do', 'Completed']
   end
 
-  def page_sizes
-    [10, 100, 1000, 10000]
-  end
-
-
   def need_is_vulnerable_options
     ['Vulnerable']
   end
@@ -27,5 +22,9 @@ module NeedsHelper
 
   def need_urgencies
     ['Urgent', 'Not urgent']
+  end
+
+  def build_csv_link(url)
+    url.gsub('?', '.csv?')
   end
 end

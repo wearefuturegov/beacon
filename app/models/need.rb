@@ -1,3 +1,6 @@
+
+require 'csv'
+
 class Need < ApplicationRecord
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
@@ -42,8 +45,20 @@ class Need < ApplicationRecord
 
   validates :name, presence: true
 
-  delegate :name, :is_vulnerable, to: :contact, prefix: true
+  delegate :name, :is_vulnerable, :address, :telephone, to: :contact, prefix: true
   delegate :name, to: :user, prefix: true
+
+  def self.to_csv
+    attributes = %w{contact_name category name status contact_address contact_telephone contact_is_vulnerable is_urgent created_at}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |record|
+        csv << attributes.map{ |attr| record.send(attr) }
+      end
+    end
+  end
 
   def status
     completed_on.present? ? 'Complete' : 'To do'

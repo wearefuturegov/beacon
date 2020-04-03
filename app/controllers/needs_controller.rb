@@ -21,8 +21,12 @@ class NeedsController < ApplicationController
     else
       @needs = @needs.order(created_at: :desc)
     end
-    page_size = params[:page_size].to_i > 0 ? params[:page_size] : 10
-    @needs = @needs.page(params[:page]).per(page_size)
+    @needs = @needs.page(params[:page]) unless request.format == 'csv'
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @needs.to_csv, filename: "needs-#{Date.today}.csv" }
+    end
   end
 
   def show
