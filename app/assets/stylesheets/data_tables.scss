@@ -144,7 +144,7 @@
       grid-column-gap: 20px;
       width: 100%;
       @media screen and (min-width: $breakpoint-m){
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 0.75fr 0.75fr 1fr;
       }
     }
     th{
