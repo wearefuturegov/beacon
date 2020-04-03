@@ -5,17 +5,14 @@
 </div>
 
      
-
-<%= form_with(url: needs_url, method: :get, local: true) do %>
-
 <details class="filters">
   <summary class="filters__summary">Search and filter</summary>
+  <%= form_with(url: needs_url, method: :get, local: true) do %>
 
-  
   <!-- Page size -->
-  <div style="width: 100px">
+  <div style="width: 100px; margin-bottom:10px">
       <label for="page_size" class="field__label">Page size</label>
-      <%= select_tag("page_size", options_for_select(page_sizes, :selected => params['page_size']), prompt: 10) %>
+      <%= select_tag("page_size", options_for_select(page_sizes, :selected => params['page_size'])) %>
   </div>
 
     <table class="table needs-table">
