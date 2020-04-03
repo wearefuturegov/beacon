@@ -30,9 +30,9 @@
         <%= form.text_area "needs_list[#{index}][description]", :id => "needs_desc_#{index}" %>
       </div>
 
-      <div class="field">
-        <%= form.check_box "needs_list[#{index}][is_urgent]", :id => "needs_is_urgent_#{index}" %>
-        <label for="<%= "needs_is_urgent_#{index}" %>" class="field__label">Urgent need</label>
+      <div class="checkbox">
+        <%= form.check_box "needs_list[#{index}][is_urgent]", :id => "needs_is_urgent_#{index}", class: 'checkbox__input' %>
+        <label for="<%= "needs_is_urgent_#{index}" %>" class="checkbox__label">Urgent need</label>
       </div>
     </fieldset>
   <% end %>

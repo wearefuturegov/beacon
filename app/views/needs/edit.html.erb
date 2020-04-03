@@ -42,8 +42,11 @@
   <div class="contact-profile">
     <div class="contact-profile__left">
       <div class="contact-profile__row">
-        <strong><%= form.label :is_urgent, 'Urgent need' %></strong>
-        <span><%= form.check_box :is_urgent %></span>
+        <strong>Urgent need</strong>
+        <div class="checkbox">
+          <%= form.check_box :is_urgent, class: 'checkbox__input' %>
+          <%= form.label :is_urgent, 'Urgent need', class: 'checkbox__label' %>
+        </div>
       </div>
       <div class="contact-profile__row">
         <strong><%= form.label :user_id, 'Assigned to' %></strong>
