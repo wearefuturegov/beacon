@@ -42,6 +42,10 @@
   <div class="contact-profile">
     <div class="contact-profile__left">
       <div class="contact-profile__row">
+        <strong><%= form.label :is_urgent, 'Urgent need' %></strong>
+        <span><%= form.check_box :is_urgent %></span>
+      </div>
+      <div class="contact-profile__row">
         <strong><%= form.label :user_id, 'Assigned to' %></strong>
         <%= form.collection_select :user_id, @users, :id, :name_or_email, include_blank: 'Unassigned' %>
       </div>

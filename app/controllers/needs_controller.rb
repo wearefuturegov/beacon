@@ -40,7 +40,9 @@ class NeedsController < ApplicationController
           need_description = "#{@contact.name} needs #{need_category}"
         end
 
-        @contact.needs.build(category: need_category, name: need_description, due_by: DateTime.now + 7.days).save
+        need_is_urgent = value["is_urgent"]
+
+        @contact.needs.build(category: need_category, name: need_description, is_urgent: need_is_urgent, due_by: DateTime.now + 7.days).save
       end
     end
 
@@ -76,7 +78,7 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:name, :status, :user_id, :category)
+    params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent)
   end
 
   def needs_params
