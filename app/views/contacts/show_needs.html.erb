@@ -25,6 +25,7 @@
     <th>Need type</th>
     <th>Date added</th>
     <th>Status</th>
+    <th>Urgent</th>
     <th>Assigned to</th>
     <th></th>
   </tr>
@@ -35,6 +36,13 @@
       <td><%= need_item.category.humanize %></td>
       <td><%= need_item.created_at.strftime("%d/%m/%Y at %I:%M%p") %></td>
       <td><%= need_item.status %></td>
+      <td>
+        <% if need_item.is_urgent %>
+          <%= image_tag "red-tick.svg", alt: "urgent" %>
+        <% else %>
+          —
+        <% end %>
+      </td>
       <% if need_item.user %>
         <td>Assigned to <%= need_item.user.name_or_email %></td>
       <% else %>

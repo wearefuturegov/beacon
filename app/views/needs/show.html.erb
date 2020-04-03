@@ -27,6 +27,16 @@
 <div class="contact-profile">
   <div class="contact-profile__left">
     <div class="contact-profile__row">
+      <strong>Urgent</strong>
+      <span>
+        <% if @need.is_urgent %>
+          <%= image_tag "red-tick.svg", alt: "urgent" %>
+        <% else %>
+          —
+        <% end %>
+      </span>
+    </div>
+    <div class="contact-profile__row">
       <strong>Assigned to</strong>
       <span>
         <% if @need.user %>

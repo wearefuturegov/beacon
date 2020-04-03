@@ -6,12 +6,13 @@ class NeedsController < ApplicationController
   helper_method :get_param
 
   def index
-    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit)
+    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
     @users = User.all
     @needs = Need.includes(:contact, :user)
     @needs = @needs.filter_by_category(params[:category]) if params[:category].present?
     @needs = @needs.filter_by_user_id(params[:user_id]) if params[:user_id].present?
     @needs = @needs.filter_by_status(params[:status]) if params[:status].present?
+    @needs = @needs.filter_by_is_urgent(params[:is_urgent]) if params[:is_urgent].present?
 
     if params[:order].present? && params[:order_dir].present?
       sort_column = Need.column_names.include?(params[:order]) ? params[:order] : 'created_at'
@@ -40,7 +41,9 @@ class NeedsController < ApplicationController
           need_description = "#{@contact.name} needs #{need_category}"
         end
 
-        @contact.needs.build(category: need_category, name: need_description, due_by: DateTime.now + 7.days).save
+        need_is_urgent = value["is_urgent"]
+
+        @contact.needs.build(category: need_category, name: need_description, is_urgent: need_is_urgent, due_by: DateTime.now + 7.days).save
       end
     end
 
@@ -76,7 +79,7 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:name, :status, :user_id, :category)
+    params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent)
   end
 
   def needs_params
