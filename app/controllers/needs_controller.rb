@@ -12,6 +12,7 @@ class NeedsController < ApplicationController
     @needs = @needs.filter_by_category(params[:category]) if params[:category].present?
     @needs = @needs.filter_by_user_id(params[:user_id]) if params[:user_id].present?
     @needs = @needs.filter_by_status(params[:status]) if params[:status].present?
+    @needs = @needs.filter_by_is_urgent(params[:is_urgent]) if params[:is_urgent].present?
 
     if params[:order].present? && params[:order_dir].present?
       sort_column = Need.column_names.include?(params[:order]) ? params[:order] : 'created_at'

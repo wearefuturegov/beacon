@@ -23,6 +23,14 @@ class Need < ApplicationRecord
         where.not(completed_on: nil)
       end
     end
+  scope :filter_by_is_urgent, -> (is_urgent) do
+    is_urgent = is_urgent.downcase
+      if is_urgent == 'urgent'
+        where(is_urgent: true)
+      else
+        where.not(is_urgent: true)
+      end
+    end
 
   counter_culture :contact,
                   column_name: proc { |model| model.completed_on ? 'completed_needs_count' : 'uncompleted_needs_count' },

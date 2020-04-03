@@ -19,4 +19,8 @@ module NeedsHelper
     ['Groceries and cooked meals', 'Physical and mental wellbeing', 'Financial support',
      'Staying Social', 'Prescription pickups', 'Book drops and entertainment', 'Dog walking']
   end
+
+  def need_urgencies
+    ['Urgent', 'Not urgent']
+  end
 end
