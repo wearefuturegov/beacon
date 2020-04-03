@@ -10,7 +10,7 @@
 
 ---
 
-![Ruby](https://github.com/wearefuturegov/beacon/workflows/Ruby/badge.svg)
+![Ruby Test Env](https://github.com/wearefuturegov/beacon/workflows/Ruby%20Test%20Env/badge.svg)
 
 🚨This is **BETA** software and may be buggy 🚨
 
