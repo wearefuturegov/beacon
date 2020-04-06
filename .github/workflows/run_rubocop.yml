@@ -30,4 +30,4 @@ jobs:
         bundle install --jobs 4 --retry 3
     - name: Run rubocop
       run: |
-        rubocop
+        bundle exec rubocop
