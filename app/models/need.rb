@@ -1,7 +1,8 @@
-
 require 'csv'
 
 class Need < ApplicationRecord
+  include Filterable
+
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
   has_many :notes, dependent: :destroy
@@ -71,5 +72,13 @@ class Need < ApplicationRecord
                           ''
                         end
     save
+  end
+
+  def base_query
+    self.include(:contact, :user)
+  end
+
+  def default_sort
+    order(created_by: :asc)
   end
 end
