@@ -4,8 +4,9 @@ Rails.application.configure do
   # force ssl in production
   config.force_ssl = true
 
-  # use sendgrid to send emails
-  config.action_mailer.delivery_method = SendGridActionMailerAdapter::DeliveryMethod
+  # config.action_mailer.delivery_method = SendGridActionMailerAdapter::DeliveryMethod
+
+  config.action_mailer.delivery_method :govuk_notify, GovukNotifyRails::Delivery, api_key: ENV['NOTIFY_API_KEY']
 
   config.action_mailer.default_url_options = { host: ENV['MAILER_URL'] }
 
