@@ -7,6 +7,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'paper_trail/frameworks/rspec'
+require 'factory_bot'
+require 'faker'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -22,6 +24,9 @@ require 'paper_trail/frameworks/rspec'
 # require only the support files necessary.
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+
+# Tell FactoryBot to find factories since Gemfile uses require: false
+FactoryBot.find_definitions
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
