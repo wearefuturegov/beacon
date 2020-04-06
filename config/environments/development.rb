@@ -49,7 +49,7 @@ Rails.application.configure do
 
   Rails.logger = Logger.new(STDOUT)
   Rails.logger.level = Logger::DEBUG
-  Rails.logger.datetime_format = "%Y-%m-%d %H:%M:%S"
+  Rails.logger.datetime_format = "%d-%m-%Y %H:%M:%S"
 
   config.log_level = :debug
 
