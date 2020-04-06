@@ -1,8 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <div class="page-header">
-  <h1 class="page-title">Needs <span class="page-title__count">(<%= @needs.total_count %>)</span></h1>
+  <h1 class="page-title">Needs</h1>
 </div>
+
+<% if @needs.total_count > 0 %>
+  <div class="filtered-notice notice">
+    Showing <%= pluralize(@needs.total_count, 'result') %>
+    for the current filters.
+    <%= link_to "Clear filters", needs_path, class: "reset-needs-filters" %>.
+  </div>
+<% end %>
 
 <details class="filters">
   <summary class="filters__summary">Search and filter</summary>
@@ -38,7 +46,6 @@
       </tfoot>
     </table>
     <%= submit_tag("Apply") %>
-    <%= link_to "reset filters", needs_path, class: "reset-needs-filters" %>
   <% end %>
 </details>
 
