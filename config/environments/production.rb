@@ -1,3 +1,6 @@
+# Be sure to restart your server when you modify this file.
+require 'silencer/logger'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -83,6 +86,12 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.action_mailer.logger = nil
+
+  # This will silence all routing logs by replacing Rails::Rack::Logger with silencer on sign_in routes
+  config.middleware.swap Rails::Rack::Logger, Silencer::Logger, :silence => [%r{^/sign_in}]
+
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
