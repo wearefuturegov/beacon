@@ -2,7 +2,10 @@
 
 .breadcrumb {
   list-style: none;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 
   li {
     display: inline-block;
@@ -10,8 +13,8 @@
   }
 
   li+li:before {
-    padding: 8px;
-    color: $grey-pale;
+    padding: 0px 15px;
+    color: transparentize($grey-pale, 0.5);
     content: "/";
   }
 }

@@ -18,6 +18,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
 gem 'sendgrid_actionmailer_adapter'
 gem 'strong_migrations'
+gem 'csv'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

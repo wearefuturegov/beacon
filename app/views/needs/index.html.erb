@@ -4,6 +4,9 @@
   <h1 class="page-title">Needs <span class="page-title__count">(<%= @needs.total_count %>)</span></h1>
 </div>
 
+     
+
+
 <details class="filters">
   <summary class="filters__summary">Search and filter</summary>
   <%= form_with(url: needs_url, method: :get, local: true) do %>
@@ -23,6 +26,13 @@
         <th class="field">
           <label for="status" class="field__label">By status</label>
           <%= select_tag("status", options_for_select(need_statuses, :selected => get_param_capitalized('status')), prompt: 'All') %>
+        </th>
+        <th class="hidden">
+          <!-- has to be empty -->
+        </th>
+        <th class="field">
+          <label for="is_urgent" class="field__label">By urgency</label>
+          <%= select_tag("is_urgent", options_for_select(need_urgencies, :selected => get_param_capitalized('is_urgent')), prompt: 'All') %>
         </th>
         <th class="hidden">
           <!-- has to be empty -->

@@ -1,4 +1,4 @@
-<p>To get started, enter the email address you recieved the invite to.</p>
+<p>To get started, enter the email address you received the invite to.</p>
 
 <%= form_for @session, url: send(Passwordless.mounted_as).sign_in_path do |f| %>
   <% email_field_name = :"passwordless[#{@email_field}]" %>
@@ -8,5 +8,5 @@
     <%= text_field_tag email_field_name, params.fetch(email_field_name, nil), required: true, type: "email" %>
   </div>
 
-  <%= f.submit "Start log in" %>
+  <%= f.submit "Start sign in" %>
 <% end %>
