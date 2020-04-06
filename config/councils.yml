@@ -3,9 +3,9 @@ default: &default
     name: "Demo Council"
     support_email: "help@beacon.support"
     copyright_notice: "© 2020 Demo Council"
-    logo_path: "logo-camden.svg"
+    logo_path: "logo-demo.svg"
     privacy_link: "#"
-    default_from_address: "noreply@beacon.support"
+    default_from_address: "help@beacon.support"
 
   hackney:
     name: "Hackney Council"
@@ -13,7 +13,7 @@ default: &default
     copyright_notice: "© 2020 Hackney Council"
     logo_path: "logo-hackney.svg"
     privacy_link: "https://www.hackney.gov.uk/privacy"
-    default_from_address: "noreply@hackney.beacon.support"
+    default_from_address: "help@hackney.beacon.support"
 
   camden:
     name: "Camden Council"
@@ -21,7 +21,7 @@ default: &default
     copyright_notice: "© 2020 Camden Council"
     logo_path: "logo-camden.svg"
     privacy_link: "https://www.camden.gov.uk/data-protection-privacy-and-cookies"
-    default_from_address: "noreply@camden.beacon.support"
+    default_from_address: "help@camden.beacon.support"
 
 development:
   <<: *default
@@ -31,3 +31,4 @@ test:
 
 production:
   <<: *default
+

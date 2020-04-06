@@ -36,6 +36,13 @@
           <!-- has to be empty -->
         </th>
         <th class="field">
+          <label for="is_urgent" class="field__label">By urgency</label>
+          <%= select_tag("is_urgent", options_for_select(need_urgencies, :selected => get_param_capitalized('is_urgent')), prompt: 'All') %>
+        </th>
+        <th class="hidden">
+          <!-- has to be empty -->
+        </th>
+        <th class="field">
           <label for="category" class="field__label">By category</label>
           <%= select_tag("category", content_tag(:option,'Other',:value => "Other", :selected => params["category"] == "Other") + options_for_select(needs, :selected => get_param_capitalized('category')), prompt: 'All') %>
         </th>
