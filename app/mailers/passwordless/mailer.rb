@@ -18,7 +18,7 @@ module Passwordless
         #   subject: I18n.t("passwordless.mailer.subject")
         # )
 
-        set_template('2305fb7b-6a7b-4b03-8cdd-a01743511286')
+        set_template(Rails.configuration.councils[ENV['COUNCIL'] || :demo][:magic_link_template])
         set_personalisation(
           magic_link: @magic_link
         )
