@@ -21,52 +21,47 @@ RSpec.describe NeedsTestController do
 
   let(:need) do
     need = class_double("Need").as_stubbed_const
-    allow(need).to receive_messages(includes: need, page: need, order: need)
+    allow(need).to receive(:filter_and_sort).and_return(need)
+    allow(need).to receive(:page).and_return(need)
     need
   end
 
   describe "GET #index" do
-    it "orders by created_at in descending order by default" do
-      expect(need).to receive(:order).with(:created_at => :desc).and_return(need)
-      get :index
-      expect(response).to be_successful
-    end
-
     it "filters on page number passed in params" do
       expect(need).to receive(:page).with("5").and_return(need)
       get :index, params: { page: 5 }
       expect(response).to be_successful
     end
 
-    it "orders on the column passed in params, with the specified order" do
-      allow(need).to receive(:column_names).and_return(["column"])
-      expect(need).to receive(:order).with("column asc").and_return(need)
-      get :index, params: { order: "column", order_dir: "asc" }
+    it "passes filterable fields to model" do
+      expect(need).to receive(:filter_and_sort)
+                          .with(hash_including(:category => "category_test",
+                                               :user_id => "1",
+                                               :status => "test_status",
+                                               :is_urgent => "false"), any_args
+                          ).and_return(need)
+      get :index, params: { category: "category_test", user_id: "1", status: "test_status", is_urgent: "false" }
       expect(response).to be_successful
     end
 
-    it "defaults to filtering on created by if sorted on a column that is not allowed" do
-      allow(need).to receive(:column_names).and_return(["real_column"])
-      expect(need).to receive(:order).with("created_at asc").and_return(need)
-      get :index, params: { order: "fake_column", order_dir: "asc" }
+    it "passes sort fields to model" do
+      expect(need).to receive(:filter_and_sort)
+                          .with(any_args, hash_including(:order => "column_name", :order_dir => "asc"))
+                          .and_return(need)
+      get :index, params: { order: "column_name", order_dir: "asc" }
       expect(response).to be_successful
     end
 
-    it "filters on category" do
-      expect(need).to receive(:filter_by_category).with("category_test").and_return(need)
-      get :index, params: { category: "category_test" }
+    it "pages when the request is for html" do
+      expect(need).to receive(:page)
+      get :index, format: :html
       expect(response).to be_successful
     end
 
-    it "filters on user_id" do
-      expect(need).to receive(:filter_by_user_id).with("1").and_return(need)
-      get :index, params: { user_id: 1 }
-      expect(response).to be_successful
-    end
-
-    it "filters on status" do
-      expect(need).to receive(:filter_by_status).with("status").and_return(need)
-      get :index, params: { status: "status" }
+    it "does not page when the request is for a csv" do
+      allow(need).to receive(:to_csv)
+      expect(need).not_to receive(:page)
+      get :index, format: :csv
       expect(response).to be_successful
     end
   end
