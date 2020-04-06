@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '20200329100626_create_notes'
 
 class UpdateNotesReference < ActiveRecord::Migration[6.0]

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from passwordless (originally 20171104221735)
 
 class CreatePasswordlessSessions < ActiveRecord::Migration[5.1]
@@ -7,7 +8,7 @@ class CreatePasswordlessSessions < ActiveRecord::Migration[5.1]
       t.belongs_to(
         :authenticatable,
         polymorphic: true,
-        index: {name: "authenticatable"}
+        index: { name: 'authenticatable' }
       )
       t.datetime :timeout_at, null: false
       t.datetime :expires_at, null: false

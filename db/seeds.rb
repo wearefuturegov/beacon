@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -7,7 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 ActiveRecord::Base.transaction do
-  puts "Seeding the database..."
+  puts 'Seeding the database...'
 
   Faker::Config.locale = 'en-GB'
 
@@ -20,7 +22,7 @@ ActiveRecord::Base.transaction do
       contacts = FactoryBot.create_list :contact, 50, contact_list: contact_list
 
       need_categories = ['phone triage', 'groceries and cooked meals', 'physical and mental wellbeing', 'financial support',
-                        'staying social', 'prescription pickups', 'book drops and entertainment', 'dog walking', 'other']
+                         'staying social', 'prescription pickups', 'book drops and entertainment', 'dog walking', 'other']
 
       contacts.first(10).each do |contact|
         [1, 2, 3].sample.times do
@@ -29,20 +31,20 @@ ActiveRecord::Base.transaction do
                             user: [user, nil].sample,
                             category: need_categories.sample,
                             is_urgent: [true, false].sample,
-                            completed_on: [nil, [1,2,3].sample.days.ago].sample
+                            completed_on: [nil, [1, 2, 3].sample.days.ago].sample
         end
       end
     end
   end
 
-  puts "Finished seeding the database."
+  puts 'Finished seeding the database.'
 end
 
 # make an initial user for sake of the readme
 User.create(
-  email: "admin@example.com",
-  first_name: "Example",
-  last_name: "User",
+  email: 'admin@example.com',
+  first_name: 'Example',
+  last_name: 'User',
   admin: true,
-  invited: "2020-03-25 00:00:00"
+  invited: '2020-03-25 00:00:00'
 )

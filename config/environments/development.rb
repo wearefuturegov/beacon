@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -63,10 +65,10 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   ActionMailer::Base.smtp_settings = {
-      :domain => 'maildev',
-      :address => 'localhost',
-      :port => 1025,
-      :authentication => :plain,
-      :enable_starttls_auto => false
+    domain: 'maildev',
+    address: 'localhost',
+    port: 1025,
+    authentication: :plain,
+    enable_starttls_auto: false
   }
 end

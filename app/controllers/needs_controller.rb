@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class NeedsController < ApplicationController
   include ParamsConcern
-  before_action :set_need, only: [:show, :edit, :update]
-  before_action :set_contact, only: [:new, :create]
+  before_action :set_need, only: %i[show edit update]
+  before_action :set_contact, only: %i[new create]
 
   helper_method :get_param
 
@@ -9,14 +11,22 @@ class NeedsController < ApplicationController
     @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
     @users = User.all
     @needs = Need.includes(:contact, :user)
-    @needs = @needs.filter_by_category(params[:category]) if params[:category].present?
-    @needs = @needs.filter_by_user_id(params[:user_id]) if params[:user_id].present?
-    @needs = @needs.filter_by_status(params[:status]) if params[:status].present?
-    @needs = @needs.filter_by_is_urgent(params[:is_urgent]) if params[:is_urgent].present?
+    if params[:category].present?
+      @needs = @needs.filter_by_category(params[:category])
+    end
+    if params[:user_id].present?
+      @needs = @needs.filter_by_user_id(params[:user_id])
+    end
+    if params[:status].present?
+      @needs = @needs.filter_by_status(params[:status])
+    end
+    if params[:is_urgent].present?
+      @needs = @needs.filter_by_is_urgent(params[:is_urgent])
+    end
 
     if params[:order].present? && params[:order_dir].present?
       sort_column = Need.column_names.include?(params[:order]) ? params[:order] : 'created_at'
-      sort_order = %w(asc desc).include?(params[:order_dir].downcase) ? params[:order_dir] : 'desc'
+      sort_order = %w[asc desc].include?(params[:order_dir].downcase) ? params[:order_dir] : 'desc'
       @needs = @needs.order("#{sort_column} #{sort_order}")
     else
       @needs = @needs.order(created_at: :desc)
@@ -29,30 +39,29 @@ class NeedsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @needs = Needs.new
   end
 
   def create
-    needs_params["needs_list"].each do |_, value|
-      if value["active"] == "true"
-        need_category = value["name"].humanize.downcase
-        need_description = value["description"]
-        if need_description.blank?
-          need_description = "#{@contact.name} needs #{need_category}"
-        end
+    needs_params['needs_list'].each do |_, value|
+      next unless value['active'] == 'true'
 
-        need_is_urgent = value["is_urgent"]
-
-        @contact.needs.build(category: need_category, name: need_description, is_urgent: need_is_urgent, due_by: DateTime.now + 7.days).save
+      need_category = value['name'].humanize.downcase
+      need_description = value['description']
+      if need_description.blank?
+        need_description = "#{@contact.name} needs #{need_category}"
       end
+
+      need_is_urgent = value['is_urgent']
+
+      @contact.needs.build(category: need_category, name: need_description, is_urgent: need_is_urgent, due_by: DateTime.now + 7.days).save
     end
 
-    if needs_params["other_need"]
-      @contact.needs.build(category: "other", name: needs_params["other_need"], due_by: DateTime.now + 7.days).save
+    if needs_params['other_need']
+      @contact.needs.build(category: 'other', name: needs_params['other_need'], due_by: DateTime.now + 7.days).save
     end
 
     redirect_to controller: :contacts, action: :show_needs, id: @contact.id

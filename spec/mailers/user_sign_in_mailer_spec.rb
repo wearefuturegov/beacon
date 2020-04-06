@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe UserSignInMailer, type: :mailer do
   describe 'send invite email' do
@@ -10,11 +12,11 @@ RSpec.describe UserSignInMailer, type: :mailer do
     end
 
     it 'sends the email to the user' do
-      expect(mail.to).to eq(["test@emailaddress.com"])
+      expect(mail.to).to eq(['test@emailaddress.com'])
     end
 
     it 'is sent from the applications noreply address' do
-      expect(mail.from).to eq(["help@beacon.support"])
+      expect(mail.from).to eq(['help@beacon.support'])
     end
   end
 end
