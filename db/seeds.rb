@@ -42,10 +42,11 @@ ActiveRecord::Base.transaction do
 end
 
 # make an initial user for sake of the readme
-User.create(
-  email: "admin@example.com",
-  first_name: "Example",
-  last_name: "User",
-  admin: true,
-  invited: "2020-03-25 00:00:00"
-)
+seed_user_emails = ENV['SEED_USER_EMAILS'] || 'admin@example.com'
+seed_user_emails.split(',').each do |email|
+  User.create(
+    email: email.strip,
+    admin: true,
+    invited: DateTime.now
+  )
+end

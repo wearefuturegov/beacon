@@ -78,3 +78,4 @@ Coming soon...
 | COUNCIL          | Config key for `councils.yml`       |
 | SENDGRID_API_KEY | Sendgrid API key (production only   |
 | MAILER_URL       | Default URL for action mailer       |
+| SEED_USER_EMAILS | Optional comma-separated list of emails to seed users table with |
