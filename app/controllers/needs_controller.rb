@@ -20,28 +20,11 @@ class NeedsController < ApplicationController
   end
 
   def new
-    @needs = Needs.new
+    @needs = NeedsListForm.new
   end
 
   def create
-    needs_params["needs_list"].each do |_, value|
-      if value["active"] == "true"
-        need_category = value["name"].humanize.downcase
-        need_description = value["description"]
-        if need_description.blank?
-          need_description = "#{@contact.name} needs #{need_category}"
-        end
-
-        need_is_urgent = value["is_urgent"]
-
-        @contact.needs.build(category: need_category, name: need_description, is_urgent: need_is_urgent, due_by: DateTime.now + 7.days).save
-      end
-    end
-
-    if needs_params["other_need"]
-      @contact.needs.build(category: "other", name: needs_params["other_need"], due_by: DateTime.now + 7.days).save
-    end
-
+    NeedsCreator.create_needs(@contact, needs_form_params["needs_list"], needs_form_params["other_need"])
     redirect_to controller: :contacts, action: :show_needs, id: @contact.id
   end
 
@@ -73,7 +56,7 @@ class NeedsController < ApplicationController
     params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent)
   end
 
-  def needs_params
-    params.require(:needs).permit!
+  def needs_form_params
+    params.require(:needs_list_form).permit!
   end
 end
