@@ -14,13 +14,13 @@ class NeedsCreator
 
   def self.create_need(contact, need_values)
     need_hash = Hash.new
-    need_hash[:category] = need_values["name"].humanize.downcase
-    need_hash[:name] = if need_values["description"].blank?
+    need_hash[:category] = need_values['name'].humanize.downcase
+    need_hash[:name] = if need_values['description'].blank?
                        "#{contact.name} needs #{need_hash[:category]}"
-                     else
-                       need_values["description"]
-                     end
-    need_hash[:is_urgent] = need_values["is_urgent"]
+                       else
+                       need_values['description']
+                       end
+    need_hash[:is_urgent] = need_values['is_urgent']
     need_hash
   end
 end
