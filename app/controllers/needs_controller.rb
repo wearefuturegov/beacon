@@ -54,7 +54,10 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent)
+    params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent,
+      # There's probably a better way to do this
+      :dietary_requirements, :has_oven_or_hob,
+      :has_free_prescriptions, :local_pharmacy)
   end
 
   def needs_form_params

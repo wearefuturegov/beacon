@@ -53,7 +53,7 @@
           <td>Unassigned</td>
         <% end %>
         <td><%= link_to(need.contact_name, contact_path(need.contact.id)) %></td>
-        <td><strong><%= link_to need.name, need %></strong></td>
+        <td><strong><%= link_to need.name, need_path(need) %></strong></td>
         <td><%= status(need.completed_on) %></td>
         <td>
           <% if need.contact_is_vulnerable %>

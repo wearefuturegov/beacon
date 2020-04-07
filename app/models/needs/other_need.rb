@@ -1,0 +1,2 @@
+class OtherNeed < Need
+end

@@ -18,7 +18,7 @@
   <%= link_to "#{@contact.first_name}'s Needs (#{@contact.needs.count})", contact_needs_path(@contact), class: 'tabs__tab tabs__tab--current' %>
 </div>
 
-<%= form_with(model: @need, local: true) do |form| %>
+<%= form_with(model: @need.becomes(Need), local: true) do |form| %>
 
   <div class="page-header page-header--with-button">
     <h1 class="page-title"><%= @need.category.humanize %></h1>
@@ -60,6 +60,34 @@
         <strong><%= form.label :name, 'Description' %></strong>
         <span><%= form.text_area :name %></span>
       </div>
+
+      <% if @need.is_a?(GroceriesAndCookedMealsNeed) %>
+        <div class="contact-profile__row">
+          <strong><%= form.label :dietary_requirements, 'Dietary requirements' %></strong>
+          <span><%= form.text_area :dietary_requirements %></span>
+        </div>
+        <div class="contact-profile__row">
+          <strong>Oven/hob</strong>
+          <div class="checkbox">
+            <%= form.check_box :has_oven_or_hob, class: 'checkbox__input' %>
+            <%= form.label :has_oven_or_hob, 'Has an oven/hob', class: 'checkbox__label' %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @need.is_a?(PrescriptionPickupsNeed) %>
+        <div class="contact-profile__row">
+          <strong><%= form.label :local_pharmacy, 'Local pharmacy' %></strong>
+          <span><%= form.text_area :local_pharmacy %></span>
+        </div>
+        <div class="contact-profile__row">
+          <strong>Free prescriptions</strong>
+          <div class="checkbox">
+            <%= form.check_box :has_free_prescriptions, class: 'checkbox__input' %>
+            <%= form.label :has_free_prescriptions, 'Qualifies for free prescriptions', class: 'checkbox__label' %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 

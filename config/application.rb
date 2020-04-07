@@ -15,6 +15,8 @@ module IHaveINeed
     # <%= Rails.configuration.councils[ENV['COUNCIL']]['support_email'] %>
     config.councils = config_for(:councils)
 
+    config.autoload_paths += %W(#{Rails.root}/app/models/needs)
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

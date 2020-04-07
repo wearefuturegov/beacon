@@ -4,6 +4,7 @@ require 'csv'
 
 class Need < ApplicationRecord
   include Filterable
+  self.inheritance_column = 'category'
 
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true

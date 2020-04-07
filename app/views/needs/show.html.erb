@@ -54,6 +54,29 @@
       <strong>Description</strong>
       <span><%= @need.name %></span>
     </div>
+
+    <% if @need.is_a?(GroceriesAndCookedMealsNeed) %>
+      <div class="contact-profile__row">
+        <strong>Dietary requirements</strong>
+        <span><%= @need.dietary_requirements %></span>
+      </div>
+      <div class="contact-profile__row">
+        <strong>Has an oven/hob</strong>
+        <span><%= @need.has_oven_or_hob %></span>
+      </div>
+    <% end %>
+
+    <% if @need.is_a?(PrescriptionPickupsNeed) %>
+      <div class="contact-profile__row">
+        <strong>Qualifies for free prescriptions</strong>
+        <span><%= @need.has_free_prescriptions %></span>
+      </div>
+      <div class="contact-profile__row">
+        <strong>Local pharmacy</strong>
+        <span><%= @need.local_pharmacy %></span>
+      </div>
+    <% end %>
+
   </div>
   <div class="contact-profile__right">
     <div class="contact-profile__right__title">
@@ -95,7 +118,7 @@
     <% end %>
   </h2>
 
-  <%= form_with(model: [@need, @need.notes.build], local: true) do |form| %>
+  <%= form_with(model: [@need.becomes(Need), @need.notes.build], local: true) do |form| %>
     <div class="field">
       <%= form.label :body, 'Add a note', class: "field__label" %>
       <%= form.text_area :body, class: 'note-textarea' %>
