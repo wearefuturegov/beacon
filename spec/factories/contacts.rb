@@ -1,6 +1,4 @@
 FactoryBot.define do
-  priorities = ['low', 'medium', 'high']
-
   factory :contact do
     first_name { Faker::Name.first_name }
     middle_names { Faker::Name.middle_name }
