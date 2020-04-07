@@ -1,4 +1,4 @@
-class Needs
+class NeedsListForm
   include ActiveModel::Model
 
   attr_accessor :needs_list
