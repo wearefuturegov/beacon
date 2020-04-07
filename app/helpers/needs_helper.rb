@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NeedsHelper
   def status(completed_on)
     completed_on ? 'Completed' : 'To do'
@@ -12,11 +14,11 @@ module NeedsHelper
   end
 
   def need_categories
-    %w(Food Medicine Other)
+    %w[Food Medicine Other]
   end
 
   def needs
-    ['Phone triage','Groceries and cooked meals', 'Physical and mental wellbeing', 'Financial support',
+    ['Phone triage', 'Groceries and cooked meals', 'Physical and mental wellbeing', 'Financial support',
      'Staying Social', 'Prescription pickups', 'Book drops and entertainment', 'Dog walking']
   end
 

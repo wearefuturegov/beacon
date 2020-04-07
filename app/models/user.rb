@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   belongs_to :organisation, optional: true
   has_many :contact_list_users
