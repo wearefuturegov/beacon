@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe NeedsController, type: :controller do
-
   before :each do
     controller.class.skip_before_action :require_user!, raise: false
     controller.instance_variable_set(:@current_user, {})
