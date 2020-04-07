@@ -49,6 +49,5 @@ RSpec.describe ContactsController do
       expect(assigns(:users).size).to eq(3)
       expect(response).to be_successful
     end
-
   end
 end

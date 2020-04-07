@@ -9,7 +9,6 @@ require 'spec_helper'
 
 RSpec.describe ApplicationController do
   let(:user) { double User, email: 'test@emailaddress.com' }
-  
   before(:each) do
     controller.instance_variable_set(:@current_user, user)
   end
