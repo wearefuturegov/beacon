@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.invited = DateTime.now
     if @user.save
-      UserSignInMailer.send_invite_email(@user).deliver
+      UserSignInMailer.send_invite_email(@user, root_url).deliver
       redirect_to :users, notice: 'User was successfully created.'
     else
       render :new
