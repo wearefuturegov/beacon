@@ -38,6 +38,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'webdrivers'
+  gem 'rails-controller-testing'
 end
 
 group :development, :test do
