@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe UserSignInMailer, type: :mailer do
+
+  before do
+    Rails.application.reload_routes!
+  end
+
   describe 'send invite email' do
 
     let(:template) { '31d2b530-8db4-44ce-9bfa-34b01519335f' }
