@@ -9,12 +9,6 @@ class ApplicationController < ActionController::Base
 
   before_action :set_paper_trail_whodunnit
 
-  private
-
-  def load_council_config
-    Rails.configuration.councils[ENV['COUNCIL'] || :demo]
-  end
-
   def council_name
     load_council_config[:name]
   end
@@ -33,6 +27,12 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= authenticate_by_session(User)
+  end
+
+  private
+
+  def load_council_config
+    Rails.configuration.councils[ENV['COUNCIL'] || :demo]
   end
 
   def require_user!
