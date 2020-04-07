@@ -48,7 +48,6 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
   Rails.logger = Logger.new(STDOUT)
-  Rails.logger.level = Logger::DEBUG
   Rails.logger.datetime_format = "%d-%m-%Y %H:%M:%S"
 
   config.log_level = :debug
