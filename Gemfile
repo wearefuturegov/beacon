@@ -16,9 +16,9 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
-gem 'sendgrid_actionmailer_adapter'
 gem 'strong_migrations'
 gem 'csv'
+gem 'govuk_notify_rails'
 gem 'factory_bot_rails', require: false
 gem 'faker', require: false
 
