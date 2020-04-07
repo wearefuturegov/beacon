@@ -60,7 +60,7 @@ Rails.application.configure do
   Rails.logger.level = Logger::INFO
   Rails.logger.datetime_format = "%d-%m-%Y %H:%M:%S"
 
-  config.log_level = :warn
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
