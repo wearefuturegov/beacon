@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 module Filterable
   extend ActiveSupport::Concern
 
   module ClassMethods
-
     # Filter and sort an ActiveRecord table with the provided params
     # Include on an ApplicationRecord object via:
     # 'include Filterable'
@@ -18,18 +19,27 @@ module Filterable
     def filter_and_sort(filtering_params, ordering_params)
       results = base_query
       filtering_params.each do |key, value|
-        results = results.public_send("filter_by_#{key}", value) if value.present?
+        if value.present?
+          results = results.public_send("filter_by_#{key}", value)
+        end
       end
 
       # filter field and direction to known values
       order_field = ordering_params[:order]
       order_direction = ordering_params[:order_dir]
-      return default_sort(results) unless order_field.present? && order_direction.present?
+      unless order_field.present? && order_direction.present?
+        return default_sort(results)
+      end
       return default_sort(results) unless column_names.include?(order_field)
-      return default_sort(results) unless %w(asc desc).include?(order_direction.downcase)
+      unless %w[asc desc].include?(order_direction.downcase)
+        return default_sort(results)
+      end
 
       # check for overridden order scope
-      return results.public_send("order_by_#{order_field}", order_direction) if respond_to?("order_by_#{order_field}")
+      if respond_to?("order_by_#{order_field}")
+        return results.public_send("order_by_#{order_field}", order_direction)
+      end
+
       results.order("#{ordering_params[:order]} #{ordering_params[:order_dir]}")
     end
 
@@ -40,7 +50,7 @@ module Filterable
 
     # define a base query for the type
     def base_query
-      self.where(nil)
+      where(nil)
     end
   end
 end
