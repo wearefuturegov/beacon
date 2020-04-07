@@ -1,19 +1,9 @@
 require 'rails_helper'
-require 'spec_helper'
 
-class NeedsTestController < NeedsController
-  skip_before_action :require_user!
-end
+RSpec.describe NeedsController, type: :controller do
 
-RSpec.describe NeedsTestController do
-  before(:each) do
-    # test route
-    routes.draw do
-      resources :needs_test, only: [:index, :show, :edit, :update, :create, :new] do
-        resources :needs, only: [:new, :create]
-      end
-      get '/contacts/:id/needs', to: 'contacts#show_needs'
-    end
+  before :each do
+    controller.class.skip_before_action :require_user!, raise: false
     controller.instance_variable_set(:@current_user, {})
   end
 
