@@ -51,4 +51,4 @@ jobs:
         bundle exec rails db:seed
     - name: Run tests
       run: |
-        bundle exec rails spec
+        bundle exec rspec

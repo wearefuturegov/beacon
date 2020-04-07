@@ -1,7 +1,8 @@
-
 require 'csv'
 
 class Need < ApplicationRecord
+  include Filterable
+
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
   has_many :notes, dependent: :destroy
@@ -11,6 +12,7 @@ class Need < ApplicationRecord
   scope :completed, -> { where.not(completed_on: nil) }
   scope :uncompleted, -> { where(completed_on: nil) }
   scope :filter_by_category, -> (category) { where(category: category.downcase) }
+
   scope :filter_by_user_id, -> (user_id) do
     if user_id == "Unassigned"
       where(user_id: nil)
@@ -18,6 +20,7 @@ class Need < ApplicationRecord
       where(user_id: user_id)
     end
   end
+
   scope :filter_by_status, -> (status) do
     status = status.downcase
       if status == 'to do'
@@ -25,7 +28,8 @@ class Need < ApplicationRecord
       else
         where.not(completed_on: nil)
       end
-    end
+  end
+
   scope :filter_by_is_urgent, -> (is_urgent) do
     is_urgent = is_urgent.downcase
       if is_urgent == 'urgent'
@@ -33,7 +37,11 @@ class Need < ApplicationRecord
       else
         where.not(is_urgent: true)
       end
-    end
+  end
+
+  scope :order_by_category, -> (direction) do
+    order("LOWER(category) #{direction}")
+  end
 
   counter_culture :contact,
                   column_name: proc { |model| model.completed_on ? 'completed_needs_count' : 'uncompleted_needs_count' },
@@ -71,5 +79,13 @@ class Need < ApplicationRecord
                           ''
                         end
     save
+  end
+
+  def self.base_query
+    Need.includes(:contact, :user)
+  end
+
+  def self.default_sort(results)
+    results.order(created_at: :asc)
   end
 end
