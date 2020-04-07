@@ -6,6 +6,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.action_mailer.default_url_options = { host: ENV['HOSTNAME'] || 'localhost:3000' }
+
   config.cache_classes = false
 
   # Do not eager load code on boot. This avoids loading your whole application
@@ -34,6 +36,8 @@ Rails.application.configure do
   config.active_storage.service = :test
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.default_url_options = { host: ENV['HOSTNAME'] || 'localhost:3000' }
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the

@@ -63,6 +63,7 @@ GEM
     after_commit_action (1.1.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
+    ast (2.4.0)
     backports (3.17.0)
     bcrypt (3.1.13)
     bindex (0.8.1)
@@ -123,10 +124,15 @@ GEM
     gherkin (5.1.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    govuk_notify_rails (2.1.2)
+      notifications-ruby-client (~> 5.1)
+      rails (>= 4.1.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    jaro_winkler (1.5.4)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
+    jwt (2.2.1)
     kaminari (1.2.0)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.0)
@@ -166,9 +172,14 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    notifications-ruby-client (5.1.2)
+      jwt (>= 1.5, < 3)
     paper_trail (10.3.1)
       activerecord (>= 4.2)
       request_store (~> 1.1)
+    parallel (1.19.1)
+    parser (2.7.1.0)
+      ast (~> 2.4.0)
     passwordless (0.9.0)
       bcrypt (~> 3.1.11)
       rails (>= 5.1.4)
@@ -185,8 +196,6 @@ GEM
     puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.2.2)
-    rack-protection (2.0.8.1)
-      rack
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -217,6 +226,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
+    rainbow (3.0.0)
     rake (13.0.1)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
@@ -224,6 +234,7 @@ GEM
     regexp_parser (1.7.0)
     request_store (1.5.0)
       rack (>= 1.4)
+    rexml (3.2.4)
     rspec-core (3.9.1)
       rspec-support (~> 3.9.1)
     rspec-expectations (3.9.1)
@@ -241,9 +252,20 @@ GEM
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
     rspec-support (3.9.2)
-    ruby2_keywords (0.0.2)
+    rubocop (0.81.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.7.0.1)
+      rainbow (>= 2.2.2, < 4.0)
+      rexml
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-rails (2.5.1)
+      activesupport
+      rack (>= 1.1)
+      rubocop (>= 0.72.0)
+    ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
-    ruby_http_client (3.3.0)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -258,18 +280,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    sendgrid-ruby (5.3.0)
-      ruby_http_client (~> 3.3.0)
-      sinatra (>= 1.4.7, < 3)
-    sendgrid_actionmailer_adapter (0.3.1)
-      sendgrid-ruby (~> 5.0)
     shoulda-matchers (4.3.0)
       activesupport (>= 4.2.0)
-    sinatra (2.0.8.1)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.8.1)
-      tilt (~> 2.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -291,6 +303,7 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
+    unicode-display_width (1.7.0)
     web-console (4.0.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -325,6 +338,7 @@ DEPENDENCIES
   database_cleaner
   factory_bot_rails
   faker
+  govuk_notify_rails
   jbuilder (~> 2.7)
   kaminari
   listen (>= 3.0.5, < 3.2)
@@ -336,9 +350,9 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.2, >= 6.0.2.2)
   rspec-rails (~> 4.0.0)
+  rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver
-  sendgrid_actionmailer_adapter
   shoulda-matchers
   spring
   spring-watcher-listen (~> 2.0.0)

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ContactsController < ApplicationController
-  before_action :set_contact, only: [:edit, :update, :show, :show_needs, :add_needs]
+  before_action :set_contact, only: %i[edit update show show_needs add_needs]
 
   def index
     @contacts = Contact.all.page(params[:page])
@@ -10,11 +12,9 @@ class ContactsController < ApplicationController
     @need = Need.new
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def add_needs
     @needs_form = Needs.new

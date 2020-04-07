@@ -1,60 +1,31 @@
+# frozen_string_literal: true
+
 class NeedsController < ApplicationController
   include ParamsConcern
-  before_action :set_need, only: [:show, :edit, :update]
-  before_action :set_contact, only: [:new, :create]
+  before_action :set_need, only: %i[show edit update]
+  before_action :set_contact, only: %i[new create]
 
   helper_method :get_param
 
   def index
     @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
     @users = User.all
-    @needs = Need.includes(:contact, :user)
-    @needs = @needs.filter_by_category(params[:category]) if params[:category].present?
-    @needs = @needs.filter_by_user_id(params[:user_id]) if params[:user_id].present?
-    @needs = @needs.filter_by_status(params[:status]) if params[:status].present?
-    @needs = @needs.filter_by_is_urgent(params[:is_urgent]) if params[:is_urgent].present?
-
-    if params[:order].present? && params[:order_dir].present?
-      sort_column = Need.column_names.include?(params[:order]) ? params[:order] : 'created_at'
-      sort_order = %w(asc desc).include?(params[:order_dir].downcase) ? params[:order_dir] : 'desc'
-      @needs = @needs.order("#{sort_column} #{sort_order}")
-    else
-      @needs = @needs.order(created_at: :desc)
-    end
+    @needs = Need.filter_and_sort(@params.slice(:category, :user_id, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
-
     respond_to do |format|
       format.html
       format.csv { send_data @needs.to_csv, filename: "needs-#{Date.today}.csv" }
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
-    @needs = Needs.new
+    @needs = NeedsListForm.new
   end
 
   def create
-    needs_params["needs_list"].each do |_, value|
-      if value["active"] == "true"
-        need_category = value["name"].humanize.downcase
-        need_description = value["description"]
-        if need_description.blank?
-          need_description = "#{@contact.name} needs #{need_category}"
-        end
-
-        need_is_urgent = value["is_urgent"]
-
-        @contact.needs.build(category: need_category, name: need_description, is_urgent: need_is_urgent, due_by: DateTime.now + 7.days).save
-      end
-    end
-
-    if needs_params["other_need"]
-      @contact.needs.build(category: "other", name: needs_params["other_need"], due_by: DateTime.now + 7.days).save
-    end
-
+    NeedsCreator.create_needs(@contact, needs_form_params['needs_list'], needs_form_params['other_need'])
     redirect_to controller: :contacts, action: :show_needs, id: @contact.id
   end
 
@@ -86,7 +57,7 @@ class NeedsController < ApplicationController
     params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent)
   end
 
-  def needs_params
-    params.require(:needs).permit!
+  def needs_form_params
+    params.require(:needs_list_form).permit!
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Need, type: :model do
@@ -29,7 +31,7 @@ RSpec.describe Need, type: :model do
   it '#status' do
     need1 = build :need, name: 'medicines', completed_on: nil
     expect(need1.status).to eq 'To do'
-    
+
     need2 = build :need, name: 'food', completed_on: DateTime.now
     expect(need2.status).to eq 'Complete'
   end

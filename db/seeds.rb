@@ -5,6 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
+require 'factory_bot'
+FactoryBot.find_definitions
 
 ActiveRecord::Base.transaction do
   puts "Seeding the database..."
@@ -39,10 +42,11 @@ ActiveRecord::Base.transaction do
 end
 
 # make an initial user for sake of the readme
-User.create(
-  email: "admin@example.com",
-  first_name: "Example",
-  last_name: "User",
-  admin: true,
-  invited: "2020-03-25 00:00:00"
-)
+seed_user_emails = ENV['SEED_USER_EMAILS'] || 'admin@example.com'
+seed_user_emails.split(',').each do |email|
+  User.find_or_initialize_by(email: email.strip)
+    .update!(
+      admin: true,
+      invited: DateTime.now
+    )
+end
