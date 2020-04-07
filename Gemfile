@@ -16,17 +16,21 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
-# gem 'sendgrid_actionmailer_adapter'
 gem 'strong_migrations'
 gem 'csv'
 gem 'govuk_notify_rails'
+gem 'factory_bot_rails', require: false
+gem 'faker', require: false
+
+group :development, :test do
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+end
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring'
   gem 'web-console', '>= 3.3.0'
-  gem 'dotenv-rails'
 end
 
 group :test do
@@ -37,12 +41,9 @@ group :test do
 end
 
 group :development, :test do
-  gem 'factory_bot_rails'
-  gem 'faker'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
