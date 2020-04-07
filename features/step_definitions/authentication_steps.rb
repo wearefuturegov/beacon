@@ -7,9 +7,9 @@ end
 def generate_magic_link
   tester = User.create!(email: 'test@test.com', invited: Date.today)
   session = Passwordless::Session.new({
-                                          authenticatable: tester,
-                                          user_agent: 'Cucumber-tests',
-                                          remote_addr: 'unknown',
+                                        authenticatable: tester,
+                                        user_agent: 'Cucumber-tests',
+                                        remote_addr: 'unknown'
                                       })
   session.save!
   magic_link = send(Passwordless.mounted_as).token_sign_in_url(session.token)

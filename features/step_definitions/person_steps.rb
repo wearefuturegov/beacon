@@ -41,7 +41,7 @@ When(/^I save the edit resident form$/) do
   click_button('Save changes')
 end
 
-Then("the residents list of needs contains {string}") do |need|
+Then('the residents list of needs contains {string}') do |need|
   expect(page).to have_content(need)
 end
 
@@ -51,13 +51,13 @@ end
 
 Then(/^the residents names have been updated$/) do
   expect(page).to have_content("TestFirstName's Needs")
-  expect(page).to have_content("TestMiddle Names")
-  expect(page).to have_content("TestSurname")
+  expect(page).to have_content('TestMiddle Names')
+  expect(page).to have_content('TestSurname')
 end
 
 Then(/^the residents address has been updated$/) do
-  expect(page).to have_content("Test Address")
-  expect(page).to have_content("TE5 7PC")
+  expect(page).to have_content('Test Address')
+  expect(page).to have_content('TE5 7PC')
 end
 
 Then(/^the residents contact details have been updated$/) do
