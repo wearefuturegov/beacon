@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Contact < ApplicationRecord
   belongs_to :contact_list, optional: true
   has_many :needs, dependent: :destroy

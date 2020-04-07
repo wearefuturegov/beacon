@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class NeedsController < ApplicationController
   include ParamsConcern
-  before_action :set_need, only: [:show, :edit, :update]
-  before_action :set_contact, only: [:new, :create]
+  before_action :set_need, only: %i[show edit update]
+  before_action :set_contact, only: %i[new create]
 
   helper_method :get_param
 
@@ -16,15 +18,14 @@ class NeedsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @needs = NeedsListForm.new
   end
 
   def create
-    NeedsCreator.create_needs(@contact, needs_form_params["needs_list"], needs_form_params["other_need"])
+    NeedsCreator.create_needs(@contact, needs_form_params['needs_list'], needs_form_params['other_need'])
     redirect_to controller: :contacts, action: :show_needs, id: @contact.id
   end
 

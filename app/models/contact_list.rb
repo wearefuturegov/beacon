@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ContactList < ApplicationRecord
   has_many :contacts
   has_many :contact_list_users
