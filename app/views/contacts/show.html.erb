@@ -56,4 +56,28 @@
       </div>
     <% end %>
   </div>
+
+  <div class="contact-profile__right">
+
+    <div class="contact-profile__row">
+      <strong>People:</strong>
+      <span><%= @contact.count_people_in_house %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Children under 15:</strong>
+      <span><%= @contact.any_children_below_15 %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Free Prescriptions?</strong>
+      <span><%= @contact.eligible_for_free_prescriptions %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Delivery Details:</strong>
+      <span><%= @contact.delivery_details %></span>
+    </div>
+
+  </div>
 </div>

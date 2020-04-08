@@ -28,19 +28,36 @@
         </div>
       </fieldset>
 
-      <fieldset class="field-section field-section--two-cols">
-        <legend><h2 class="field-section__title">Where do they live?</h2></legend>
+    <fieldset class="field-section field-section--two-cols">
+      <legend><h2 class="field-section__title">Where do they live?</h2></legend>
+
+      <div class="field field--span-two-cols">
+        <%= form.label :address, class: "field__label" %>
+        <%= form.text_field :address %>
+      </div>
+
+      <div class="field">
+        <%= form.label :postcode, class: "field__label" %>
+        <%= form.text_field :postcode %>
+      </div>
+    </fieldset>
+
+    <fieldset class="field-section field-section--two-cols">
+        <legend><h2 class="field-section__title">Additional information about their household?</h2></legend>
 
         <div class="field field--span-two-cols">
-          <%= form.label :address, class: "field__label" %>
-          <%= form.text_field :address %>
+          <%= form.label 'How many people in total live there?', class: "field__label" %>
+          <%= form.number_field :count_people_in_house %>
         </div>
 
-        <div class="field">
-          <%= form.label :postcode, class: "field__label" %>
-          <%= form.text_field :postcode %>
+
+      
+        <div class="field field--span-two-cols">
+          <%= form.label 'Are they any children under 15?', class: "field__label" %>
+          <%= form.radio_button :any_children_under_15 %>
         </div>
-      </fieldset>
+
+    </fieldset>
 
       <fieldset class="field-section field-section--two-cols">
         <legend><h2 class="field-section__title">How can we reach them?</h2></legend>
