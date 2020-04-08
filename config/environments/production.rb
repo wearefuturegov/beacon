@@ -56,9 +56,6 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  Rails.logger = Logger.new(STDOUT)
-  Rails.logger.level = Logger::WARN
-  Rails.logger.datetime_format = "%d-%m-%Y %H:%M:%S"
 
   config.log_level = :warn
 
