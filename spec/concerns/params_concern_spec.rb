@@ -18,6 +18,10 @@ RSpec.describe TestController, type: :controller do
     end
   end
 
+  after do
+    Rails.application.reload_routes!
+  end
+
   it '#get_param_capitalized' do
     get :index, params: { foo: 'value' }
     expect(subject.get_param_capitalized('foo')).to eq('Value')
