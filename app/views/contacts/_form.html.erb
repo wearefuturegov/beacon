@@ -43,19 +43,27 @@
     </fieldset>
 
     <fieldset class="field-section field-section--two-cols">
-        <legend><h2 class="field-section__title">Additional information about their household?</h2></legend>
+      <legend><h2 class="field-section__title">Additional information about their household</h2></legend>
 
-        <div class="field field--span-two-cols">
-          <%= form.label 'How many people in total live there?', class: "field__label" %>
-          <%= form.number_field :count_people_in_house %>
-        </div>
+      <div class="field field--span-two-cols">
+        <%= form.label 'How many people in total live there?', class: "field__label" %>
+        <%= form.number_field :count_people_in_house %>
+      </div>
 
+      <div class="field field--span-two-cols">
+        <%= form.label 'Any special delivery details?', class: "field__label" %>
+        <%= form.text_area :delivery_details %>
+      </div>
 
-      
-        <div class="field field--span-two-cols">
-          <%= form.label 'Are they any children under 15?', class: "field__label" %>
-          <%= form.radio_button :any_children_under_15 %>
-        </div>
+      <legend><h2 class="field-section__title">Any children under 15?</h2></legend>
+      <div class="radio">
+        <%= form.radio_button :any_children_below_15, true, :id => "any_children_below_15_true" %>
+        <label for="any_children_below_15_true" class="radio__label">Yes</label>
+      </div>
+      <div class="radio">
+        <%= form.radio_button :any_children_below_15, false, :id => "any_children_below_15_false" %>
+        <label for="any_children_below_15_false" class="radio__label">No</label>
+      </div>
 
     </fieldset>
 
@@ -86,6 +94,16 @@
       <div class="field field--span-two-cols">
         <%= form.label :additional_info, class: "field__label" %>
         <%= form.text_area :additional_info %>
+      </div>
+
+      <legend><h2 class="field-section__title">Are they eligible for free prescriptions?</h2></legend>
+      <div class="radio">
+        <%= form.radio_button :eligible_for_free_prescriptions, true, :id => "eligible_for_free_prescriptions_true" %>
+        <label for="eligible_for_free_prescriptions_true" class="radio__label">Yes</label>
+      </div>
+      <div class="radio">
+        <%= form.radio_button :eligible_for_free_prescriptions, false, :id => "eligible_for_free_prescriptions_false" %>
+        <label for="eligible_for_free_prescriptions_false" class="radio__label">No</label>
       </div>
 
     </fieldset>
