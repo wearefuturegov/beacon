@@ -4,3 +4,18 @@ AllCops:
   Exclude:
     - 'lib/tasks/cucumber.rake'
     - 'node_modules/**/*'
+
+Lint/RaiseException:
+  Enabled: false
+
+Lint/StructNewOverride:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/HashTransformValues:
+  Enabled: false
