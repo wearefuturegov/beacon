@@ -1,21 +1,10 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'spec_helper'
 
-class NeedsTestController < NeedsController
-  skip_before_action :require_user!
-end
-
-RSpec.describe NeedsTestController do
-  before(:each) do
-    # test route
-    routes.draw do
-      resources :needs_test, only: %i[index show edit update create new] do
-        resources :needs, only: %i[new create]
-      end
-      get '/contacts/:id/needs', to: 'contacts#show_needs'
-    end
+RSpec.describe NeedsController, type: :controller do
+  before :each do
+    controller.class.skip_before_action :require_user!, raise: false
     controller.instance_variable_set(:@current_user, {})
   end
 
