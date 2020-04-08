@@ -7,14 +7,7 @@ RSpec.describe ContactsController do
   let(:user) { double User, email: 'test@emailaddress.com' }
 
   before(:each) do
-    # contact routes
-    routes.draw do
-      resources :contacts, only: %i[index show edit update] do
-        resources :needs, only: %i[new create]
-      end
-      get '/contacts/:id/needs', to: 'contacts#show_needs'
-      root 'contacts#index'
-    end
+
     controller.instance_variable_set(:@current_user, user)
   end
 
