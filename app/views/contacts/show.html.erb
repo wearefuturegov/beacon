@@ -56,4 +56,16 @@
       </div>
     <% end %>
   </div>
+
+
+  <div class="contact-profile__lright">
+    <div class="contact-profile__row">
+      <strong>Number of people in the residence</strong>
+      <span><%= @contact.residents_count %></span>
+    </div>
+    <div class="contact-profile__row">
+    <strong>Any children under 15 ?</strong>
+    <span><%= humanize_boolean(@contact.has_children) %></span>
+  </div>
+  </div>
 </div>

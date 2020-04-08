@@ -43,6 +43,25 @@
       </fieldset>
 
       <fieldset class="field-section field-section--two-cols">
+        <legend><h2 class="field-section__title">How many people live at this address?</h2></legend>
+        <div class="field">
+          <%= form.number_field :residents_count, min: 1 %>
+        </div>
+      </fieldset>
+
+      <fieldset class="field-section field-section--two-cols">
+        <legend><h2 class="field-section__title">Does any children under 15 live at this address?</h2></legend>
+        <div class="radio">
+          <%= form.radio_button :has_children, true, :id => "has_children_true" %>
+          <label for="has_children_true" class="radio__label">Yes</label>
+        </div>
+        <div class="radio">
+          <%= form.radio_button :has_children, false, :id => "has_children_false" %>
+          <label for="has_children_false" class="radio__label">No</label>
+        </div>
+      </fieldset>
+      
+      <fieldset class="field-section field-section--two-cols">
         <legend><h2 class="field-section__title">How can we reach them?</h2></legend>
         <div class="flex">
           <div class="field">

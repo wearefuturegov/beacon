@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_03_095904) do
+ActiveRecord::Schema.define(version: 2020_04_08_153810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2020_04_03_095904) do
     t.integer "completed_needs_count", default: 0
     t.text "email"
     t.string "additional_info"
+    t.integer "residents_count", default: 0
+    t.boolean "has_children", default: false
     t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
   end
 

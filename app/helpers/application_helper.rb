@@ -8,4 +8,8 @@ module ApplicationHelper
   def humanize_text(text)
     text&.humanize
   end
+
+  def humanize_boolean(boolean)
+    boolean ? 'Yes' : 'No'
+  end
 end
