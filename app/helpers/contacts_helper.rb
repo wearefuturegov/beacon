@@ -3,7 +3,7 @@
 module ContactsHelper
   def boolean_formatter(field)
     if field
-      image_tag("red-tick.svg", alt: "Yes")
+      image_tag('red-tick.svg', alt: 'Yes')
     else
       '-'
     end
