@@ -1,0 +1,24 @@
+<fieldset class="field-section">
+  <label for="test1" class="field__label">How is your food situation</label>
+  <%= text_field_tag "test1" %>
+  <br/>
+</fieldset>
+
+<fieldset class="field-section field-section--two-cols">
+  <legend><h2 class="field-section__title">Do you have enough food for</h2></legend>
+
+  <div class="field field--span-two-cols">
+    <div class="checkbox">
+      <%= radio_button_tag :access_internet, 1, false, { class: "checkbox__input" } %>
+      <%= label_tag :access_internet, 'Today', class: "checkbox__label" %>
+    </div>
+    <div class="checkbox">
+      <%= radio_button_tag :access_internet, 2, false, { class: "checkbox__input" } %>
+      <%= label_tag :access_internet, 'Next 2 days', class: "checkbox__label" %>
+    </div>
+    <div class="checkbox">
+      <%= radio_button_tag :access_internet, 3, false, { class: "checkbox__input" } %>
+      <%= label_tag :access_internet, 'One week', class: "checkbox__label" %>
+    </div>
+  </div>
+</fieldset>
