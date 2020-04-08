@@ -52,7 +52,7 @@
 
     <div class="contact-profile__row">
       <strong>Any dietary requirements?</strong>
-      <span><%= @contact.any_dietary_requirements %></span>
+      <span><%= boolean_formatter(@contact.any_dietary_requirements) %></span>
     </div>
 
     <div class="contact-profile__row">
@@ -75,19 +75,19 @@
 
     <div class="contact-profile__row">
       <strong>Children under 15:</strong>
-      <span><%= @contact.any_children_below_15 %></span>
+      <span><%= boolean_formatter(@contact.any_children_below_15) %></span>
     </div>
 
     <div class="contact-profile__row">
       <strong>Free prescriptions?</strong>
-      <span><%= @contact.eligible_for_free_prescriptions %></span>
+      <span><%= boolean_formatter(@contact.eligible_for_free_prescriptions) %></span>
     </div>
 
     <div class="contact-profile__row">
       <strong>Delivery details:</strong>
       <span><%= @contact.delivery_details %></span>
     </div>
-    
+
     <% if @contact.additional_info %>
       <div class="contact-profile__row">
         <strong>Additional info:</strong>
