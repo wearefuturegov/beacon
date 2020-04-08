@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_03_095904) do
+ActiveRecord::Schema.define(version: 2020_04_08_104437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,12 @@ ActiveRecord::Schema.define(version: 2020_04_03_095904) do
     t.integer "completed_needs_count", default: 0
     t.text "email"
     t.string "additional_info"
+    t.integer "count_people_in_house"
+    t.boolean "any_children_below_15"
+    t.text "delivery_details"
+    t.boolean "any_dietary_requirements"
+    t.text "dietary_details"
+    t.text "cooking_facilities"
     t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
   end
 
