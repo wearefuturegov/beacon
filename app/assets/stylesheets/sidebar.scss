@@ -1,0 +1,52 @@
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #242424;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav h3 {
+  color: #fff4f6;
+  padding: 6px 8px 6px 16px;
+}
+
+@for $i from 2 through 20 {
+
+  .sidenav a:nth-child(#{$i}) {
+    border-left: 4px solid rgb(random(255), random(255), random(255));
+  }
+}
+
+.sidenav a {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 14px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 13px;
+  color: #ffffff;
+  display: block;
+}
+
+.sidenav a.active {
+  background-color: #656565;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
