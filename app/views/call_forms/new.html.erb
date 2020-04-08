@@ -4,7 +4,7 @@
   <% needs.each do |need| %>
     <a href="#<%= need.parameterize %>"><%= need %></a>
   <% end %>
-  <a href="#contact">Other</a>
+  <a href="#other">Other</a>
 </div>
 
 <ol class="breadcrumb">
@@ -68,6 +68,7 @@
   <% end %>
 
   <div class="field">
+    <a class="anchor-point" id="other" href="#"></a>
     <%= form.label :other_need, class: "field__label" %>
     <%= form.text_field :other_need %>
   </div>
