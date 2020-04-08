@@ -59,12 +59,41 @@
     <hr>
     <br>
     <h3> Phone Log Summary </h3>
-    <% if @failed_calls %>
+    <% if @success_calls.size == 0 %>
     <div class="contact-profile__row">
-      <strong>Last Failed call:</strong>
-      <span><%= @failed_calls %></span>
-    </div>
-  <% end %>
+      <strong>Call attempts: <%= @failed_calls.size %></strong>
+      <div class="notes-list">
+        <% @failed_calls.each do |note| %>
+
+          <div class="note">
+            <header class="note__header">
+              <strong class="note__author"><%= note.user.name_or_email %></strong>
+              <span class="note__created"><%= time_ago_in_words(note.created_at) %> ago</span>
+            </header>
+            <p class="two-thirds"><%= note.body %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>    
+    <% else %>
+   
+    <div class="contact-profile__row">
+      <strong>Contact made: <%= @success_calls.size %></strong>
+      <div class="notes-list">
+        <% @success_calls.each do |note| %>
+
+          <div class="note">
+            <header class="note__header">
+              <strong class="note__author"><%= note.user.name_or_email %></strong>
+              <span class="note__created"><%= time_ago_in_words(note.created_at) %> ago</span>
+            </header>
+            <p class="two-thirds"><%= note.body %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>    
+    <% end %>
+
   
   </div>
 </div>

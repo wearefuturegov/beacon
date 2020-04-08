@@ -13,10 +13,9 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @generic_notes = @contact.needs.flat_map{|n| n.notes}.select{|y| y[:note_type]=='generic'}
     @failed_calls = sort_notes_by_date(@contact.needs.flat_map{|n| n.notes}.select{|y| y[:note_type]=='phone_fail'})
     @success_calls = sort_notes_by_date(@contact.needs.flat_map{|n| n.notes}.select{|y| y[:note_type]=='phone_success'})
-  end
+ end
 
   def edit; end
 
@@ -35,7 +34,7 @@ class ContactsController < ApplicationController
   private
   
   def sort_notes_by_date(arr)
-    arr.sort_by { |h| h["updated_at"].reverse }
+    return (arr != nil) ? arr.sort_by { |h| h["updated_at"] }.reverse : []
   end
 
   def set_contact

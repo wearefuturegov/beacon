@@ -123,7 +123,7 @@
       <% next if note == @need.notes.last %>
       <div class="note">
         <header class="note__header">
-          <strong class="note__type"><%= note.note_type %></strong>
+          <strong class="'note__type' <%= note.note_type %>"><%= note.note_type %></strong>
           <strong class="note__author"><%= note.user.name_or_email %></strong>
           <span class="note__created"><%= time_ago_in_words(note.created_at) %> ago</span>
         </header>
