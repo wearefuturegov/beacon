@@ -4,4 +4,3 @@ AllCops:
   Exclude:
     - 'lib/tasks/cucumber.rake'
     - 'node_modules/**/*'
-
