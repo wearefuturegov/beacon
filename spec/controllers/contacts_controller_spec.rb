@@ -26,7 +26,7 @@ RSpec.describe ContactsController do
   end
 
   describe 'GET #index' do
-    it 'receive contact index with pagination' do
+    it 'receives contact index with pagination' do
       expect(contact).to receive(:page).with('5').and_return(contact)
       get :index, params: { page: 5 }
       expect(response).to be_successful
