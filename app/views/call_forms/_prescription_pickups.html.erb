@@ -1,0 +1,12 @@
+<legend><h3 class="field-section__title">Are you eligible for free prescriptions?</h3></legend>
+
+<div class="field field--span-two-cols">
+  <div class="checkbox">
+    <%= form.radio_button :eligible_for_free_prescriptions, true, { class: "checkbox__input" } %>
+    <%= form.label 'eligible_for_free_prescriptions_true', 'Yes', class: "checkbox__label" %>
+  </div>
+  <div class="checkbox">
+    <%= form.radio_button :eligible_for_free_prescriptions, false, { class: "checkbox__input" } %>
+    <%= form.label 'eligible_for_free_prescriptions_false', 'No', class: "checkbox__label" %>
+  </div>
+</div>

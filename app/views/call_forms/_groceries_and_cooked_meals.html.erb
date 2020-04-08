@@ -1,24 +1,26 @@
-<fieldset class="field-section">
-  <label for="test1" class="field__label">How is your food situation</label>
-  <%= text_field_tag "test1" %>
-  <br/>
-</fieldset>
+<div class="field field--span-two-cols">
+  <%= form.label :delivery_details, 'Delivery details' %>
+  <%= form.text_area :delivery_details %>
+</div>
 
-<fieldset class="field-section field-section--two-cols">
-  <legend><h2 class="field-section__title">Do you have enough food for</h2></legend>
-
-  <div class="field field--span-two-cols">
-    <div class="checkbox">
-      <%= radio_button_tag :access_internet, 1, false, { class: "checkbox__input" } %>
-      <%= label_tag :access_internet, 'Today', class: "checkbox__label" %>
-    </div>
-    <div class="checkbox">
-      <%= radio_button_tag :access_internet, 2, false, { class: "checkbox__input" } %>
-      <%= label_tag :access_internet, 'Next 2 days', class: "checkbox__label" %>
-    </div>
-    <div class="checkbox">
-      <%= radio_button_tag :access_internet, 3, false, { class: "checkbox__input" } %>
-      <%= label_tag :access_internet, 'One week', class: "checkbox__label" %>
-    </div>
+<legend><h3 class="field-section__title">Do you have any dietary requirements?</h3></legend>
+<div class="field field--span-two-cols">
+  <div class="checkbox">
+    <%= form.radio_button :any_dietary_requirements, true, { class: "checkbox__input" } %>
+    <%= form.label 'any_dietary_requirements_true', 'Yes', class: "checkbox__label" %>
   </div>
-</fieldset>
+  <div class="checkbox">
+    <%= form.radio_button :any_dietary_requirements, false, { class: "checkbox__input" } %>
+    <%= form.label 'any_dietary_requirements_false', 'No', class: "checkbox__label" %>
+  </div>
+</div>
+
+<div class="field field--span-two-cols">
+  <%= form.label :dietary_details, 'Dietary details', class: "checkbox__label" %>
+  <%= form.text_area :dietary_details %>
+</div>
+
+<div class="field field--span-two-cols">
+  <%= form.label :cooking_facilities, 'Cooking facilities', class: "checkbox__label" %>
+  <%= form.text_area :cooking_facilities %>
+</div>

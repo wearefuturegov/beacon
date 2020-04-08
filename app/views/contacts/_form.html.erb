@@ -1,6 +1,6 @@
 <div class="two-thirds">
 
   <%= form_with(model: contact, local: true) do |form| %>
-    <%= render partial: 'form_fields', contact: contact, form: form %>
+    <%= render partial: 'form_fields', locals: { contact: @contact, form: form } %>
   <% end %>
 </div>

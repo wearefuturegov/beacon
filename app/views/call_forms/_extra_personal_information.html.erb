@@ -1,35 +1,24 @@
-
 <fieldset class="field-section field-section--two-cols">
-  <legend><h2 class="field-section__title">Can you speak english?</h2></legend>
+  <legend><h2 class="field-section__title">How many people live in your house</h2></legend>
 
   <div class="field field--span-two-cols">
-    <div class="checkbox">
-      <%= form.radio_button :can_speak_english, true, { class: "checkbox__input" } %>
-      <%= form.label 'can_speak_english_true', 'Yes', class: "checkbox__label" %>
-    </div>
-    <div class="checkbox">
-      <%= form.radio_button :can_speak_english, false, { class: "checkbox__input" } %>
-      <%= form.label 'can_speak_english_false', 'No', class: "checkbox__label" %>
-    </div>
-  </div>
-
-  <div class="field field--span-two-cols">
-    <%= label_tag :additional_info, 'If \'No\' please state preferred language', class: "field__label" %>
-    <%= text_field_tag :additional_info %>
+    <%= label_tag :count_people_in_house, 'Number of people', class: "field__label" %>
+    <%= text_field_tag :count_people_in_house %>
   </div>
 </fieldset>
 
+
 <fieldset class="field-section field-section--two-cols">
-  <legend><h2 class="field-section__title">Do you have access to the internet</h2></legend>
+  <legend><h2 class="field-section__title">Do you have any children under 15?</h2></legend>
 
   <div class="field field--span-two-cols">
     <div class="checkbox">
-      <%= radio_button_tag :access_internet, true, false, { class: "checkbox__input" } %>
-      <%= label_tag :access_internet, 'Yes', class: "checkbox__label" %>
+      <%= form.radio_button :any_children_below_15, true, { class: "checkbox__input" } %>
+      <%= form.label 'any_children_below_15_true', 'Yes', class: "checkbox__label" %>
     </div>
     <div class="checkbox">
-      <%= radio_button_tag :access_internet, false, false, { class: "checkbox__input" } %>
-      <%= label_tag :access_internet, 'No', class: "checkbox__label" %>
+      <%= form.radio_button :any_children_below_15, false, { class: "checkbox__input" } %>
+      <%= form.label 'any_children_below_15_false', 'No', class: "checkbox__label" %>
     </div>
   </div>
 </fieldset>

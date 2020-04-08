@@ -58,7 +58,12 @@
       </div>
 
       <br/>
-      <%= render :partial => "#{need.parameterize.underscore}" rescue nil %>
+      <%= fields_for :contact, @call_form.contact do |contact_form| %>
+        <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need.parameterize.underscore}.html.erb")) %>
+          <%# form will save to the need, contact_form will save to the contact %>
+          <%= render :partial => "#{need.parameterize.underscore}", locals: { form: form, contact_form: contact_form } %>
+        <% end %>
+      <% end %>
     </fieldset>
   <% end %>
 
