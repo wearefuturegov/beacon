@@ -9,9 +9,9 @@ const updateHighlightedAnchor = () => {
     if (scrollSection != null) {
         let currentlyActive = document.querySelector('.sidenav .active');
         if (currentlyActive != null) {
-            currentlyActive.classList.remove('active');
+            //currentlyActive.classList.remove('active');
         }
-        document.querySelector('.sidenav a[href*=' + scrollSection[0] + ']').setAttribute('class', 'active');
+        //document.querySelector('.sidenav a[href*=' + scrollSection[0] + ']').setAttribute('class', 'active');
     }
 };
 

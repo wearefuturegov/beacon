@@ -1,13 +1,58 @@
 .sidenav {
   height: 100%;
-  width: 160px;
+  width: 216px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #242424;
+  background-color: #2F2D2E;
   overflow-x: hidden;
-  padding-top: 20px;
+
+  &__logo {
+    margin: 40px 32px;
+  }
+
+  &__block {
+    font-size: 14px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 8px;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+
+    &--call-list {
+      font-size: 18px;
+    }
+
+    &--people {
+      font-size: 18px;
+      background: #156BEC;
+      margin-left: 15px;
+      padding-left: 15px;
+    }
+  }
+
+  &--call-list {
+
+  }
+
+  &--people {
+
+  }
+
+  *, a {
+    line-height: 17px;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+  }
+}
+
+.sidenav a.need {
+  padding-left: 12px;
+  max-width: 140px;
 }
 
 .sidenav h3 {
@@ -16,28 +61,13 @@
 }
 
 @for $i from 2 through 20 {
-
-  .sidenav a:nth-child(#{$i}) {
+  .sidenav a.need:nth-child(#{$i}) {
     border-left: 4px solid rgb(random(255), random(255), random(255));
   }
 }
 
-.sidenav a {
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 14px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 13px;
-  color: #ffffff;
-  display: block;
-}
-
 .sidenav a.active {
   background-color: #656565;
-}
-
-.sidenav a:hover {
-  color: #f1f1f1;
 }
 
 .main {
