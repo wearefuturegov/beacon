@@ -55,5 +55,16 @@
         <span><%= @contact.additional_info %></span>
       </div>
     <% end %>
+
+    <hr>
+    <br>
+    <h3> Phone Log Summary </h3>
+    <% if @failed_calls %>
+    <div class="contact-profile__row">
+      <strong>Last Failed call:</strong>
+      <span><%= @failed_calls %></span>
+    </div>
+  <% end %>
+  
   </div>
 </div>

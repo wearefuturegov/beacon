@@ -97,6 +97,21 @@
 
   <%= form_with(model: [@need, @need.notes.build], local: true) do |form| %>
     <div class="field">
+      <%= form.label :body, 'Choose a type', class: "field__label" %>
+      <div class="radio radio-vertical">
+        <%= form.radio_button :note_type, 'generic', :id => "generic", :checked => true %>
+        <label for="generic" class="radio__label">Generic</label>
+      </div>
+      <div class="radio radio-vertical">
+        <%= form.radio_button :note_type, 'phone_success', :id => "phone_success" %>
+        <label for="phone_success" class="radio__label">Successful Phone call</label>
+      </div>
+      <div class="radio radio-vertical">
+        <%= form.radio_button :note_type, 'phone_fail', :id => "phone_fail" %>
+        <label for="phone_fail" class="radio__label">Failed Phone call</label>
+      </div>
+    </div>
+    <div class="field">
       <%= form.label :body, 'Add a note', class: "field__label" %>
       <%= form.text_area :body, class: 'note-textarea' %>
     </div>
@@ -108,6 +123,7 @@
       <% next if note == @need.notes.last %>
       <div class="note">
         <header class="note__header">
+          <strong class="note__type"><%= note.note_type %></strong>
           <strong class="note__author"><%= note.user.name_or_email %></strong>
           <span class="note__created"><%= time_ago_in_words(note.created_at) %> ago</span>
         </header>
