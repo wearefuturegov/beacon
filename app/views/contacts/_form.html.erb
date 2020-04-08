@@ -89,6 +89,30 @@
 
 
     <fieldset class="field-section field-section--two-cols">
+      <legend><h2 class="field-section__title">Any dietary requirements?</h2></legend>
+
+      <div class="radio">
+        <%= form.radio_button :any_dietary_requirements, true, :id => "any_dietary_requirements_true" %>
+        <label for="any_dietary_requirements_true" class="radio__label">Yes</label>
+      </div>
+      <div class="radio">
+        <%= form.radio_button :any_dietary_requirements, false, :id => "any_dietary_requirements_false" %>
+        <label for="any_dietary_requirements_false" class="radio__label">No</label>
+      </div>
+
+      <div class="field field--span-two-cols">
+        <%= form.label :dietary_details, class: "field__label" %>
+        <%= form.text_area :dietary_details %>
+      </div>
+
+      <legend><h2 class="field-section__title">What cooking facilities do they have?</h2></legend>
+      <div class="field field--span-two-cols">
+        <%= form.text_area :cooking_facilities %>
+      </div>
+
+    </fieldset>
+
+    <fieldset class="field-section field-section--two-cols">
       <legend><h2 class="field-section__title">What should we know about them?</h2></legend>
 
       <div class="field field--span-two-cols">

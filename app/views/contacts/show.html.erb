@@ -49,12 +49,21 @@
       <span><%= @contact.mobile %></span>
     </div>
 
-    <% if @contact.additional_info %>
-      <div class="contact-profile__row">
-        <strong>Additional info:</strong>
-        <span><%= @contact.additional_info %></span>
-      </div>
-    <% end %>
+
+    <div class="contact-profile__row">
+      <strong>Any dietary requirements?</strong>
+      <span><%= @contact.any_dietary_requirements %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Dietary details:</strong>
+      <span><%= @contact.dietary_details %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Cooking facilities:</strong>
+      <span><%= @contact.cooking_facilities %></span>
+    </div>
   </div>
 
   <div class="contact-profile__right">
@@ -70,14 +79,22 @@
     </div>
 
     <div class="contact-profile__row">
-      <strong>Free Prescriptions?</strong>
+      <strong>Free prescriptions?</strong>
       <span><%= @contact.eligible_for_free_prescriptions %></span>
     </div>
 
     <div class="contact-profile__row">
-      <strong>Delivery Details:</strong>
+      <strong>Delivery details:</strong>
       <span><%= @contact.delivery_details %></span>
     </div>
+    
+    <% if @contact.additional_info %>
+      <div class="contact-profile__row">
+        <strong>Additional info:</strong>
+        <span><%= @contact.additional_info %></span>
+      </div>
+    <% end %>
+
 
   </div>
 </div>
