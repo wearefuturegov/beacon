@@ -1,0 +1,30 @@
+      <% if @contact.needs.any? %>
+        <table class="needs-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Priority</th>
+              <th>Assigned</th>
+              <th>Due</th>
+            <tr>
+          </thead>
+          <tbody>
+            <% @contact.needs.each do |n| %>
+              <tr onclick="window.location='<%= need_path(n) %>'">
+                <td><%= link_to n.category.humanize, n %></td>
+                <td>
+                  <% if n.is_urgent %>
+                    <span class="urgent-tag">Urgent</span>
+                  <% else %>
+                    —
+                  <% end %>
+                </td>
+                <td><%= n.assigned %></td>
+                <td><%= n.due_by.strftime("%-d %B %Y") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p class="no-results">No needs recorded for this person</p>
+      <% end %>

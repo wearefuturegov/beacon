@@ -89,4 +89,12 @@ class Need < ApplicationRecord
   def self.default_sort(results)
     results.order(created_at: :asc)
   end
+
+  def assigned
+    if user 
+      user.name_or_email
+    else
+      "Unassigned"
+    end
+  end
 end

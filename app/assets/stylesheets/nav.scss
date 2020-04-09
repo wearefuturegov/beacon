@@ -32,13 +32,10 @@
 .main-menu{
     list-style: none;
     padding-left: 0px;
-
     .main-menu__item{
         font-size: 1.1rem;
         margin-bottom: 5px;
     }
-
-
     .main-menu__link{
         padding: 15px;
         color: $white;
@@ -46,7 +43,7 @@
         text-decoration: none;
         border-radius: 2px;
         &:hover{
-            background: transparentize($grey, 0.5);
+            background: lighten($text, 5);
         }        
         &:focus{
             background: $yellow;
@@ -54,7 +51,6 @@
             outline: none;
         }
     }
-
     .main-menu__current{
         padding: 15px;
         color: $white;

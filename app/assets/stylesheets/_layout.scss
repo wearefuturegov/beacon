@@ -17,7 +17,10 @@ body{
     background: $white;
     padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 2px 0px 10px transparentize($text, 0.95)
+    box-shadow: 2px 0px 10px transparentize($text, 0.95);
+    &.panel--unpadded{
+        padding: 0px;
+    }
 }
 
 .alert{
@@ -52,10 +55,23 @@ body{
         font-size: 1.2rem;
         font-weight: normal;
     }
+    .panel-header__badge{
+        margin-left: 7px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $red;
+        border-radius: 100%;
+        width: 19px;
+        height: 19px;
+        font-size: 0.8rem;
+        color: $white;
+    }
     .panel-header__action{
         color: $blue;
         text-decoration: none;
         font-weight: 500;
+        margin-left: auto;
         &:hover{
             text-decoration: underline;
         }
@@ -73,5 +89,19 @@ body{
             background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.75189 5.686V0.867999H5.25589V5.686H0.459886V7.182H5.25589V12H6.75189V7.182H11.5479V5.686H6.75189Z' fill='%233A6CB5'/%3E%3C/svg%3E%0A");
             margin-left: 5px;
         }
+    }
+}
+
+.with-left-sidebar{
+    display: flex;
+    flex-direction: row;
+    min-width: 100%;
+    align-items: flex-start;
+    .with-left-sidebar__left{
+        flex: 1;
+        margin-right: 25px;
+    }
+    .with-left-sidebar__right{
+        flex: 2;
     }
 }

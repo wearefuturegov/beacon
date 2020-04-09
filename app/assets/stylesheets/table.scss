@@ -77,4 +77,76 @@
     font-size: 1.4rem;
     text-align: center;
     color: $grey;
+    padding: 40px;
+    margin: 0px auto;
+    max-width: 300px;
+}
+
+.needs-table{
+    width: 100%;
+    border-collapse: collapse;
+
+    thead{
+        th{
+            padding-top: 25px;
+            text-align: left;
+            padding-bottom: 15px;
+            font-size: 0.9rem;
+            padding-right: 15px;
+            &:first-of-type{
+                padding-left: 25px;
+            }
+        }
+    }
+
+    tbody{
+        tr{
+            border-top: 1px solid transparentize($text, 0.8);
+            cursor: pointer;
+            &:hover{
+                background: transparentize($blue, 0.9);
+            }
+            &:focus-within{
+                background: transparentize($yellow, 0.8);
+                border-color: $yellow;
+            }
+        }
+        td{
+            height: 70px;
+            a{
+                color: $text;
+                text-decoration: none;
+                &:focus{
+                    background: none;
+                    outline: none;
+                }
+            }
+            &:first-of-type{
+                padding-left: 25px;
+            }
+            &:last-of-type{
+                padding-right: 50px;
+                position: relative;
+                &:after{
+                    position: absolute;
+                    content: "";
+                    display: block;
+                    top: 0px;
+                    right: 0px;
+                    height: 100%;
+                    width: 50px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-image: url("data:image/svg+xml,%3Csvg width='9' height='14' viewBox='0 0 9 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.976074 0.907025L7.14068 7.00001L0.976075 13.093L1.89376 14L8.97607 7.00001L1.89376 6.19156e-07L0.976074 0.907025Z' fill='%232A2828'/%3E%3C/svg%3E%0A");
+                }
+            }
+        }
+    }
+}
+
+.urgent-tag{
+    display: inline-block;
+    padding: 7px 12px;
+    background: $red;
+    color: $white;
 }
