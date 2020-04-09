@@ -2,15 +2,11 @@
 
 .mini-search{
     position: relative;
-    margin-bottom: 25px;
-    @media screen and (min-width: $breakpoint-m) {
-        margin-bottom: 0px;
-        width: 250px;
-    }
+    width: 250px;
+    margin-right: 15px;
 
     .mini-search__input{
-        padding: 7px 0px;
-        height: 42px;
+        padding: 5px 0px;
         font-size: 1rem;
         color: $text;
         border: none;
@@ -31,14 +27,17 @@
         border: none;
         position: absolute;
         right: 0px;
-        top: 2px;
-        height: 38px;
-        padding: 10px 12px;
-        img{
-            height: 100%;
-            width: auto;
-        }
+        top: 1px;
+        bottom: 1px;
+        padding: 5px 10px;
         cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: auto;
+            height: 14px;
+        }
         &:hover{
             background: $pale;
         }
