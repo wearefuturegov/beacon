@@ -18,5 +18,8 @@ FactoryBot.define do
     dietary_details { Faker::Lorem.sentence }
     cooking_facilities { Faker::Lorem.sentence }
     eligible_for_free_prescriptions { Faker::Boolean.boolean(true_ratio: 0.2) }
+    shielded_id { Faker::Number.between(from: 1, to: 9000) }
+    nhs_number { Faker::Number.between(from: 100_000, to: 800_000) }
+    gp_practice_code { Faker::Address.postcode }
   end
 end

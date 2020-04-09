@@ -21,6 +21,7 @@ gem 'csv'
 gem 'govuk_notify_rails'
 gem 'factory_bot_rails', require: false
 gem 'faker', require: false
+gem 'jsonb_accessor', '~> 1.0.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

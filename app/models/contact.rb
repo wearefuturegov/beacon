@@ -9,6 +9,11 @@ class Contact < ApplicationRecord
   acts_as_ordered_taggable
   has_paper_trail
 
+  jsonb_accessor :data,
+    shielded_id: :string,
+    nhs_number: :string,
+    gp_practice_code: :string
+
   validates :first_name, presence: true
 
   def name
