@@ -31,6 +31,6 @@ class User < ApplicationRecord
   end
 
   def last_logged_in
-    self.passwordless_sessions.try(:last).try(:claimed_at)
+    passwordless_sessions.try(:last).try(:claimed_at)
   end
 end

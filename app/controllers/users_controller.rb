@@ -46,6 +46,7 @@ class UsersController < ApplicationController
 
   def require_admin
     return if current_user.admin
+
     redirect_to root_path, flash: { error: 'Only administrators can manage users' }
   end
 end
