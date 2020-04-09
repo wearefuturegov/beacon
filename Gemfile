@@ -18,6 +18,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
 gem 'strong_migrations'
 gem 'csv'
+gem 'pg_search', '~> 2.3', '>= 2.3.2'
 gem 'govuk_notify_rails'
 gem 'factory_bot_rails', require: false
 gem 'faker', require: false
