@@ -31,9 +31,6 @@
 
   <%= fields_for :contact, @call_form.contact do |contact_fields| %>
     <%= render partial: 'contacts/form_fields', locals: { contact: @call_form.contact, form: contact_fields } %>
-
-    <!-- todo: Update this to point to where the new fields will be saved -->
-    <%= render 'extra_personal_information', contact: @call_form, form: form %>
   <% end %>
 
   <div class="page-header">
