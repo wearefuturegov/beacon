@@ -4,7 +4,7 @@ end
 
 When(/^I edit the residents name$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit profile'
+  click_link 'Edit'
   fill_in('contact_first_name', with: 'TestFirstName')
   fill_in('contact_middle_names', with: 'TestMiddle Names')
   fill_in('contact_surname', with: 'TestSurname')
@@ -12,14 +12,14 @@ end
 
 When(/^I edit the residents address$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit profile'
+  click_link 'Edit'
   fill_in('contact_address', with: 'Test Address')
   fill_in('contact_postcode', with: 'TE5 7PC')
 end
 
 When(/^I edit the residents contact details$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit profile'
+  click_link 'Edit'
   fill_in('contact_email', with: 'test@test.com')
   fill_in('contact_telephone', with: '01 811 8055')
   fill_in('contact_mobile', with: '0770 123 456')
@@ -27,13 +27,13 @@ end
 
 When(/^I edit the residents vulnerability status$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit profile'
+  click_link 'Edit'
   choose 'is_vulnerable_true'
 end
 
 When(/^I edit the residents additional info$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit profile'
+  click_link 'Edit'
   fill_in('contact_additional_info', with: 'Test additional info')
 end
 
@@ -42,6 +42,7 @@ When(/^I save the edit resident form$/) do
 end
 
 Then('the residents list of needs contains {string}') do |need|
+  visit "/contacts/#{@contact.id}/needs"
   expect(page).to have_content(need)
 end
 
