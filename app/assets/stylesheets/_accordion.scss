@@ -38,6 +38,13 @@
     }
     .accordion__content{
         padding: 25px;
+        position: relative;
+    }
+    .accordion__edit-link{
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        font-size: 0.9rem;
     }
 }
 

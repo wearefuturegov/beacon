@@ -90,6 +90,9 @@ body{
             margin-left: 5px;
         }
     }
+    .panel-header__action--plain:after{
+        display: none
+    }
 }
 
 .with-left-sidebar{

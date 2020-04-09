@@ -23,6 +23,7 @@
                 <%= @contact.mobile %>
             </dd>
         </dl>
+        <%= link_to "Edit", edit_contact_path(@contact), class: "accordion__edit-link" %>
     </div>
 
     <button class="accordion__control" aria-expanded="false">
