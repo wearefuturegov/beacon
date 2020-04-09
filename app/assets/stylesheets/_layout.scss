@@ -10,5 +10,12 @@ body{
 .content-pane{
     background: $pale;
     flex: 1;
-    padding: 25px;
+    padding: 0px 25px;
+}
+
+.panel{
+    background: $white;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 2px 0px 10px transparentize($text, 0.95)
 }

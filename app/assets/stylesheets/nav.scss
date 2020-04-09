@@ -4,12 +4,15 @@
     background: $text;
     width: 100%;
     min-height: 100px;
-    max-width: 250px;
-    padding: 35px;
+    width: 230px;
+    min-width: 230px;
+    max-width: 230px;
+    padding: 30px 20px;
 
     .nav__logo-link{
         display: block;
         margin-bottom: 35px;
+        padding: 0px 20px;
         &:focus{
             outline: none;
             img{
@@ -31,11 +34,12 @@
 
     .main-menu__item{
         font-size: 1.1rem;
+        margin-bottom: 5px;
     }
 
 
     .main-menu__link{
-        padding: 20px;
+        padding: 15px;
         color: $white;
         display: block;
         text-decoration: none;
@@ -50,7 +54,7 @@
     }
 
     .main-menu__current{
-        padding: 20px;
+        padding: 15px;
         color: $white;
         display: block;
         background: $blue;

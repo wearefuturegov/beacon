@@ -6,15 +6,21 @@
     <%= render "shared/side-nav" %>
 
     <div class="content-pane">
-      <header class="content-footer">
+
+      <header class="panel content-header">
+
+        <nav class="content-header__actions-right">
+          <span class="content-header__current-user"><%= current_user.email %></span>
+          <%= link_to 'Log out', auth.sign_out_path, class: "button button--small" %>
+        </nav>
+      
+
       </header>
 
-      <div class="main-content">
+      <div class="panel">
         <%= yield %>
       </div>
 
-      <footer class="content-footer">
-      </footer>
     </div>
 
   </body>

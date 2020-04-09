@@ -2,26 +2,25 @@
   <p class="notice"><%= notice %></p>
 <% end %>
 
-<div class="page-header">
-</div>
-
 <div class="table-holder">
   <table class="table">
     <thead>
       <tr>
         <th>Name</th>
+        <th>Phone</th>
         <th>Needs</th>
         <th>Vulnerable</th>
         <th>Date logged</th>
-        <th></th>
-        <th></th>
       </tr>
     </thead>
 
     <tbody>
     <% @contacts.each do |contact| %>
       <tr>
-        <td><strong><%= link_to contact.name, contact %></strong></td>
+        <td><%= link_to contact.name, contact %></td>
+        <td>
+          <%= contact.telephone || contact.mobile %>
+        </td>
         <td>
           <% if contact.needs_count > 0 %>
             <%= pluralize(contact.uncompleted_needs_count, 'need') %>

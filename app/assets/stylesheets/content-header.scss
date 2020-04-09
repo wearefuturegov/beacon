@@ -1,0 +1,33 @@
+@import "variables";
+
+.content-header{
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .content-header__actions-right{
+        margin-left: auto;
+        padding-left: 25px;
+    }
+
+    .content-header__current-user{
+        margin-right: 10px;
+    }
+}
+
+.button{
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid $blue;
+    color: $blue;
+    font-weight: bold;
+    text-decoration: none;
+    &:hover{
+        background: $blue;
+        color: $white;
+    }
+    &:focus{
+        outline: 2px solid $yellow;
+    }
+}
