@@ -88,6 +88,12 @@
       <span><%= @contact.delivery_details %></span>
     </div>
 
+    <% if lookup_context.exists?(council_key, ["contacts"], true) %>
+      <%= render council_key, contact: @contact %>
+    <% end %>
+
+
+    
     <% if @contact.additional_info %>
       <div class="contact-profile__row">
         <strong>Additional info:</strong>
