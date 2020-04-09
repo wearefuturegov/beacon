@@ -34,7 +34,10 @@ group :development do
 end
 
 group :test do
+  gem 'cucumber-rails', require: false
   gem 'capybara', '>= 2.15'
+  # database cleaner is not required, but highly recommended
+  gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'webdrivers'

@@ -19,7 +19,9 @@
               </ul>
             </li>
             <li class="site-header__link"><%= link_to_unless_current 'People', contacts_path, controller: :contacts %></li>
-            <li class="site-header__link"><%= link_to_unless_current 'Users', users_path, controller: :users %></li>
+            <% if current_user.admin %>
+              <li class="site-header__link"><%= link_to_unless_current 'Users', users_path, controller: :users %></li>
+            <% end %>
           </ul>
 
           <div class="site-header__right-menu">
