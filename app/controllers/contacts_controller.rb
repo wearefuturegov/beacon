@@ -7,7 +7,10 @@ class ContactsController < ApplicationController
     @contacts = Contact.all.page(params[:page])
   end
 
-  def show_needs
+  def call_list
+  end
+
+  def needs
     @users = User.all
     @need = Need.new
   end
