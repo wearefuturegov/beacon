@@ -15,11 +15,15 @@
         </nav>
       </header>
 
-      <% if notice || alert %>
+      <%# is there a better catchall for this? %>
+      <% if notice || alert%>
         <div class="alert">
           <%= notice %>
           <%= alert %>
         </div>
+      <% end %>
+      <% flash.each do |name, msg| %>
+        <div class="alert"><%= msg %></div>
       <% end %>
 
       <%= yield %>
