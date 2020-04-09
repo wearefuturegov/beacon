@@ -1,4 +1,4 @@
-<div class="sidenav">
+<div class="sidenav" style="display:none">
 
   <div class="sidenav__logo">
     <%= image_tag "beacon-white.svg", alt: "beacon logo" %>
@@ -64,6 +64,13 @@
         <label for="<%= "needs_is_urgent_#{index}" %>" class="checkbox__label">Urgent need</label>
       </div>
     </fieldset>
+
+    <%= fields_for :contact, @contact do |contact_form| %>
+      <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need.parameterize.underscore}.html.erb")) %>
+        <%# form will save to the need, contact_form will save to the contact %>
+        <%= render :partial => "#{need.parameterize.underscore}", locals: { form: contact_form } %>
+      <% end %>
+    <% end %>
   <% end %>
 
   <div class="field">
