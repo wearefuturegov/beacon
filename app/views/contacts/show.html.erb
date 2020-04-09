@@ -88,6 +88,68 @@
       <span><%= @contact.delivery_details %></span>
     </div>
 
+    <div class="contact-profile__row">
+      <strong>Shield ID:</strong>
+      <span><%= @contact.shielded_id %></span>
+    </div>
+    <div class="contact-profile__row">
+      <strong>NHS number:</strong>
+      <span><%= @contact.nhs_number %></span>
+    </div>
+    <div class="contact-profile__row">
+      <strong>Mosaid ID:</strong>
+      <span><%= @contact.mosaid_id %></span>
+    </div>
+    <div class="contact-profile__row">
+      <strong>Mosaid ID2:</strong>
+      <span><%= @contact.mosaid_id2 %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>EH Flag:</strong>
+      <span><%= boolean_formatter @contact.eh_flag %></span>
+    </div>
+    <% if @contact.eh_flag %>
+      <div class="contact-profile__row">
+        <strong>EH team:</strong>
+        <span><%= @contact.eh_team %></span>
+      </div> 
+      <div class="contact-profile__row">
+        <strong>EH worker:</strong>
+        <span><%= @contact.eh_worker %></span>
+      </div>
+    <% end %>
+
+    <div class="contact-profile__row">
+      <strong>CSSW Flag:</strong>
+      <span><%= boolean_formatter @contact.cssw_flag %></span>
+    </div>
+    <% if @contact.cssw_flag %>
+      <div class="contact-profile__row">
+        <strong>CSSW team:</strong>
+        <span><%= @contact.cssw_team %></span>
+      </div> 
+      <div class="contact-profile__row">
+        <strong>CSSW worker:</strong>
+        <span><%= @contact.cssw_worker %></span>
+      </div>
+    <% end %>
+
+    <div class="contact-profile__row">
+      <strong>ASC Flag:</strong>
+      <span><%= boolean_formatter @contact.asc_flag %></span>
+    </div>
+    <% if @contact.asc_flag %>
+      <div class="contact-profile__row">
+        <strong>ASC PSR:</strong>
+        <span><%= @contact.asc_psr %></span>
+      </div> 
+      <div class="contact-profile__row">
+        <strong>ASC workers:</strong>
+        <span><%= @contact.asc_workers %></span>
+      </div>
+    <% end %>
+    
     <% if @contact.additional_info %>
       <div class="contact-profile__row">
         <strong>Additional info:</strong>
