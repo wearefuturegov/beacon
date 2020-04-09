@@ -20,15 +20,6 @@ class NeedsController < ApplicationController
 
   def show; end
 
-  def new
-    @needs = NeedsListForm.new
-  end
-
-  def create
-    NeedsCreator.create_needs(@contact, needs_form_params['needs_list'], needs_form_params['other_need'])
-    redirect_to controller: :contacts, action: :show_needs, id: @contact.id
-  end
-
   def edit
     @users = User.all
   end
@@ -55,9 +46,5 @@ class NeedsController < ApplicationController
 
   def need_params
     params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent)
-  end
-
-  def needs_form_params
-    params.require(:needs_list_form).permit!
   end
 end
