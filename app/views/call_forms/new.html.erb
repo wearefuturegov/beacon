@@ -20,7 +20,7 @@
 <ol class="breadcrumb">
   <li><%= link_to "People in need", contacts_path %></li>
   <li><%= link_to @contact.name, contact_path(@contact) %></li>
-  <li>Call</li>
+  <li>Edit</li>
 </ol>
 
 <%= form_with(model: [@contacts, @call_form], url: contact_call_forms_path, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
