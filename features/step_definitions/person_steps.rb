@@ -2,6 +2,23 @@ Given(/^a resident$/) do
   @contact = Contact.create!(first_name: 'Test')
 end
 
+Given(/^I am on a call with a resident$/) do
+  @contact = Contact.create!(first_name: 'Test')
+end
+
+Given(/^I am editing the residents profile$/) do
+  visit "contacts/#{@contact.id}"
+  click_link 'Edit'
+end
+
+When('I edit the special delivery details {string}') do |details|
+  fill_in('contact_delivery_details', with: details)
+end
+
+When('I edit the total number of people to {string}') do |count|
+  fill_in('contact_count_people_in_house', with: count)
+end
+
 When(/^I edit the residents name$/) do
   visit "contacts/#{@contact.id}"
   click_link 'Edit'
@@ -48,6 +65,15 @@ end
 
 Then(/^I see a resident updated message$/) do
   expect(page).to have_content('Contact was successfully updated.')
+end
+
+Then('the special delivery details are {string}') do |details|
+  expect(page).to have_content(details)
+end
+
+Then('the total number of people is {string}') do |count|
+  # TODO add test-data-ids
+  expect(page).to have_content(count)
 end
 
 Then(/^the residents names have been updated$/) do
