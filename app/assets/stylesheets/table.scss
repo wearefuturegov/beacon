@@ -85,39 +85,29 @@
 .pagination{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    .page a{
-        display: inline-block;
-        text-decoration: none;
-        padding: 7px;
-        &:hover{
-            background: $pale;
-        }
-        &:focus{
-            background: $yellow;
-            outline: none;
-        }
-    }
-    .gap, 
-    .current{
-        padding: 7px;
-        opacity: 0.5;
-    }
-    .first a, 
-    .prev a, 
-    .next a, 
-    .last a{
-        display: inline-block;
-        padding: 7px 10px;
+
+    .pagination__previous,
+    .pagination__next{
+        width: 40px;
+        height: 40px;
+        padding: 10px;
         border: 1px solid $text;
-        text-decoration: none;
-        margin: 0px 5px;
+        text-align: center;
+        margin-left: 10px;
+        &:hover{
+            opacity: 0.7;
+        }
         &:focus{
             outline: 2px solid $yellow;
         }
+        &.pagination__previous--disabled,
+        &.pagination__next--disabled{
+            opacity: 0.25;
+        }
     }
-
-    a:focus{
+    .pagination__previous{
+        margin-left: 15px;
     }
 }
