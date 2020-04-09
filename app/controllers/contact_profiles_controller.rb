@@ -19,6 +19,7 @@ class ContactProfilesController < ApplicationController
   end
 
   private
+
   def set_contact
     @contact = Contact.find(params[:id])
   end
