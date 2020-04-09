@@ -1,4 +1,4 @@
-RSpec.describe ContactProfilesController, type: :controller do
+RSpec.describe TriageController, type: :controller do
   before :each do
     controller.class.skip_before_action :require_user!, raise: false
     controller.instance_variable_set(:@current_user, {})
@@ -16,7 +16,7 @@ RSpec.describe ContactProfilesController, type: :controller do
 
     it 'redirects to the contacts page for the given contact' do
       needs_list = { 1 => { active: false } }
-      put :update, params: { id: 1, contact: { id: 1 }, contact_needs: { needs_list: needs_list } }
+      put :update, params: { id: 1, contact_id: 1, contact: { id: 1 }, contact_needs: { needs_list: needs_list } }
       expect(response).to redirect_to controller: :contacts, action: :show, id: 1
     end
   end

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   resources :contacts, only: [:index, :show, :edit, :update] do
     resources :needs, only: [:new, :create]
+    get 'triage', to: 'triage#edit', as: 'edit_triage'
+    put 'triage', to: 'triage#update', as: 'triage'
   end
   get '/contacts/:id/needs', to: 'contacts#show_needs'
-  resources :contact_profiles, only: [:edit, :update]
 
   resources :needs, only: [:index, :show, :edit, :update] do
     resources :notes
