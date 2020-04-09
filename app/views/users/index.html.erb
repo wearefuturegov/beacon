@@ -2,12 +2,12 @@
 <p class="notice"><%= notice %></p>
 <% end %>
 
-<div class="page-header page-header--with-button">
-  <h1 class="page-title">Users</h1>
-  <%= link_to 'Invite user', new_user_path, class: "button pull-right" %>
-</div>
+<header class="panel-header">
+  <h1 class="panel-header__title">Beacon users</h1>
+  <%= link_to "Invite a user", new_user_path, class: "panel-header__action" %>
+</header>
 
-<div class="table-holder">
+<div class="panel">
   <table class="table">
     <thead>
     <tr>
@@ -36,6 +36,7 @@
     <% end %>
     </tbody>
   </table>
+  <%= paginate @users %>
 </div>
 
-<%= paginate @users %>
+

@@ -15,7 +15,7 @@
 
 <div class="tabs">
   <div class="tabs__tab tabs__tab--current">Profile</div>
-  <%= link_to "#{@contact.first_name}'s Needs (#{@contact.needs.count})", { controller: :contacts, action: :show_needs }, class: 'tabs__tab' %>
+  <%= link_to "#{@contact.first_name}'s Needs (#{@contact.needs.count})", { controller: :contacts, action: :needs }, class: 'tabs__tab' %>
 </div>
 
 <div class="page-header page-header--with-button">
@@ -88,6 +88,12 @@
       <span><%= @contact.delivery_details %></span>
     </div>
 
+    <% if lookup_context.exists?(council_key, ["contacts"], true) %>
+      <%= render council_key, contact: @contact %>
+    <% end %>
+
+
+    
     <% if @contact.additional_info %>
       <div class="contact-profile__row">
         <strong>Additional info:</strong>

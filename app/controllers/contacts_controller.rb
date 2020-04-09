@@ -1,15 +1,18 @@
 # frozen_string_literal: true
 
 class ContactsController < ApplicationController
-  before_action :set_contact, only: %i[edit update show show_needs add_needs]
+  before_action :set_contact, only: %i[edit update show needs add_needs]
 
   def index
     @contacts = Contact.all.page(params[:page])
   end
 
-  def show_needs
+  def call_list; end
+
+  def needs
     @users = User.all
     @need = Need.new
+    render :show_needs
   end
 
   def show; end
