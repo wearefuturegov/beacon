@@ -3,7 +3,7 @@
 .table{
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 
     thead{
         border-bottom: 2px solid $text;
@@ -24,10 +24,10 @@
         tr{
             position: relative;
             border-bottom: 1px solid transparentize($text, 0.8);
-            &:hover{
+            &.clickable:hover{
                 background: transparentize($blue, 0.9);
             }
-            &:focus-within{
+            &.clickable:focus-within{
                 background: transparentize($yellow, 0.8);
                 border-color: $yellow;
             }
@@ -44,7 +44,7 @@
                 padding-right: 35px;
             }
     
-            a{
+            a.primary-link{
                 text-decoration: none;
                 &:focus{
                     outline: none;
@@ -73,5 +73,46 @@
                 }
             }
         }
+    }
+}
+
+
+.pagination{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .page a{
+        display: inline-block;
+        text-decoration: none;
+        padding: 7px;
+        &:hover{
+            background: $pale;
+        }
+        &:focus{
+            background: $yellow;
+            outline: none;
+        }
+    }
+    .gap, 
+    .current{
+        padding: 7px;
+        opacity: 0.5;
+    }
+    .first a, 
+    .prev a, 
+    .next a, 
+    .last a{
+        display: inline-block;
+        padding: 7px 10px;
+        border: 1px solid $text;
+        text-decoration: none;
+        margin: 0px 5px;
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+    }
+
+    a:focus{
     }
 }
