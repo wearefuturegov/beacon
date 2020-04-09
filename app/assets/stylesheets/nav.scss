@@ -50,6 +50,7 @@
         &:focus{
             background: $yellow;
             color: $text;
+            outline: none;
         }
     }
 
