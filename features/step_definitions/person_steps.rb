@@ -15,6 +15,10 @@ When('I edit the special delivery details {string}') do |details|
   fill_in('contact_delivery_details', with: details)
 end
 
+When('I edit the dietary details to {string}') do |details|
+  fill_in('contact_dietary_details', with: details)
+end
+
 When('I edit the total number of people to {string}') do |count|
   fill_in('contact_count_people_in_house', with: count)
 end
@@ -48,6 +52,30 @@ When(/^I edit the residents vulnerability status$/) do
   choose 'is_vulnerable_true'
 end
 
+When('I choose {string} for any children under 15') do |option|
+  if option == 'Yes'
+    choose 'any_children_below_15_true'
+  else
+    choose 'any_children_below_15_false'
+  end
+end
+
+When('I choose {string} to eligible for free prescriptions') do |option|
+  if option == 'Yes'
+    choose 'eligible_for_free_prescriptions_true'
+  else
+    choose 'eligible_for_free_prescriptions_false'
+  end
+end
+
+When('I choose {string} to any dietary requirements') do |option|
+  if option == 'Yes'
+    choose 'any_dietary_requirements_true'
+  else
+    choose 'any_dietary_requirements_false'
+  end
+end
+
 When(/^I edit the residents additional info$/) do
   visit "contacts/#{@contact.id}"
   click_link 'Edit'
@@ -71,8 +99,24 @@ Then('the special delivery details are {string}') do |details|
   expect(page).to have_content(details)
 end
 
+Then('the dietary details is {string}') do |details|
+  expect(page).to have_content(details)
+end
+
+Then('the children under 15 details are {string}') do |details|
+  expect(page).to have_content("Children under 15: #{details}")
+end
+
+Then('eligible for free prescriptions is {string}') do |details|
+  expect(page).to have_content("Free prescriptions? #{details}")
+end
+
+Then('the dietary requirements is {string}') do |details|
+  expect(page).to have_content("Any dietary requirements? #{details}")
+end
+
 Then('the total number of people is {string}') do |count|
-  # TODO add test-data-ids
+  # TODO add test ids
   expect(page).to have_content(count)
 end
 
