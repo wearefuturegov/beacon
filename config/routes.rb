@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   resources :contacts, only: [:index, :show, :edit, :update] do
     resources :needs, only: [:new, :create]
-    resources :call_forms, only: [:new, :create]
   end
   get '/contacts/:id/needs', to: 'contacts#show_needs'
+  resources :contact_profiles, only: [:edit, :update]
 
   resources :needs, only: [:index, :show, :edit, :update] do
     resources :notes

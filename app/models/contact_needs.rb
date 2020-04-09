@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-class ContactCallForm
+# Model describing all needs for a contact
+class ContactNeeds
   include ActiveModel::Model
-
-  attr_accessor :contact
   attr_accessor :needs_list
   attr_accessor :other_need
 end

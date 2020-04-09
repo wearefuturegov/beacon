@@ -16,10 +16,6 @@ class ContactsController < ApplicationController
 
   def edit; end
 
-  def add_needs
-    @needs_form = Needs.new
-  end
-
   def update
     if @contact.update(contact_params)
       redirect_to contact_path(@contact), notice: 'Contact was successfully updated.'

@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-class CallFormsController < ApplicationController
+class ContactProfilesController < ApplicationController
   include ParamsConcern
 
-  before_action :set_contact, only: %i[new create]
+  before_action :set_contact, only: %i[edit update]
 
-  def new
-    @call_form = ContactCallForm.new
-    @call_form.contact = @contact
+  def edit
+    @contact_needs = ContactNeeds.new
   end
 
-  def create
+  def update
     if @contact.update(contact_params)
-      NeedsCreator.create_needs(@contact, call_form_params['needs_list'], call_form_params['other_need'])
+      NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
       redirect_to contact_path(@contact), notice: 'Contact was successfully updated.'
     else
       render :new
@@ -21,7 +20,7 @@ class CallFormsController < ApplicationController
 
   private
   def set_contact
-    @contact = Contact.find(params[:contact_id])
+    @contact = Contact.find(params[:id])
   end
 
   def contact_params
@@ -31,7 +30,7 @@ class CallFormsController < ApplicationController
                                     :cooking_facilities, :eligible_for_free_prescriptions)
   end
 
-  def call_form_params
-    params.require(:contact_call_form).permit!
+  def contact_needs_params
+    params.require(:contact_needs).permit!
   end
 end
