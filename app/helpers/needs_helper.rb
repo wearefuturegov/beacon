@@ -30,7 +30,6 @@ module NeedsHelper
   end
 
   def needs_note_categories
-    # Must match needs list above AS STORED IN THE DATABASE
     {
         'Phone triage' => {
             order: 1,
