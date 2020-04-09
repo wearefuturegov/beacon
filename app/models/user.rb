@@ -29,4 +29,8 @@ class User < ApplicationRecord
     name_value = name
     name_value.blank? ? email : name_value
   end
+
+  def last_logged_in
+    self.passwordless_sessions.try(:last).try(:claimed_at)
+  end
 end
