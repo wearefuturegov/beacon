@@ -1,0 +1,14 @@
+@import "variables";
+
+body{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.content-pane{
+    background: $pale;
+    flex: 1;
+    padding: 25px;
+}

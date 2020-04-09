@@ -3,63 +3,19 @@
   <%= render "shared/head"%>
   <body>
 
-    <header class="site-header">
-      <div class="site-header__inner container">
+    <%= render "shared/side-nav" %>
 
-        <%= link_to image_tag(logo_path), root_path, alt: council_name, class: "site-header__logo" %>
+    <div class="content-pane">
+      <header class="content-footer">
+      </header>
 
-        <nav class="site-header__nav">
-          <ul class="site-header__links">
-            <li class="site-header__link site-header__link--has-submenu">
-              <%= link_to_unless_current 'Needs', needs_path, controller: :needs %>
-              <ul class="site-header__submenu">
-                <li class="site-header__submenu-link"><%= link_to 'My to do list', controller: :needs, action: :index, user_id: current_user.id, status: 'To do' %></li>
-                <li class="site-header__submenu-link"><%= link_to 'All unmet needs to do', controller: :needs, action: :index, user_id: 'Unassigned', status: 'To do' %></li>
-                <li class="site-header__submenu-link"><%= link_to 'All needs', controller: :needs, action: :index %></li>
-              </ul>
-            </li>
-            <li class="site-header__link"><%= link_to_unless_current 'People', contacts_path, controller: :contacts %></li>
-            <% if current_user.admin %>
-              <li class="site-header__link"><%= link_to_unless_current 'Users', users_path, controller: :users %></li>
-            <% end %>
-          </ul>
-
-          <div class="site-header__right-menu">
-            <% if current_user %>
-              <span class="current-user"><%= current_user.email %></span>
-              <%= link_to 'Log out', auth.sign_out_path %>
-            <% else %>
-              <%= link_to 'Log in', auth.sign_in_path %>
-            <% end %>
-          </div>
-        </nav>
-
-      </div>
-    </header>
-
-
-    <section class="beta-banner">
-      <div class="beta-banner__inner container">
-        <strong class="beta-banner__tag">Beta</strong>
-        <p class="beta-banner__message">We're updating this tool every day — <a href="https://docs.google.com/forms/d/e/1FAIpQLSd-YKjZ_2lToYJiwgJM06AnU1crd1BwDQvidLecnetkDENlgw/viewform?usp=sf_link">your feedback</a> helps us improve it.</p>
-      </div>
-    </section>
-
-    <div class="main-content">
-      <div class="container">
+      <div class="main-content">
         <%= yield %>
       </div>
-    </div>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="site-footer__notice"><%= copyright %></p>
-        <nav class="site-footer__menu">
-          <a class="site-footer__link" href=privacy_link>Privacy & cookies</a>
-          <a class="site-footer__link" href="https://docs.google.com/forms/d/e/1FAIpQLSd-YKjZ_2lToYJiwgJM06AnU1crd1BwDQvidLecnetkDENlgw/viewform?usp=sf_link">Give feedback on this service</a>
-        </nav>
-      </div>
-    </footer>
+      <footer class="content-footer">
+      </footer>
+    </div>
 
   </body>
 </html>
