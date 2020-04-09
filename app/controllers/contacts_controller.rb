@@ -12,6 +12,7 @@ class ContactsController < ApplicationController
   def needs
     @users = User.all
     @need = Need.new
+    render :show_needs
   end
 
   def show; end

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     get 'triage', to: 'triage#edit', as: 'edit_triage'
     put 'triage', to: 'triage#update', as: 'triage'
   end
-  get '/contacts/:id/needs', to: 'contacts#show_needs'
+  get '/contacts/:id/needs', to: 'contacts#needs'
 
   resources :needs, only: [:index, :show, :edit, :update] do
     resources :notes
