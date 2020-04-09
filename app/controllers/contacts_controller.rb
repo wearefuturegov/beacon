@@ -7,8 +7,7 @@ class ContactsController < ApplicationController
     @contacts = Contact.all.page(params[:page])
   end
 
-  def call_list
-  end
+  def call_list; end
 
   def needs
     @users = User.all

@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   resources :contacts, only: [:index, :show, :edit, :update, :new] do
     resources :needs, only: [:new, :create]
-    collection do 
-      get "call-list"
+    collection do
+      get 'call-list'
     end
   end
   get '/contacts/:id/needs', to: 'contacts#show_needs'
