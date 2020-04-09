@@ -49,6 +49,8 @@ jobs:
         bundle exec rails db:create
         bundle exec rails db:migrate
         bundle exec rails db:seed
-    - name: Run tests
+    - name: Run cucumber tests
+      env:
+        RAILS_ENV: test
       run: |
         bundle exec cucumber
