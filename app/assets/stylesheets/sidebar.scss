@@ -1,0 +1,86 @@
+.sidenav {
+  height: 100%;
+  width: 216px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #2F2D2E;
+
+  // todo: how should this navbar work with low vertical screen space?
+  overflow: hidden;
+
+  &__logo {
+    margin: 40px 32px;
+  }
+
+  &__block {
+    font-size: 14px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 8px;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+
+    &--call-list {
+      font-size: 18px;
+    }
+
+    &--people {
+      font-size: 18px;
+      background: #156BEC;
+      margin-left: 15px;
+      padding-left: 15px;
+    }
+  }
+
+  &--call-list {
+
+  }
+
+  &--people {
+
+  }
+
+  *, a {
+    line-height: 17px;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+  }
+}
+
+.sidenav a.need {
+  padding-left: 12px;
+  max-width: 140px;
+}
+
+.sidenav h3 {
+  color: #fff4f6;
+  padding: 6px 8px 6px 16px;
+}
+
+@for $i from 2 through 20 {
+
+  // todo: are these colours associated with the need type?
+  .sidenav a.need:nth-child(#{$i}) {
+    border-left: 4px solid rgb(random(255), random(255), random(255));
+  }
+}
+
+.sidenav a.active {
+  background-color: #656565;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}

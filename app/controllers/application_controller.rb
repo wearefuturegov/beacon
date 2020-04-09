@@ -5,14 +5,12 @@ class ApplicationController < ActionController::Base
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'
-  helper_method :current_user, :copyright, :council_name, :privacy_link, :logo_path
+  helper_method :current_user, :copyright, :council_name, :council_key, :privacy_link, :logo_path
 
   before_action :set_paper_trail_whodunnit
 
-  private
-
-  def load_council_config
-    Rails.configuration.councils[ENV['COUNCIL'] || :demo]
+  def council_key
+    ENV['COUNCIL'] || 'demo'
   end
 
   def council_name
@@ -33,6 +31,12 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= authenticate_by_session(User)
+  end
+
+  private
+
+  def load_council_config
+    Rails.configuration.councils[ENV['COUNCIL'] || :demo]
   end
 
   def require_user!

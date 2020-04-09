@@ -20,7 +20,7 @@
 
 <div class="page-header page-header--with-button">
   <h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
-  <%= link_to 'Edit profile', edit_contact_path(@contact), class: 'button pull-right' %>
+  <%= link_to('Edit', contact_edit_triage_path(@contact.id), class: 'button pull-right') %>
 </div>
 
 <div class="contact-profile">
@@ -88,6 +88,12 @@
       <span><%= @contact.delivery_details %></span>
     </div>
 
+    <% if lookup_context.exists?(council_key, ["contacts"], true) %>
+      <%= render council_key, contact: @contact %>
+    <% end %>
+
+
+    
     <% if @contact.additional_info %>
       <div class="contact-profile__row">
         <strong>Additional info:</strong>
