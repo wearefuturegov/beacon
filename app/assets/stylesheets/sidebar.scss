@@ -6,7 +6,9 @@
   top: 0;
   left: 0;
   background-color: #2F2D2E;
-  overflow-x: hidden;
+
+  // todo: how should this navbar work with low vertical screen space?
+  overflow: hidden;
 
   &__logo {
     margin: 40px 32px;
@@ -61,6 +63,8 @@
 }
 
 @for $i from 2 through 20 {
+
+  // todo: are these colours associated with the need type?
   .sidenav a.need:nth-child(#{$i}) {
     border-left: 4px solid rgb(random(255), random(255), random(255));
   }
