@@ -1,0 +1,49 @@
+@import "variables";
+
+.mini-search{
+    position: relative;
+    margin-bottom: 25px;
+    @media screen and (min-width: $breakpoint-m) {
+        margin-bottom: 0px;
+        width: 250px;
+    }
+
+    .mini-search__input{
+        padding: 7px 0px;
+        height: 42px;
+        font-size: 1rem;
+        color: $text;
+        border: none;
+        border-bottom: 1px solid $text;
+        width: 100%;
+        padding-right: 50px;
+        &::placeholder{
+            color: transparentize($text, 0.5);
+        }
+        &:focus{
+            outline: none;
+            border-color: $yellow;
+        }
+    }
+
+    .mini-search__submit{
+        background: none;
+        border: none;
+        position: absolute;
+        right: 0px;
+        top: 2px;
+        height: 38px;
+        padding: 10px 12px;
+        img{
+            height: 100%;
+            width: auto;
+        }
+        cursor: pointer;
+        &:hover{
+            background: $pale;
+        }
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+    }
+}

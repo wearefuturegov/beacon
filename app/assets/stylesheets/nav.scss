@@ -15,6 +15,7 @@
         padding: 0px 20px;
         &:focus{
             outline: none;
+            background: none;
             img{
                 background: $yellow;
                 outline: 2px solid $yellow;

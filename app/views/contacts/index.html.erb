@@ -1,10 +1,17 @@
 <% content_for :header do %>
-  <button class="button button--dark">Sort</button>
-  <button class="button button--dark">Filter</button>
+  <%# <button class="button button--dark">Sort</button> %>
+  <%# <button class="button button--dark">Filter</button> %>
+  <%= render "shared/mini-search" %>
 <% end %>
 
 <header class="panel-header">
-  <h1 class="panel-header__title">People in need</h1>
+  <h1 class="panel-header__title">
+    <% if params[:search].present? %>
+      Matching people
+    <% else %>
+      People in need
+    <% end %>
+  </h1>
   <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
 </header>
 

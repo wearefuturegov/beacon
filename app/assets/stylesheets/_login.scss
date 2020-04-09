@@ -1,0 +1,18 @@
+@import "variables";
+
+.login{
+    background: $pale;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 70px;
+}
+
+.login-panel{
+    background: $white;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 2px 0px 10px transparentize($text, 0.95);
+    max-width: 400px;
+}

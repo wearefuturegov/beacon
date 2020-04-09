@@ -40,6 +40,7 @@ body{
     .panel-header__action{
         color: $blue;
         text-decoration: none;
+        font-weight: 500;
         &:hover{
             text-decoration: underline;
         }
