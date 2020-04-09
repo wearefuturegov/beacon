@@ -1,0 +1,58 @@
+<section class="accordion">
+
+    <button class="accordion__control" aria-expanded="true">
+        <h2 class="accordion__title">Personal details</h2>  
+    </button>
+    <div class="accordion__content">  
+        <dl class="details-list">
+            <dt class="details-list__caption">Name</dt>
+            <dd class="details-list__value"><%= @contact.name %></dd>
+
+            <dt class="details-list__caption">Address</dt>
+            <dd class="details-list__value">
+                <%= @contact.address %><br/>
+                <%= @contact.postcode %>
+            </dd>
+
+            <dt class="details-list__caption">Email</dt>
+            <dd class="details-list__value"><%= @contact.email %></dd>
+
+            <dt class="details-list__caption">Phone</dt>
+            <dd class="details-list__value">
+                <%= @contact.telephone %><br/>
+                <%= @contact.mobile %>
+            </dd>
+        </dl>
+    </div>
+
+    <button class="accordion__control" aria-expanded="false">
+        <h2 class="accordion__title">Vulnerability</h2>  
+    </button>
+    <div hidden class="accordion__content">  
+        <p>Content in here</p>
+    </div>
+
+    <button class="accordion__control" aria-expanded="false">
+        <h2 class="accordion__title">Living</h2>  
+    </button>
+    <div hidden class="accordion__content">  
+        <p>Content in here</p>
+    </div>
+
+    <button class="accordion__control" aria-expanded="false">
+        <h2 class="accordion__title">Help</h2>  
+    </button>
+    <div hidden class="accordion__content">  
+        <p>Content in here</p>
+    </div>
+
+    <button class="accordion__control" aria-expanded="false">
+        <h2 class="accordion__title">Delivery requirements</h2>  
+    </button>
+    <div hidden class="accordion__content">  
+        <p>Content in here</p>
+    </div>
+
+</section>
+
+<%= javascript_pack_tag 'accordion', 'data-turbolinks-track': 'reload' %>

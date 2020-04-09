@@ -1,9 +1,4 @@
-<% if @contact.is_vulnerable %>
-  <div class="vulnerable-banner">
-    <%= image_tag "vulnerable-icon-inverted.svg", alt: "", class: "vulnerable-banner__icon" %>
-    This is a vulnerable person
-  </div>
-<% end %>
+<%= render "shared/vulnerable-banner" %>
 
 <div class="with-left-sidebar">
 
@@ -12,7 +7,7 @@
       <h2 class="panel-header__title">Profile</h1>
     </header>
     <div class="panel panel--unpadded">  
-      <%= render "profile-accordion" %>
+      <%= render "shared/profile-accordion" %>
     </div>
   </aside>
 
