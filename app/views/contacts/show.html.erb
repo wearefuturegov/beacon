@@ -20,7 +20,7 @@
 
 <div class="page-header page-header--with-button">
   <h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
-  <%= link_to 'Edit profile', edit_contact_path(@contact), class: 'button pull-right' %>
+  <%= link_to('Edit', contact_edit_triage_path(@contact.id), class: 'button pull-right') %>
 </div>
 
 <div class="contact-profile">
@@ -49,11 +49,58 @@
       <span><%= @contact.mobile %></span>
     </div>
 
+
+    <div class="contact-profile__row">
+      <strong>Any dietary requirements?</strong>
+      <span><%= boolean_formatter(@contact.any_dietary_requirements) %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Dietary details:</strong>
+      <span><%= @contact.dietary_details %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Cooking facilities:</strong>
+      <span><%= @contact.cooking_facilities %></span>
+    </div>
+  </div>
+
+  <div class="contact-profile__right">
+
+    <div class="contact-profile__row">
+      <strong>People in house:</strong>
+      <span><%= @contact.count_people_in_house %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Children under 15:</strong>
+      <span><%= boolean_formatter(@contact.any_children_below_15) %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Free prescriptions?</strong>
+      <span><%= boolean_formatter(@contact.eligible_for_free_prescriptions) %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Delivery details:</strong>
+      <span><%= @contact.delivery_details %></span>
+    </div>
+
+    <% if lookup_context.exists?(council_key, ["contacts"], true) %>
+      <%= render council_key, contact: @contact %>
+    <% end %>
+
+
+    
     <% if @contact.additional_info %>
       <div class="contact-profile__row">
         <strong>Additional info:</strong>
         <span><%= @contact.additional_info %></span>
       </div>
     <% end %>
+
+
   </div>
 </div>

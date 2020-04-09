@@ -1,1 +1,7 @@
 inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Exclude:
+    - 'lib/tasks/cucumber.rake'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'

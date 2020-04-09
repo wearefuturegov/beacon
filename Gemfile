@@ -21,6 +21,7 @@ gem 'csv'
 gem 'govuk_notify_rails'
 gem 'factory_bot_rails', require: false
 gem 'faker', require: false
+gem 'jsonb_accessor', '~> 1.0.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -34,7 +35,10 @@ group :development do
 end
 
 group :test do
+  gem 'cucumber-rails', require: false
   gem 'capybara', '>= 2.15'
+  # database cleaner is not required, but highly recommended
+  gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'webdrivers'

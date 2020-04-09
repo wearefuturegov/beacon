@@ -16,7 +16,7 @@
 
 <div class="page-header page-header--with-button">
   <h1 class="page-title"><%= "#{@contact.first_name} #{@contact.middle_names} #{@contact.surname}" %></h1>
-  <%= link_to('Add needs', new_contact_need_path(@contact.id), class: 'button pull-right') %>
+  <%= link_to('Edit', contact_edit_triage_path(@contact.id), class: 'button pull-right') %>
 </div>
 
 <table class="table">
