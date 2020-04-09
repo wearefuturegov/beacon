@@ -12,7 +12,7 @@ class ContactProfilesController < ApplicationController
   def update
     if @contact.update(contact_params)
       NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
-      redirect_to contact_path(@contact), notice: 'Contact was successfully updated.'
+      redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
     else
       render :new
     end
