@@ -1,17 +1,10 @@
 <% if @contact.is_vulnerable %>
   <div class="vulnerable-banner">
-    <div class="container"><%= image_tag "exclamation.svg", alt: "" %> This is a vulnerable person</div>
+    <%= image_tag "vulnerable-icon-inverted.svg", alt: "", class: "vulnerable-banner__icon" %>
+    This is a vulnerable person
   </div>
 <% end %>
 
-<% if notice %>
-<p class="notice"><%= notice %></p>
-<% end %>
-
-<ol class="breadcrumb">
-  <li><%= link_to "People in need", contacts_path %></li>
-  <li><%= @contact.name %></li>
-</ol>
 
 <div class="tabs">
   <div class="tabs__tab tabs__tab--current">Profile</div>

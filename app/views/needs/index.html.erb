@@ -4,9 +4,6 @@
   <h1 class="page-title">Needs <span class="page-title__count">(<%= @needs.total_count %>)</span></h1>
 </div>
 
-     
-
-
 <details class="filters">
   <summary class="filters__summary">Search and filter</summary>
   <%= form_with(url: needs_url, method: :get, local: true) do %>

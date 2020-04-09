@@ -14,8 +14,11 @@
     <% end %>
 
     <div class="field">
-      <%= form.label :email, "Their email address", class: "field__label" %>
-      <%= form.email_field :email %>
+      <%= form.label :email, 
+        "Their email address", 
+        class: "field__label"
+      %>
+      <%= form.email_field :email, placeholder: "eg. example@email.com" %>
     </div>
   </section>
 
@@ -32,7 +35,7 @@
   </fieldset>
 
   <div class="actions">
-    <%= form.submit "Send invite" %>
+    <%= form.button "Send invite", class: "button button--primary" %>
   </div>
 <% end %>
 </div>

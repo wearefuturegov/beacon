@@ -16,44 +16,46 @@
 </header>
 
 <div class="panel">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Needs</th>
-        <th>Vulnerable</th>
-        <th>Date logged</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @contacts.each do |contact| %>
-      <tr class="clickable" onclick="window.location='<%= contact_path(contact) %>'">
-        <td><%= link_to contact.name, contact, class: "primary-link" %></td>
-        <td>
-          <%= contact.telephone || contact.mobile %>
-        </td>
-        <td>
-          <% if contact.needs_count > 0 %>
-            <%= pluralize(contact.uncompleted_needs_count, 'need') %>
-            <% if contact.completed_needs_count > 0 %>
-              <small>(<%= contact.completed_needs_count %> completed)</small>
+  <% if @contacts.any? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Needs</th>
+          <th>Vulnerable</th>
+          <th>Date logged</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @contacts.each do |contact| %>
+        <tr class="clickable" onclick="window.location='<%= contact_path(contact) %>'">
+          <td><%= link_to contact.name, contact, class: "primary-link" %></td>
+          <td>
+            <%= contact.telephone || contact.mobile %>
+          </td>
+          <td>
+            <% if contact.needs_count > 0 %>
+              <%= pluralize(contact.uncompleted_needs_count, 'need') %>
+              <% if contact.completed_needs_count > 0 %>
+                <small>(<%= contact.completed_needs_count %> completed)</small>
+              <% end %>
             <% end %>
-          <% end %>
-        </td>
-        <td>
-          <% if contact.is_vulnerable? %>
-            <%= image_tag "red-tick.svg", alt: "vulnerable" %>
-          <% else %>
-            —
-          <% end %>
-        </td>
-        <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
-      </tr>
-    <% end%>
-    </tbody>
-  </table>
-
-  <%= render "shared/pagination", model: @contacts%>
-
+          </td>
+          <td>
+            <% if contact.is_vulnerable? %>
+              <%= image_tag "red-tick.svg", alt: "vulnerable" %>
+            <% else %>
+              —
+            <% end %>
+          </td>
+          <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
+        </tr>
+      <% end%>
+      </tbody>
+    </table>
+    <%= render "shared/pagination", model: @contacts%>
+  <% else %>
+    <p class="no-results">No matches</p>
+  <% end %>
 </div>

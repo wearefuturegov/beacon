@@ -6,12 +6,14 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
     .content-header__actions-right{
         margin-left: auto;
-        padding-left: 25px;
+        padding-left: 35px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
-
     .content-header__current-user{
         margin-right: 10px;
     }

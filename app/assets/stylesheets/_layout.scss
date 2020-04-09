@@ -27,6 +27,21 @@ body{
     margin-bottom: 25px;
 }
 
+.vulnerable-banner{
+    padding: 25px;
+    background: $red;
+    color: $white;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.2rem;
+    .vulnerable-banner__icon{
+        margin-right: 15px;
+    }
+}
+
 .panel-header{
     display: flex;
     flex-direction: row;

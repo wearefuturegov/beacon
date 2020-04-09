@@ -1,0 +1,49 @@
+@import "variables";
+
+input[type=text],
+input[type=email]{
+    font-size: 1.2rem;
+    padding: 10px 0px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid $text;
+    &:focus{
+        border-color: $yellow;
+    }
+    &::placeholder{
+        color: transparentize($text, 0.5)
+    }
+}
+
+.button--primary{
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+    font-size: 1.2rem;
+    border-radius: 0px;
+    background: $blue;
+    font-weight: normal;
+    color: $white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    &:hover{
+        background: darken($blue, 10);
+    }
+    &:active{
+        background: darken($blue, 20);
+    }
+    &:focus{
+        outline: 2px solid $yellow;
+    }
+    &:after{
+        content: "";
+        background-image: url("data:image/svg+xml,%3Csvg width='9' height='14' viewBox='0 0 9 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.976074 0.907025L7.14068 7.00001L0.976075 13.093L1.89376 14L8.97607 7.00001L1.89376 6.19156e-07L0.976074 0.907025Z' fill='%23ffffff'/%3E%3C/svg%3E%0A");
+        display: block;
+        height: 15px;
+        width: 9px;
+        background-repeat: no-repeat;
+        margin-left: 15px;
+    }
+}
