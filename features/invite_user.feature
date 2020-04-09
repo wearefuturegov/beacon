@@ -4,7 +4,7 @@ Feature: Invite user
   so that the people who need to access the system are able to do so.
 
   Background:
-    * I am logged into the system
+    * I am logged into the system as an admin
 
   Scenario: Add a user
     Given a users email address "normaluser@test.com"
@@ -32,6 +32,7 @@ Feature: Invite user
     Then I see an error message about the email
 
   Scenario: Normal user cannot add a user
-    Given a users email address "hack@hack.com"
-    When I am logged in as a normal user
+    Given a users email address "normaluser@login.com"
+    # Login as a normal user
+    When I am logged into the system
     Then I cannot access the user form
