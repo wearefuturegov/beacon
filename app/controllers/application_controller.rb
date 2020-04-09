@@ -5,9 +5,13 @@ class ApplicationController < ActionController::Base
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'
-  helper_method :current_user, :copyright, :council_name, :privacy_link, :logo_path
+  helper_method :current_user, :copyright, :council_name, :council_key, :privacy_link, :logo_path
 
   before_action :set_paper_trail_whodunnit
+
+  def council_key
+    ENV['COUNCIL'] || 'demo'
+  end
 
   private
 
