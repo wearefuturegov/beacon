@@ -1,11 +1,7 @@
-<ol class="breadcrumb">
-  <li><%= link_to "Users", users_path %></li>
-  <li>Invite new</li>
-</ol>
+<header class="panel-header">
+  <h1 class="panel-header__title">Invite a new user</h1>
+</header>
 
-<section class="two-thirds">
-  <h1 class="page-title">Invite a new user</h1>
-  <p class="lede">Add a new council staff member or volunteer organiser who needs access to this data</p>
-</section>
-
-<%= render 'form', user: @user %>
+<div class="panel">
+  <%= render 'form', user: @user %>
+</div>

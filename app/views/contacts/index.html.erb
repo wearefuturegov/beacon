@@ -1,28 +1,31 @@
-<% if notice %>
-  <p class="notice"><%= notice %></p>
+<% content_for :header do %>
+  <button class="button button--dark">Sort</button>
+  <button class="button button--dark">Filter</button>
 <% end %>
 
-<div class="page-header">
-  <h1 class="page-title">People in need</h1>
-</div>
+<header class="panel-header">
+  <h1 class="panel-header__title">People in need</h1>
+  <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
+</header>
 
-<div class="table-holder">
+<div class="panel">
   <table class="table">
     <thead>
       <tr>
         <th>Name</th>
+        <th>Phone</th>
         <th>Needs</th>
         <th>Vulnerable</th>
         <th>Date logged</th>
-        <th></th>
-        <th></th>
       </tr>
     </thead>
-
     <tbody>
     <% @contacts.each do |contact| %>
-      <tr>
-        <td><strong><%= link_to contact.name, contact %></strong></td>
+      <tr class="clickable">
+        <td><%= link_to contact.name, contact, class: "primary-link" %></td>
+        <td>
+          <%= contact.telephone || contact.mobile %>
+        </td>
         <td>
           <% if contact.needs_count > 0 %>
             <%= pluralize(contact.uncompleted_needs_count, 'need') %>
@@ -43,6 +46,5 @@
     <% end%>
     </tbody>
   </table>
+  <%= paginate @contacts %>
 </div>
-
-<%= paginate @contacts %>
