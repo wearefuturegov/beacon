@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_03_095904) do
+ActiveRecord::Schema.define(version: 2020_04_09_084710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,14 @@ ActiveRecord::Schema.define(version: 2020_04_03_095904) do
     t.integer "completed_needs_count", default: 0
     t.text "email"
     t.string "additional_info"
+    t.integer "count_people_in_house"
+    t.boolean "any_children_below_15"
+    t.text "delivery_details"
+    t.boolean "any_dietary_requirements"
+    t.text "dietary_details"
+    t.text "cooking_facilities"
+    t.boolean "eligible_for_free_prescriptions"
+    t.jsonb "data"
     t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
   end
 
@@ -71,6 +79,7 @@ ActiveRecord::Schema.define(version: 2020_04_03_095904) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.string "category"
     t.index ["need_id"], name: "index_notes_on_need_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end

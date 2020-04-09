@@ -10,7 +10,7 @@
 
 ---
 
-![Ruby](https://github.com/wearefuturegov/beacon/workflows/Ruby/badge.svg)
+![Ruby Test Env](https://github.com/wearefuturegov/beacon/workflows/Ruby%20Test%20Env/badge.svg)
 
 🚨This is **BETA** software and may be buggy 🚨
 
@@ -77,4 +77,5 @@ Coming soon...
 | SMTP_PORT        | Port for SMTP server                |
 | COUNCIL          | Config key for `councils.yml`       |
 | SENDGRID_API_KEY | Sendgrid API key (production only   |
-| MAILER_URL       | Default URL for action mailer       |
+| HOSTNAME         | Optional hostname used in outbound emails (e.g. `x.beacon.com`) |
+| SEED_USER_EMAILS | Optional comma-separated list of emails to seed users table with |

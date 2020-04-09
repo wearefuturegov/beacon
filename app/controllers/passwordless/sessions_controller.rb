@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "bcrypt"
+require 'bcrypt'
 
 module Passwordless
   # Controller for managing Passwordless sessions
@@ -15,7 +15,7 @@ module Passwordless
     def new
       @email_field = email_field
       @session = Session.new
-      render :layout => 'login'
+      render layout: 'login'
     end
 
     # post '/sign_in'
@@ -34,7 +34,7 @@ module Passwordless
         end
       end
 
-      render :layout => 'login'
+      render layout: 'login'
     end
 
     # get '/sign_in/:token'
@@ -50,10 +50,10 @@ module Passwordless
 
       redirect_to passwordless_success_redirect_path
     rescue Errors::TokenAlreadyClaimedError
-      flash[:error] = I18n.t(".passwordless.sessions.create.token_claimed")
+      flash[:error] = I18n.t('.passwordless.sessions.create.token_claimed')
       redirect_to passwordless_failure_redirect_path
     rescue Errors::SessionTimedOutError
-      flash[:error] = I18n.t(".passwordless.sessions.create.session_expired")
+      flash[:error] = I18n.t('.passwordless.sessions.create.session_expired')
       redirect_to passwordless_failure_redirect_path
     end
 
@@ -77,13 +77,17 @@ module Passwordless
 
     def passwordless_query_redirect_path
       query_redirect_uri = URI(params[:destination_path])
-      query_redirect_uri.to_s if query_redirect_uri.host.nil? || query_redirect_uri.host == URI(request.url).host
+      if query_redirect_uri.host.nil? || query_redirect_uri.host == URI(request.url).host
+        query_redirect_uri.to_s
+      end
     rescue URI::InvalidURIError, ArgumentError
       nil
     end
 
     def passwordless_success_redirect_path
-      return Passwordless.success_redirect_path unless Passwordless.redirect_back_after_sign_in
+      unless Passwordless.redirect_back_after_sign_in
+        return Passwordless.success_redirect_path
+      end
 
       session_redirect_url = reset_passwordless_redirect_location!(authenticatable_class)
       passwordless_query_redirect_path || session_redirect_url || Passwordless.success_redirect_path

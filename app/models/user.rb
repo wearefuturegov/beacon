@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   belongs_to :organisation, optional: true
   has_many :contact_list_users
@@ -26,5 +28,9 @@ class User < ApplicationRecord
   def name_or_email
     name_value = name
     name_value.blank? ? email : name_value
+  end
+
+  def last_logged_in
+    passwordless_sessions.try(:last).try(:claimed_at)
   end
 end

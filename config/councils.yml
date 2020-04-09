@@ -6,6 +6,8 @@ default: &default
     logo_path: "logo-demo.svg"
     privacy_link: "#"
     default_from_address: "help@beacon.support"
+    invite_template: '31d2b530-8db4-44ce-9bfa-34b01519335f'
+    magic_link_template: '2305fb7b-6a7b-4b03-8cdd-a01743511286'
 
   hackney:
     name: "Hackney Council"
@@ -14,6 +16,8 @@ default: &default
     logo_path: "logo-hackney.svg"
     privacy_link: "https://www.hackney.gov.uk/privacy"
     default_from_address: "help@hackney.beacon.support"
+    invite_template: '31d2b530-8db4-44ce-9bfa-34b01519335f'
+    magic_link_template: '2305fb7b-6a7b-4b03-8cdd-a01743511286'
 
   camden:
     name: "Camden Council"
@@ -22,6 +26,8 @@ default: &default
     logo_path: "logo-camden.svg"
     privacy_link: "https://www.camden.gov.uk/data-protection-privacy-and-cookies"
     default_from_address: "help@camden.beacon.support"
+    invite_template: '31d2b530-8db4-44ce-9bfa-34b01519335f'
+    magic_link_template: '2305fb7b-6a7b-4b03-8cdd-a01743511286'
 
 development:
   <<: *default

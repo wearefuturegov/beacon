@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :set_user, only: [:destroy]
-  #before_action :require_user!
+  before_action :require_admin
 
   # GET /users
   def index
@@ -17,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.invited = DateTime.now
     if @user.save
-      UserSignInMailer.send_invite_email(@user).deliver
+      UserSignInMailer.send_invite_email(@user, root_url).deliver
       redirect_to :users, notice: 'User was successfully created.'
     else
       render :new
@@ -31,13 +33,20 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:email, :admin)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:email, :admin)
+  end
+
+  def require_admin
+    return if current_user.admin
+
+    redirect_to root_path, flash: { error: 'Only administrators can manage users' }
+  end
 end

@@ -4,10 +4,10 @@ Rails.application.configure do
   # force ssl in production
   config.force_ssl = true
 
-  # use sendgrid to send emails
-  config.action_mailer.delivery_method = SendGridActionMailerAdapter::DeliveryMethod
+  # config.action_mailer.delivery_method = SendGridActionMailerAdapter::DeliveryMethod
+  config.action_mailer.delivery_method GovukNotifyRails::Delivery
 
-  config.action_mailer.default_url_options = { host: ENV['MAILER_URL'] }
+  config.action_mailer.default_url_options = { host: ENV['HOSTNAME'] || (ENV['HEROKU_APP_NAME'] && "#{ENV['HEROKU_APP_NAME']}.herokuapp.com") }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -56,7 +56,8 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+
+  config.log_level = :warn
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
