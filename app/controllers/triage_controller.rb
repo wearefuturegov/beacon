@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ContactProfilesController < ApplicationController
+class TriageController < ApplicationController
   include ParamsConcern
 
   before_action :set_contact, only: %i[edit update]
@@ -21,7 +21,7 @@ class ContactProfilesController < ApplicationController
   private
 
   def set_contact
-    @contact = Contact.find(params[:id])
+    @contact = Contact.find(params[:contact_id])
   end
 
   def contact_params

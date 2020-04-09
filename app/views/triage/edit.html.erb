@@ -23,7 +23,7 @@
   <li>Edit</li>
 </ol>
 
-<%= form_with(model: [@contacts, @contact_needs], url: contact_profile_path(@contact.id), method: :put, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
+<%= form_with(model: [@contacts, @contact_needs], url: contact_triage_path(@contact.id), method: :put, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
   <a class="anchor-point" id="personal-details"></a>
   <div class="page-header">
     <h1 class="page-title">Personal Details</h1>
