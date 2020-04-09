@@ -8,7 +8,6 @@
     min-width: 230px;
     max-width: 230px;
     padding: 30px 20px;
-
     .nav__logo-link{
         display: block;
         margin-bottom: 35px;
@@ -25,6 +24,12 @@
     .nav__logo{
         width: 100%;
         display: block;
+    }
+    @media screen and (max-width: $breakpoint-m){
+        width: 170px;
+        min-width: 170px;
+        max-width: 170px;
+        padding: 20px 15px;
     }
 }
 
