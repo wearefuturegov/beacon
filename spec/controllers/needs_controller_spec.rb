@@ -53,19 +53,4 @@ RSpec.describe NeedsController, type: :controller do
       expect(response).to be_successful
     end
   end
-
-  describe 'POST #create' do
-    before(:each) do
-      @test_contact = double('Contact')
-      allow(@test_contact).to receive(:id).and_return 1
-      @contact = class_double('Contact').as_stubbed_const
-      allow(@contact).to receive(:find).and_return(@test_contact)
-    end
-
-    it 'redirects to the contacts needs list for the given contact' do
-      needs_list = { 1 => { active: false } }
-      post :create, params: { contact_id: 1, needs_list_form: { needs_list: needs_list } }
-      expect(response).to redirect_to controller: :contacts, action: :show_needs, id: 1
-    end
-  end
 end

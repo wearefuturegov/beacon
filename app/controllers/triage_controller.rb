@@ -1,36 +1,27 @@
 # frozen_string_literal: true
 
-class ContactsController < ApplicationController
-  before_action :set_contact, only: %i[edit update show show_needs add_needs]
+class TriageController < ApplicationController
+  include ParamsConcern
 
-  def index
-    @contacts = Contact.all.page(params[:page])
+  before_action :set_contact, only: %i[edit update]
+
+  def edit
+    @contact_needs = ContactNeeds.new
   end
-
-  def call_list
-  end
-
-  def needs
-    @users = User.all
-    @need = Need.new
-  end
-
-  def show; end
-
-  def edit; end
 
   def update
     if @contact.update(contact_params)
-      redirect_to contact_path(@contact), notice: 'Contact was successfully updated.'
+      NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
+      redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
     else
-      render :edit
+      render :new
     end
   end
 
   private
 
   def set_contact
-    @contact = Contact.find(params[:id])
+    @contact = Contact.find(params[:contact_id])
   end
 
   def contact_params
@@ -38,5 +29,9 @@ class ContactsController < ApplicationController
                                     :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_below_15,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
                                     :cooking_facilities, :eligible_for_free_prescriptions)
+  end
+
+  def contact_needs_params
+    params.require(:contact_needs).permit!
   end
 end

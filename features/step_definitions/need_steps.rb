@@ -11,7 +11,7 @@ end
 When('I add needs {string}') do |need|
   visit "contacts/#{@contact.id}"
   click_link "#{@contact.first_name}'s Needs (#{@contact.needs.count})"
-  click_link 'Add needs'
+  click_link 'Edit'
   choose yes_selected_id_from(need)
 end
 
@@ -20,7 +20,7 @@ And('I add another need {string}') do |need|
 end
 
 And('I submit the add needs form') do
-  click_button('Add needs')
+  click_button('Save changes')
 end
 
 def yes_selected_id_from(need)

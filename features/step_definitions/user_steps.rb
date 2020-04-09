@@ -29,10 +29,6 @@ And(/^the email address is in the list of users$/) do
   expect(page).to have_content(@user_email)
 end
 
-When(/^I am logged in as a normal user$/) do
-  pending
-end
-
 Then(/^I cannot access the user form$/) do
-  pending
+  expect(page).not_to have_link('Users')
 end
