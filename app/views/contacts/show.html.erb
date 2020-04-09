@@ -49,11 +49,52 @@
       <span><%= @contact.mobile %></span>
     </div>
 
+
+    <div class="contact-profile__row">
+      <strong>Any dietary requirements?</strong>
+      <span><%= boolean_formatter(@contact.any_dietary_requirements) %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Dietary details:</strong>
+      <span><%= @contact.dietary_details %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Cooking facilities:</strong>
+      <span><%= @contact.cooking_facilities %></span>
+    </div>
+  </div>
+
+  <div class="contact-profile__right">
+
+    <div class="contact-profile__row">
+      <strong>People in house:</strong>
+      <span><%= @contact.count_people_in_house %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Children under 15:</strong>
+      <span><%= boolean_formatter(@contact.any_children_below_15) %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Free prescriptions?</strong>
+      <span><%= boolean_formatter(@contact.eligible_for_free_prescriptions) %></span>
+    </div>
+
+    <div class="contact-profile__row">
+      <strong>Delivery details:</strong>
+      <span><%= @contact.delivery_details %></span>
+    </div>
+
     <% if @contact.additional_info %>
       <div class="contact-profile__row">
         <strong>Additional info:</strong>
         <span><%= @contact.additional_info %></span>
       </div>
     <% end %>
+
+
   </div>
 </div>
