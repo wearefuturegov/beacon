@@ -5,3 +5,8 @@
     box-sizing: border-box;
     color: $text;
 }
+
+button::-moz-focus-inner { 
+    border: 0; 
+    padding: 0; 
+}

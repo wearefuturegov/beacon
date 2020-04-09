@@ -19,3 +19,10 @@ body{
     margin-bottom: 30px;
     box-shadow: 2px 0px 10px transparentize($text, 0.95)
 }
+
+.alert{
+    padding: 25px;
+    border-left: 5px solid $yellow;
+    background: transparentize($yellow, 0.9);
+    margin-bottom: 25px;
+}

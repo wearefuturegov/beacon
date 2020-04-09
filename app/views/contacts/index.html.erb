@@ -1,8 +1,11 @@
-<% if notice %>
-  <p class="notice"><%= notice %></p>
+<% content_for :header do %>
+  <button class="button button--dark">Sort</button>
+  <button class="button button--dark">Filter</button>
 <% end %>
 
-<div class="table-holder">
+
+<div class="panel">
+
   <table class="table">
     <thead>
       <tr>
@@ -41,6 +44,7 @@
     <% end%>
     </tbody>
   </table>
-</div>
 
-<%= paginate @contacts %>
+  <%= paginate @contacts %>
+
+</div>

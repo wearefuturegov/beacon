@@ -8,18 +8,21 @@
     <div class="content-pane">
 
       <header class="panel content-header">
-
+        <%= yield :header %>
         <nav class="content-header__actions-right">
           <span class="content-header__current-user"><%= current_user.email %></span>
           <%= link_to 'Log out', auth.sign_out_path, class: "button button--small" %>
         </nav>
-      
-
       </header>
 
-      <div class="panel">
-        <%= yield %>
-      </div>
+      <% if notice || alert %>
+        <div class="alert">
+          <%= notice %>
+          <%= alert %>
+        </div>
+      <% end %>
+
+      <%= yield %>
 
     </div>
 
