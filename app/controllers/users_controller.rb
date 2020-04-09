@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: [:destroy]
-  # before_action :require_user!
+  before_action :require_admin
 
   # GET /users
   def index
@@ -42,5 +42,11 @@ class UsersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def user_params
     params.require(:user).permit(:email, :admin)
+  end
+
+  def require_admin
+    return if current_user.admin
+
+    redirect_to root_path, flash: { error: 'Only administrators can manage users' }
   end
 end

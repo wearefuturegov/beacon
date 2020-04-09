@@ -4,8 +4,17 @@ Given(/^I am logged into the system$/) do
   expect(page).to have_content('People in need')
 end
 
-def generate_magic_link
-  tester = User.create!(email: 'test@test.com', invited: Date.today)
+Given(/^I am logged into the system as an admin$/) do
+  visit generate_magic_link(true)
+  expect(page.status_code).to eq(200)
+  expect(page).to have_content('People in need')
+end
+
+def generate_magic_link(admin = false)
+  email = admin ? 'test@test.com' : 'admin@test.com'
+  tester = User.create!(email: email,
+                        invited: Date.today,
+                        admin: admin)
   session = Passwordless::Session.new({
                                         authenticatable: tester,
                                         user_agent: 'Cucumber-tests',
