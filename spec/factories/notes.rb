@@ -5,5 +5,6 @@ FactoryBot.define do
     need
     user
     body { Faker::Lorem.sentence }
+    category { Faker::Lorem.words(number:1) }
   end
 end
