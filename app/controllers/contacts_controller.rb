@@ -6,11 +6,7 @@ class ContactsController < ApplicationController
   def index
     @params = params.permit(:search, :page)
     @contacts = Contact.all
-
-    if @params[:search].present?
-      @contacts = @contacts.search(@params[:search])
-    end
-
+    @contacts = @contacts.search(@params[:search]) if @params[:search].present?
     @contacts = @contacts.page(@params[:page])
   end
 
