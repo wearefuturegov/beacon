@@ -5,7 +5,7 @@ end
 When(/^I enter the email address into the user form$/) do
   visit '/'
   click_link 'Users'
-  click_link 'Invite user'
+  click_link 'Invite a user'
   fill_in('user_email', with: @user_email)
 end
 

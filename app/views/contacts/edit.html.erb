@@ -4,6 +4,8 @@
   <li>Edit</li>
 </ol>
 
+<div class="panel">
+
 <section class="two-thirds">
   <div class="page-header">
     <h1 class="page-title">Editing <%= @contact.name %></h1>
@@ -11,4 +13,6 @@
   <p class="lede">Use this feature to update the details of a person in need, so we have their most recent information.</p>
 </section>
 
-<%= render 'form', contact: @contact %>
+<div class="panel">
+  <%= render 'form', contact: @contact %>
+</div>
