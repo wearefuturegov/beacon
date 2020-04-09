@@ -116,7 +116,7 @@ Then('the dietary requirements is {string}') do |details|
 end
 
 Then('the total number of people is {string}') do |count|
-  # TODO add test ids
+  # TODO: add test ids
   expect(page).to have_content(count)
 end
 
