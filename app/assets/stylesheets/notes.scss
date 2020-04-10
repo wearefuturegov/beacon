@@ -1,0 +1,52 @@
+@import "variables";
+
+
+
+.notes{
+    .notes__form{
+        padding: 35px;
+        background: transparentize($pale, 0.5);
+        border-bottom: 1px solid transparentize($grey, 0.8);
+    }
+    .notes__title{
+        margin-top: 0px;
+        font-weight: normal;
+        margin-bottom: 25px;
+    }
+    .notes__field{
+        background: none;
+        border: none;
+        border-bottom: 1px solid $text;
+        width: 100%;
+        font-size: 1rem;
+        display: block;
+        margin-bottom: 25px;
+    }
+    .notes__button{
+        margin-left: auto;
+        display: flex;
+        &:focus{
+            background: none;
+        }
+        &:hover{
+            background: $blue;
+        }
+    }
+    .notes__list{
+        padding: 35px;
+        background: transparentize($pale, 0.5);
+    }
+}
+
+
+.note{
+    margin-bottom: 35px;
+    &:last-of-type{
+        margin-bottom: 0px;
+    }
+    .note__header{
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        color: $grey;
+    }
+}
