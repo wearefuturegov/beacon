@@ -20,7 +20,7 @@
                   <% end %>
                 </td>
                 <td><%= n.assigned %></td>
-                <td><%= n.due_by.strftime("%-d %B %Y") %></td>
+                <td><%= n.due_by&.strftime("%-d %B %Y") %></td>
               </tr>
             <% end %>
           </tbody>
