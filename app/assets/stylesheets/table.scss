@@ -87,6 +87,7 @@
     border-collapse: collapse;
 
     thead{
+        border-bottom: 1px solid transparentize($text, 0.8);
         th{
             padding-top: 25px;
             text-align: left;
@@ -109,6 +110,9 @@
             &:focus-within{
                 background: transparentize($yellow, 0.8);
                 border-color: $yellow;
+            }
+            &:first-of-type{
+                border-top: none;
             }
         }
         td{
