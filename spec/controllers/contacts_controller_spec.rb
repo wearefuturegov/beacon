@@ -34,6 +34,5 @@ RSpec.describe ContactsController do
       @user_instance = class_double('User').as_stubbed_const
       allow(@user_instance).to receive(:all).and_return([@user_instance, @user_instance, @user_instance])
     end
-    
   end
 end
