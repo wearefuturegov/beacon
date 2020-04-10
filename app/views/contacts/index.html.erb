@@ -1,7 +1,5 @@
 <% content_for :header do %>
   <%= render "shared/mini-search" %>
-  <button class="button button--dark">Sort</button>
-  <button class="button button--dark">Filter</button>
 <% end %>
 
 <header class="panel-header">
@@ -24,7 +22,7 @@
           <th>Phone</th>
           <th>Needs</th>
           <th>Vulnerable</th>
-          <th>Date logged</th>
+          <th>First added</th>
         </tr>
       </thead>
       <tbody>
@@ -54,7 +52,7 @@
       <% end%>
       </tbody>
     </table>
-    <%= render "shared/pagination", model: @contacts%>
+    <%= render "shared/pagination", model: @contacts %>
   <% else %>
     <p class="no-results">No matches</p>
   <% end %>

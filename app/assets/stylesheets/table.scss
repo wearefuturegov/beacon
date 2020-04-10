@@ -79,7 +79,7 @@
     color: $grey;
     padding: 40px;
     margin: 0px auto;
-    max-width: 300px;
+    max-width: 320px;
 }
 
 .needs-table{
@@ -154,4 +154,24 @@
     padding: 7px 12px;
     background: $red;
     color: $white;
+}
+
+.sortable{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .sortable__controls{
+        display: inline-flex;
+        flex-direction: column;
+        margin-left: 10px;
+        *:first-child{
+            margin-bottom: 5px;
+        }
+        a, img{
+            height: 7px;
+        }
+        img{
+            display: block;
+        }
+    }
 }

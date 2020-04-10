@@ -17,12 +17,6 @@
   <a href="#other" class="sidenav__block need" data-turbolinks="false">Other</a>
 </div>
 
-<ol class="breadcrumb">
-  <li><%= link_to "People in need", contacts_path %></li>
-  <li><%= link_to @contact.name, contact_path(@contact) %></li>
-  <li>Edit</li>
-</ol>
-
 <%= form_with(model: [@contacts, @contact_needs], url: contact_triage_path(@contact.id), method: :put, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
   <a class="anchor-point" id="personal-details"></a>
   <div class="page-header">

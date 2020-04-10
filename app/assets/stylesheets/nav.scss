@@ -25,7 +25,7 @@
         width: 100%;
         display: block;
     }
-    @media screen and (max-width: $breakpoint-m){
+    @media screen and (max-width: $breakpoint-l){
         width: 170px;
         min-width: 170px;
         max-width: 170px;
@@ -37,6 +37,8 @@
 .main-menu{
     list-style: none;
     padding-left: 0px;
+    position: sticky;
+    top: 35px;
     .main-menu__item{
         font-size: 1.1rem;
         margin-bottom: 5px;
@@ -62,5 +64,26 @@
         display: block;
         background: $blue;
         border-radius: 2px;
+    }
+
+    .main-menu__submenu{    
+        padding-left: 0px;
+    }
+    .main-menu__submenu-link{
+        margin-top: 5px;
+        padding: 10px 15px 10px 25px;
+        font-size: 0.9rem;
+        color: $pale;
+        display: block;
+        text-decoration: none;
+        border-radius: 2px;
+        &:hover{
+            background: lighten($text, 5);
+        }        
+        &:focus{
+            background: $yellow;
+            color: $text;
+            outline: none;
+        }
     }
 }

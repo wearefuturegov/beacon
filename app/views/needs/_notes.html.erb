@@ -1,0 +1,20 @@
+  <%= form_with(model: [@need, @need.notes.build], local: true) do |form| %>
+    <div class="field">
+      <%= form.label :body, 'Add a note', class: "field__label" %>
+      <%= form.text_area :body, class: 'note-textarea' %>
+    </div>
+    <%= form.submit %>
+  <% end %>
+
+  <div class="notes-list">
+    <% @need.notes.reverse_each do |note| %>
+      <% next if note == @need.notes.last %>
+      <div class="note">
+        <header class="note__header">
+          <strong class="note__author"><%= note.user.name_or_email %></strong>
+          <span class="note__created"><%= time_ago_in_words(note.created_at) %> ago</span>
+        </header>
+        <p class="two-thirds"><%= note.body %></p>
+      </div>
+    <% end %>
+  </div>

@@ -4,7 +4,7 @@
     .accordion__control{
         background: $text;
         border: none;
-        padding: 10px 25px;
+        padding: 25px;
         width: 100%;
         text-align: left;
         cursor: pointer;
@@ -34,10 +34,11 @@
     .accordion__title{
         color: $white;
         font-size: 1.1rem;
+        margin: 0;
         font-weight: normal;
     }
     .accordion__content{
-        padding: 25px;
+        padding: 35px;
         position: relative;
     }
     .accordion__edit-link{
@@ -52,12 +53,12 @@
     margin: 0;
     .details-list__caption{
         font-weight: bold;
-        margin-bottom: 5px;
+        margin-bottom: 7px;
         font-size: 0.9rem;
     }
     .details-list__value{
         margin-left: 0px;
-        margin-bottom: 25px;
+        margin-bottom: 35px;
         &:last-of-type{
             margin-bottom: 0px;
         }

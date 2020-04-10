@@ -1,3 +1,7 @@
+<% content_for :header do %>
+  <%= link_to "Triage", contact_triage_path(@contact), class: "button button--dark" %>
+<% end %>
+
 <%= render "shared/vulnerable-banner" %>
 
 <div class="with-left-sidebar">

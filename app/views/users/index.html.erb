@@ -11,6 +11,7 @@
   <table class="table">
     <thead>
     <tr>
+      <th>Name</th>
       <th>Email</th>
       <th>Invited</th>
       <th>Last logged in</th>
@@ -22,7 +23,8 @@
     <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><strong><%= user.email %></strong></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
         <td><%= time_ago_in_words(user.invited) %> ago</td>
         <% if user.last_logged_in %>
           <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>

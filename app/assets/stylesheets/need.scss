@@ -1,0 +1,48 @@
+@import "variables";
+
+.need-actions{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 35px;
+
+    .need-actions__field{
+        flex: 1;
+        margin-right: 20px;
+        &:last-of-type{
+            margin-right: 0px;
+        }
+    }
+    .need-actions__label{
+        font-weight: bold;
+        display: block;
+        font-size: 0.9rem;
+        margin-bottom: 7px;;
+    }
+    .need-actions__select{
+        width: 100%;
+        appearence: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border-radius: 0px;
+        padding: 7px;
+        border: none;
+        font-size: 1rem;
+        background: $pale;
+        cursor: pointer;
+        background-position: 95% center;
+        background-repeat: no-repeat;
+        background-size: 13px;
+        background-image: url("data:image/svg+xml,%3Csvg width='11' height='7' viewBox='0 0 11 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.93478 0.0820312L5.3113 4.70549L0.687828 0.0820312L-0.000436783 0.770296L5.3113 6.08203L10.623 0.770296L9.93478 0.0820312Z' fill='%232A2828'/%3E%3C/svg%3E%0A");
+        &.need-actions__select--red{
+            background-color: $red;
+            color: $white;
+            background-image: url("data:image/svg+xml,%3Csvg width='11' height='7' viewBox='0 0 11 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.93478 0.0820312L5.3113 4.70549L0.687828 0.0820312L-0.000436783 0.770296L5.3113 6.08203L10.623 0.770296L9.93478 0.0820312Z' fill='%23ffffff'/%3E%3C/svg%3E%0A");
+            option{
+                background-color: $pale;
+            }
+        }
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+    }
+}
