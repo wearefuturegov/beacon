@@ -91,10 +91,10 @@ class Need < ApplicationRecord
   end
 
   def assigned
-    if user 
+    if user
       user.name_or_email
     else
-      "Unassigned"
+      'Unassigned'
     end
   end
 end
