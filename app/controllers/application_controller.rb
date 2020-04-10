@@ -43,6 +43,6 @@ class ApplicationController < ActionController::Base
     return if current_user
 
     save_passwordless_redirect_location!(User)
-    redirect_to auth.sign_in_path, flash: { error: 'Please sign in' }
+    redirect_to auth.sign_in_path
   end
 end
