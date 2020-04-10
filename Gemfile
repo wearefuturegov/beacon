@@ -20,11 +20,11 @@ gem 'strong_migrations'
 gem 'csv'
 gem 'pg_search', '~> 2.3', '>= 2.3.2'
 gem 'govuk_notify_rails'
-gem 'factory_bot_rails', require: false
-gem 'faker', require: false
 gem 'jsonb_accessor', '~> 1.0.0'
 
 group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 

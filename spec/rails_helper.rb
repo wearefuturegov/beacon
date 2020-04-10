@@ -29,9 +29,6 @@ require 'faker'
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
-# Tell FactoryBot to find factories since Gemfile uses require: false
-FactoryBot.find_definitions
-
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
