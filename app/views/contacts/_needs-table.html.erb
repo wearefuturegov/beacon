@@ -5,7 +5,7 @@
               <th>Type</th>
               <th>Priority</th>
               <th>Assigned</th>
-              <th>Due</th>
+              <th>Created</th>
             <tr>
           </thead>
           <tbody>
@@ -20,7 +20,7 @@
                   <% end %>
                 </td>
                 <td><%= n.assigned %></td>
-                <td><%= n.due_by&.strftime("%-d %B %Y") %></td>
+                <td><%= n.created_at&.strftime("%-d %B %Y") %></td>
               </tr>
             <% end %>
           </tbody>

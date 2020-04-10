@@ -21,7 +21,7 @@
       <% if @contact.needs.any? %>
         <span class="panel-header__badge"><%= @contact.needs.count %></span>
       <% end %>
-      <%= link_to "Add a need", new_contact_need_path(@contact), class: "panel-header__action" %>
+      <%#= link_to "Add a need", new_contact_need_path(@contact), class: "panel-header__action" %>
     </header>
     <div class="panel panel--unpadded">
       <%= link_to @need.category.humanize, @contact, class: "panel__header" %>

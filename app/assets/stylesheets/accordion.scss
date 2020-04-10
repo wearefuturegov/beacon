@@ -25,10 +25,10 @@
             width: 15px;
             height: 8px;
             background-repeat: no-repeat;
-            background-image: url("data:image/svg+xml,%3Csvg width='16' height='9' viewBox='0 0 16 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M14.1643 0.0820309L7.9997 6.24664L1.83507 0.0820309L0.917384 0.999717L7.9997 8.08203L15.082 0.999717L14.1643 0.0820309Z' fill='white'/%3E%3C/svg%3E%0A");
+            background-image: url(asset_path('folded.svg'));
         }
         &[aria-expanded=true]:after{
-            background-image: url("data:image/svg+xml,%3Csvg width='16' height='9' viewBox='0 0 16 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1.83517 8.08203L7.99981 1.91742L14.1644 8.08203L15.0821 7.16435L7.99981 0.0820316L0.91748 7.16435L1.83517 8.08203Z' fill='white'/%3E%3C/svg%3E%0A");
+            background-image: url(asset_path('unfolded.svg'));
         }
     }
     .accordion__title{

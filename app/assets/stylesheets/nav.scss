@@ -68,10 +68,11 @@
 
     .main-menu__submenu{    
         padding-left: 0px;
+        margin-left: 10px;
     }
     .main-menu__submenu-link{
         margin-top: 5px;
-        padding: 10px 15px 10px 25px;
+        padding: 10px 15px;
         font-size: 0.9rem;
         color: $pale;
         display: block;
@@ -85,5 +86,14 @@
             color: $text;
             outline: none;
         }
+    }
+    .main-menu__submenu-current{
+        margin-top: 5px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        color: $pale;
+        display: block;
+        border-radius: 2px;   
+        background: transparentize($blue, 0.5);
     }
 }

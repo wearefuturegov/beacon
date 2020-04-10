@@ -7,14 +7,16 @@
     <%= form.submit "Add update", class: "button notes__button" %>
   <% end %>
 
-  <div class="notes__list">
-    <% @need.notes.reverse_each do |note| %>
+  <% if @need.notes.length > 1 %>
+    <div class="notes__list">
+      <% @need.notes.reverse_each do |note| %>
       <% next if note == @need.notes.last %>
         <article class="note">
-          <header class="note__header"><%= time_ago_in_words(note.created_at) %> ago | <%= note.user.name_or_email %></header>
-          <p class="two-thirds"><%= note.body %></p>
+          <header class="note__header"><%= time_ago_in_words(note.created_at) %> ago  |  <%= note.user.name_or_email %></header>
+          <p class="note__body"><%= note.body %></p>
         </article>
       <% end %>
-  </div>
+    </div>
+  <% end %>
 
 </section>

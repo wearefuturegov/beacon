@@ -15,7 +15,7 @@ body{
 
 .panel{
     background: $white;
-    padding: 30px;
+    padding: 35px;
     margin-bottom: 30px;
     box-shadow: 2px 0px 10px transparentize($text, 0.95);
     &.panel--unpadded{
@@ -23,7 +23,7 @@ body{
     }
     .panel__header{
         border: none;
-        padding: 25px;
+        padding: 25px 35px;
         width: 100%;
         color: $text;
         text-decoration: none;
@@ -42,7 +42,7 @@ body{
             height: 15px;
             background-repeat: no-repeat;
             margin-right: 25px;
-            background-image: url("data:image/svg+xml,%3Csvg width='9' height='14' viewBox='0 0 9 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8.97607 13.093L2.81147 6.99999L8.97608 0.90702L8.05839 1.23831e-06L0.976075 6.99999L8.05839 14L8.97607 13.093Z' fill='%232A2828'/%3E%3C/svg%3E%0A");
+            background-image: url(asset_path('left.svg'));
         }
         &:hover{
             background: transparentize($blue, 0.9);
@@ -53,6 +53,15 @@ body{
             border-color: $yellow;
         }
     }
+    .panel__banner{
+        margin-top: 0px;
+        padding: 25px 35px;
+        margin-bottom: 35px;
+        background: $text;
+        color: $white;
+        font-size: 1.2rem;
+        font-weight: normal;
+    }
     .panel__body{
         padding: 35px;
         &.panel__body--grey{
@@ -61,11 +70,30 @@ body{
     }
 }
 
+.notice{
+    padding: 25px;
+    border-left: 5px solid $blue;
+    background: transparentize($blue, 0.9);
+    margin-bottom: 25px;
+    p{
+        margin-top: 0px;
+    }
+    ul{
+        margin-bottom: 0px;
+    }
+}
+
 .alert{
     padding: 25px;
     border-left: 5px solid $yellow;
     background: transparentize($yellow, 0.9);
     margin-bottom: 25px;
+}
+
+.two-thirds{
+    @media screen and (min-width: $breakpoint-l){
+        max-width: 66.67%;
+    }
 }
 
 .vulnerable-banner{
@@ -86,7 +114,7 @@ body{
 .panel-header{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 
     .panel-header__title{

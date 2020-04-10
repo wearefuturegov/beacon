@@ -3,8 +3,9 @@
   <%= render "shared/head"%>
 
   <body class="login">
-
-    <%= link_to image_tag(logo_path), root_path, alt: council_name %>
+    <header class="login__header">
+      <%= link_to image_tag(logo_path, alt: council_name, class: "login__logo"), root_path, class: "login__logo-link" %>
+    </header>
 
     <div class="login-panel <%= yield :class %>">
       <%= yield %>

@@ -1,79 +1,68 @@
-<div class="sidenav" style="display:none">
 
-  <div class="sidenav__logo">
-    <%= image_tag "beacon-white.svg", alt: "beacon logo" %>
+
+<%= form_with(model: [@contacts, @contact_needs], url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
+
+  <header class="panel-header">
+    <h1 class="panel-header__title">Triage a person in need</h1>
+  </header>
+
+  <div class="panel panel--unpadded">
+    <h2 class="panel__banner">Personal details</h2>
+    <div class="panel__body two-thirds">
+      <%= fields_for :contact, @contact do |contact_fields| %>
+        <%= render partial: 'contacts/form_fields', locals: { contact: @contact, form: contact_fields } %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="sidenav__block sidenav__block--call-list">
-    Call List
-  </div>
-  <div class="sidenav__block sidenav__block--people">
-    People
-  </div>
-  <a href="#personal-details" data-turbolinks="false" class="sidenav__block">Personal Details</a>
-  <% needs.each do |need| %>
-    <a href="#<%= need.parameterize %>" class="sidenav__block need" data-turbolinks="false"><%= need %></a>
-  <% end %>
-  <a href="#other" class="sidenav__block need" data-turbolinks="false">Other</a>
-</div>
+  <div class="panel panel--unpadded">
+    <h2 class="panel__banner">Add needs</h2>
+    <div class="panel__body two-thirds">
+      <% needs.each_with_index do |need, index| %>
+        <a class="anchor-point" id="<%= need.parameterize %>" href="#"></a>
+        <fieldset class="field-section">
+          <%= form.hidden_field "needs_list[#{index}][name]", :value => need.parameterize.underscore, :id => "needs_name_#{index}" %>
 
-<%= form_with(model: [@contacts, @contact_needs], url: contact_triage_path(@contact.id), method: :put, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
-  <a class="anchor-point" id="personal-details"></a>
-  <div class="page-header">
-    <h1 class="page-title">Personal Details</h1>
-  </div>
+          <legend class="field-section__title"><h3><%= need %></h3></legend>
 
-  <%= fields_for :contact, @contact do |contact_fields| %>
-    <%= render partial: 'contacts/form_fields', locals: { contact: @contact, form: contact_fields } %>
-  <% end %>
+          <div class="radio">
+            <%= form.radio_button "needs_list[#{index}][active]", true, :id => "needs_active_#{index}_true" %>
+            <label for="needs_active_<%= index %>_true" class="radio__label">Yes</label>
+          </div>
 
-  <div class="page-header">
-    <h1 class="page-title">Add needs</h1>
-  </div>
+          <div class="radio">
+            <%= form.radio_button "needs_list[#{index}][active]", false, :id => "needs_active_#{index}_false" %>
+            <label for="needs_active_<%= index %>_false" class="radio__label">No</label>
+          </div>
 
-  <% needs.each_with_index do |need, index| %>
-    <a class="anchor-point" id="<%= need.parameterize %>" href="#"></a>
-    <fieldset class="field-section">
-      <%= form.hidden_field "needs_list[#{index}][name]", :value => need.parameterize.underscore, :id => "needs_name_#{index}" %>
+          <div class="field">
+            <label for="<%= "needs_desc_#{index}" %>" class="field__label">Describe more about how we can help</label>
+            <%= form.text_area "needs_list[#{index}][description]", :id => "needs_desc_#{index}" %>
+          </div>
 
-      <legend class="field-section__title"><h3><%= need %></h3></legend>
+          <div class="checkbox">
+            <%= form.check_box "needs_list[#{index}][is_urgent]", :id => "needs_is_urgent_#{index}", class: 'checkbox__input' %>
+            <label for="<%= "needs_is_urgent_#{index}" %>" class="checkbox__label">Urgent need</label>
+          </div>
+        </fieldset>
 
-      <div class="radio">
-        <%= form.radio_button "needs_list[#{index}][active]", true, :id => "needs_active_#{index}_true" %>
-        <label for="needs_active_<%= index %>_true" class="radio__label">Yes</label>
-      </div>
-
-      <div class="radio">
-        <%= form.radio_button "needs_list[#{index}][active]", false, :id => "needs_active_#{index}_false" %>
-        <label for="needs_active_<%= index %>_false" class="radio__label">No</label>
-      </div>
+        <%= fields_for :contact, @contact do |contact_form| %>
+          <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need.parameterize.underscore}.html.erb")) %>
+            <%# form will save to the need, contact_form will save to the contact %>
+            <%= render :partial => "#{need.parameterize.underscore}", locals: { form: contact_form } %>
+          <% end %>
+        <% end %>
+      <% end %>
 
       <div class="field">
-        <label for="<%= "needs_desc_#{index}" %>" class="field__label">Describe more about how we can help</label>
-        <%= form.text_area "needs_list[#{index}][description]", :id => "needs_desc_#{index}" %>
+        <a class="anchor-point" id="other" href="#"></a>
+        <%= form.label :other_need, class: "field__label" %>
+        <%= form.text_field :other_need %>
       </div>
 
-      <div class="checkbox">
-        <%= form.check_box "needs_list[#{index}][is_urgent]", :id => "needs_is_urgent_#{index}", class: 'checkbox__input' %>
-        <label for="<%= "needs_is_urgent_#{index}" %>" class="checkbox__label">Urgent need</label>
-      </div>
-    </fieldset>
+              <%= form.submit "Save changes", class: "button button--primary" %>
 
-    <%= fields_for :contact, @contact do |contact_form| %>
-      <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need.parameterize.underscore}.html.erb")) %>
-        <%# form will save to the need, contact_form will save to the contact %>
-        <%= render :partial => "#{need.parameterize.underscore}", locals: { form: contact_form } %>
-      <% end %>
-    <% end %>
+    </div>
+  </div>
+
   <% end %>
-
-  <div class="field">
-    <a class="anchor-point" id="other" href="#"></a>
-    <%= form.label :other_need, class: "field__label" %>
-    <%= form.text_field :other_need %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Save changes" %>
-  </div>
-<% end %>
