@@ -40,6 +40,13 @@ docker-compose up -d
 rails db:setup
 
 rails server
+
+# to set git hooks
+i-have-i-need$ git config core.hooksPath .githooks
+
+#check for X permissions. Here is what you need:
+i-have-i-need/.githooks$ chmod +x pre-commit
+i-have-i-need/.githooks$ chmod +x pre-commit.d/01-rubocop
 ```
 
 It'll be on **localhost:3000**.
