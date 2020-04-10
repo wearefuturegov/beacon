@@ -25,9 +25,9 @@
       <tr>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
-        <td><%= time_ago_in_words(user.invited) %> ago</td>
+        <td><%= time_ago_in_words(user.invited).humanize %> ago</td>
         <% if user.last_logged_in %>
-          <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>
+          <td><%= time_ago_in_words(user.last_logged_in).humanize %> ago</td>
         <% else %>
           <td> Never</td>
         <% end %>
