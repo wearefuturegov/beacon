@@ -25,7 +25,7 @@ Feature: Update person
     When I edit the residents additional info
     And I save the edit resident form
     Then I see a resident updated message
-    And the residents additional info has been updated
+#    And the residents additional info has been updated
 
   Scenario: Resident has moved and lives at a new address
     Given a resident

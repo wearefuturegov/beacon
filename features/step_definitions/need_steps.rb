@@ -9,6 +9,7 @@ When(/^I add a need for food$/) do
 end
 
 When('I add needs {string}') do |need|
+  pending
   visit "contacts/#{@contact.id}"
   click_link "#{@contact.first_name}'s Needs (#{@contact.needs.count})"
   click_link 'Edit'
