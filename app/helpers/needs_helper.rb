@@ -18,64 +18,23 @@ module NeedsHelper
   end
 
   def needs
-    needs_note_categories.sort_by { |e| e[1][:order] }.map(&:first)
+    ['Phone triage', 'Groceries and cooked meals', 'Physical and mental wellbeing', 'Financial support',
+     'Staying Social', 'Prescription pickups', 'Book drops and entertainment', 'Dog walking']
   end
 
-  def note_category_display(need_category, note_category_id)
-    needs_note_categories.find { |e| e[1][:stored_as] == need_category }
-      &.fetch(1)
-      &.fetch(:note_categories)
-      &.find { |nc| nc[:id] == note_category_id }
-      &.fetch(:display)
+  def note_category_display(note_category_id)
+    note_category = needs_note_categories.find { |category| category[:id] == note_category_id }
+    note_category.present? ? note_category[:display] : 'Note'
   end
 
   def needs_note_categories
-    {
-      'Phone triage' => {
-        order: 1,
-        stored_as: 'phone triage',
-        note_categories: [
-          # prefix 'phone_' makes reporting easier
-          { id: 'phone_success', display: 'Successful Phone call' },
-          { id: 'phone_failure', display: 'Failed Phone call' }
-        ]
-      },
-      'Groceries and cooked meals' => {
-        order: 2,
-        stored_as: 'groceries and cooked meals',
-        note_categories: []
-      },
-      'Physical and mental wellbeing' => {
-        order: 3,
-        stored_as: 'physical and mental wellbeing',
-        note_categories: []
-      },
-      'Financial support' => {
-        order: 4,
-        stored_as: 'financial support',
-        note_categories: []
-      },
-      'Staying Social' => {
-        order: 5,
-        stored_as: 'staying social',
-        note_categories: []
-      },
-      'Prescription pickups' => {
-        order: 6,
-        stored_as: 'prescription pickups',
-        note_categories: []
-      },
-      'Book drops and entertainment' => {
-        order: 7,
-        stored_as: 'book drops and entertainment',
-        note_categories: []
-      },
-      'Dog walking' => {
-        order: 8,
-        stored_as: 'dog walking',
-        note_categories: []
-      }
-    }
+    [
+      # prefix 'phone_' makes reporting easier
+      { id: 'note', display: 'Note' },
+      { id: 'phone_success', display: 'Successful Call' },
+      { id: 'phone_message', display: 'Left Message' },
+      { id: 'phone_failure', display: 'Failed Call' }
+    ]
   end
 
   def need_urgencies
