@@ -47,7 +47,7 @@
       </thead>
       <tbody>
       <% @needs.each do |n| %>
-        <tr class="clickable" onclick="window.location='<%= need_path(n) %>'">
+        <tr class="clickable" onclick="window.location='<%= need_path(n) %>'" style="border: <%= get_need_border(n.category) %>">
           <td><%= n.contact_name %></td>
           <td>
             <% if n.contact_is_vulnerable %>

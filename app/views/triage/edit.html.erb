@@ -19,39 +19,41 @@
     <h2 class="panel__banner">Add needs</h2>
     <div class="panel__body two-thirds">
       <% needs.each_with_index do |need, index| %>
-        <a class="anchor-point" id="<%= need.parameterize %>" href="#"></a>
-        <fieldset class="field-section">
-          <%= form.hidden_field "needs_list[#{index}][name]", :value => need.parameterize.underscore, :id => "needs_name_#{index}" %>
+        <fieldset class="field-section" style="border: <%= need[:border] %>">
+          <a class="anchor-point" id="<%= need[:label].parameterize %>" href="#"></a>
+          <fieldset class="field-section">
+            <%= form.hidden_field "needs_list[#{index}][name]", :value => need[:label].parameterize.underscore, :id => "needs_name_#{index}" %>
 
-          <legend class="field-section__title"><h3><%= need %></h3></legend>
+            <legend class="field-section__title"><h3><%= need[:label] %></h3></legend>
 
-          <div class="radio">
-            <%= form.radio_button "needs_list[#{index}][active]", true, :id => "needs_active_#{index}_true" %>
-            <label for="needs_active_<%= index %>_true" class="radio__label">Yes</label>
-          </div>
+            <div class="radio">
+              <%= form.radio_button "needs_list[#{index}][active]", true, :id => "needs_active_#{index}_true" %>
+              <label for="needs_active_<%= index %>_true" class="radio__label">Yes</label>
+            </div>
 
-          <div class="radio">
-            <%= form.radio_button "needs_list[#{index}][active]", false, :id => "needs_active_#{index}_false" %>
-            <label for="needs_active_<%= index %>_false" class="radio__label">No</label>
-          </div>
+            <div class="radio">
+              <%= form.radio_button "needs_list[#{index}][active]", false, :id => "needs_active_#{index}_false" %>
+              <label for="needs_active_<%= index %>_false" class="radio__label">No</label>
+            </div>
 
-          <div class="field">
-            <label for="<%= "needs_desc_#{index}" %>" class="field__label">Describe more about how we can help</label>
-            <%= form.text_area "needs_list[#{index}][description]", :id => "needs_desc_#{index}" %>
-          </div>
+            <div class="field">
+              <label for="<%= "needs_desc_#{index}" %>" class="field__label">Describe more about how we can help</label>
+              <%= form.text_area "needs_list[#{index}][description]", :id => "needs_desc_#{index}" %>
+            </div>
 
-          <div class="checkbox">
-            <%= form.check_box "needs_list[#{index}][is_urgent]", :id => "needs_is_urgent_#{index}", class: 'checkbox__input' %>
-            <label for="<%= "needs_is_urgent_#{index}" %>" class="checkbox__label">Urgent need</label>
-          </div>
-        </fieldset>
+            <div class="checkbox">
+              <%= form.check_box "needs_list[#{index}][is_urgent]", :id => "needs_is_urgent_#{index}", class: 'checkbox__input' %>
+              <label for="<%= "needs_is_urgent_#{index}" %>" class="checkbox__label">Urgent need</label>
+            </div>
+          </fieldset>
 
-        <%= fields_for :contact, @contact do |contact_form| %>
-          <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need.parameterize.underscore}.html.erb")) %>
-            <%# form will save to the need, contact_form will save to the contact %>
-            <%= render :partial => "#{need.parameterize.underscore}", locals: { form: contact_form } %>
+          <%= fields_for :contact, @contact do |contact_form| %>
+            <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need[:label].parameterize.underscore}.html.erb")) %>
+              <%# form will save to the need, contact_form will save to the contact %>
+              <%= render :partial => "#{need[:label].parameterize.underscore}", locals: { form: contact_form } %>
+            <% end %>
           <% end %>
-        <% end %>
+        </fieldset><br>
       <% end %>
 
       <div class="field">

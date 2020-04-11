@@ -8,7 +8,7 @@
 
   <aside class="with-left-sidebar__left">
     <header class="panel-header">
-      <h2 class="panel-header__title">Profile</h1>
+      <h2 class="panel-header__title">Profile</h2>
     </header>
     <div class="panel panel--unpadded">  
       <%= render "shared/profile-accordion" %>
@@ -17,7 +17,7 @@
 
   <aside class="with-left-sidebar__right">
     <header class="panel-header">
-      <h2 class="panel-header__title">Needs</h1>
+      <h2 class="panel-header__title">Needs</h2>
       <% if @open_needs.any? %>
         <span class="panel-header__badge"><%= @open_needs.count %></span>
       <% end %>
@@ -29,13 +29,13 @@
 
     <% if @completed_needs.any? %>
       <header class="panel-header">
-        <h2 class="panel-header__title">Completed</h1>
+        <h2 class="panel-header__title">Completed</h2>
       </header>
       <div class="panel panel--unpadded">  
         <table class="needs-table">
             <tbody>
             <% @completed_needs.each do |n| %>
-                <tr onclick="window.location='<%= need_path(n) %>'">
+                <tr onclick="window.location='<%= need_path(n) %>'" style="border: <%= get_need_border(n.category) %>">
                 <td><%= link_to n.category.humanize, n %></td>
                 <td></td>
                 <td><%= n.assigned %></td>
