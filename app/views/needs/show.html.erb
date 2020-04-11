@@ -8,7 +8,7 @@
 
   <aside class="with-left-sidebar__left">
     <header class="panel-header">
-      <h2 class="panel-header__title">Profile</h1>
+      <h2 class="panel-header__title">Profile</h2>
     </header>
     <div class="panel panel--unpadded">  
       <%= render "shared/profile-accordion" %>
@@ -17,13 +17,13 @@
 
   <aside class="with-left-sidebar__right">
     <header class="panel-header">
-      <h2 class="panel-header__title">Needs</h1>
+      <h2 class="panel-header__title">Needs</h2>
       <% if @contact.needs.any? %>
         <span class="panel-header__badge"><%= @contact.needs.count %></span>
       <% end %>
       <%#= link_to "Add a need", new_contact_need_path(@contact), class: "panel-header__action" %>
     </header>
-    <div class="panel panel--unpadded">
+    <div class="panel panel--unpadded" style="border: <%= get_need_border(@need.category) %>">
       <%= link_to @need.category.humanize, @contact, class: "panel__header" %>
       <div class="panel__body">
 
