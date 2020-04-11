@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/', to: redirect('/needs')
   root 'needs#index'
 
   resources :contacts, only: [:index, :show, :edit, :update, :new] do
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   resources :needs, only: [:index, :show, :edit, :update] do
     resources :notes
   end
+  get 'mine', to: 'needs#index'
 
   resources :users, only: [:index, :new, :create, :destroy]
   passwordless_for :users, at: '/', as: :auth
