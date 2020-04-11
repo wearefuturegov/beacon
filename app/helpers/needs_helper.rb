@@ -19,38 +19,14 @@ module NeedsHelper
 
   def needs
     [
-      {
-        label: 'Phone triage',
-        border: '2px solid #d8853d'
-      },
-      {
-        label: 'Groceries and cooked meals',
-        border: '2px solid red'
-      },
-      {
-        label: 'Physical and mental wellbeing',
-        border: '2px solid green'
-      },
-      {
-        label: 'Financial support',
-        border: '2px solid #d8853d'
-      },
-      {
-        label: 'Staying Social',
-        border: '2px solid #d8853d'
-      },
-      {
-        label: 'Prescription pickups',
-        border: '2px solid #d8853d'
-      },
-      {
-        label: 'Book drops and entertainment',
-        border: '2px solid #d8853d'
-      },
-      {
-        label: 'Dog walking',
-        border: '2px solid #d8853d'
-      }
+      { label: 'Phone triage', border: '2px solid #d8853d' },
+      { label: 'Groceries and cooked meals', border: '2px solid red' },
+      { label: 'Physical and mental wellbeing', border: '2px solid green' },
+      { label: 'Financial support', border: '2px solid #d8853d' },
+      { label: 'Staying social', border: '2px solid #d8853d' },
+      { label: 'Prescription pickups', border: '2px solid #d8853d' },
+      { label: 'Book drops and entertainment', border: '2px solid #d8853d' },
+      { label: 'Dog walking', border: '2px solid #d8853d' }
     ]
   end
 
