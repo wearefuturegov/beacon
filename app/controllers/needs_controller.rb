@@ -8,7 +8,7 @@ class NeedsController < ApplicationController
   helper_method :get_param
 
   def index
-    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent, :mine)
+    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
     @needs = Need.filter_and_sort(filtering_params, @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
     @filter_from_url = request.env['PATH_INFO'].eql?(mine_path) ? mine_path : needs_url
