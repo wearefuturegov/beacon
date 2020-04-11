@@ -1,6 +1,6 @@
 <%= form_with(model: user, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
 
-  <section class="field-section">
+  <section class="field-section field-section--two-cols">
     <% if user.errors.any? %>
       <div class="error" id="error_explanation">
         <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -14,16 +14,16 @@
     <% end %>
 
     <div class="field">
-      <%= form.label :first_name %>
+      <%= form.label :first_name, class: "field__label" %>
       <%= form.text_field :first_name %>
     </div>
 
     <div class="field">
-      <%= form.label :last_name %>
+      <%= form.label :last_name, class: "field__label" %>
       <%= form.text_field :last_name %>
     </div>
 
-    <div class="field">
+    <div class="field field--span-two-cols">
       <%= form.label :email, 
         "Their email address", 
         class: "field__label"
