@@ -22,19 +22,12 @@ module NeedsHelper
      'Staying Social', 'Prescription pickups', 'Book drops and entertainment', 'Dog walking']
   end
 
-  def note_category_display(note_category_id)
-    note_category = needs_note_categories.find { |category| category[:id] == note_category_id }
-    note_category.present? ? note_category[:display] : 'Note'
+  def note_category_display(note_category)
+    note_category[0].to_s if note_category.present?
   end
 
-  def needs_note_categories
-    [
-      # prefix 'phone_' makes reporting easier
-      { id: 'note', display: 'Note' },
-      { id: 'phone_success', display: 'Successful Call' },
-      { id: 'phone_message', display: 'Left Message' },
-      { id: 'phone_failure', display: 'Failed Call' }
-    ]
+  def note_category_id(note_category)
+    note_category[1].to_s if note_category.present?
   end
 
   def need_urgencies

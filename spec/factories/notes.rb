@@ -5,6 +5,6 @@ FactoryBot.define do
     need
     user
     body { Faker::Lorem.sentence }
-    category { %w[note phone_success phone_message phone_failure].sample }
+    category { Note.categories.values.sample }
   end
 end

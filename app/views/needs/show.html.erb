@@ -98,11 +98,11 @@
   <%= form_with(model: [@need, @need.notes.build], local: true) do |form| %>
     <div class="field">
       <%= form.label :category, 'Choose a category', class: "field__label" %>
-      <% needs_note_categories.each.with_index do |nc, index| %>
+      <% Note.categories.each.with_index do |nc, index| %>
         <div class="radio">
-          <% field_value = 'category_' + nc[:id].to_s %>
-          <%= form.radio_button :category, nc[:id].to_s, :id => field_value, :checked => index == 0 %>
-          <label for=<%= field_value %> class="radio__label"><%= nc[:display] %></label>
+          <% field_value = "category_#{note_category_id(nc)}"  %>
+          <%= form.radio_button :category, note_category_id(nc), :id => field_value, :checked => index == 0 %>
+          <label for=<%= field_value %> class="radio__label"><%= note_category_display(nc) %></label>
         </div>
       <% end %>
     </div>
@@ -118,7 +118,7 @@
       <% next if note == @need.notes.last %>
       <div class="note">
         <header class="note__header">
-          <span><%= note_category_display(note.category) %></span>
+          <span>[<%= note.category %>]</span>
           <strong class="note__author"><%= note.user.name_or_email %></strong>
           <span class="note__created"><%= time_ago_in_words(note.created_at) %> ago</span>
         </header>

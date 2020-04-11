@@ -11,13 +11,18 @@ RSpec.describe NeedsHelper do
 
   describe '#note_category_display' do
     it 'returns appropriate display values when given a note category' do
-      [
-        ['phone_success', 'Successful Call'],
-        ['phone_failure', 'Failed Call'],
-        ['phone_message', 'Left Message'],
-        %w[note Note]
-      ].each do |category_id, display_text|
-        expect(helper.note_category_display(category_id)).to be display_text
+      display_texts = ['Note', 'Successful Call', 'Left Message', 'Failed Call']
+      Note.categories.each.with_index do |category, index|
+        expect(helper.note_category_display(category)).to eq display_texts[index]
+      end
+    end
+  end
+
+  describe '#note_category_id' do
+    it 'returns appropriate id values when given a note category' do
+      ids = %w[note phone_success phone_message phone_failure]
+      Note.categories.each.with_index do |category, index|
+        expect(helper.note_category_id(category)).to eq ids[index]
       end
     end
   end
