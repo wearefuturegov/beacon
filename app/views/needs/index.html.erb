@@ -1,5 +1,6 @@
 <% content_for :header do %>
   <%= link_to "Export", build_csv_link(request.original_url), :format => 'csv', class: "button button--dark" %>
+  <button class="button button--dark">Filter</button>
 <% end %>
 
 <header class="panel-header">
