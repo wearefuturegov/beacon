@@ -59,7 +59,7 @@ module NeedsHelper
   end
 
   def need_urgencies
-    ['Urgent', 'Not urgent']
+    ['Urgent', 'Normal']
   end
 
   def build_csv_link(url)

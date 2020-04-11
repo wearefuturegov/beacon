@@ -1,6 +1,12 @@
 <% content_for :header do %>
   <%= link_to "Export", build_csv_link(request.original_url), :format => 'csv', class: "button button--dark" %>
-  <button class="button button--dark">Filter</button>
+
+
+  <%= render "filters" %>
+
+
+<%= javascript_pack_tag 'filters', 'data-turbolinks-track': 'reload' %>
+
 <% end %>
 
 <header class="panel-header">

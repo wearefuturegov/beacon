@@ -5,6 +5,7 @@
     border: none;
     margin: 0;
     padding: 0;
+    margin-bottom: 35px;
     .field-section__title{
         font-size: 1.2rem;
     }
@@ -23,6 +24,9 @@
         font-weight: bold;
         font-size: 0.9rem;
         margin-bottom: 7px;
+    }
+    &.field--span-two-cols{
+        grid-column: 1 / 3;
     }
 }
 
