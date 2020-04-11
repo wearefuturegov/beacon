@@ -10,7 +10,7 @@
           </thead>
           <tbody>
             <% @open_needs.each do |n| %>
-              <tr onclick="window.location='<%= need_path(n) %>'">
+              <tr onclick="window.location='<%= need_path(n) %>'" class="<%= n.css_class %>">
                 <td><%= link_to n.category.humanize, n %></td>
                 <td>
                   <% if n.is_urgent %>

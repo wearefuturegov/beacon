@@ -81,6 +81,13 @@ body{
     ul{
         margin-bottom: 0px;
     }
+    li{
+        padding-left: 10px;
+        margin-bottom: 5px;
+        &:last-of-type{
+            margin-bottom: 0px;
+        }
+    }
 }
 
 .alert{

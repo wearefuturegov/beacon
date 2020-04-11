@@ -69,6 +69,10 @@ class Need < ApplicationRecord
     end
   end
 
+  def css_class
+    "need-pane--#{category.parameterize}"
+  end
+
   def status
     completed_on.present? ? 'Complete' : 'To do'
   end
