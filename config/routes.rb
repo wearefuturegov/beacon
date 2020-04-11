@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'needs#index'
 
   resources :contacts, only: [:index, :show, :edit, :update, :new] do
