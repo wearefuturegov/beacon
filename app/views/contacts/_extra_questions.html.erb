@@ -2,12 +2,12 @@
   <legend><h2 class="field-section__title">Additional information about their household</h2></legend>
 
   <div class="field field">
-    <%= form.label 'How many people in total live there?', class: "field__label" %>
-    <%= form.number_field :count_people_in_house %>
+    <%= form.label :count_people_in_house, 'How many people in total live there?', class: "field__label" %>
+    <%= form.number_field :count_people_in_house, min: "1" %>
   </div>
 
   <div class="field field--span-two-cols">
-    <%= form.label 'Any special delivery details?', class: "field__label" %>
+    <%= form.label :delivery_details, 'Any special delivery details?', class: "field__label" %>
     <%= form.text_area :delivery_details %>
   </div>
 

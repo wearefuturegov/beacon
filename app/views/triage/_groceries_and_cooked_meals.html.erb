@@ -10,14 +10,14 @@
     <label for="any_dietary_requirements_false" class="radio__label">No</label>
   </div>
 
-  <div class="field field--span-two-cols">
-    <%= form.label :dietary_details, class: "field__label" %>
-    <%= form.text_area :dietary_details %>
-  </div>
-
-  <legend><h3 class="field-section__title">What cooking facilities do they have?</h3></legend>
-  <div class="field field--span-two-cols">
-    <%= form.text_area :cooking_facilities %>
-  </div>
-
 </fieldset>
+
+<div class="field field--span-two-cols">
+  <%= form.label :dietary_details, class: "field__label" %>
+  <%= form.text_area :dietary_details %>
+</div>
+
+  <div class="field field--span-two-cols">
+  <%= form.label :cooking_facilities, "What cooking facilities do they have?", class: "field__label" %>
+  <%= form.text_area :cooking_facilities %>
+</div>

@@ -19,7 +19,7 @@ module NeedsHelper
 
   def needs
     [
-      { label: 'Phone triage', border: '#efefef' },
+      { label: 'Phone triage', border: '#2A2828' },
       { label: 'Groceries and cooked meals', border: '#EAD95B' },
       { label: 'Physical and mental wellbeing', border: '#F18F01' },
       { label: 'Financial support', border: '#42807B' },

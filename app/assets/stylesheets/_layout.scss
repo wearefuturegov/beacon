@@ -76,19 +76,6 @@ body{
     border-left: 5px solid $blue;
     background: transparentize($blue, 0.9);
     margin-bottom: 25px;
-    p{
-        margin-top: 0px;
-    }
-    ul{
-        margin-bottom: 0px;
-    }
-    li{
-        padding-left: 10px;
-        margin-bottom: 5px;
-        &:last-of-type{
-            margin-bottom: 0px;
-        }
-    }
 }
 
 .alert{
@@ -182,5 +169,29 @@ body{
     .with-left-sidebar__right{
         flex: 2;
         width: 66.66%;
+    }
+}
+
+.details{
+    .details__summary{
+        color: $blue;
+        cursor: pointer;
+        &:hover{
+            text-decoration: underline;
+        }
+        &:focus{
+            background: $yellow;
+            outline: 2px solid $yellow;
+        }
+    }
+    ul{
+        margin-bottom: 0px;
+    }
+    li{
+        padding-left: 10px;
+        margin-bottom: 5px;
+        &:last-of-type{
+            margin-bottom: 0px;
+        }
     }
 }
