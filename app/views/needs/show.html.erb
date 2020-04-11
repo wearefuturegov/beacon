@@ -23,7 +23,7 @@
       <% end %>
       <%#= link_to "Add a need", new_contact_need_path(@contact), class: "panel-header__action" %>
     </header>
-    <div class="panel panel--unpadded" style="border: <%= get_need_border(@need.category) %>">
+    <div class="panel panel--unpadded" style="border-left: 5px solid <%= get_need_border(@need.category) %>">
       <%= link_to @need.category.humanize, @contact, class: "panel__header" %>
       <div class="panel__body">
 

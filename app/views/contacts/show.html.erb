@@ -33,16 +33,32 @@
       </header>
       <div class="panel panel--unpadded">  
         <table class="needs-table">
-            <tbody>
+          <thead class="visually-hidden">
+            <tr>
+              <th>Type</th>
+              <th>Priority</th>
+              <th>Assigned</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
             <% @completed_needs.each do |n| %>
-                <tr onclick="window.location='<%= need_path(n) %>'" style="border: <%= get_need_border(n.category) %>">
-                <td><%= link_to n.category.humanize, n %></td>
-                <td></td>
+                <tr onclick="window.location='<%= need_path(n) %>'">
+                <td style="border-left: 10px solid <%= get_need_border(n.category) %>">
+                  <%= link_to n.category.humanize, n %>
+                </td>
+                <td>
+                  <% if n.is_urgent %>
+                    <span class="urgent-tag">Urgent</span>
+                  <% else %>
+                    —
+                  <% end %>
+                </td>
                 <td><%= n.assigned %></td>
                 <td><%= n.created_at&.strftime("%-d %B %Y") %></td>
                 </tr>
             <% end %>
-            </tbody>
+          </tbody>
         </table>
       </div>
     <% end %>

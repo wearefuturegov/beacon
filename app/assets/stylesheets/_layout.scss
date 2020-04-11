@@ -17,6 +17,7 @@ body{
     background: $white;
     padding: 35px;
     margin-bottom: 30px;
+    overflow: hidden;
     box-shadow: 2px 0px 10px transparentize($text, 0.95);
     &.panel--unpadded{
         padding: 0px;
