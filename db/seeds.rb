@@ -14,26 +14,17 @@ ActiveRecord::Base.transaction do
 
   Faker::Config.locale = 'en-GB'
 
-  FactoryBot.create_list(:organisation, 2).each do |organisation|
-    FactoryBot.create_list(:user, 5, organisation: organisation).each do |user|
-      contact_list = FactoryBot.create :contact_list
+  FactoryBot.create_list(:user, 5).each do |user|
+    contacts = FactoryBot.create_list :contact, 50
 
-      FactoryBot.create :contact_list_user, contact_list: contact_list, user: user
-
-      contacts = FactoryBot.create_list :contact, 50, contact_list: contact_list
-
-      need_categories = ['phone triage', 'groceries and cooked meals', 'physical and mental wellbeing', 'financial support',
-                        'staying social', 'prescription pickups', 'book drops and entertainment', 'dog walking', 'other']
-
-      contacts.first(10).each do |contact|
-        [1, 2, 3].sample.times do
-          FactoryBot.create :need,
-                            contact: contact,
-                            user: [user, nil].sample,
-                            category: need_categories.sample,
-                            is_urgent: [true, false].sample,
-                            completed_on: [nil, [1,2,3].sample.days.ago].sample
-        end
+    contacts.first(10).each do |contact|
+      [1, 2, 3].sample.times do
+        FactoryBot.create :need_with_notes,
+                          notes_count: [0, 1, 2, 3].sample,
+                          contact: contact,
+                          user: [user, nil].sample,
+                          is_urgent: [true, false].sample,
+                          completed_on: [nil, [1,2,3].sample.days.ago].sample
       end
     end
   end
@@ -45,8 +36,8 @@ end
 seed_user_emails = ENV['SEED_USER_EMAILS'] || 'admin@example.com'
 seed_user_emails.split(',').each do |email|
   User.find_or_initialize_by(email: email.strip)
-    .update!(
-      admin: true,
-      invited: DateTime.now
-    )
+      .update!(
+        admin: true,
+        invited: DateTime.now
+      )
 end
