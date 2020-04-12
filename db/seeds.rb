@@ -14,17 +14,28 @@ ActiveRecord::Base.transaction do
 
   Faker::Config.locale = 'en-GB'
 
-  FactoryBot.create_list(:user, 5).each do |user|
+  if ENV['COUNCIL'] == 'camden'
+    FactoryBot.create_list(:user, 5).each
     contacts = FactoryBot.create_list :contact, 50
 
-    contacts.first(10).each do |contact|
-      [1, 2, 3].sample.times do
-        FactoryBot.create :need_with_notes,
-                          notes_count: [0, 1, 2, 3].sample,
-                          contact: contact,
-                          user: [user, nil].sample,
-                          is_urgent: [true, false].sample,
-                          completed_on: [nil, [1,2,3].sample.days.ago].sample
+    contacts.each do |contact|
+      FactoryBot.create :imported_need_with_notes,
+                        notes_count: 1,
+                        contact: contact
+    end
+  else
+    FactoryBot.create_list(:user, 5).each do |user|
+      contacts = FactoryBot.create_list :contact, 50
+
+      contacts.first(10).each do |contact|
+        [1, 2, 3].sample.times do
+          FactoryBot.create :need_with_notes,
+                            notes_count: [0, 1, 2, 3].sample,
+                            contact: contact,
+                            user: [user, nil].sample,
+                            is_urgent: [true, false].sample,
+                            completed_on: [nil, [1,2,3].sample.days.ago].sample
+        end
       end
     end
   end

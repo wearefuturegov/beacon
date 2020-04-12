@@ -26,13 +26,24 @@ FactoryBot.define do
       is_urgent { true }
     end
 
+    trait :imported do
+      name { 'Imported call log' }
+      category { 'phone triage' }
+    end
+
     factory :need_with_notes do
       transient do
+        notes_class { :note }
         notes_count { 2 }
       end
 
       after(:create) do |need, evaluator|
-        create_list(:note, evaluator.notes_count, need: need)
+        create_list(evaluator.notes_class, evaluator.notes_count, need: need)
+      end
+
+      factory :imported_need_with_notes do
+        imported
+        notes_class { :imported_note }
       end
     end
   end
