@@ -4,7 +4,7 @@
     <h3 class="notes__title">Updates</h3>
     <div class="field">
       <%= form.label :category, 'Choose a category', class: "field__label" %>
-      <% Note.categories.each.with_index do |nc, index| %>
+      <% Note.categories_without_phone_import.each.with_index do |nc, index| %>
         <div class="radio">
           <% field_value = "category_#{note_category_form_id(nc)}"  %>
           <%= form.radio_button :category, note_category_form_id(nc), :id => field_value, :checked => index == 0 %>
