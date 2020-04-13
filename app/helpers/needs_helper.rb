@@ -53,8 +53,4 @@ module NeedsHelper
   def need_urgencies
     ['Urgent', 'Normal']
   end
-
-  def build_csv_link(url)
-    url.gsub('?', '.csv?')
-  end
 end
