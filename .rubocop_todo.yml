@@ -201,9 +201,6 @@ Metrics/CyclomaticComplexity:
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/MethodLength:
   Max: 28
-  Exclude:
-    # Until the hash in needs_note_categories is changed into a yaml config
-    - 'app/helpers/needs_helper.rb'
 
 # Offense count: 2
 # Configuration parameters: IgnoredMethods.
