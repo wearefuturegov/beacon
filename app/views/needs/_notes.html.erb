@@ -22,8 +22,16 @@
       <% @need.notes.reverse_each do |note| %>
       <% next if note == @need.notes.last %>
         <article class="note">
-          <header class="note__header"><%= display_note_category(note) %><%= time_ago_in_words(note.created_at).humanize %> ago  |  <%= note.user.name_or_email %></header>
-          <p class="note__body"><%= note.body %></p>
+          <header class="note__header">
+            <%= note.category %>
+            <time datetime="<%= note.created_at %>" title="<%= note.created_at %>">
+              <%= time_ago_in_words(note.created_at).humanize %> ago 
+            </time>
+            <% if note.user %>
+              by <%= note.user.name_or_email %>
+            <% end %>
+          </header>
+          <p class="note__body"><%= simple_format note.body %></p>
         </article>
       <% end %>
     </div>
