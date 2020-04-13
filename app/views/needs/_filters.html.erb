@@ -9,16 +9,16 @@
     <% end %>
         <%= form_with(url: root_path, method: :get, local: true, class: "filters__form") do %>
           <label for="user_id" class="visually-hidden">By assigned user</label>
-          <%= select_tag("user_id", content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["user_id"] == "Unassigned") + options_from_collection_for_select(@users, :id, :name_or_email, :selected => params['user_id']), prompt: 'Assigned to', class: "filters__select") %>
+          <%= select_tag("user_id", content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["user_id"] == "Unassigned") + options_from_collection_for_select(@users, :id, :name_or_email, :selected => params['user_id']), prompt: 'All users', class: "filters__select") %>
 
           <label for="category" class="visually-hidden">By category</label>
-          <%= select_tag("category", content_tag(:option,'Other',:value => "Other", :selected => params["category"] == "Other") + options_for_select(needs_labels_list, :selected => get_param_capitalized('category')), prompt: 'Category', class: "filters__select") %>
+          <%= select_tag("category", content_tag(:option,'Other',:value => "Other", :selected => params["category"] == "Other") + options_for_select(needs_labels_list, :selected => get_param_capitalized('category')), prompt: 'All categories', class: "filters__select") %>
         
           <label for="status" class="visually-hidden">By status</label>
-          <%= select_tag("status", options_for_select(need_statuses, :selected => get_param_capitalized('status')), prompt: 'Status', class: "filters__select") %>
+          <%= select_tag("status", options_for_select(need_statuses, :selected => get_param_capitalized('status')), prompt: 'All statuses', class: "filters__select") %>
 
           <label for="is_urgent" class="visually-hidden">By priority</label>
-          <%= select_tag("is_urgent", options_for_select(need_urgencies, :selected => get_param_capitalized('is_urgent')), prompt: 'Urgency', class: "filters__select") %>
+          <%= select_tag("is_urgent", options_for_select(need_urgencies, :selected => get_param_capitalized('is_urgent')), prompt: 'All priorities', class: "filters__select") %>
         <% end %>
     </div>
 </section>
