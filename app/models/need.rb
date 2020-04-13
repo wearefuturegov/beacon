@@ -105,7 +105,7 @@ class Need < ApplicationRecord
   end
 
   def self.dynamic_fields
-    %w(last_phoned_date)
+    %w[last_phoned_date]
   end
 
   def assigned
