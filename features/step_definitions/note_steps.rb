@@ -26,6 +26,6 @@ def note_type_from(category)
   note_types = { 'Successful Call': 'category_phone_success',
                  'Left Message': 'category_phone_message',
                  'Failed Call': 'category_phone_failure',
-                 'Note': 'category_note' }
+                 'Note': 'category_general' }
   note_types.fetch(category.to_sym)
 end
