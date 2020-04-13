@@ -11,7 +11,7 @@ class Contact < ApplicationRecord
   acts_as_ordered_taggable
   has_paper_trail
 
-  jsonb_accessor :data,
+  jsonb_accessor :healthintent_import_data,
                  shielded_id: :string, # Shielded ID
                  nhs_number: :string,  # NHS Number
                  gp_practice_code: :string, # GP Practice Code

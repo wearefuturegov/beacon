@@ -18,6 +18,7 @@ FactoryBot.define do
     dietary_details { Faker::Lorem.sentence }
     cooking_facilities { Faker::Lorem.sentence }
     eligible_for_free_prescriptions { Faker::Boolean.boolean(true_ratio: 0.2) }
+    date_of_birth { Faker::Date.between(from: 93.years.ago, to: 15.years.ago) }
     # extra nhs info
     shielded_id { Faker::Number.between(from: 1, to: 9000) }
     nhs_number { Faker::Number.between(from: 100_000, to: 800_000) }
