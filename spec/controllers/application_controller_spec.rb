@@ -32,4 +32,9 @@ RSpec.describe ApplicationController do
   it 'gets default current_user message' do
     expect(subject.current_user).to eq(user)
   end
+
+  it 'gets default support_email message' do
+    expect(subject.support_email).not_to eq(nil)
+    expect(subject.support_email =~ URI::MailTo::EMAIL_REGEXP).to be_truthy
+  end
 end
