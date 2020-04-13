@@ -45,6 +45,10 @@ class Need < ApplicationRecord
     order("LOWER(category) #{direction}")
   }
 
+  scope :order_by_last_phoned_date, lambda { |direction|
+    order("last_phoned_date #{direction} NULLS LAST")
+  }
+
   counter_culture :contact,
                   column_name: proc { |model| model.completed_on ? 'completed_needs_count' : 'uncompleted_needs_count' },
                   column_names: {
@@ -87,11 +91,21 @@ class Need < ApplicationRecord
   end
 
   def self.base_query
-    Need.includes(:user, :contact)
+    sql = "LEFT JOIN (select c.id, max(nt.created_at) from contacts c
+          left join needs n on n.contact_id = c.id
+          left join notes nt on nt.need_id = n.id where nt.category like 'phone_%'
+          group by c.id) as contact_aggregation
+          on contact_aggregation.id = contacts.id"
+
+    Need.joins(:contact, sql).select('needs.*', 'contact_aggregation.max as last_phoned_date')
   end
 
   def self.default_sort(results)
     results.order(created_at: :asc)
+  end
+
+  def self.dynamic_fields
+    %w(last_phoned_date)
   end
 
   def assigned
@@ -103,6 +117,6 @@ class Need < ApplicationRecord
   end
 
   def last_phoned_date
-    contact.needs.joins(:notes).select('notes.created_at').where('notes.category LIKE ?', 'phone_%').order('notes.created_at DESC').pluck(:'notes.created_at').first
+    read_attribute('last_phoned_date')
   end
 end
