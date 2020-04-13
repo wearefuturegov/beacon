@@ -38,6 +38,18 @@ module NeedsHelper
     needs.map { |need| need[:label] }
   end
 
+  def note_category_form_display(note_category)
+    note_category[0].to_s if note_category.present?
+  end
+
+  def note_category_form_id(note_category)
+    note_category[1].to_s if note_category.present?
+  end
+
+  def display_note_category(note)
+    "[#{note.category}]"
+  end
+
   def need_urgencies
     ['Urgent', 'Normal']
   end
