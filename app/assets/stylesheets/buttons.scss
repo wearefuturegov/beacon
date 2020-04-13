@@ -1,0 +1,72 @@
+@import "variables";
+
+.button{
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid $blue;
+    color: $blue;
+    background: $white;
+    font-size: 0.9rem;
+    background: none;
+    font-weight: 500;
+    text-decoration: none;
+    min-width: 80px;
+    text-align: center;
+    cursor: pointer;
+    &:focus{
+        outline: none;
+        background: $white;
+        box-shadow: 0px 0px 0px 2px $yellow;
+    }
+    &:hover{
+        background: $blue;
+        color: $white;
+    }
+
+    &.button--dark{
+        border: 1px solid $text;
+        color: $text;
+        margin-right: 10px;
+        &:focus{
+            background: $white;
+        }
+        &:hover{
+            background: $text;
+            color: $white;
+        }
+    }
+
+    &.button--primary{
+        padding: 12px;
+        text-align: left;
+        width: 100%;
+        font-size: 1.2rem;
+        background: $blue;
+        font-weight: normal;
+        color: $white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 350px;
+        &:hover{
+            background: darken($blue, 10);
+        }
+        &:active{
+            background: darken($blue, 20);
+        }
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+        &:after{
+            content: "";
+            display: block;
+            height: 18px;
+            width: 13px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-image: url(asset_path('right-white.svg'));
+            margin-left: 15px;
+        }
+    }
+}

@@ -18,7 +18,10 @@ class ContactsController < ApplicationController
     render :show_needs
   end
 
-  def show; end
+  def show
+    @open_needs = @contact.needs.where(completed_on: nil)
+    @completed_needs = @contact.needs.where.not(completed_on: nil)
+  end
 
   def edit; end
 

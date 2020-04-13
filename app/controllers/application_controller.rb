@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'
-  helper_method :current_user, :copyright, :council_name, :council_key, :privacy_link, :logo_path
+  helper_method :current_user, :copyright, :council_name, :council_key, :privacy_link, :logo_path, :support_email
 
   before_action :set_paper_trail_whodunnit
 
@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
     load_council_config[:logo_path]
   end
 
+  def support_email
+    load_council_config[:support_email]
+  end
+
   def current_user
     @current_user ||= authenticate_by_session(User)
   end
@@ -43,6 +47,6 @@ class ApplicationController < ActionController::Base
     return if current_user
 
     save_passwordless_redirect_location!(User)
-    redirect_to auth.sign_in_path, flash: { error: 'Please sign in' }
+    redirect_to auth.sign_in_path
   end
 end

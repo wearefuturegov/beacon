@@ -1,0 +1,22 @@
+<%= form_with(model: @need, local: true, class: "need-actions") do |f| %>
+
+    <div class="need-actions__field">
+    <%= f.label :user_id, 'Assigned to', class: 'need-actions__label' %>
+    <%= f.collection_select :user_id, @users, :id, :name_or_email, { include_blank: "Unassigned" }, { class: "need-actions__select" } %>
+    </div>
+
+    <div class="need-actions__field">
+    <%= f.label :is_urgent, 'Priority', class: 'need-actions__label' %>
+    <%= f.select :is_urgent, {
+        "Urgent" => true,
+        "Normal" => false
+    }, {}, { class: @need.is_urgent ? "need-actions__select need-actions__select--red" : "need-actions__select" } %>
+    </div>
+
+    <div class="need-actions__field">
+    <%= f.label :status, 'Status', class: 'need-actions__label' %>
+    <%= f.select :status, ['To do', 'Complete'], {}, { class: "need-actions__select" } %>
+    </div>
+<% end %>
+
+<%= javascript_pack_tag 'need-actions', 'data-turbolinks-track': 'reload' %>

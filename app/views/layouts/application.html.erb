@@ -15,11 +15,9 @@
         </nav>
       </header>
 
-      <% if notice || alert %>
-        <div class="alert">
-          <%= notice %>
-          <%= alert %>
-        </div>
+      <%# is there a better catchall for this? %>
+      <% flash.each do |name, msg| %>
+        <div class="alert"><%= msg %></div>
       <% end %>
 
       <%= yield %>
