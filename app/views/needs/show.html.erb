@@ -1,131 +1,49 @@
-<% if @contact.is_vulnerable %>
-  <div class="vulnerable-banner">
-    <div class="container"><%= image_tag "exclamation.svg", alt: "" %> This is a vulnerable person</div>
-  </div>
+<% content_for :header do %>
+  <%= link_to "Triage", contact_triage_path(@contact), class: "button button--dark" %>
 <% end %>
 
-<% if notice %>
-  <p class="notice"><%= notice %></p>
-<% end %>
+<%= render "shared/vulnerable-banner" %>
 
-<ol class="breadcrumb">
-  <li><%= link_to "People in need", contacts_path %></li>
-  <li><%= link_to @need.contact.name, @need.contact %></li>
-  <li>Need</li>
-</ol>
+<div class="with-left-sidebar">
 
-<div class="tabs">
-  <div class="tabs__tab"><%= link_to 'Profile', @need.contact %></div>
-  <%= link_to "#{@contact.first_name}'s Needs (#{@contact.needs.count})", contact_needs_path(@contact), class: 'tabs__tab tabs__tab--current' %>
-</div>
-
-<div class="page-header page-header--with-button">
-  <h1 class="page-title"><%= @need.category.humanize %></h1>
-  <%= link_to 'Edit need', edit_need_path(@need), class: 'button pull-right' %>
-</div>
-
-<div class="contact-profile">
-  <div class="contact-profile__left">
-    <div class="contact-profile__row">
-      <strong>Urgent</strong>
-      <span>
-        <% if @need.is_urgent %>
-          <%= image_tag "red-tick.svg", alt: "urgent" %>
-        <% else %>
-          —
-        <% end %>
-      </span>
+  <aside class="with-left-sidebar__left">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Profile</h2>
+    </header>
+    <div class="panel panel--unpadded">  
+      <%= render "shared/profile-accordion" %>
     </div>
-    <div class="contact-profile__row">
-      <strong>Assigned to</strong>
-      <span>
-        <% if @need.user %>
-          <%= @need.user.name_or_email %>
-        <% else %>
-          Unassigned
-        <% end %>
-      </span>
-    </div>
-    <div class="contact-profile__row">
-      <strong>Status</strong>
-      <span><%= @need.status %></span>
-    </div>
-    <div class="contact-profile__row">
-      <strong>Description</strong>
-      <span><%= @need.name %></span>
-    </div>
-  </div>
-  <div class="contact-profile__right">
-    <div class="contact-profile__right__title">
-      <span>Profile</span>
-    </div>
-    <div class="contact-profile__row">
-      <strong>Address:</strong>
-      <%= @contact.address %>
-    </div>
+  </aside>
 
-    <% if @contact.telephone %>
-      <div class="contact-profile__row">
-        <strong>Phone:</strong>
-        <%= @contact.telephone %>
-      </div>
-    <% end %>
-
-    <% if @contact.mobile %>
-      <div class="contact-profile__row">
-        <strong>Mobile:</strong>
-        <%= @contact.mobile %>
-      </div>
-    <% end %>
-
-    <% if @contact.additional_info %>
-      <div class="contact-profile__row">
-        <strong>Additional info:</strong>
-        <%= @contact.additional_info %>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<section class="notes">
-  <h2>
-    Notes
-    <% if @need.notes.count > 0 %>
-      (<%= @need.notes.count %>)
-    <% end %>
-  </h2>
-
-  <%= form_with(model: [@need, @need.notes.build], local: true) do |form| %>
-    <div class="field">
-      <%= form.label :category, 'Choose a category', class: "field__label" %>
-      <% Note.categories.each.with_index do |nc, index| %>
-        <div class="radio">
-          <% field_value = "category_#{note_category_id(nc)}"  %>
-          <%= form.radio_button :category, note_category_id(nc), :id => field_value, :checked => index == 0 %>
-          <label for=<%= field_value %> class="radio__label"><%= note_category_display(nc) %></label>
-        </div>
+  <aside class="with-left-sidebar__right">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Needs</h2>
+      <% if @contact.needs.any? %>
+        <span class="panel-header__badge"><%= @contact.needs.count %></span>
       <% end %>
-    </div>
-    <div class="field">
-      <%= form.label :body, 'Add a note', class: "field__label" %>
-      <%= form.text_area :body, class: 'note-textarea' %>
-    </div>
-    <%= form.submit %>
-  <% end %>
+      <%#= link_to "Add a need", new_contact_need_path(@contact), class: "panel-header__action" %>
+    </header>
+    <div class="panel panel--unpadded" style="border-left: 5px solid <%= get_need_border(@need.category) %>">
+      <%= link_to @need.category.humanize, @contact, class: "panel__header" %>
+      <div class="panel__body">
 
-  <div class="notes-list">
-    <% @need.notes.reverse_each do |note| %>
-      <% next if note == @need.notes.last %>
-      <div class="note">
-        <header class="note__header">
-          <span>[<%= note.category %>]</span>
-          <strong class="note__author"><%= note.user.name_or_email %></strong>
-          <span class="note__created"><%= time_ago_in_words(note.created_at) %> ago</span>
-        </header>
-        <p class="two-thirds"><%= note.body %></p>
+        <%= render "need-actions" %>
+
+        <dl class="details-list">
+          <dt class="details-list__caption">Description</dt>
+          <dd class="details-list__value"><%= @need.name %></dd>
+
+          <dt class="details-list__caption">Created</dt>
+          <dd class="details-list__value"><%= @need.created_at&.strftime("%-d %B %Y") %></dd>
+        </dl>
+
       </div>
-    <% end %>
-  </div>
+      <%= render "notes" %>
+    </div>
+  </aside>
+
+</div>
 
 
-</section>
+
+

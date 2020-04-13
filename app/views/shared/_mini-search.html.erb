@@ -1,0 +1,17 @@
+<%= form_with url: contacts_path, local: true, method: "get" do |f| %>
+    <div class="mini-search">
+        <%= f.label :search, "Search query", class: "visually-hidden" %>
+        <%= f.text_field :search, 
+            value: params[:search], 
+            class: "mini-search__input",
+            placeholder: "Search people"
+        %>
+        <% if params[:search].present? %>
+            <%= link_to image_tag("clear.svg", alt: "Clear search"), contacts_path, class: "mini-search__submit" %>
+        <% else %>
+            <button class="mini-search__submit">
+                <%= image_tag "search.svg", alt: "Submit search" %>
+            </button>
+        <% end %>
+    </div>
+<% end %>

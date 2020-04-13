@@ -18,7 +18,9 @@ class NeedsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @users = User.all
+  end
 
   def edit
     @users = User.all

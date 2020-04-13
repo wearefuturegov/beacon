@@ -1,56 +1,92 @@
-<p id="notice"><%= notice %></p>
-
-<div class="page-header">
-  <h1 class="page-title">Needs <span class="page-title__count">(<%= @needs.total_count %>)</span></h1>
-</div>
-
-     
+<% content_for :header do %>
+  <%= link_to "Export", build_csv_link(request.original_url), :format => 'csv', class: "button button--dark" %>
 
 
-<details class="filters">
-  <summary class="filters__summary">Search and filter</summary>
-  <%= form_with(url: needs_url, method: :get, local: true) do %>
-    <table class="table needs-table">
-      <tfoot>
+  <%= render "filters" %>
+
+
+<%= javascript_pack_tag 'filters', 'data-turbolinks-track': 'reload' %>
+
+<% end %>
+
+<header class="panel-header">
+  <h1 class="panel-header__title">All needs</h1>
+</header>
+
+<div class="panel">
+  <% if @needs.any? %>
+    <table class="table data-table">
+      <thead>
       <tr>
-        <th class="field">
-          <label for="user_id" class="field__label">By assigned user</label>
-          <%= select_tag("user_id", content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["user_id"] == "Unassigned") + options_from_collection_for_select(@users, :id, :name_or_email, :selected => params['user_id']), prompt: 'All') %>
+        <th>
+          <div class="sortable">
+              Category
+              <div class="sortable__controls">
+                <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'category', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
+                <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'category', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
+              </div>
+            </div>
         </th>
-        <th class="hidden">
-          <!-- has to be empty -->
+        <th>Person</th>
+        <th>Vulnerable</th>
+        <th>Status</th>
+        <th>
+          <div class="sortable">
+              Urgent
+              <div class="sortable__controls">
+                <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'is_urgent', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
+                <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'is_urgent', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
+              </div>
+            </div>
         </th>
-        <th class="hidden">
-          <!-- has to be empty -->
+        <th>
+          <div class="sortable">
+              Created
+              <div class="sortable__controls">
+                <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'created_at', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
+                <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'created_at', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
+              </div>
+            </div>
         </th>
-        <th class="field">
-          <label for="status" class="field__label">By status</label>
-          <%= select_tag("status", options_for_select(need_statuses, :selected => get_param_capitalized('status')), prompt: 'All') %>
-        </th>
-        <th class="hidden">
-          <!-- has to be empty -->
-        </th>
-        <th class="field">
-          <label for="is_urgent" class="field__label">By urgency</label>
-          <%= select_tag("is_urgent", options_for_select(need_urgencies, :selected => get_param_capitalized('is_urgent')), prompt: 'All') %>
-        </th>
-        <th class="hidden">
-          <!-- has to be empty -->
-        </th>
-        <th class="field">
-          <label for="category" class="field__label">By category</label>
-          <%= select_tag("category", content_tag(:option,'Other',:value => "Other", :selected => params["category"] == "Other") + options_for_select(needs, :selected => get_param_capitalized('category')), prompt: 'All') %>
-        </th>
-        <th class="hidden">
-          <!-- has to be empty -->
-        </th>
+        <th>Assigned to</th>
       </tr>
-      </tfoot>
+      </thead>
+      <tbody>
+      <% @needs.each do |n| %>
+        <tr class="clickable" onclick="window.location='<%= need_path(n) %>'">
+          <td>
+            <%= link_to humanize_text(n.category), n, class: "primary-link" %>
+          </td>
+          <td><%= n.contact_name %></td>
+          <td>
+            <% if n.contact_is_vulnerable %>
+              <%= image_tag "red-tick.svg", alt: "vulnerable" %>
+            <% else %>
+              —
+            <% end %>
+          </td>
+          <td><%= status(n.completed_on) %></td>
+          <td>
+            <% if n.is_urgent %>
+              <span class="urgent-tag">Urgent</span>
+            <% else %>
+              —
+            <% end %>
+          </td>
+          <td><%= n.created_at.strftime("%-d %B %Y") %></td>
+          <td>
+            <% if n.user %>
+              <%= n.user_name %>
+            <% else %>
+              Unassigned
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
     </table>
-    <%= submit_tag("Apply") %>
+    <%= render "shared/pagination", model: @needs %>
+  <% else %>
+    <p class="no-results">No matches</p>
   <% end %>
-</details>
-
-<form action="/needs" method="get">
-  <%= render 'shared/needs_table', needs: @needs %>
-</form>
+</div>

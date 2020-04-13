@@ -1,0 +1,38 @@
+@import "variables";
+
+.filters{
+    display: flex;
+    flex-direction: row;
+    // .filters__controls{}
+    .filters__content{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-left: 0px;
+        &[hidden]{
+            display: none;
+        }
+    }
+    .filters__select{
+        margin-left: 5px;
+        width: 150px;
+        appearence: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border-radius: 0px;
+        padding: 5px;
+        border: none;
+        font-size: 0.9rem;
+        background: $pale;
+        cursor: pointer;
+        background-position: 90% center;
+        background-repeat: no-repeat;
+        background-size: 13px;
+        background-image: url(asset_path('select-dark.svg'));
+        padding-right: 35px;
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+    }
+}
