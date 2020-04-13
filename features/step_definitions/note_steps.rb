@@ -11,7 +11,7 @@ When('I add a {string} note {string}') do |category, content|
 end
 
 And(/^I submit the form to create the note$/) do
-  click_button('Create Note')
+  click_button('Add update')
 end
 
 Then('the list of notes contains {string}') do |content|
