@@ -15,43 +15,78 @@
             </dd>
 
             <dt class="details-list__caption">Email</dt>
-            <dd class="details-list__value"><%= @contact.email %></dd>
+            <dd class="details-list__value"><%= dash_if_empty @contact.email %></dd>
 
             <dt class="details-list__caption">Phone</dt>
             <dd class="details-list__value">
                 <%= @contact.telephone %><br/>
                 <%= @contact.mobile %>
+
+                <% if @contact.linked_phones %>
+                    <br/><br/>
+                    <%= @contact.linked_phones %>
+                <% end %>
             </dd>
         </dl>
         <%= link_to "Edit", edit_contact_path(@contact), class: "accordion__edit-link" %>
     </div>
 
     <button class="accordion__control" aria-expanded="false">
-        <h2 class="accordion__title">Vulnerability</h2>  
+        <h2 class="accordion__title">Household</h2>  
     </button>
     <div hidden class="accordion__content">  
-        <p>Content in here</p>
-    </div>
+        <dl class="details-list">
+            <dt class="details-list__caption">Number of people living there</dt>
+            <dd class="details-list__value"><%= dash_if_empty @contact.count_people_in_house %></dd>
 
-    <button class="accordion__control" aria-expanded="false">
-        <h2 class="accordion__title">Living</h2>  
-    </button>
-    <div hidden class="accordion__content">  
-        <p>Content in here</p>
-    </div>
-
-    <button class="accordion__control" aria-expanded="false">
-        <h2 class="accordion__title">Help</h2>  
-    </button>
-    <div hidden class="accordion__content">  
-        <p>Content in here</p>
+            <dt class="details-list__caption">Living with people under 15</dt>
+            <dd class="details-list__value"><%= friendly_boolean @contact.any_children_below_15 %></dd>
+        </dl>
     </div>
 
     <button class="accordion__control" aria-expanded="false">
         <h2 class="accordion__title">Delivery requirements</h2>  
     </button>
     <div hidden class="accordion__content">  
-        <p>Content in here</p>
+        <dl class="details-list">
+            <dt class="details-list__caption">Any special delivery details</dt>
+            <dd class="details-list__value"><%= dash_if_empty @contact.delivery_details %></dd>
+        </dl>
+    </div>
+
+    <button class="accordion__control" aria-expanded="false">
+        <h2 class="accordion__title">Linked records</h2>  
+    </button>
+    <div hidden class="accordion__content">  
+        <dl class="details-list">
+            <dt class="details-list__caption">Mosaic ID</dt>
+            <dd class="details-list__value"><%= dash_if_empty @contact.mosaic_id %></dd>
+
+            <dt class="details-list__caption">Known to adult social care?</dt>
+            <dd class="details-list__value"><%= friendly_boolean @contact.known_to_asc? %></dd>
+        </dl>
+    </div>
+
+    <button class="accordion__control" aria-expanded="false">
+        <h2 class="accordion__title">Additional information</h2>  
+    </button>
+    <div hidden class="accordion__content">  
+        <dl class="details-list">
+            <dt class="details-list__caption">Dietary requirements</dt>
+            <dd class="details-list__value">
+                <%= friendly_boolean @contact.any_dietary_requirements %><br/>
+                <%= dash_if_empty @contact.dietary_details %>
+            </dd>
+
+            <dt class="details-list__caption">Cooking facilities</dt>
+            <dd class="details-list__value"><%= dash_if_empty @contact.cooking_facilities %></dd>
+
+            <dt class="details-list__caption">Eligible for free prescriptions</dt>
+            <dd class="details-list__value"><%= friendly_boolean @contact.eligible_for_free_prescriptions %></dd>
+
+            <dt class="details-list__caption">Any additional information</dt>
+            <dd class="details-list__value"><%= dash_if_empty @contact.additional_info %></dd>
+        </dl>
     </div>
 
 </section>
