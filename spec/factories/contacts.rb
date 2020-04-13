@@ -18,6 +18,7 @@ FactoryBot.define do
     dietary_details { Faker::Lorem.sentence }
     cooking_facilities { Faker::Lorem.sentence }
     eligible_for_free_prescriptions { Faker::Boolean.boolean(true_ratio: 0.2) }
+    date_of_birth { Faker::Date.between(from: 93.years.ago, to: 15.years.ago) }
     # extra nhs info
     mosaic_id { Faker::Number.leading_zero_number(digits: 10) }
     known_to_asc? { ['1', ''].sample }

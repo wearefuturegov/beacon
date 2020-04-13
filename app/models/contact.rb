@@ -11,7 +11,7 @@ class Contact < ApplicationRecord
   acts_as_ordered_taggable
   has_paper_trail
 
-  jsonb_accessor :nhs_import_data,
+  jsonb_accessor :healthintent_import_data,
                  mosaic_id: [:string, store_key: 'Mosaic ID'],
                  known_to_asc?: [:boolean, store_key: 'ASC Flag'],
                  linked_phones: [:string, store_key: 'Additona Phone Nuumbers (LBC Sources)'.to_sym]
