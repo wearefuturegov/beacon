@@ -38,7 +38,7 @@ module NeedsHelper
     ['Urgent', 'Normal']
   end
 
-  def build_csv_link(url)
-    url.gsub('?', '.csv?')
+  def build_csv_link(request_params)
+    needs_path + '.csv' + url_for(request.query_parameters)
   end
 end
