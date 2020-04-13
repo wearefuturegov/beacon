@@ -19,7 +19,7 @@
 
   <% if @need.notes.length > 1 %>
     <div class="notes__list">
-      <% @need.notes.reverse_each do |note| %>
+      <% @need.notes.each do |note| %>
       <% next if note == @need.notes.last %>
         <article class="note">
           <header class="note__header">
