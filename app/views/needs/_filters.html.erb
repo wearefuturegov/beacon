@@ -20,8 +20,8 @@
           <label for="is_urgent" class="visually-hidden">By priority</label>
           <%= select_tag("is_urgent", options_for_select(need_urgencies, :selected => get_param_capitalized('is_urgent')), prompt: 'All', class: "filters__select") %>
 
-          <% if params[:mine] %>
-            <%= f.hidden_field :mine, value: true %>
+          <% if params[:assigned_to] %>
+            <%= f.hidden_field :assigned_to, value: params[:assigned_to] %>
           <% end %>
         <% end %>
     </div>

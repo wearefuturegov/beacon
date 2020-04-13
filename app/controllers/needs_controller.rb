@@ -8,7 +8,7 @@ class NeedsController < ApplicationController
   helper_method :get_param
 
   def index
-    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent, :mine)
+    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent, :assigned_to)
     @needs = Need.filter_and_sort(filtering_params, @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
     respond_to do |format|
@@ -51,7 +51,7 @@ class NeedsController < ApplicationController
 
   def filtering_params
     filter_params = @params.slice(:category, :user_id, :status, :is_urgent)
-    filter_params[:user_id] = current_user.id if @params[:mine]
+    filter_params[:user_id] = current_user.id if @params[:assigned_to]&.to_i current_user.id
     filter_params
   end
 end
