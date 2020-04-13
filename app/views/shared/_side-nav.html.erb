@@ -7,9 +7,24 @@
 
     <ul class="main-menu">
         <li class="main-menu__item">
-            <%= link_to_unless_current "Call list", root_path, class: "main-menu__link" do %>
-                <span class="main-menu__current">Call list</span>
+            <%= link_to_unless_current "Needs", root_path, class: "main-menu__link" do %>
+                <span class="main-menu__current">Needs</span>
             <% end %>
+
+            <ul class="main-menu__submenu">
+                <li class="main-menu__submenu-item">
+                    <%= link_to_unless_current "Assigned to me", root_path(:mine => true), class: "main-menu__submenu-link" do %>
+                        <span class="main-menu__submenu-current">Assigned to me</span> 
+                    <% end %>
+                </li>
+                <li class="main-menu__submenu-item">
+                    <%= link_to_unless_current "Unmet needs", root_path(:status => "to do"), class: "main-menu__submenu-link" do %>
+                        <span class="main-menu__submenu-current">Unmet needs</span> 
+                    <% end %>
+                </li>
+            </ul>
+
+
         </li>
         <li class="main-menu__item">
             <%= link_to_unless_current "People", contacts_path, class: "main-menu__link" do %>

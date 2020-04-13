@@ -34,12 +34,5 @@ RSpec.describe ContactsController do
       @user_instance = class_double('User').as_stubbed_const
       allow(@user_instance).to receive(:all).and_return([@user_instance, @user_instance, @user_instance])
     end
-
-    it 'GET #needs' do
-      get :needs, params: { id: 1 }
-      expect(assigns(:need)).to be_a_new(Need)
-      expect(assigns(:users).size).to eq(3)
-      expect(response).to be_successful
-    end
   end
 end
