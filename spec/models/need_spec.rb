@@ -17,11 +17,11 @@ RSpec.describe Need, type: :model do
     let!(:uncompleted_need) { create :need }
     let!(:completed_need) { create :need, :completed }
 
-    it '.completed' do
-      expect(described_class.uncompleted).to eq [uncompleted_need]
+    it '.uncompleted' do
+      expect(described_class.uncompleted[0]).to eq uncompleted_need
     end
 
-    it '.uncompleted' do
+    it '.completed' do
       expect(described_class.completed).to eq [completed_need]
     end
   end
