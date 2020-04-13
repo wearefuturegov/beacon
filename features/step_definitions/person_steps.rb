@@ -42,7 +42,7 @@ When(/^I save the edit resident form$/) do
 end
 
 Then('the residents list of needs contains {string}') do |need|
-  visit "/contacts/#{@contact.id}/needs"
+  visit "/contacts/#{@contact.id}"
   expect(page).to have_content(need)
 end
 
