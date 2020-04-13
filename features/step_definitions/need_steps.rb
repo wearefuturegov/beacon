@@ -10,8 +10,7 @@ end
 
 When('I add needs {string}') do |need|
   visit "contacts/#{@contact.id}"
-  click_link "#{@contact.first_name}'s Needs (#{@contact.needs.count})"
-  click_link 'Edit'
+  click_link 'Triage'
   choose yes_selected_id_from(need)
 end
 

@@ -2,6 +2,16 @@
   
   <%= form_with(model: [@need, @need.notes.build], local: true, class: "notes__form") do |form| %>
     <h3 class="notes__title">Updates</h3>
+    <div class="field">
+      <%= form.label :category, 'Choose a category', class: "field__label" %>
+      <% Note.categories_without_phone_import.each.with_index do |nc, index| %>
+        <div class="radio">
+          <% field_value = "category_#{note_category_form_id(nc)}"  %>
+          <%= form.radio_button :category, note_category_form_id(nc), :id => field_value, :checked => index == 0 %>
+          <label for=<%= field_value %> class="radio__label"><%= note_category_form_display(nc) %></label>
+        </div>
+      <% end %>
+    </div>
     <%= form.label :body, 'Add a note', class: "visually-hidden" %>
     <%= form.text_field :body, class: "notes__field", placeholder: "Add a note" %>
     <%= form.submit "Add update", class: "button notes__button" %>
@@ -12,7 +22,7 @@
       <% @need.notes.reverse_each do |note| %>
       <% next if note == @need.notes.last %>
         <article class="note">
-          <header class="note__header"><%= time_ago_in_words(note.created_at).humanize %> ago  |  <%= note.user.name_or_email %></header>
+          <header class="note__header"><%= display_note_category(note) %><%= time_ago_in_words(note.created_at).humanize %> ago  |  <%= note.user.name_or_email %></header>
           <p class="note__body"><%= note.body %></p>
         </article>
       <% end %>

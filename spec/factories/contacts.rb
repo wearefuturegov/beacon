@@ -18,20 +18,10 @@ FactoryBot.define do
     dietary_details { Faker::Lorem.sentence }
     cooking_facilities { Faker::Lorem.sentence }
     eligible_for_free_prescriptions { Faker::Boolean.boolean(true_ratio: 0.2) }
+    date_of_birth { Faker::Date.between(from: 93.years.ago, to: 15.years.ago) }
     # extra nhs info
-    shielded_id { Faker::Number.between(from: 1, to: 9000) }
-    nhs_number { Faker::Number.between(from: 100_000, to: 800_000) }
-    gp_practice_code { Faker::Alphanumeric.alpha(number: 6) }
-    mosaid_id { Faker::Number.leading_zero_number(digits: 10) }
-    mosaid_id2 { Faker::Number.leading_zero_number(digits: 10) }
-    eh_flag { Faker::Boolean.boolean(true_ratio: 0.3) }
-    eh_team { Faker::Company.name }
-    eh_worker { Faker::Name.name }
-    cssw_flag { Faker::Boolean.boolean(true_ratio: 0.2) }
-    cssw_team { Faker::Company.name }
-    cssw_worker { Faker::Name.name }
-    asc_flag { Faker::Boolean.boolean(true_ratio: 0.2) }
-    asc_psr { Faker::Company.name }
-    asc_workers { Faker::Name.name }
+    mosaic_id { Faker::Number.leading_zero_number(digits: 10) }
+    known_to_asc? { ['1', ''].sample }
+    linked_phones { [nil, 'ASC_HomePhone:- 0207 226 3450 CTAX_MobilePhone:- 07546 21760 HOUSING_HomePhone:- 020 7439 0980 '].sample }
   end
 end

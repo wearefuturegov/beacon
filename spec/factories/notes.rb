@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :note do
     need
     user
-    body { Faker::Lorem.sentence }
+    category { Note.categories.values.sample }
+    body { Faker::Lorem.paragraph(sentence_count: 1, random_sentences_to_add: 3) }
   end
 end
