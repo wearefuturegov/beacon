@@ -38,7 +38,7 @@ module NeedsHelper
     ['Urgent', 'Normal']
   end
 
-  def build_csv_link(request_params)
-    needs_path + '.csv' + url_for(request.query_parameters)
+  def build_csv_link(query_params)
+    needs_path + '.csv' + url_for(query_params)
   end
 end
