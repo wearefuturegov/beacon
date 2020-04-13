@@ -38,4 +38,6 @@ class Contact < ApplicationRecord
   def name
     [first_name, surname].join(' ')
   end
+
+
 end

@@ -87,7 +87,7 @@ class Need < ApplicationRecord
   end
 
   def self.base_query
-    Need.includes(:contact, :user)
+    Need.includes(:user, :contact)
   end
 
   def self.default_sort(results)
@@ -100,5 +100,9 @@ class Need < ApplicationRecord
     else
       'Unassigned'
     end
+  end
+
+  def last_phoned_date
+    contact.needs.joins(:notes).select('notes.created_at').where('notes.category LIKE ?', 'phone_%').order('notes.created_at DESC').pluck(:'notes.created_at').first
   end
 end
