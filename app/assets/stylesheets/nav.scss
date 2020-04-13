@@ -8,13 +8,13 @@
     min-width: 230px;
     max-width: 230px;
     padding: 30px 20px;
-
     .nav__logo-link{
         display: block;
         margin-bottom: 35px;
         padding: 0px 20px;
         &:focus{
             outline: none;
+            background: none;
             img{
                 background: $yellow;
                 outline: 2px solid $yellow;
@@ -25,19 +25,24 @@
         width: 100%;
         display: block;
     }
+    @media screen and (max-width: $breakpoint-l){
+        width: 170px;
+        min-width: 170px;
+        max-width: 170px;
+        padding: 20px 15px;
+    }
 }
 
 
 .main-menu{
     list-style: none;
     padding-left: 0px;
-
+    position: sticky;
+    top: 35px;
     .main-menu__item{
         font-size: 1.1rem;
         margin-bottom: 5px;
     }
-
-
     .main-menu__link{
         padding: 15px;
         color: $white;
@@ -45,7 +50,7 @@
         text-decoration: none;
         border-radius: 2px;
         &:hover{
-            background: transparentize($grey, 0.5);
+            background: lighten($text, 5);
         }        
         &:focus{
             background: $yellow;
@@ -53,12 +58,42 @@
             outline: none;
         }
     }
-
     .main-menu__current{
         padding: 15px;
         color: $white;
         display: block;
         background: $blue;
         border-radius: 2px;
+    }
+
+    .main-menu__submenu{    
+        padding-left: 0px;
+        margin-left: 10px;
+    }
+    .main-menu__submenu-link{
+        margin-top: 5px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        color: $pale;
+        display: block;
+        text-decoration: none;
+        border-radius: 2px;
+        &:hover{
+            background: lighten($text, 5);
+        }        
+        &:focus{
+            background: $yellow;
+            color: $text;
+            outline: none;
+        }
+    }
+    .main-menu__submenu-current{
+        margin-top: 5px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        color: $pale;
+        display: block;
+        border-radius: 2px;   
+        background: transparentize($blue, 0.5);
     }
 }

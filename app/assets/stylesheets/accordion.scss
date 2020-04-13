@@ -1,0 +1,66 @@
+@import "variables";
+
+.accordion{
+    .accordion__control{
+        background: $text;
+        border: none;
+        padding: 25px;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        border-bottom: 1px solid $white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        &:hover{
+            background: lighten($text, 5);
+        }
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+        &:after{
+            content: "";
+            display: block;
+            width: 15px;
+            height: 8px;
+            background-repeat: no-repeat;
+            background-image: url(asset_path('folded.svg'));
+        }
+        &[aria-expanded=true]:after{
+            background-image: url(asset_path('unfolded.svg'));
+        }
+    }
+    .accordion__title{
+        color: $white;
+        font-size: 1.1rem;
+        margin: 0;
+        font-weight: normal;
+    }
+    .accordion__content{
+        padding: 35px;
+        position: relative;
+    }
+    .accordion__edit-link{
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        font-size: 0.9rem;
+    }
+}
+
+.details-list{
+    margin: 0;
+    .details-list__caption{
+        font-weight: bold;
+        margin-bottom: 7px;
+        font-size: 0.9rem;
+    }
+    .details-list__value{
+        margin-left: 0px;
+        margin-bottom: 35px;
+        &:last-of-type{
+            margin-bottom: 0px;
+        }
+    }
+}

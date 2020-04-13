@@ -1,0 +1,32 @@
+@import "variables";
+
+.pagination{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    .pagination__previous,
+    .pagination__next{
+        width: 40px;
+        height: 40px;
+        background: $white;
+        padding: 10px;
+        border: 1px solid $text;
+        text-align: center;
+        margin-left: 10px;
+        &:hover{
+            opacity: 0.7;
+        }
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+        &.pagination__previous--disabled,
+        &.pagination__next--disabled{
+            opacity: 0.25;
+        }
+    }
+    .pagination__previous{
+        margin-left: 15px;
+    }
+}

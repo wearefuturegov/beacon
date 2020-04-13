@@ -1,0 +1,25 @@
+  <section class="filters">
+
+    <% if params[:status] || params[:category] || params[:is_urgent] %>
+        <%= link_to "Clear filters", root_path, class: "button button--dark"%>
+        <div class="filters__content">
+    <% else %>
+        <button class="button button--dark filters__controls" aria-expanded="false">Filters</button>
+        <div class="filters__content" hidden>
+    <% end %>
+        <%= form_with(url: needs_url, method: :get, local: true, class: "filters__form") do %>
+          <%# <label for="user_id" class="field__label">By assigned user</label>
+          <%# = select_tag("user_id", content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["user_id"] == "Unassigned") + options_from_collection_for_select(@users, :id, :name_or_email, :selected => params['user_id']), prompt: 'All') %>
+
+          <label for="category" class="visually-hidden">By category</label>
+          <%= select_tag("category", content_tag(:option,'Other',:value => "Other", :selected => params["category"] == "Other") + options_for_select(needs, :selected => get_param_capitalized('category')), prompt: 'All', class: "filters__select") %>
+        
+          <label for="status" class="visually-hidden">By status</label>
+          <%= select_tag("status", options_for_select(need_statuses, :selected => get_param_capitalized('status')), prompt: 'All', class: "filters__select") %>
+
+          <label for="is_urgent" class="visually-hidden">By priority</label>
+          <%= select_tag("is_urgent", options_for_select(need_urgencies, :selected => get_param_capitalized('is_urgent')), prompt: 'All', class: "filters__select") %>
+
+        <% end %>
+    </div>
+</section>

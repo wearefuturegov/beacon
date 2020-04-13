@@ -69,6 +69,10 @@ class Need < ApplicationRecord
     end
   end
 
+  def css_class
+    "need-pane--#{category.parameterize}"
+  end
+
   def status
     completed_on.present? ? 'Complete' : 'To do'
   end
@@ -88,5 +92,13 @@ class Need < ApplicationRecord
 
   def self.default_sort(results)
     results.order(created_at: :asc)
+  end
+
+  def assigned
+    if user
+      user.name_or_email
+    else
+      'Unassigned'
+    end
   end
 end
