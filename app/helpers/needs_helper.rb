@@ -34,6 +34,10 @@ module NeedsHelper
     (needs.find { |need| need[:label].parameterize.underscore.humanize.downcase == category })&.[](:border) || ''
   end
 
+  def needs_labels_list
+    needs.map { |need| need[:label] }
+  end
+
   def need_urgencies
     ['Urgent', 'Normal']
   end

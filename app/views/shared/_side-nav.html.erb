@@ -8,18 +8,26 @@
     <ul class="main-menu">
         <li class="main-menu__item">
             <%= link_to_unless_current "Needs", root_path, class: "main-menu__link" do %>
+              <% if params[:mine] || params[:status].eql?("to do") %>
+                <%= link_to "Needs", root_path, { class: "main-menu__current", style: "text-decoration: none" } %>
+              <% else %>
                 <span class="main-menu__current">Needs</span>
+              <% end %>
             <% end %>
 
             <ul class="main-menu__submenu">
                 <li class="main-menu__submenu-item">
-                    <%= link_to_unless_current "Assigned to me", root_path(:mine => true), class: "main-menu__submenu-link" do %>
-                        <span class="main-menu__submenu-current">Assigned to me</span> 
-                    <% end %>
+                  <% if current_page?(root_path) && params[:mine] %>
+                    <span class="main-menu__submenu-current">Assigned to me</span>
+                  <% else %>
+                    <%= link_to "Assigned to me", root_path(:mine => true), { class: "main-menu__submenu-link" } %>
+                  <% end %>
                 </li>
                 <li class="main-menu__submenu-item">
-                    <%= link_to_unless_current "Unmet needs", root_path(:status => "to do"), class: "main-menu__submenu-link" do %>
-                        <span class="main-menu__submenu-current">Unmet needs</span> 
+                    <% if current_page?(root_path) && params[:status].eql?("to do") %>
+                      <span class="main-menu__submenu-current">Unmet needs</span>
+                    <% else %>
+                      <%= link_to "Unmet needs", root_path(:status => "to do"), { class: "main-menu__submenu-link" } %>
                     <% end %>
                 </li>
             </ul>
