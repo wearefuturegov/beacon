@@ -21,6 +21,11 @@
             <dd class="details-list__value">
                 <%= @contact.telephone %><br/>
                 <%= @contact.mobile %>
+
+                <% if @contact.linked_phones %>
+                    <br/><br/>
+                    <%= @contact.linked_phones %>
+                <% end %>
             </dd>
         </dl>
         <%= link_to "Edit", edit_contact_path(@contact), class: "accordion__edit-link" %>
@@ -46,6 +51,19 @@
         <dl class="details-list">
             <dt class="details-list__caption">Any special delivery details</dt>
             <dd class="details-list__value"><%= dash_if_empty @contact.delivery_details %></dd>
+        </dl>
+    </div>
+
+    <button class="accordion__control" aria-expanded="false">
+        <h2 class="accordion__title">Linked records</h2>  
+    </button>
+    <div hidden class="accordion__content">  
+        <dl class="details-list">
+            <dt class="details-list__caption">Mosaic ID</dt>
+            <dd class="details-list__value"><%= dash_if_empty @contact.mosaic_id %></dd>
+
+            <dt class="details-list__caption">Known to adult social care?</dt>
+            <dd class="details-list__value"><%= friendly_boolean @contact.known_to_asc? %></dd>
         </dl>
     </div>
 
