@@ -1,0 +1,19 @@
+@import "variables";
+
+@media print{
+  .nav{
+    display: none;
+  }
+
+  .accordion{
+    .accordion__control{
+      background: inherit
+    }
+    .accordion__title{
+      color: $text;
+    }
+    .accordion__content[hidden]{
+      display: block;
+    }
+  }
+}
