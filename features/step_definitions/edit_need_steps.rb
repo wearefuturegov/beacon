@@ -4,20 +4,20 @@ Given('a resident with a need exists') do
 end
 
 When('I (assign)/(have assigned) the need to me') do
-  visit "needs/#{@need.id}"
+  visit "/needs/#{@need.id}"
   page.select 'admin@test.com', from: 'need_user_id'
   @expected_assignee = 'admin@test.com'
 end
 
 When('I assign the need to another user') do
   @another_user = User.create!(email: 'other_user@email.com', invited: Date.today)
-  visit "needs/#{@need.id}"
+  visit "/needs/#{@need.id}"
   page.select 'other_user@email.com', from: 'need_user_id'
   @expected_assignee = 'other_user@email.com'
 end
 
 When("I change the need status to 'complete'") do
-  visit "needs/#{@need.id}"
+  visit "/needs/#{@need.id}"
   page.select 'Complete', from: 'need_status'
 end
 

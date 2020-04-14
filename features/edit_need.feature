@@ -6,12 +6,14 @@ Feature: Add needs
   Background:
     * I am logged into the system
 
+  @javascript
   Scenario: Assign myself a need
     Given a resident with a need exists
     When I assign the need to me
     Then I see the need in the 'assigned to me' page
     And I see the updated need details in the contact's 'needs' list
 
+  @javascript
   Scenario: Reassign a need from myself to another user
     Given a resident with a need exists
     And I have assigned the need to me
@@ -19,6 +21,7 @@ Feature: Add needs
     Then I no longer see the need in the 'assigned to me' page
     And I see the updated need details in the contact's 'needs' list
 
+  @javascript
   Scenario:
     Given a resident with a need exists
     And I have assigned the need to me
