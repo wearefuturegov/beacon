@@ -71,17 +71,18 @@
   </div>
 </fieldset>
 
-<fieldset class="field-section">
+<fieldset class="field-section field-section--two-cols">
   <legend><h2 class="field-section__title">Is this person particularly vulnerable or high priority?</h2></legend>
 
-  <div class="notice">
-    <p>By <strong>vulnerable</strong> we mean:</p>
+  <details class="field-section__hint details">
+    <summary class="details__summary">What does vulnerable mean?</summary>
+    <p>We consider someone vulnerable if they are:</p>
     <ul>
       <li>Over 70 years old</li>
       <li>Under 70 years old and has an underlying health condition (i.e. normally asked by the NHS to get a flu jab)</li>
       <li>Pregnant</li>
     </ul>
-  </div>
+  </details>
 
   <div class="radio">
     <%= form.radio_button :is_vulnerable, true, :id => "is_vulnerable_true" %>

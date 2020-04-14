@@ -7,9 +7,32 @@
 
     <ul class="main-menu">
         <li class="main-menu__item">
-            <%= link_to_unless_current "Call list", root_path, class: "main-menu__link" do %>
-                <span class="main-menu__current">Call list</span>
+            <%= link_to_unless_current "Needs", root_path, class: "main-menu__link" do %>
+              <% if params[:user_id] == current_user.id.to_s || params[:status].eql?("to do") %>
+                <%= link_to "Needs", root_path, { class: "main-menu__current", style: "text-decoration: none" } %>
+              <% else %>
+                <span class="main-menu__current">Needs</span>
+              <% end %>
             <% end %>
+
+            <ul class="main-menu__submenu">
+                <li class="main-menu__submenu-item">
+                  <% if current_page?(root_path) && params[:user_id] == current_user.id.to_s %>
+                    <span class="main-menu__submenu-current">Assigned to me</span>
+                  <% else %>
+                    <%= link_to "Assigned to me", root_path(:user_id => current_user.id), { class: "main-menu__submenu-link" } %>
+                  <% end %>
+                </li>
+                <li class="main-menu__submenu-item">
+                    <% if current_page?(root_path) && params[:status].eql?("to do") %>
+                      <span class="main-menu__submenu-current">Unmet needs</span>
+                    <% else %>
+                      <%= link_to "Unmet needs", root_path(:status => "to do"), { class: "main-menu__submenu-link" } %>
+                    <% end %>
+                </li>
+            </ul>
+
+
         </li>
         <li class="main-menu__item">
             <%= link_to_unless_current "People", contacts_path, class: "main-menu__link" do %>

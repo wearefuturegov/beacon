@@ -1,7 +1,3 @@
-<% if notice %>
-<p class="notice"><%= notice %></p>
-<% end %>
-
 <header class="panel-header">
   <h1 class="panel-header__title">Beacon users</h1>
   <%= link_to "Invite a user", new_user_path, class: "panel-header__action" %>
@@ -11,6 +7,7 @@
   <table class="table">
     <thead>
     <tr>
+      <th>Name</th>
       <th>Email</th>
       <th>Invited</th>
       <th>Last logged in</th>
@@ -22,10 +19,11 @@
     <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><strong><%= user.email %></strong></td>
-        <td><%= time_ago_in_words(user.invited) %> ago</td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= time_ago_in_words(user.invited).humanize %> ago</td>
         <% if user.last_logged_in %>
-          <td><%= time_ago_in_words(user.last_logged_in) %> ago</td>
+          <td><%= time_ago_in_words(user.last_logged_in).humanize %> ago</td>
         <% else %>
           <td> Never</td>
         <% end %>
@@ -36,7 +34,7 @@
     <% end %>
     </tbody>
   </table>
-  <%= paginate @users %>
+  <%= render "shared/pagination", model: @users %>
 </div>
 
 

@@ -1,0 +1,28 @@
+@import "variables";
+
+.triage-grid{
+    margin-bottom: 30px;
+    @media screen and (min-width: $breakpoint-m){
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 30px;
+    }
+    .triage-grid__need{
+        margin: none;
+        border: none;
+        background: $white;
+        box-shadow: 2px 0px 10px transparentize($text, 0.95);
+        margin-bottom: 30px;
+    }
+    .triage-grid__inner{
+        padding: 35px;
+    }
+    .triage-grid__inner--grey{
+        background: transparentize($pale, 0.5);
+        padding-bottom: 1px;
+    }
+    .triage-grid__title{
+        margin-top: 0px;
+        margin-bottom: 35px;
+    }
+}

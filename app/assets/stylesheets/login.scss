@@ -1,0 +1,42 @@
+@import "variables";
+
+.login{
+    display: block;
+    background: $pale;
+    text-align: center;
+
+    .login__header{
+        padding: 70px;
+        background: $text;
+        padding-bottom: 120px;
+        margin-bottom: -50px;
+    }
+    .login__logo-link{
+        display: inline-block;
+    }
+    .login__logo{
+        min-width: 170px;
+    }
+}
+
+.login-panel{
+    background: $white;
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: 2px 0px 10px transparentize($text, 0.95);
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left;
+    p{
+        font-size: 1.1rem;
+        margin-top: 0px;
+        margin-right: 30px;
+    }
+    .field{
+        margin-bottom: 30px;
+    }
+    &.login-panel--centred{
+        text-align: center;
+    }
+}
+
