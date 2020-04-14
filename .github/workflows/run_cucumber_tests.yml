@@ -3,7 +3,7 @@ name: Ruby Cucumber Tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, feature/284-add-e2e-tests-for-updating-a-need-experiment-firefox-github ]
   pull_request:
     branches: [ master ]
 
