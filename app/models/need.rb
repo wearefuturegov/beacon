@@ -42,7 +42,11 @@ class Need < ApplicationRecord
   }
 
   scope :order_by_category, lambda { |direction|
-    order("LOWER(category) #{direction}")
+    if direction.in?(['ASC', 'DESC'])
+      order("LOWER(category) #{direction}")
+    else
+      []
+    end
   }
 
   counter_culture :contact,
