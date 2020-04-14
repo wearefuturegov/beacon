@@ -20,6 +20,14 @@
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 35px;
     }
+  &.field-section--four-cols{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 35px;
+    legend {
+      margin-bottom: 20px;
+    }
+  }
     .field:last-child{
         margin-bottom: 0px;
     }
