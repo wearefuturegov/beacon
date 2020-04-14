@@ -85,7 +85,7 @@
           <td><%= n.created_at.strftime("%-d %B %Y") %></td>
           <td>
             <% if n.user %>
-              <%= n.user_name %>
+              <%= n.user.name_or_email %>
             <% else %>
               Unassigned
             <% end %>
