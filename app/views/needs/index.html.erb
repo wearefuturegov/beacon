@@ -1,5 +1,5 @@
 <% content_for :header do %>
-  <%= link_to "Export", build_csv_link(request.original_url), :format => 'csv', class: "button button--dark" %>
+  <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), class: "button button--dark" %>
 
 
   <%= render "filters" %>
