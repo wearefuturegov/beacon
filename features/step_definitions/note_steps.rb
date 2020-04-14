@@ -6,7 +6,7 @@ end
 
 When('I add a {string} note {string}') do |category, content|
   visit "/needs/#{@contact.needs.first.id}"
-  choose(note_type_from(category))
+  choose_note_type_from(category)
   fill_in('note_body', with: content)
 end
 
@@ -22,10 +22,11 @@ And('the note category is {string}') do |category|
   expect(page).to have_content(category)
 end
 
-def note_type_from(category)
+def choose_note_type_from(category)
   note_types = { 'Successful Call': 'category_phone_success',
                  'Left Message': 'category_phone_message',
                  'Failed Call': 'category_phone_failure',
                  'Note': 'category_general' }
-  note_types.fetch(category.to_sym)
+  radio_id = note_types.fetch(category.to_sym)
+  page.find("label[for=#{radio_id}]").click
 end
