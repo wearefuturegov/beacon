@@ -1,5 +1,5 @@
 <% content_for :header do %>
-  <%= link_to "Export", build_csv_link(request.original_url), :format => 'csv', class: "button button--dark" %>
+  <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), class: "button button--dark" %>
 
 
   <%= render "filters" %>
@@ -49,6 +49,15 @@
             </div>
         </th>
         <th>Assigned to</th>
+        <th>
+          <div class="sortable">
+          Last contacted
+          <div class="sortable__controls">
+            <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'last_phoned_date', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
+            <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'last_phoned_date', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
+          </div>
+          </div>
+        </th>
       </tr>
       </thead>
       <tbody>
@@ -76,10 +85,13 @@
           <td><%= n.created_at.strftime("%-d %B %Y") %></td>
           <td>
             <% if n.user %>
-              <%= n.user_name %>
+              <%= n.user.name_or_email %>
             <% else %>
               Unassigned
             <% end %>
+          </td>
+          <td>
+            <%= n.last_phoned_date&.strftime("%-d %B %Y") %>
           </td>
         </tr>
       <% end %>

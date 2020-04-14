@@ -30,7 +30,7 @@ module Filterable
       unless order_field.present? && order_direction.present?
         return default_sort(results)
       end
-      return default_sort(results) unless column_names.include?(order_field)
+      return default_sort(results) unless (column_names + dynamic_fields).include?(order_field)
       unless %w[asc desc].include?(order_direction.downcase)
         return default_sort(results)
       end
@@ -51,6 +51,11 @@ module Filterable
     # define a base query for the type
     def base_query
       where(nil)
+    end
+
+    # define an empty array for dynamic fields
+    def dynamic_fields
+      []
     end
   end
 end

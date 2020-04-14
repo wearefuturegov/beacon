@@ -11,7 +11,7 @@ RSpec.describe NeedsHelper do
 
   describe '#note_category_display' do
     it 'returns appropriate display values when given a note category' do
-      display_texts = ['Note', 'Successful Call', 'Left Message', 'Failed Call']
+      display_texts = ['Note', 'Successful Call', 'Left Message', 'Failed Call', 'Imported Call Log']
       Note.categories.each.with_index do |category, index|
         expect(helper.note_category_form_display(category)).to eq display_texts[index]
       end
@@ -20,7 +20,7 @@ RSpec.describe NeedsHelper do
 
   describe '#note_category_id' do
     it 'returns appropriate id values when given a note category' do
-      ids = %w[general phone_success phone_message phone_failure]
+      ids = %w[general phone_success phone_message phone_failure phone_import]
       Note.categories.each.with_index do |category, index|
         expect(helper.note_category_form_id(category)).to eq ids[index]
       end

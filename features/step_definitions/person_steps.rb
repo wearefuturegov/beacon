@@ -49,7 +49,7 @@ end
 When(/^I edit the residents vulnerability status$/) do
   visit "contacts/#{@contact.id}"
   click_link 'Edit'
-  choose 'is_vulnerable_true'
+  find('label[for=is_vulnerable_true]').click
 end
 
 When('I choose {string} for any children under 15') do |option|

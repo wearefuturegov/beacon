@@ -4,7 +4,7 @@
     <h3 class="notes__title">Updates</h3>
     <div class="field">
       <%= form.label :category, 'Choose a category', class: "field__label" %>
-      <% Note.categories.each.with_index do |nc, index| %>
+      <% Note.categories_without_phone_import.each.with_index do |nc, index| %>
         <div class="radio">
           <% field_value = "category_#{note_category_form_id(nc)}"  %>
           <%= form.radio_button :category, note_category_form_id(nc), :id => field_value, :checked => index == 0 %>
@@ -19,11 +19,19 @@
 
   <% if @need.notes.length > 1 %>
     <div class="notes__list">
-      <% @need.notes.reverse_each do |note| %>
+      <% @need.notes.each do |note| %>
       <% next if note == @need.notes.last %>
         <article class="note">
-          <header class="note__header"><%= display_note_category(note) %><%= time_ago_in_words(note.created_at).humanize %> ago  |  <%= note.user.name_or_email %></header>
-          <p class="note__body"><%= note.body %></p>
+          <header class="note__header">
+            <%= note.category %>
+            <time datetime="<%= note.created_at %>" title="<%= note.created_at %>">
+              <%= time_ago_in_words(note.created_at).humanize %> ago 
+            </time>
+            <% if note.user %>
+              by <%= note.user.name_or_email %>
+            <% end %>
+          </header>
+          <p class="note__body"><%= simple_format note.body %></p>
         </article>
       <% end %>
     </div>

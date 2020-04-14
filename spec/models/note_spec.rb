@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Note, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:need) }
-    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:user).optional(true) }
   end
 
   describe 'validations' do

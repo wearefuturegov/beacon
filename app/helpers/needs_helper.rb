@@ -34,6 +34,10 @@ module NeedsHelper
     (needs.find { |need| need[:label].parameterize.underscore.humanize.downcase == category })&.[](:border) || ''
   end
 
+  def needs_labels_list
+    needs.map { |need| need[:label] }
+  end
+
   def note_category_form_display(note_category)
     note_category[0].to_s if note_category.present?
   end
@@ -42,15 +46,7 @@ module NeedsHelper
     note_category[1].to_s if note_category.present?
   end
 
-  def display_note_category(note)
-    "[#{note.category}]"
-  end
-
   def need_urgencies
     ['Urgent', 'Normal']
-  end
-
-  def build_csv_link(url)
-    url.gsub('?', '.csv?')
   end
 end
