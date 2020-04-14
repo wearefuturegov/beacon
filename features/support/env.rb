@@ -57,3 +57,19 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
+
+Capybara.register_driver :firefox do |app|
+  profile = Selenium::WebDriver::Firefox::Profile.new
+  opts = Selenium::WebDriver::Firefox::Options.new(profile: profile)
+  Capybara::Selenium::Driver.new(app, browser: :firefox, options: opts)
+end
+
+Capybara.register_driver :remote_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome
+  Capybara::Selenium::Driver.new(app, browser: :chrome, url: 'http://localhost:9515', desired_capabilities: capabilities)
+end
+
+if ENV['BROWSER']
+  DatabaseCleaner.strategy = :truncation
+  Capybara.default_driver = ENV['BROWSER'].to_sym
+end
