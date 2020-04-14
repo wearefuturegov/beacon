@@ -14,7 +14,8 @@ class TriageController < ApplicationController
       NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
       redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
     else
-      render :new
+      @contact_need = ContactNeeds.new
+      render :edit
     end
   end
 
