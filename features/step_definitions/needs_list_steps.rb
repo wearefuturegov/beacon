@@ -12,7 +12,7 @@ end
 
 Then('I see the last contacted date is today') do
   last_contacted_column = @resident_row.find('td:last-child')
-  expect(last_contacted_column).to have_content(Date.today.strftime("%-d %B %Y"))
+  expect(last_contacted_column).to have_content(Date.today.strftime('%-d %B %Y'))
 end
 
 def find_resident_row(resident_name)
