@@ -20,4 +20,20 @@ RSpec.describe TriageController, type: :controller do
       expect(response).to redirect_to controller: :contacts, action: :show, id: 1
     end
   end
+
+  describe 'PUT #create fails validation' do
+    before(:each) do
+      @test_contact = double('Contact')
+      allow(@test_contact).to receive(:update).and_return(false)
+
+      @contact_model = class_double('Contact').as_stubbed_const
+      allow(@contact_model).to receive(:find).and_return(@test_contact)
+    end
+
+    it 'renders the edit page' do
+      needs_list = { 1 => { active: false } }
+      put :update, params: { id: 1, contact_id: 1, contact: { first_name: nil }, contact_needs: { needs_list: needs_list } }
+      expect(response).to render_template :edit
+    end
+  end
 end
