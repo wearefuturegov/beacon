@@ -70,12 +70,12 @@ Capybara.register_driver :remote_chrome do |app|
 end
 
 Capybara.register_driver :selenium do |app|
-  browser_options = Selenium::WebDriver::Firefox::Options.new()
+  browser_options = Selenium::WebDriver::Firefox::Options.new
   browser_options.args << '--headless'
   Capybara::Selenium::Driver.new(
-      app,
-      browser: :firefox,
-      options: browser_options
+    app,
+    browser: :firefox,
+    options: browser_options
   )
 end
 
