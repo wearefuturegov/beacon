@@ -25,10 +25,6 @@ RSpec.describe Need, type: :model do
       expect(described_class.completed).to eq [completed_need]
     end
 
-    it '.order_by_category invalid' do
-      expect(described_class.order_by_category('1==1')).to eq []
-    end
-
     it '.order_by_category ascending' do
       ordered_needs = described_class.order_by_category('ASC')
       expect(ordered_needs.first.category <=> ordered_needs.last.category).to eq(-1)
