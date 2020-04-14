@@ -17,7 +17,14 @@ The acceptance tests run with the following command
 bundle exec cucumber
 ```
 
-To run the acceptance tests in a browser, set the BROWSER environment variable and run
+To run the acceptance tests in firefox, set the BROWSER environment variable and run
 ```
 BROWSER=firefox bundle exec cucumber
 ```
+
+To run the acceptance tests in chrome (via chromedriver),
+ set the BROWSER environment variable and run
+```
+BROWSER=remote_chrome bundle exec cucumber
+```
+This requires https://chromedriver.chromium.org/ to be running locally 
