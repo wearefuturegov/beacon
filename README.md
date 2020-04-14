@@ -51,6 +51,16 @@ When running in development mode, [emails](https://guides.rubyonrails.org/action
 
 Visit **localhost:1080** to view sent emails.
 
+### Git Hooks
+```
+# to set git hooks
+i-have-i-need$ git config core.hooksPath .githooks
+
+# check for X permissions. Here is what you need:
+i-have-i-need/.githooks$ chmod +x pre-commit
+i-have-i-need/.githooks$ chmod +x pre-commit.d/01-rubocop
+```
+
 ## Running it on the web
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](
