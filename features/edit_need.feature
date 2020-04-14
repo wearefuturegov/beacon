@@ -1,4 +1,4 @@
-Feature: Add needs
+Feature: Edit needs
   As a user of the system
   I want to edit a persons need
   So that I can assign a user, and change the key details
@@ -6,7 +6,7 @@ Feature: Add needs
   Background:
     * I am logged into the system
 
-  @javascript
+  @javascript @assign-me
   Scenario: Assign myself a need
     Given a resident with a need exists
     When I assign the need to me

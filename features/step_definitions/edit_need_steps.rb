@@ -29,14 +29,14 @@ And("the need has status 'to do'") do
 end
 
 Then("I see the need in the 'assigned to me' page") do
-  visit '/?user_id=1'
+  visit "/?user_id=#{@user.id}"
   table_row = find('tbody tr')
   assignee_column = table_row.find('td:nth-child(7)')
   expect(assignee_column).to have_content 'admin@test.com'
 end
 
 Then("I no longer see the need in the 'assigned to me' page") do
-  visit '/?user_id=1'
+  visit "/?user_id=#{@user.id}"
   content_panel = find('div.panel')
   expect(content_panel).to have_content 'No matches'
 end
