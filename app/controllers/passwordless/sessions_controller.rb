@@ -117,7 +117,7 @@ module Passwordless
       if authenticatable_class.respond_to?(:fetch_resource_for_passwordless)
         authenticatable_class.fetch_resource_for_passwordless(email)
       else
-        authenticatable_class.where({email_field => email}).first
+        authenticatable_class.where({ email_field => email }).first
       end
     end
 
