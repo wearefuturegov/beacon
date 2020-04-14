@@ -20,6 +20,7 @@ class NeedsController < ApplicationController
 
   def show
     @users = User.all
+    @need.notes.order(created_at: :desc)
   end
 
   def edit
