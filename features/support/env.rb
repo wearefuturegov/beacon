@@ -33,7 +33,7 @@ ActionController::Base.allow_rescue = false
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin
-  DatabaseCleaner.strategy = :truncation
+  DatabaseCleaner.strategy = :transaction
 rescue NameError
   raise 'You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it.'
 end
@@ -58,15 +58,10 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
-Capybara.register_driver :windows_chrome do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome()
-  Capybara::Selenium::Driver.new(app,browser: :chrome, url: 'http://localhost:9515', desired_capabilities: capabilities)
-end
-
-Capybara.register_driver :selenium do |app|
-  profile = Selenium::WebDriver::Chrome::Profile.new
-  opts = Selenium::WebDriver::Chrome::Options.new(profile: profile)
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: opts)
-end
-
-Capybara.default_driver = :windows_chrome
+# Capybara.register_driver :selenium do |app|
+#   profile = Selenium::WebDriver::Chrome::Profile.new
+#   opts = Selenium::WebDriver::Chrome::Options.new(profile: profile)
+#   Capybara::Selenium::Driver.new(app, browser: :chrome, options: opts)
+# end
+#
+# Capybara.default_driver = :selenium
