@@ -6,7 +6,7 @@ Feature: Edit needs
   Background:
     * I am logged into the system
 
-  @javascript @assign-me
+  @javascript
   Scenario: Assign myself a need
     Given a resident with a need exists
     When I assign the need to me
