@@ -10,7 +10,7 @@ When(/^I enter the email address into the user form$/) do
 end
 
 And(/^I select that the user is an admin$/) do
-  choose 'user_admin_true'
+  find('label[for=user_admin_true]').click
 end
 
 When(/^I send the invite$/) do

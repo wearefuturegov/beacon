@@ -58,10 +58,12 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
-Capybara.register_driver :selenium do |app|
-  profile = Selenium::WebDriver::Firefox::Profile.new
-  opts = Selenium::WebDriver::Firefox::Options.new(profile: profile)
-  Capybara::Selenium::Driver.new(app, browser: :firefox, options: opts)
+if ENV['BROWSER'] == 'firefox'
+  DatabaseCleaner.strategy = :truncation
+  Capybara.register_driver :selenium do |app|
+    profile = Selenium::WebDriver::Firefox::Profile.new
+    opts = Selenium::WebDriver::Firefox::Options.new(profile: profile)
+    Capybara::Selenium::Driver.new(app, browser: :firefox, options: opts)
+  end
+  Capybara.default_driver = :selenium
 end
-
-Capybara.default_driver = :selenium

@@ -28,5 +28,5 @@ def choose_note_type_from(category)
                  'Failed Call': 'category_phone_failure',
                  'Note': 'category_general' }
   radio_id = note_types.fetch(category.to_sym)
-  page.find("label[for=#{radio_id}").click
+  page.find("label[for=#{radio_id}]").click
 end

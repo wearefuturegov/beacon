@@ -1,12 +1,10 @@
 Given(/^I am logged into the system$/) do
   visit generate_magic_link
-  #expect(page.status_code).to eq(200)
   expect(page).to have_selector(:link_or_button, 'Log out')
 end
 
 Given(/^I am logged into the system as an admin$/) do
   visit generate_magic_link(true)
-  expect(page.status_code).to eq(200)
   expect(page).to have_selector(:link_or_button, 'Log out')
 end
 

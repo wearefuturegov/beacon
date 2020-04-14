@@ -32,5 +32,5 @@ def choose_yes_selected_id_from(need)
                 book_drops_and_entertainment: 'needs_active_6_true',
                 dog_walking: 'needs_active_7_true' }
   radio_id = yes_needs.fetch(need.downcase.gsub(' ', '_').to_sym)
-  page.find("label[for=#{radio_id}").click
+  page.find("label[for=#{radio_id}]").click
 end
