@@ -11,21 +11,10 @@ class Contact < ApplicationRecord
   acts_as_ordered_taggable
   has_paper_trail
 
-  jsonb_accessor :data,
-                 shielded_id: :string, # Shielded ID
-                 nhs_number: :string,  # NHS Number
-                 gp_practice_code: :string, # GP Practice Code
-                 mosaid_id: :string, # Mosaic ID
-                 mosaid_id2: :string, # Mosaic ID2
-                 eh_flag: :boolean, # EH Flag
-                 eh_team: :string, # EH Team
-                 eh_worker: :string, # EH Worker
-                 cssw_flag: :boolean, # CSSW Flag
-                 cssw_team: :string, # CSSW Team
-                 cssw_worker: :string, # CSSW Worker
-                 asc_flag: :boolean, # ASC Flag
-                 asc_psr: :string, # ASC PSR
-                 asc_workers: :string # ASC Allocated Workers
+  jsonb_accessor :healthintent_import_data,
+                 mosaic_id: [:string, store_key: 'Mosaic ID'],
+                 known_to_asc?: [:boolean, store_key: 'ASC Flag'],
+                 linked_phones: [:string, store_key: 'Additona Phone Nuumbers (LBC Sources)'.to_sym]
 
   validates :first_name, presence: true
 
