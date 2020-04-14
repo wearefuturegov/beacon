@@ -23,7 +23,7 @@ default: &default
     name: "Camden Council"
     support_email: "help@beacon.support"
     copyright_notice: "© 2020 Camden Council"
-    logo_path: "logo-camden.svg"
+    logo_path: "camden-white.svg"
     privacy_link: "https://www.camden.gov.uk/data-protection-privacy-and-cookies"
     default_from_address: "help@camden.beacon.support"
     invite_template: '31d2b530-8db4-44ce-9bfa-34b01519335f'
