@@ -46,10 +46,6 @@ module NeedsHelper
     note_category[1].to_s if note_category.present?
   end
 
-  def display_note_category(note)
-    "[#{note.category}]"
-  end
-
   def need_urgencies
     ['Urgent', 'Normal']
   end
