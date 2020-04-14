@@ -40,13 +40,6 @@ docker-compose up -d
 rails db:setup
 
 rails server
-
-# to set git hooks
-i-have-i-need$ git config core.hooksPath .githooks
-
-# check for X permissions. Here is what you need:
-i-have-i-need/.githooks$ chmod +x pre-commit
-i-have-i-need/.githooks$ chmod +x pre-commit.d/01-rubocop
 ```
 
 It'll be on **localhost:3000**.
@@ -57,6 +50,16 @@ You can log in using **admin@example.com**.
 When running in development mode, [emails](https://guides.rubyonrails.org/action_mailer_basics.html) are sent to [maildev](https://www.npmjs.com/package/maildev), running via `docker-compose`.
 
 Visit **localhost:1080** to view sent emails.
+
+### Git Hooks
+```
+# to set git hooks
+i-have-i-need$ git config core.hooksPath .githooks
+
+# check for X permissions. Here is what you need:
+i-have-i-need/.githooks$ chmod +x pre-commit
+i-have-i-need/.githooks$ chmod +x pre-commit.d/01-rubocop
+```
 
 ## Running it on the web
 
