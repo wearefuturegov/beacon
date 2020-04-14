@@ -26,6 +26,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install firefox
+      run: apt install firefox
     - name: Set up Ruby 2.5.7
       uses: actions/setup-ruby@v1
       with:
