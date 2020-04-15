@@ -15,6 +15,7 @@ def generate_magic_link(admin = false)
   tester = User.create!(email: email,
                         invited: Date.today,
                         admin: admin)
+  @user = tester
   session = Passwordless::Session.new({
                                         authenticatable: tester,
                                         user_agent: 'Cucumber-tests',
