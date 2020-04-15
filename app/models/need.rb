@@ -58,11 +58,12 @@ class Need < ApplicationRecord
 
   validates :name, presence: true
 
-  delegate :name, :is_vulnerable, :address, :telephone, to: :contact, prefix: true
+  delegate :name, :is_vulnerable, :address, :telephone, :delivery_details, :dietary_details, :cooking_facilities, :has_covid_symptoms, :any_children_below_15, to: :contact, prefix: true
   delegate :name, to: :user, prefix: true
 
   def self.to_csv
-    attributes = %w[contact_name category name status contact_address contact_telephone contact_is_vulnerable is_urgent created_at]
+    attributes = %w[contact_name category name status contact_address contact_telephone contact_is_vulnerable is_urgent created_at
+                    contact_delivery_details contact_dietary_details contact_cooking_facilities contact_has_covid_symptoms contact_any_children_below_15]
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

@@ -47,3 +47,10 @@ Feature: Update person
     And I save the edit resident form
     Then I see a resident updated message
     And the residents vulnerability status has been updated
+
+  Scenario: Update has covid-19
+    Given a resident
+    When I edit the residents covid-19 status
+    And I save the edit resident form
+    Then I see a resident updated message
+    And the residents covid-19 status has been updated

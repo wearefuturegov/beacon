@@ -31,10 +31,10 @@
         <%= link_to "Edit", edit_contact_path(@contact), class: "accordion__edit-link" %>
     </div>
 
-    <button class="accordion__control" aria-expanded="false">
+    <button class="accordion__control" aria-expanded="true">
         <h2 class="accordion__title">Household</h2>  
     </button>
-    <div hidden class="accordion__content">  
+    <div class="accordion__content">
         <dl class="details-list">
             <dt class="details-list__caption">Number of people living there</dt>
             <dd class="details-list__value"><%= dash_if_empty @contact.count_people_in_house %></dd>
@@ -44,20 +44,20 @@
         </dl>
     </div>
 
-    <button class="accordion__control" aria-expanded="false">
+    <button class="accordion__control" aria-expanded="true">
         <h2 class="accordion__title">Delivery requirements</h2>  
     </button>
-    <div hidden class="accordion__content">  
+    <div class="accordion__content">
         <dl class="details-list">
             <dt class="details-list__caption">Any special delivery details</dt>
             <dd class="details-list__value"><%= dash_if_empty @contact.delivery_details %></dd>
         </dl>
     </div>
 
-    <button class="accordion__control" aria-expanded="false">
+    <button class="accordion__control" aria-expanded="true">
         <h2 class="accordion__title">Linked records</h2>  
     </button>
-    <div hidden class="accordion__content">  
+    <div class="accordion__content">
         <dl class="details-list">
             <dt class="details-list__caption">Mosaic ID</dt>
             <dd class="details-list__value"><%= dash_if_empty @contact.mosaic_id %></dd>
@@ -67,10 +67,10 @@
         </dl>
     </div>
 
-    <button class="accordion__control" aria-expanded="false">
+    <button class="accordion__control" aria-expanded="true" id="contact-additional-info-accordion">
         <h2 class="accordion__title">Additional information</h2>  
     </button>
-    <div hidden class="accordion__content">  
+    <div class="accordion__content">
         <dl class="details-list">
             <dt class="details-list__caption">Dietary requirements</dt>
             <dd class="details-list__value">
@@ -86,6 +86,10 @@
 
             <dt class="details-list__caption">Any additional information</dt>
             <dd class="details-list__value"><%= dash_if_empty @contact.additional_info %></dd>
+
+
+            <dt class="details-list__caption">Anyone in their home showing symptoms of COVID-19</dt>
+            <dd class="details-list__value" id="contact-has-covid"><%= friendly_boolean @contact.has_covid_symptoms %></dd>
         </dl>
     </div>
 
