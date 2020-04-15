@@ -21,7 +21,9 @@ class ContactsController < ApplicationController
 
   def show
     @open_needs = @contact.needs.where(completed_on: nil).sort do |a, b|
-      if a.start_on.nil? && !b.start_on.nil? && b.start_on > DateTime.now
+      if a.start_on && b.start_on
+        a.start_on <=> b.start_on
+      elsif a.start_on.nil? && !b.start_on.nil? && b.start_on > DateTime.now
         -1
       elsif b.start_on.nil? && !a.start_on.nil? && a.start_on > DateTime.now
         1
