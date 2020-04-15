@@ -52,6 +52,12 @@ When(/^I edit the residents vulnerability status$/) do
   find('label[for=is_vulnerable_true]').click
 end
 
+When(/^I edit the residents covid-19 status$/) do
+  visit "contacts/#{@contact.id}"
+  click_link 'Edit'
+  find('label[for=has_covid_symptoms_true]').click
+end
+
 When('I choose {string} for any children under 15') do |option|
   if option == 'Yes'
     choose 'any_children_below_15_true'
@@ -143,4 +149,8 @@ end
 
 Then(/^the residents additional info has been updated$/) do
   expect(page).to have_content('Test additional info')
+end
+
+Then(/^the residents covid-19 status has been updated$/) do
+  expect(page.find('#contact-has-covid').text).to eq('Yes')
 end
