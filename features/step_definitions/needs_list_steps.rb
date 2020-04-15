@@ -1,9 +1,3 @@
-Given('a unique resident with a {string} need') do |need|
-  @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
-  step "I add needs \"#{need}\""
-  step 'I submit the add needs form'
-end
-
 When('I view any needs list row for that resident') do
   visit '/'
   @resident_row = find_resident_row(@contact.first_name)
