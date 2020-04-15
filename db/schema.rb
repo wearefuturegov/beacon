@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2020_04_15_112651) do
     t.jsonb "healthintent_import_data"
     t.string "nhs_number"
     t.date "date_of_birth"
-    t.boolean "has_covid"
+    t.boolean "has_covid_symptoms"
     t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
   end
 

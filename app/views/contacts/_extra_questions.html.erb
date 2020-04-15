@@ -25,11 +25,11 @@
   <legend><h2 class="field-section__title">Are you or anyone in your home showing any symptoms of COVID-19?</h2></legend>
   <br/>
   <div class="radio">
-    <%= form.radio_button :has_covid, true, :id => "has_covid_true" %>
-    <label for="has_covid_true" class="radio__label">Yes</label>
+    <%= form.radio_button :has_covid_symptoms, true, :id => "has_covid_symptoms_true" %>
+    <label for="has_covid_symptoms_true" class="radio__label">Yes</label>
   </div>
   <div class="radio">
-    <%= form.radio_button :has_covid, false, :id => "has_covid_false" %>
-    <label for="has_covid_false" class="radio__label">No</label>
+    <%= form.radio_button :has_covid_symptoms, false, :id => "has_covid_symptoms_false" %>
+    <label for="has_covid_symptoms_false" class="radio__label">No</label>
   </div>
 </fieldset>

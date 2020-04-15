@@ -34,7 +34,7 @@ end
 When(/^I edit the residents covid-19 status$/) do
   visit "contacts/#{@contact.id}"
   click_link 'Edit'
-  find('label[for=has_covid_true]').click
+  find('label[for=has_covid_symptoms_true]').click
 end
 
 When(/^I edit the residents additional info$/) do
