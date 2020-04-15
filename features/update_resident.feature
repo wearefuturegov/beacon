@@ -48,6 +48,7 @@ Feature: Update person
     Then I see a resident updated message
     And the residents vulnerability status has been updated
 
+  @javescript
   Scenario: Update has covid-19
     Given a resident
     When I edit the residents covid-19 status
