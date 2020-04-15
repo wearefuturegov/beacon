@@ -45,6 +45,11 @@
 
           <dt class="details-list__caption">Created</dt>
           <dd class="details-list__value"><%= @need.created_at&.strftime("%-d %B %Y") %></dd>
+
+          <% if @need.start_on %>
+            <dt class="details-list__caption">Starts on</dt>
+            <dd class="details-list__value"><%= @need.start_on&.strftime("%-d %B %Y") %></dd>
+          <% end %>
         </dl>
 
       </div>

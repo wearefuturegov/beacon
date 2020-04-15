@@ -6,6 +6,7 @@
               <th>Priority</th>
               <th>Assigned</th>
               <th>Created</th>
+              <th>Starts on</th>
             </tr>
           </thead>
           <tbody>
@@ -28,7 +29,7 @@
 
                   <%# is this a 'future' need %>
                   <% if !n.start_on.nil? && n.start_on > DateTime.now %>
-                     <strong>Padlock</strong>
+                     <span>(Future)</span>
                   <% end %>
                 </td>
               </tr>
