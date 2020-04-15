@@ -1,6 +1,6 @@
 <section class="accordion">
 
-    <button class="accordion__control" aria-expanded="true">
+    <button class="accordion__control" aria-expanded="false">
         <h2 class="accordion__title">Personal details</h2>  
     </button>
     <div class="accordion__content">  
@@ -67,7 +67,7 @@
         </dl>
     </div>
 
-    <button class="accordion__control" aria-expanded="false">
+    <button class="accordion__control" aria-expanded="false" id="contact-additional-info-accordion">
         <h2 class="accordion__title">Additional information</h2>  
     </button>
     <div hidden class="accordion__content">  
@@ -86,6 +86,10 @@
 
             <dt class="details-list__caption">Any additional information</dt>
             <dd class="details-list__value"><%= dash_if_empty @contact.additional_info %></dd>
+
+
+            <dt class="details-list__caption">Anyone in their home showing symptoms of COVID-19</dt>
+            <dd class="details-list__value" id="contact-has-covid"><%= friendly_boolean @contact.has_covid %></dd>
         </dl>
     </div>
 
