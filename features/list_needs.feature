@@ -14,11 +14,14 @@ Feature: List needs
     Then I see the last contacted date is today
 
   @javascript
-  Scenario: Filter resident needs by category
-    Given a unique resident with a "Groceries and cooked meals" need
+  Scenario Outline: Filter resident needs by category
+    Given a unique resident with a "<category>" need
     When I view any needs list row for that resident
-    And I filter needs by category "Groceries and cooked meals"
-    Then I see the need for category "Groceries and cooked meals" in the results
+    And I filter needs by category "<category>"
+    Then I see the need for category "<category>" in the results
+    Examples:
+      | category                      |
+      | Phone triage                  |
 
   @javascript
   Scenario Outline: Filter all needs by category
@@ -27,7 +30,19 @@ Feature: List needs
     Then I see all needs for the category "<category>" in the results
     Examples:
       | category                      |
-      | Phone triage                  |
       | Groceries and cooked meals    |
       | Financial support             |
-      | Dog walking                   |     
+      | Dog walking                   |
+
+
+    Scenario: Sort needs by category ascending
+      Given a unique resident with a "Book drops and entertainment" need
+      And a unique resident with a "Groceries and cooked meals" need
+      When I sort needs by category in "ASC" order
+      Then I see the need for category "Book drops and entertainment" first in the results
+
+    Scenario: Sort needs by category descending
+      Given a unique resident with a "Book drops and entertainment" need
+      And a unique resident with a "Groceries and cooked meals" need
+      When I sort needs by category in "DESC" order
+      Then I see the need for category "Groceries and cooked meals" first in the results

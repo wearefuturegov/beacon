@@ -31,11 +31,14 @@ Given('many needs exist') do
   visit '/'
 end
 
-Then('I see all needs for the category {string} in the results') do |category|
-  page.all('table tr').each do |row|
-    category_column = row.find('td:first-child')
-    expect(category_column).to have_content(category)
-  end
+When('I sort needs by category in {string} order') do |order|
+  visit "/?order=category&order_dir=#{order}&page=1"
+end
+
+Then('I see the need for category {string} first in the results') do |category|
+  first_row = page.find('table > tbody > tr:nth-child(1)')
+  category_column = first_row.find('td:first-child')
+  expect(category_column).to have_content(category)
 end
 
 def find_resident_row(resident_name)
