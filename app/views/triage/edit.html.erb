@@ -51,7 +51,7 @@
           <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need[:label].parameterize.underscore}.html.erb")) %>
             <%# form will save to the need, contact_form will save to the contact %>
             <div class="triage-grid__inner triage-grid__inner--grey">
-              <%= render :partial => "#{need[:label].parameterize.underscore}", locals: { form: contact_form } %>
+              <%= render :partial => "#{need[:label].parameterize.underscore}", locals: { form: contact_form, need_form: form, need_index: index } %>
             </div>
           <% end %>
         <% end %>

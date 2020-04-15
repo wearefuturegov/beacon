@@ -7,11 +7,11 @@ class NeedsCreator
       next unless value['active'] == 'true'
 
       need_hash = create_need(contact, value)
-      contact.needs.build(need_hash.merge(due_by: DateTime.now + 7.days)).save
+      contact.needs.build(need_hash).save
     end
 
     if other_need
-      contact.needs.build(category: 'other', name: other_need, due_by: DateTime.now + 7.days).save
+      contact.needs.build(category: 'other', name: other_need).save
     end
   end
 

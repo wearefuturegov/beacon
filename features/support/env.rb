@@ -64,20 +64,20 @@ Capybara.register_driver :firefox do |app|
   Capybara::Selenium::Driver.new(app, browser: :firefox, options: opts)
 end
 
-Capybara.register_driver :remote_chrome do |app|
+Capybara.register_driver :selenium do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome
   Capybara::Selenium::Driver.new(app, browser: :chrome, url: 'http://localhost:9515', desired_capabilities: capabilities)
 end
 
-Capybara.register_driver :selenium do |app|
-  browser_options = Selenium::WebDriver::Firefox::Options.new
-  browser_options.args << '--headless'
-  Capybara::Selenium::Driver.new(
-    app,
-    browser: :firefox,
-    options: browser_options
-  )
-end
+# Capybara.register_driver :selenium do |app|
+#   browser_options = Selenium::WebDriver::Firefox::Options.new
+#   browser_options.args << '--headless'
+#   Capybara::Selenium::Driver.new(
+#     app,
+#     browser: :firefox,
+#     options: browser_options
+#   )
+# end
 
 if ENV['BROWSER']
   DatabaseCleaner.strategy = :truncation

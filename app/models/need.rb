@@ -4,6 +4,7 @@ require 'csv'
 
 class Need < ApplicationRecord
   include Filterable
+  self.ignored_columns = %w(due_by)
 
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
