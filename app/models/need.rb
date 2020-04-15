@@ -67,18 +67,43 @@ class Need < ApplicationRecord
 
   validates :name, presence: true
 
-  delegate :name, :is_vulnerable, :address, :telephone, :delivery_details, :dietary_details, :cooking_facilities, :has_covid_symptoms, :any_children_below_15, :any_dietary_requirements, to: :contact, prefix: true
+  delegate :name, :address, :postcode, :telephone, :mobile, :is_vulnerable,
+           :count_people_in_house, :any_dietary_requirements, :dietary_details,
+           :cooking_facilities, :delivery_details, :has_covid_symptoms,
+           to: :contact, prefix: true
   delegate :name, to: :user, prefix: true
 
   def self.to_csv
-    attributes = %w[contact_name category name status contact_address contact_telephone contact_is_vulnerable is_urgent created_at
-                    contact_delivery_details contact_any_dietary_requirements contact_dietary_details contact_cooking_facilities contact_has_covid_symptoms contact_any_children_below_15]
+    attributes = {
+      id: 'need_id',
+      category: 'category',
+      status: 'status',
+      created_at: 'created_at',
+
+      contact_name: 'name',
+      contact_address: 'address',
+      contact_postcode: 'postcode',
+      contact_telephone: 'telephone',
+      contact_mobile: 'mobile',
+
+      food_priority: 'food_priority',
+      food_service_type: 'food_service_type',
+      contact_count_people_in_house: 'count_people_in_house',
+      contact_any_dietary_requirements: 'any_dietary_requirements',
+      contact_dietary_details: 'dietary_details',
+      contact_cooking_facilities: 'cooking_facilities',
+      contact_delivery_details: 'delivery_details',
+      contact_has_covid_symptoms: 'has_covid_symptoms',
+
+      contact_is_vulnerable: 'is_vulnerable',
+      is_urgent: 'is_urgent'
+    }
 
     CSV.generate(headers: true) do |csv|
-      csv << attributes
+      csv << attributes.values
 
       all.each do |record|
-        csv << attributes.map { |attr| record.send(attr) }
+        csv << attributes.keys.map { |attr| record.send(attr) }
       end
     end
   end
