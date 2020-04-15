@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_112940) do
+ActiveRecord::Schema.define(version: 2020_04_15_172718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 2020_04_15_112940) do
     t.text "dietary_details"
     t.text "cooking_facilities"
     t.boolean "eligible_for_free_prescriptions"
-    t.jsonb "healthintent_import_data"
     t.string "nhs_number"
     t.date "date_of_birth"
     t.boolean "has_covid_symptoms"
