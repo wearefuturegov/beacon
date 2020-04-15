@@ -31,7 +31,7 @@ class NeedsCreator
       begin
         need_hash[:start_on] = DateTime.parse(need_values['start_on']).beginning_of_day
       rescue StandardError
-        need_hash[:start_on] = DateTime.today + 6.days
+        need_hash[:start_on] = DateTime.now.beginning_of_day + 6.days
       end
     end
     need_hash
