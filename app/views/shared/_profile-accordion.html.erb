@@ -6,19 +6,19 @@
     <div class="accordion__content">  
         <dl class="details-list">
             <dt class="details-list__caption">Name</dt>
-            <dd class="details-list__value"><%= @contact.name %></dd>
+            <dd class="details-list__value" id="contact_name"><%= @contact.name %></dd>
 
             <dt class="details-list__caption">Address</dt>
-            <dd class="details-list__value">
+            <dd class="details-list__value" id="address_details">
                 <%= @contact.address %><br/>
                 <%= @contact.postcode %>
             </dd>
 
             <dt class="details-list__caption">Email</dt>
-            <dd class="details-list__value"><%= dash_if_empty @contact.email %></dd>
+            <dd class="details-list__value" id="email_address"><%= dash_if_empty @contact.email %></dd>
 
             <dt class="details-list__caption">Phone</dt>
-            <dd class="details-list__value">
+            <dd class="details-list__value" id="phone_details">
                 <%= @contact.telephone %><br/>
                 <%= @contact.mobile %>
             </dd>
@@ -32,10 +32,10 @@
     <div class="accordion__content">
         <dl class="details-list">
             <dt class="details-list__caption">Number of people living there</dt>
-            <dd class="details-list__value"><%= dash_if_empty @contact.count_people_in_house %></dd>
+            <dd class="details-list__value" id="count_people_in_house"><%= dash_if_empty @contact.count_people_in_house %></dd>
 
             <dt class="details-list__caption">Living with people under 15</dt>
-            <dd class="details-list__value"><%= friendly_boolean @contact.any_children_below_15 %></dd>
+            <dd class="details-list__value" id="any_children_below_15"><%= friendly_boolean @contact.any_children_below_15 %></dd>
         </dl>
     </div>
 
@@ -45,7 +45,7 @@
     <div class="accordion__content">
         <dl class="details-list">
             <dt class="details-list__caption">Any special delivery details</dt>
-            <dd class="details-list__value"><%= dash_if_empty @contact.delivery_details %></dd>
+            <dd class="details-list__value" id="delivery_details"><%= dash_if_empty @contact.delivery_details %></dd>
         </dl>
     </div>
 
@@ -55,19 +55,23 @@
     <div class="accordion__content">
         <dl class="details-list">
             <dt class="details-list__caption">Dietary requirements</dt>
-            <dd class="details-list__value">
-                <%= friendly_boolean @contact.any_dietary_requirements %><br/>
-                <%= dash_if_empty @contact.dietary_details %>
+            <dd class="details-list__value" id="any_dietary_requirements">
+                <%= friendly_boolean @contact.any_dietary_requirements %>
             </dd>
+          <dd class="details-list__value" id="dietary_details">
+            <%= dash_if_empty @contact.dietary_details %>
+          </dd>
 
             <dt class="details-list__caption">Cooking facilities</dt>
             <dd class="details-list__value"><%= dash_if_empty @contact.cooking_facilities %></dd>
 
             <dt class="details-list__caption">Eligible for free prescriptions</dt>
-            <dd class="details-list__value"><%= friendly_boolean @contact.eligible_for_free_prescriptions %></dd>
+            <dd class="details-list__value" id="eligible_for_free_prescriptions">
+              <%= friendly_boolean @contact.eligible_for_free_prescriptions %>
+            </dd>
 
             <dt class="details-list__caption">Any additional information</dt>
-            <dd class="details-list__value"><%= dash_if_empty @contact.additional_info %></dd>
+            <dd class="details-list__value" id="additional_info"><%= dash_if_empty @contact.additional_info %></dd>
 
 
             <dt class="details-list__caption">Anyone in their home showing symptoms of COVID-19</dt>

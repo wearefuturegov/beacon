@@ -20,6 +20,6 @@ class Contact < ApplicationRecord
                   }
 
   def name
-    [first_name, surname].join(' ')
+    [first_name, middle_names, surname].join(' ')
   end
 end
