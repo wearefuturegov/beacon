@@ -1,6 +1,11 @@
 @import "variables";
 
 .accordion{
+    div {
+      .accordion__content {
+        cursor: pointer;
+      }
+    }
     .accordion__control{
         background: $text;
         border: none;

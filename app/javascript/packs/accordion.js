@@ -1,6 +1,6 @@
 const accordion = document.querySelector(".accordion")
 
-let controls = accordion.querySelectorAll(".accordion__control")
+let controls = Array.prototype.slice.call(accordion.querySelectorAll(".accordion__control"), 0)
 let contents = accordion.querySelectorAll(".accordion__content")
 
 controls.forEach((control, i) => control.addEventListener("click", e  => {
