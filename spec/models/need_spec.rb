@@ -57,7 +57,9 @@ RSpec.describe Need, type: :model do
       expect(needs[1].name).to eq 'created tomorrow, no start date'
     end
 
-    it 'sorts need by created date when they are started' do
+    # given two needs, one which has a start date before now, the sorting should ignore the start date
+    # and sort by created date instead
+    it 'sorts needs by created date when they are started' do
       needs = [created_tomorrow_started, created_today_start_today].sort { |a, b| Need.sort_created_and_start_date(a, b) }
 
       expect(needs[0].name).to eq 'created today, start today'
