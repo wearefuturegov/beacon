@@ -10,7 +10,9 @@
     <%= form.label :delivery_details, 'Any special delivery details?', class: "field__label" %>
     <%= form.text_area :delivery_details %>
   </div>
+</fieldset>
 
+<fieldset class="field-section field-section--two-cols">
   <legend><h2 class="field-section__title">Any children under 15?</h2></legend>
   <br/>
   <div class="radio">
@@ -21,7 +23,9 @@
     <%= form.radio_button :any_children_below_15, false, :id => "any_children_below_15_false" %>
     <label for="any_children_below_15_false" class="radio__label">No</label>
   </div>
+</fieldset>
 
+<fieldset class="field-section field-section--two-cols">
   <legend><h2 class="field-section__title">Are you or anyone in your home showing any symptoms of COVID-19?</h2></legend>
   <br/>
   <div class="radio">
