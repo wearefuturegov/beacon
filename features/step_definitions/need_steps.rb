@@ -11,26 +11,35 @@ end
 When('I add needs {string}') do |need|
   visit "contacts/#{@contact.id}"
   click_link 'Triage'
-  choose_yes_selected_id_from(need)
+  choose_yes_on_need(page, need)
+end
+
+And('I set the start date for the {string} need to {string}') do |need, start_date|
+  need_block = find_need_block(page, need)
+  start_date_fieldset = find_fieldset(need_block, /scheduled/)
+  start_date_fieldset.find('input').fill_in(with: start_date)
 end
 
 And('I add another need {string}') do |need|
-  choose_yes_selected_id_from(need)
+  choose_yes_on_need(page, need)
 end
 
 And('I submit the add needs form') do
   click_button('Save changes')
 end
 
-def choose_yes_selected_id_from(need)
-  yes_needs = { phone_triage: 'needs_active_0_true',
-                groceries_and_cooked_meals: 'needs_active_1_true',
-                physical_and_mental_wellbeing: 'needs_active_2_true',
-                financial_support: 'needs_active_3_true',
-                staying_social: 'needs_active_4_true',
-                prescription_pickups: 'needs_active_5_true',
-                book_drops_and_entertainment: 'needs_active_6_true',
-                dog_walking: 'needs_active_7_true' }
-  radio_id = yes_needs.fetch(need.downcase.gsub(' ', '_').to_sym)
-  page.find("label[for=#{radio_id}]").click
+def choose_yes_on_need(element, need)
+  need_block = find_need_block(element, need)
+  radio_fieldset = find_fieldset(need_block, 'Is this needed?')
+  radio_fieldset.find('label', text: 'Yes').click
+end
+
+def find_need_block(element, title_text)
+  element.find('.triage-grid__title', text: title_text)
+         .ancestor('.triage-grid__need')
+end
+
+def find_fieldset(element, legend_text)
+  element.find('legend', text: legend_text)
+         .ancestor('fieldset')
 end

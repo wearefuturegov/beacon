@@ -2,6 +2,10 @@ Given(/^a resident$/) do
   @contact = Contact.create!(first_name: 'Test')
 end
 
+Given(/^a unique resident$/) do
+  @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
+end
+
 When(/^I edit the residents name$/) do
   visit "contacts/#{@contact.id}"
   click_link 'Edit'
