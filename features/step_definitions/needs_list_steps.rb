@@ -15,6 +15,29 @@ Then('I see the last contacted date is today') do
   expect(last_contacted_column).to have_content(Date.today.strftime('%-d %B %Y'))
 end
 
+When('I filter needs by category {string}') do |category|
+  page.find('#needs-filters').click
+  find('#category').find("option[value='#{category}']").select_option
+end
+
+Then('I see the need for category {string} in the results') do |category|
+  resident_row = find_resident_row(@contact.first_name)
+  category_column = resident_row.find('td:first-child')
+  expect(category_column).to have_content(category)
+end
+
+Given('many needs exist') do
+  # nothing to do, we have needs from the seed data
+  visit '/'
+end
+
+Then('I see all needs for the category {string} in the results') do |category|
+  page.all('table tr').each do |row|
+    category_column = row.find('td:first-child')
+    expect(category_column).to have_content(category)
+  end
+end
+
 def find_resident_row(resident_name)
   found_row = nil
   until found_row
