@@ -12,6 +12,13 @@ class Need < ApplicationRecord
 
   has_paper_trail
 
+  jsonb_accessor :supplemental_data,
+                 food_priority: :string,
+                 food_service_type: :string
+
+  # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
+  # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
+
   scope :completed, -> { where.not(completed_on: nil) }
   scope :uncompleted, -> { where(completed_on: nil) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
