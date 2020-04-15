@@ -24,6 +24,10 @@ class NeedsCreator
                          need_values['description']
                        end
     need_hash[:is_urgent] = need_values['is_urgent']
+
+    need_hash[:food_priority] = need_values['food_priority'] if need_values['food_priority'].present?
+    need_hash[:food_service_type] = need_values['food_service_type'] if need_values['food_service_type'].present?
+
     need_hash
   end
 end
