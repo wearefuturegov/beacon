@@ -7,11 +7,11 @@ class NeedsCreator
       next unless value['active'] == 'true'
 
       need_hash = create_need(contact, value)
-      contact.needs.build(need_hash.merge(due_by: DateTime.now + 7.days)).save
+      contact.needs.build(need_hash).save
     end
 
     if other_need
-      contact.needs.build(category: 'other', name: other_need, due_by: DateTime.now + 7.days).save
+      contact.needs.build(category: 'other', name: other_need).save
     end
   end
 
@@ -24,6 +24,16 @@ class NeedsCreator
                          need_values['description']
                        end
     need_hash[:is_urgent] = need_values['is_urgent']
+    need_hash[:food_priority] = need_values['food_priority'] if need_values['food_priority'].present?
+    need_hash[:food_service_type] = need_values['food_service_type'] if need_values['food_service_type'].present?
+
+    if need_values['start_on']
+      begin
+        need_hash[:start_on] = DateTime.parse(need_values['start_on']).beginning_of_day
+      rescue StandardError
+        need_hash[:start_on] = DateTime.now.beginning_of_day + 6.days
+      end
+    end
     need_hash
   end
 end
