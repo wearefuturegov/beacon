@@ -82,6 +82,5 @@ Then(/^the residents additional info has been updated$/) do
 end
 
 Then(/^the residents covid-19 status has been updated$/) do
-  page.find('#contact-additional-info-accordion').click
   expect(page.find('#contact-has-covid').text).to eq('Yes')
 end
