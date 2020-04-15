@@ -1,15 +1,3 @@
-<% if contact.errors.any? %>
-  <div class="error" id="error_explanation">
-    <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
-
-    <ul>
-      <% contact.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <fieldset class="field-section field-section--two-cols">
   <div class="field">
     <%= form.label :first_name, class: "field__label" %>

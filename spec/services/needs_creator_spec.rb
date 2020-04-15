@@ -44,4 +44,18 @@ RSpec.describe NeedsCreator do
     expect(@builder).to receive(:build).with(hash_including(name: 'test other description')).once
     described_class.create_needs(@test_contact, needs_list, 'test other description')
   end
+
+  it 'parses and populates the start on date if one is present' do
+    needs_list = { 1 => { 'active' => 'true', 'name' => 'category', 'start_on' => '1/1/2000' } }
+
+    expect(@builder).to receive(:build).with(hash_including(start_on: DateTime.new(2000, 1, 1))).once
+    described_class.create_needs(@test_contact, needs_list, nil)
+  end
+
+  it 'defaults to a start on date of 6 days from now if start on date is invalid' do
+    needs_list = { 1 => { 'active' => 'true', 'name' => 'category', 'start_on' => 'an_invalid_date' } }
+
+    expect(@builder).to receive(:build).with(hash_including(start_on: DateTime.now.beginning_of_day + 6.days)).once
+    described_class.create_needs(@test_contact, needs_list, nil)
+  end
 end

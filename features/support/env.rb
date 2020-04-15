@@ -79,6 +79,12 @@ Capybara.register_driver :selenium do |app|
   )
 end
 
+Capybara.javascript_driver = if ENV['CAPYBARA_JAVASCRIPT_DRIVER']
+                               ENV['CAPYBARA_JAVASCRIPT_DRIVER'].to_sym
+                             else
+                               :selenium
+                             end
+
 if ENV['BROWSER']
   DatabaseCleaner.strategy = :truncation
   Capybara.default_driver = ENV['BROWSER'].to_sym

@@ -19,7 +19,7 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @open_needs = @contact.needs.where(completed_on: nil)
+    @open_needs = @contact.needs.where(completed_on: nil).sort { |a, b| Need.sort_created_and_start_date(a, b) }
     @completed_needs = @contact.needs.where.not(completed_on: nil)
   end
 
