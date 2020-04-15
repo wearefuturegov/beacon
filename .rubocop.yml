@@ -5,3 +5,6 @@ AllCops:
     - 'lib/tasks/cucumber.rake'
     - 'node_modules/**/*'
     - 'vendor/**/*'
+
+Metrics/ClassLength:
+  Max: 150

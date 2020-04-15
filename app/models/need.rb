@@ -4,12 +4,20 @@ require 'csv'
 
 class Need < ApplicationRecord
   include Filterable
+  self.ignored_columns = %w[due_by]
 
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
   has_many :notes, dependent: :destroy
 
   has_paper_trail
+
+  jsonb_accessor :supplemental_data,
+                 food_priority: :string,
+                 food_service_type: :string
+
+  # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
+  # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
 
   scope :completed, -> { where.not(completed_on: nil) }
   scope :uncompleted, -> { where(completed_on: nil) }
@@ -120,4 +128,16 @@ class Need < ApplicationRecord
   def last_phoned_date
     read_attribute('last_phoned_date')
   end
+
+  # This sort method is to first sort future needs (where start_on > today) to the bottom of the list
+  # and then sort by created_at
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def self.sort_created_and_start_date(first, second)
+    return first.start_on <=> second.start_on if first.start_on && second.start_on
+    return -1 if first.start_on.nil? && !second.start_on.nil? && second.start_on > DateTime.now
+    return 1 if second.start_on.nil? && !first.start_on.nil? && first.start_on > DateTime.now
+
+    first.created_at <=> second.created_at
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

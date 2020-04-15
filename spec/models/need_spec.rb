@@ -35,4 +35,35 @@ RSpec.describe Need, type: :model do
     need2 = build :need, name: 'food', completed_on: DateTime.now
     expect(need2.status).to eq 'Complete'
   end
+
+  describe 'sort_created_and_start_date' do
+    let!(:created_today_started) { build :need, name: 'created today, no start date', created_at: DateTime.now }
+    let!(:created_tomorrow_started) { build :need, name: 'created tomorrow, no start date', created_at: DateTime.now + 1.days }
+
+    let!(:created_today_start_tomorrow) { build :need, name: 'created today, start tomorrow', created_at: DateTime.now, start_on: DateTime.now + 1.days }
+    let!(:created_today_start_today) { build :need, name: 'created today, start today', created_at: DateTime.now.beginning_of_day, start_on: DateTime.now.beginning_of_day }
+
+    it 'sorts needs started in the future to be at the end' do
+      needs = [created_tomorrow_started, created_today_start_tomorrow].sort { |a, b| Need.sort_created_and_start_date(a, b) }
+
+      expect(needs[0].name).to eq 'created tomorrow, no start date'
+      expect(needs[1].name).to eq 'created today, start tomorrow'
+    end
+
+    it 'sorts needs by created date when they have no start date' do
+      needs = [created_tomorrow_started, created_today_started].sort { |a, b| Need.sort_created_and_start_date(a, b) }
+
+      expect(needs[0].name).to eq 'created today, no start date'
+      expect(needs[1].name).to eq 'created tomorrow, no start date'
+    end
+
+    # given two needs, one which has a start date before now, the sorting should ignore the start date
+    # and sort by created date instead
+    it 'sorts needs by created date when they are started' do
+      needs = [created_tomorrow_started, created_today_start_today].sort { |a, b| Need.sort_created_and_start_date(a, b) }
+
+      expect(needs[0].name).to eq 'created today, start today'
+      expect(needs[1].name).to eq 'created tomorrow, no start date'
+    end
+  end
 end
