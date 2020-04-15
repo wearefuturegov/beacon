@@ -1,4 +1,14 @@
+<% if @contact_needs.errors.any? %>
+  <div class="error" id="error_explanation">
+    <h2><%= pluralize(@contact_needs.errors.count, "error") %> prohibited this triage form from being saved:</h2>
 
+    <ul>
+      <% @contact_needs.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%= form_with(model: [@contacts, @contact_needs], url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
 

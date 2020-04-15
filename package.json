@@ -8,6 +8,7 @@
     "@rails/webpacker": "4.2.2",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
+    "flatpickr": "^4.6.3",
     "jquery": "^3.4.1",
     "turbolinks": "^5.2.0"
   },
