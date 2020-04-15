@@ -4,7 +4,7 @@ require 'csv'
 
 class Need < ApplicationRecord
   include Filterable
-  self.ignored_columns = %w(due_by)
+  self.ignored_columns = %w[due_by]
 
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
@@ -120,4 +120,14 @@ class Need < ApplicationRecord
   def last_phoned_date
     read_attribute('last_phoned_date')
   end
+
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def self.sort_created_and_start_date(first, second)
+    return first.start_on <=> second.start_on if first.start_on && second.start_on
+    return -1 if first.start_on.nil? && !second.start_on.nil? && second.start_on > DateTime.now
+    return 1 if second.start_on.nil? && !first.start_on.nil? && first.start_on > DateTime.now
+
+    first.created_at <=> second.created_at
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

@@ -2,7 +2,6 @@
 
 # Creates needs for a user from a submitted questionnaire form
 class NeedsCreator
-
   def self.create_needs(contact, needs_form, other_need)
     needs_form.each do |_, value|
       next unless value['active'] == 'true'
@@ -29,7 +28,7 @@ class NeedsCreator
     if need_values['start_on']
       begin
         need_hash[:start_on] = DateTime.parse(need_values['start_on']).beginning_of_day
-      rescue
+      rescue StandardError
         need_hash[:start_on] = DateTime.today + 6.days
       end
     end

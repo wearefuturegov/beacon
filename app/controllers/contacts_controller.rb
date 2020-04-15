@@ -10,8 +10,7 @@ class ContactsController < ApplicationController
     @contacts = @contacts.page(@params[:page])
   end
 
-  def call_list;
-  end
+  def call_list; end
 
   def needs
     @users = User.all
@@ -20,22 +19,11 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @open_needs = @contact.needs.where(completed_on: nil).sort do |a, b|
-      if a.start_on && b.start_on
-        a.start_on <=> b.start_on
-      elsif a.start_on.nil? && !b.start_on.nil? && b.start_on > DateTime.now
-        -1
-      elsif b.start_on.nil? && !a.start_on.nil? && a.start_on > DateTime.now
-        1
-      else
-        a.created_at <=> b.created_at
-      end
-    end
+    @open_needs = @contact.needs.where(completed_on: nil).sort { |a, b| Need.sort_created_and_start_date(a, b) }
     @completed_needs = @contact.needs.where.not(completed_on: nil)
   end
 
-  def edit;
-  end
+  def edit; end
 
   def update
     if @contact.update(contact_params)
