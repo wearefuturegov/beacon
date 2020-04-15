@@ -25,7 +25,15 @@ class NeedsCreator
                          need_values['description']
                        end
     need_hash[:is_urgent] = need_values['is_urgent']
-    need_hash[:start_on] = DateTime.parse(need_values['start_on']).beginning_of_day
+
+    if need_values['start_on']
+      begin
+        need_hash[:start_on] = DateTime.parse(need_values['start_on']).beginning_of_day
+      rescue
+        need_hash[:start_on] = DateTime.today + 6.days
+      end
+    end
+
     need_hash
   end
 end
