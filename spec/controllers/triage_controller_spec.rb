@@ -9,6 +9,7 @@ RSpec.describe TriageController, type: :controller do
       @test_contact = double('Contact')
       allow(@test_contact).to receive(:id).and_return 1
       allow(@test_contact).to receive(:update).and_return(@test_contact)
+      allow(@test_contact).to receive(:assign_attributes)
 
       @contact = class_double('Contact').as_stubbed_const
       allow(@contact).to receive(:find).and_return(@test_contact)
@@ -25,6 +26,7 @@ RSpec.describe TriageController, type: :controller do
     before(:each) do
       @test_contact = double('Contact')
       allow(@test_contact).to receive(:update).and_return(false)
+      allow(@test_contact).to receive(:assign_attributes)
 
       @contact_model = class_double('Contact').as_stubbed_const
       allow(@contact_model).to receive(:find).and_return(@test_contact)
