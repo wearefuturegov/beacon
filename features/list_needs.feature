@@ -7,7 +7,10 @@ Feature: List needs
     * I am logged into the system
 
   Scenario: View last contacted date
-    Given a unique resident with a "Phone triage" need
+    Given a unique resident
+    When I add needs "Phone triage"
+    And I set the start date for the "Phone triage" need to "1/1/2020"
+    And I submit the add needs form
     And I add a "Successful Call" note "Phone call text"
     And I submit the form to create the note
     When I view any needs list row for that resident

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+FOOD_CATEGORY = 'groceries and cooked meals'
 need_categories = [
   'phone triage',
   'groceries and cooked meals',
@@ -17,6 +18,15 @@ FactoryBot.define do
     contact
     category { need_categories.sample }
     name { Faker::Lorem.sentence }
+    start_on { [nil, Faker::Date.between(from: 2.days.ago, to: 6.days.from_now)].sample }
+
+    food_priority do
+      category == FOOD_CATEGORY ? [1, 2, 3, nil].sample : nil
+    end
+
+    food_service_type do
+      category == FOOD_CATEGORY ? ['Hot meal', 'Heat up', 'Grocery delivery', nil].sample : nil
+    end
 
     trait :completed do
       completed_on { 2.days.ago }

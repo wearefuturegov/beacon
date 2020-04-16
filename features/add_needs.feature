@@ -47,26 +47,3 @@ Feature: Add needs
     Then the residents list of needs contains "Groceries and cooked meals"
     And the residents list of needs contains "Staying social"
     And the residents list of needs contains "Dog walking"
-
-#
-#
-#  Scenario: Person has no food today
-#
-#  Scenario: Person has a allergy
-#
-#  Scenario: Person has a cat
-#
-#  Scenario: Person lives on 4th floor of building and cannot use the stairs.
-#
-#  Scenario: Person has enough food for the next couple of days but has an underlying health condition
-#  and is feeling very distressed.
-#  They are unable to work at this time and are unsure how they will pay the rent this month.
-#
-#  Scenario: Person has food but is anxious about how their medicine will be collected / how they will get to a medical appointment
-#
-#  Scenario: Person does not have food and needs specialist food due to their medical condition (eg cancer treatment),
-#  religion/culture eg halal/vegan
-#
-#  Scenario: Person is concerned about someone they know who is at risk – how they can get help
-#
-#  Scenario: Person has food but needs support taking waste out of their property

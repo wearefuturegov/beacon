@@ -4,6 +4,7 @@ require 'csv'
 
 class Need < ApplicationRecord
   include Filterable
+  self.ignored_columns = %w[due_by]
 
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
@@ -11,8 +12,16 @@ class Need < ApplicationRecord
 
   has_paper_trail
 
+  jsonb_accessor :supplemental_data,
+                 food_priority: :string,
+                 food_service_type: :string
+
+  # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
+  # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
+
   scope :completed, -> { where.not(completed_on: nil) }
   scope :uncompleted, -> { where(completed_on: nil) }
+  scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
   scope :filter_by_user_id, lambda { |user_id|
@@ -58,18 +67,43 @@ class Need < ApplicationRecord
 
   validates :name, presence: true
 
-  delegate :name, :is_vulnerable, :address, :telephone, :delivery_details, :dietary_details, :cooking_facilities, :has_covid_symptoms, :any_children_below_15, to: :contact, prefix: true
+  delegate :name, :address, :postcode, :telephone, :mobile, :is_vulnerable,
+           :count_people_in_house, :any_dietary_requirements, :dietary_details,
+           :cooking_facilities, :delivery_details, :has_covid_symptoms,
+           to: :contact, prefix: true
   delegate :name, to: :user, prefix: true
 
   def self.to_csv
-    attributes = %w[contact_name category name status contact_address contact_telephone contact_is_vulnerable is_urgent created_at
-                    contact_delivery_details contact_dietary_details contact_cooking_facilities contact_has_covid_symptoms contact_any_children_below_15]
+    attributes = {
+      id: 'need_id',
+      category: 'category',
+      status: 'status',
+      created_at: 'created_at',
+
+      contact_name: 'name',
+      contact_address: 'address',
+      contact_postcode: 'postcode',
+      contact_telephone: 'telephone',
+      contact_mobile: 'mobile',
+
+      food_priority: 'food_priority',
+      food_service_type: 'food_service_type',
+      contact_count_people_in_house: 'count_people_in_house',
+      contact_any_dietary_requirements: 'any_dietary_requirements',
+      contact_dietary_details: 'dietary_details',
+      contact_cooking_facilities: 'cooking_facilities',
+      contact_delivery_details: 'delivery_details',
+      contact_has_covid_symptoms: 'has_covid_symptoms',
+
+      contact_is_vulnerable: 'is_vulnerable',
+      is_urgent: 'is_urgent'
+    }
 
     CSV.generate(headers: true) do |csv|
-      csv << attributes
+      csv << attributes.values
 
       all.each do |record|
-        csv << attributes.map { |attr| record.send(attr) }
+        csv << attributes.keys.map { |attr| record.send(attr) }
       end
     end
   end
@@ -120,4 +154,16 @@ class Need < ApplicationRecord
   def last_phoned_date
     read_attribute('last_phoned_date')
   end
+
+  # This sort method is to first sort future needs (where start_on > today) to the bottom of the list
+  # and then sort by created_at
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def self.sort_created_and_start_date(first, second)
+    return first.start_on <=> second.start_on if first.start_on && second.start_on
+    return -1 if first.start_on.nil? && !second.start_on.nil? && second.start_on > DateTime.now
+    return 1 if second.start_on.nil? && !first.start_on.nil? && first.start_on > DateTime.now
+
+    first.created_at <=> second.created_at
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
