@@ -17,6 +17,30 @@
     outline: none;
 }
 
+input[type=email],
+input[type=text],
+input[type=number],
+textarea
+::-webkit-input-placeholder {
+  color: transparentize($text, 0.5);
+}
+
+input[type=email],
+input[type=text],
+input[type=number],
+textarea
+::-moz-placeholder {
+  color: transparentize($text, 0.5);
+}
+
+input[type=email],
+input[type=text],
+input[type=number],
+textarea
+:-ms-input-placeholder {
+  color: transparentize($text, 0.5) !important;
+}
+
 a{
     color: $blue;
     &:hover{
@@ -31,6 +55,10 @@ a{
 
 p{
     line-height: 1.5;
+}
+
+select::-ms-expand {
+  display: none;
 }
 
 .visually-hidden{
