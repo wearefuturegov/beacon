@@ -7,14 +7,20 @@ class TriageController < ApplicationController
 
   def edit
     @contact_needs = ContactNeeds.new
-    @contact_needs.needs_list = view_context.needs.map do |need|
-      need.merge({ :active => false, :description => "test" })
-    end
+    @contact_needs.needs_list = view_context.needs.each_with_index.map do |need, index|
+      [index.to_s, need.merge({ :active => "false" })]
+    end.to_h
   end
 
   def update
+    @contact.assign_attributes(contact_params)
     @contact_needs = ContactNeeds.new(contact_needs_params)
-    return render :edit unless @contact_needs.valid?
+    unless @contact_needs.valid?
+      view_context.needs.each_with_index do |need, index|
+        @contact_needs.needs_list[index.to_s].merge!(need)
+      end
+      return render :edit
+    end
 
     if @contact.update(contact_params)
       NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
