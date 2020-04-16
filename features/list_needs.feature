@@ -18,7 +18,7 @@ Feature: List needs
 
   @javascript
   Scenario Outline: Filter resident needs by category
-    Given a unique resident with a "<category>" need
+    Given a resident with a "<category>" need
     When I view any needs list row for that resident
     And I filter needs by category "<category>"
     Then I see the need for category "<category>" in the results
@@ -39,13 +39,13 @@ Feature: List needs
 
 
     Scenario: Sort needs by category ascending
-      Given a unique resident with a "Book drops and entertainment" need
-      And a unique resident with a "Groceries and cooked meals" need
+      Given a resident with a "Book drops and entertainment" need
+      And a resident with a "Groceries and cooked meals" need
       When I sort needs by category in "ASC" order
       Then I see the need for category "Book drops and entertainment" first in the results
 
     Scenario: Sort needs by category descending
-      Given a unique resident with a "Book drops and entertainment" need
-      And a unique resident with a "Groceries and cooked meals" need
+      Given a resident with a "Book drops and entertainment" need
+      And a resident with a "Groceries and cooked meals" need
       When I sort needs by category in "DESC" order
       Then I see the need for category "Groceries and cooked meals" first in the results
