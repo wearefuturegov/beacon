@@ -37,8 +37,8 @@ RSpec.describe Need, type: :model do
   end
 
   describe 'sort_created_and_start_date' do
-    let!(:created_today_started) { build :need, name: 'created today, no start date', created_at: DateTime.now }
-    let!(:created_tomorrow_started) { build :need, name: 'created tomorrow, no start date', created_at: DateTime.now + 1.days }
+    let!(:created_today_started) { build :need, name: 'created today, no start date', created_at: DateTime.now, start_on: nil }
+    let!(:created_tomorrow_started) { build :need, name: 'created tomorrow, no start date', created_at: DateTime.now + 1.days, start_on: nil }
 
     let!(:created_today_start_tomorrow) { build :need, name: 'created today, start tomorrow', created_at: DateTime.now, start_on: DateTime.now + 1.days }
     let!(:created_today_start_today) { build :need, name: 'created today, start today', created_at: DateTime.now.beginning_of_day, start_on: DateTime.now.beginning_of_day }
