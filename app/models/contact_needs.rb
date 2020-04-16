@@ -4,6 +4,7 @@
 class ContactNeeds
   include ActiveModel::Model
   include ActiveModel::Validations
+  validates_with ContactNeedsValidator
 
   attr_accessor :needs_list
   attr_accessor :other_need
