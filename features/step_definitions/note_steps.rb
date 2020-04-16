@@ -4,12 +4,12 @@ Given('a resident with a {string} need') do |need|
   step 'I submit the add needs form'
 end
 
-Given('a resident with a {string} need and {string} need') do |need1, need2|
+Given('a resident with {string} needs') do |needs|
   @contact = Contact.create!(first_name: 'Test')
-  step "I add needs \"#{need1}\""
-  step 'I submit the add needs form'
-  step "I add needs \"#{need2}\""
-  step 'I submit the add needs form'
+  needs.split(', ').each do |need|
+    step "I add needs \"#{need}\""
+    step 'I submit the add needs form'
+  end
 end
 
 When('I add a {string} note {string}') do |category, content|

@@ -39,11 +39,11 @@ Feature: List needs
 
 
     Scenario: Sort needs by category ascending
-      Given a resident with a "Book drops and entertainment" need and "Groceries and cooked meals" need
+      Given a resident with "Book drops and entertainment, Dog walking, Groceries and cooked meals" needs
       When I sort needs by category in "ASC" order
       Then I see the need for category "Book drops and entertainment" first in the results
 
     Scenario: Sort needs by category descending
-      Given a resident with a "Book drops and entertainment" need and "Groceries and cooked meals" need
+      Given a resident with "Book drops and entertainment, Dog walking, Groceries and cooked meals" needs
       When I sort needs by category in "DESC" order
       Then I see the need for category "Groceries and cooked meals" first in the results
