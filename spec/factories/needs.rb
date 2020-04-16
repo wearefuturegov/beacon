@@ -36,10 +36,6 @@ FactoryBot.define do
       is_urgent { true }
     end
 
-    trait :triage do
-      category { 'phone triage' }
-    end
-
     trait :imported do
       name { 'Imported call log' }
       category { 'phone triage' }
