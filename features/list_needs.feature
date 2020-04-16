@@ -24,13 +24,13 @@ Feature: List needs
     Then I see the need for category "<category>" in the results
     Examples:
       | category                      |
-      | Phone triage                  |
+      | Dog walking                   |
 
   @javascript
   Scenario Outline: Filter all needs by category
     Given many needs exist
     When I filter needs by category "<category>"
-    Then I see all needs for the category "<category>" in the results
+    Then I see every needs with category "<category>" in the results
     Examples:
       | category                      |
       | Groceries and cooked meals    |

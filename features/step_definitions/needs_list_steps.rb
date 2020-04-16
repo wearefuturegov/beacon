@@ -1,5 +1,6 @@
 When('I view any needs list row for that resident') do
   visit '/'
+  page.should have_content("All needs")
   @resident_row = find_resident_row(@contact.first_name)
   expect(@resident_row).not_to be_nil
 end
@@ -23,6 +24,7 @@ end
 Given('many needs exist') do
   # nothing to do, we have needs from the seed data
   visit '/'
+  page.should have_content("All needs")
 end
 
 When('I sort needs by category in {string} order') do |order|
@@ -33,6 +35,13 @@ Then('I see the need for category {string} first in the results') do |category|
   first_row = page.find('table > tbody > tr:nth-child(1)')
   category_column = first_row.find('td:first-child')
   expect(category_column).to have_content(category)
+end
+
+Then('I see every needs with category {string} in the results') do |category|
+  page.all('table tr').each do |row|
+    category_column = row.find('td:first-child')
+    expect(category_column).to have_content(category)
+  end
 end
 
 def find_resident_row(resident_name)
