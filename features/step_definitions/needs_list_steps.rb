@@ -1,6 +1,6 @@
 When('I view any needs list row for that resident') do
   visit '/'
-  page.should have_content("All needs")
+  page.should have_content('All needs')
   @resident_row = find_resident_row(@contact.first_name)
   expect(@resident_row).not_to be_nil
 end
@@ -24,7 +24,7 @@ end
 Given('many needs exist') do
   # nothing to do, we have needs from the seed data
   visit '/'
-  page.should have_content("All needs")
+  page.should have_content('All needs')
 end
 
 When('I sort needs by category in {string} order') do |order|
