@@ -27,9 +27,12 @@ Feature: Add needs
     When I add needs "<need>"
     And I submit the add needs form
     Then the residents list of needs contains "<need>"
+    @example
     Examples:
       | need                          |
       | Phone triage                  |
+    Examples:
+      | need                          |
       | Groceries and cooked meals    |
       | Physical and mental wellbeing |
       | Financial support             |
