@@ -1,8 +1,11 @@
-<% if @contact_needs.errors.any? %>
+<% if @contact_needs.errors.any? || @contact.errors.any? %>
   <div class="error" id="error_explanation">
-    <h2><%= pluralize(@contact_needs.errors.count, "error") %> prohibited this triage form from being saved:</h2>
+    <h2><%= pluralize(@contact_needs.errors.count + @contact.errors.count, "error") %> prohibited this triage form from being saved:</h2>
 
     <ul>
+      <% @contact.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
       <% @contact_needs.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>

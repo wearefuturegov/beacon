@@ -12,20 +12,18 @@ class TriageController < ApplicationController
   def update
     @contact.assign_attributes(contact_params)
     @contact_needs = ContactNeeds.new(contact_needs_params)
-    unless @contact_needs.valid?
+    @contact_needs.valid?
+    @contact.valid?
+
+    if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
       view_context.needs.each_with_index do |need, index|
         @contact_needs.needs_list[index.to_s].merge!(need)
       end
       return render :edit
     end
 
-    if @contact.update(contact_params)
-      NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
-      redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
-    else
-      @contact_needs = ContactNeeds.new
-      render :edit
-    end
+    NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
+    redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
   end
 
   private
