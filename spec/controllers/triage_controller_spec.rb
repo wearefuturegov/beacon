@@ -2,19 +2,20 @@ RSpec.describe TriageController, type: :controller do
   before :each do
     controller.class.skip_before_action :require_user!, raise: false
     controller.instance_variable_set(:@current_user, {})
+
+    @test_contact = double('Contact')
+    allow(@test_contact).to receive(:id).and_return 1
+    allow(@test_contact).to receive(:update).and_return(@test_contact)
+    allow(@test_contact).to receive(:assign_attributes)
+    allow(@test_contact).to receive(:valid?)
+    allow(@test_contact).to receive(:errors).and_return([])
+    allow(@test_contact).to receive(:save).and_return(true)
+
+    @contact = class_double('Contact').as_stubbed_const
+    allow(@contact).to receive(:find).and_return(@test_contact)
   end
 
   describe 'PUT #create' do
-    before(:each) do
-      @test_contact = double('Contact')
-      allow(@test_contact).to receive(:id).and_return 1
-      allow(@test_contact).to receive(:update).and_return(@test_contact)
-      allow(@test_contact).to receive(:assign_attributes)
-
-      @contact = class_double('Contact').as_stubbed_const
-      allow(@contact).to receive(:find).and_return(@test_contact)
-    end
-
     it 'redirects to the contacts page for the given contact' do
       needs_list = { 1 => { active: false } }
       put :update, params: { id: 1, contact_id: 1, contact: { id: 1 }, contact_needs: { needs_list: needs_list } }
@@ -24,9 +25,7 @@ RSpec.describe TriageController, type: :controller do
 
   describe 'PUT #create fails validation' do
     before(:each) do
-      @test_contact = double('Contact')
-      allow(@test_contact).to receive(:update).and_return(false)
-      allow(@test_contact).to receive(:assign_attributes)
+      allow(@test_contact).to receive(:save).and_return(false)
 
       @contact_model = class_double('Contact').as_stubbed_const
       allow(@contact_model).to receive(:find).and_return(@test_contact)

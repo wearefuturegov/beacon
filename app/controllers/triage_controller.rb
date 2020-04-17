@@ -16,8 +16,9 @@ class TriageController < ApplicationController
     @contact.valid?
 
     if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
-      view_context.needs.each_with_index do |need, index|
-        @contact_needs.needs_list[index.to_s].merge!(need)
+      # repopulate the label/colour data
+      @contact_needs.needs_list.each_with_index do |need, index|
+        need[1].merge!(view_context.needs[index])
       end
       return render :edit
     end
