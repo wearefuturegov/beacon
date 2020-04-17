@@ -17,6 +17,14 @@
     outline: none;
 }
 
+::placeholder {
+  color: transparentize($text, 0.5);
+}
+
+:-ms-input-placeholder {
+  color: transparentize($text, 0.5) !important;
+}
+
 a{
     color: $blue;
     &:hover{
@@ -31,6 +39,10 @@ a{
 
 p{
     line-height: 1.5;
+}
+
+select::-ms-expand {
+  display: none;
 }
 
 .visually-hidden{
