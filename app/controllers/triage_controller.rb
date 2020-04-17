@@ -8,7 +8,7 @@ class TriageController < ApplicationController
   def edit
     @contact_needs = ContactNeeds.new
     @contact_needs.needs_list = view_context.needs.each_with_index.map do |need, index|
-      need_hash = need.merge({ :active => "false" })
+      need_hash = need.merge({ active: 'false' })
       need_hash[:start_on] = (Date.today + 6.days).strftime('%d/%m/%Y') if need[:label] == 'Phone triage'
       [index.to_s, need_hash]
     end.to_h
