@@ -12,7 +12,7 @@
 
 ![Ruby Test Env](https://github.com/wearefuturegov/beacon/workflows/Ruby%20Test%20Env/badge.svg)
 
-🚨This is **BETA** software and may be buggy 🚨
+🚨**This is BETA software.** Please submit issues for any bugs you find.🚨
 
 This is a tool for local authorities and voluntary organisations to record and triage the needs of vulnerable people in their jurisdiction, and assign those needs to those who can meet them.
 
