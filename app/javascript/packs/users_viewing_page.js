@@ -2,20 +2,26 @@ import consumer from "../channels/consumer";
 
 const contactId = document.getElementById('contactId').textContent;
 let currentPeople = [];
+let interval = null;
 
 const subscription = consumer.subscriptions.create({ channel: 'ContactChannel', id: contactId }, {
     connected() {
-        console.debug("connected: ", contactId);
         // Calls `ContactChannel#appear(data)` on the server.
-        this.perform("appear", { user_email: getUserEmail(), contact_id: contactId })
+        interval = setInterval(() => { 
+         this.perform("viewing", { user_email: getUserEmail(), contact_id: contactId });
+        }, 3000);
+        
     },
     received(data) {
-        console.debug("received: ", data);
         const person = currentPeople.find(p => p.name === data.userEmail);
-        if (person == null) currentPeople.push({ name: userEmail });
+        if (person == null) currentPeople.push({ name: data.userEmail, lastSeen: Date.now() });
         else person.lastSeen = Date.now();
+
+        updateNames();
     },
     disconnected() {
+        clearInterval(interval);
+        subscription.unsubscribe();
     }
 });
 
@@ -25,19 +31,19 @@ const getUserEmail = () => {
 }
 
 const updateNames = () => {
-    currentPeople = currentPeople.filter(p => p.name !== getUserEmail());
+    currentPeople = currentPeople.filter(p => p.lastSeen > Date.now() - 4000);
+    let otherPeople = currentPeople.filter(p => p.name !== getUserEmail());
     const div = document.getElementById("concurrent-users");
 
     // add warning title
-    console.debug("current people ", currentPeople);
-    if (currentPeople.length > 0) {
+    if (otherPeople.length > 0) {
         div.innerHTML = '';
         const ul = document.createElement("ul");
         
         div.appendChild(ul);
         ul.textContent = 'Somebody else is viewing this page, you may be unable to save changes';
         // add other users looking at this page
-        currentPeople.forEach(p => {
+        otherPeople.forEach(p => {
                 const li = document.createElement("li");
                 li.appendChild(document.createTextNode(p.name));
                 ul.appendChild(li);                
@@ -47,4 +53,3 @@ const updateNames = () => {
         div.innerHTML = '';
     }
 }
-

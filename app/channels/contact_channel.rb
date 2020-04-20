@@ -3,14 +3,13 @@ class ContactChannel < ApplicationCable::Channel
     stream_for contact(params[:id])
   end
 
-  def appear(data)
+  def viewing(data)
     return unless data
 
-    ContactChannel.broadcast_to(contact(data['contact_id']), { userEmail: data['user_email'], type: 'JOIN' })
+    ContactChannel.broadcast_to(contact(data['contact_id']), { userEmail: data['user_email'], type: 'VIEW' })
   end
 
   def unsubscribed
-    ContactChannel.broadcast_to(contact(data['contact_id']), { userEmail: data['user_email'], type: 'LEAVE' }) if data
     stop_all_streams
   end
 
