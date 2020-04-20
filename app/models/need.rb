@@ -122,7 +122,6 @@ class Need < ApplicationRecord
                         else
                           ''
                         end
-    save
   end
 
   def self.base_query
