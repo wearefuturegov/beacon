@@ -30,6 +30,7 @@ class NeedsController < ApplicationController
   end
 
   def update
+    authorize @need
     if @need.update(need_params)
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else

@@ -15,7 +15,7 @@
             <%# Switch role section %>
             <%= form_tag(set_role_path, :method => :post) do %>
               <%= label_tag :id, 'Role:' %>
-              <%= select_tag :id, options_from_collection_for_select(current_user.roles.order(:id), :id, :name, current_user_role.id) %>
+              <%= select_tag :id, options_from_collection_for_select(current_user.roles.order(:id), :id, :name, current_user.role_id) %>
               <%= submit_tag 'Switch' %>
             <% end %>
           </div>

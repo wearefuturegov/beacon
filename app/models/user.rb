@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :completed_contacts, through: :completed_needs, source: :contact
   has_many :user_roles
   has_many :roles, through: :user_roles
+  belongs_to :role, optional: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   passwordless_with :email
 
@@ -34,5 +35,9 @@ class User < ApplicationRecord
 
   def last_logged_in
     passwordless_sessions.try(:last).try(:claimed_at)
+  end
+
+  def role_type
+    role&.role
   end
 end

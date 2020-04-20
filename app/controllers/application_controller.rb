@@ -38,10 +38,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= authenticate_by_session(User)
   end
 
-  def current_user_role
-    Role.find(session['current_role'])
-  end
-
   private
 
   def load_council_config
