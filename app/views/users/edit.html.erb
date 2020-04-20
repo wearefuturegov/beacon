@@ -1,6 +1,6 @@
 <header class="panel-header">
   <%= link_to image_tag("left.svg", alt: "Go back"), users_path, class: "go-back" %>
-  <h1 class="panel-header__title">Invite a new user</h1>
+  <h1 class="panel-header__title">Edit <%= @user.name_or_email %></h1>
 </header>
 
 <div class="panel">
@@ -9,7 +9,7 @@
     <%= render 'form', user: @user, form: form %>
 
     <div class="actions">
-      <%= form.button "Send invite", class: "button button--primary" %>
+      <%= form.button "Update", class: "button button--primary" %>
     </div>
   <% end %>
 </div>

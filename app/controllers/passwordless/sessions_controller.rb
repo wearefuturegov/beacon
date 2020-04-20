@@ -48,6 +48,7 @@ module Passwordless
       BCrypt::Password.create(params[:token])
       sign_in passwordless_session
 
+      raise 'User cannot log in without assigned roles' if current_user.roles.empty?
       current_user.role = current_user.roles.first
       current_user.save
 

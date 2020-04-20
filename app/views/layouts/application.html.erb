@@ -11,12 +11,16 @@
         <%= yield :header %>
         <nav class="content-header__actions-right">
 
-          <div>
-            <%# Switch role section %>
-            <%= form_tag(set_role_path, :method => :post) do %>
-              <%= label_tag :id, 'Role:' %>
-              <%= select_tag :id, options_from_collection_for_select(current_user.roles.order(:id), :id, :name, current_user.role_id) %>
-              <%= submit_tag 'Switch' %>
+          <div class="content-header__roles">
+            <% if current_user.roles.count > 1 %>
+              <%# Switch role section %>
+              <%= form_tag(set_role_path, :method => :post) do %>
+                <%= label_tag :id, 'Role:' %>
+                <%= select_tag :id, options_from_collection_for_select(current_user.roles.order(:id), :id, :name, current_user.role_id) %>
+                <%= submit_tag 'Switch' %>
+              <% end %>
+            <% else %>
+              (<%= current_user.role.name %>)
             <% end %>
           </div>
 

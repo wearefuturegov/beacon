@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :uncompleted_needs, -> { uncompleted }, class_name: 'Need'
   has_many :uncompleted_contacts, through: :uncompleted_needs, source: :contact
   has_many :completed_contacts, through: :completed_needs, source: :contact
-  has_many :user_roles
+  has_many :user_roles, :dependent => :destroy
   has_many :roles, through: :user_roles
   belongs_to :role, optional: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }
@@ -39,5 +39,9 @@ class User < ApplicationRecord
 
   def role_type
     role&.role
+  end
+
+  def in_role?(role_id)
+    roles.any? {|r| r.id == role_id}
   end
 end

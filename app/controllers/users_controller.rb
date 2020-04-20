@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: [:destroy]
+  before_action :set_user, only: [:destroy, :edit, :update]
   before_action :require_admin
 
   # GET /users
@@ -18,9 +18,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params.except(:roles))
-    @user.user_roles = user_params[:roles].map do |role_id|
-      UserRole.new(user_id: @user, role_id: role_id)
-    end
+    @user.user_roles = user_roles_from_params
 
     @user.invited = DateTime.now
     if @user.save
@@ -32,6 +30,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @roles = Role.all
+  end
+
+  def update
+    @user.roles = user_roles_from_params
+    @user.assign_attributes(user_params.except(:roles))
+
+    if @user.save
+      redirect_to :users, notice: 'User was successfully updated.'
+    else
+      @roles = Role.all
+      render :edit
+    end
+  end
+
   # DELETE /users/1
   def destroy
     @user.destroy
@@ -39,6 +53,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_roles_from_params
+    return [] if user_params[:roles].nil?
+    Role.find(user_params[:roles])
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user

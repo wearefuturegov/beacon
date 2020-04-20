@@ -58,9 +58,11 @@ end
 # make an initial user for sake of the readme
 seed_user_emails = ENV['SEED_USER_EMAILS'] || 'admin@example.com'
 seed_user_emails.split(',').each do |email|
+  admin_role = Role.find_by(role: 'manager')
   User.find_or_initialize_by(email: email.strip)
       .update!(
         admin: true,
-        invited: DateTime.now
+        invited: DateTime.now,
+        roles: [admin_role]
       )
 end
