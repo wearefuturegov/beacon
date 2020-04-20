@@ -46,4 +46,10 @@ class ApplicationPolicy
       scope.all
     end
   end
+
+  protected
+
+  def current_user_role
+    Role.find(session['current_role'])
+  end
 end

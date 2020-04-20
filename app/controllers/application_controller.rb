@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'
-  helper_method :current_user, :copyright, :council_name, :council_key, :privacy_link, :logo_path, :support_email
+  helper_method :current_user, :current_user_role, :copyright, :council_name, :council_key, :privacy_link, :logo_path, :support_email
 
   before_action :set_paper_trail_whodunnit
 
@@ -36,6 +36,10 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= authenticate_by_session(User)
+  end
+
+  def current_user_role
+    Role.find(session['current_role'])
   end
 
   private

@@ -20,7 +20,7 @@ class User < ApplicationRecord
   has_paper_trail
 
   def role_names
-    roles.map(&:name).join(',')
+    roles.map(&:name).join(', ')
   end
 
   def name

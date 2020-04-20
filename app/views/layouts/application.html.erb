@@ -10,6 +10,16 @@
       <header class="panel content-header">
         <%= yield :header %>
         <nav class="content-header__actions-right">
+
+          <div>
+            <%# Switch role section %>
+            <%= form_tag(set_role_path, :method => :post) do %>
+              <%= label_tag :id, 'Role:' %>
+              <%= select_tag :id, options_from_collection_for_select(current_user.roles.order(:id), :id, :name, current_user_role.id) %>
+              <%= submit_tag 'Switch' %>
+            <% end %>
+          </div>
+
           <span class="content-header__current-user"><%= current_user.email %></span>
           <%= link_to 'Log out', auth.sign_out_path, class: "button button--small" %>
         </nav>

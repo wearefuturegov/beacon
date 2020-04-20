@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:index, :new, :create, :destroy]
+  post 'role', to: 'passwordless/sessions#set_role', as: 'set_role'
   passwordless_for :users, at: '/', as: :auth
 end

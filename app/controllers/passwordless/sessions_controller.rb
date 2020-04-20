@@ -47,6 +47,7 @@ module Passwordless
       # Make it "slow" on purpose to make brute-force attacks more of a hassle
       BCrypt::Password.create(params[:token])
       sign_in passwordless_session
+      session['current_role'] = current_user.roles.map(&:id).first
 
       redirect_to passwordless_success_redirect_path
     rescue Errors::TokenAlreadyClaimedError
@@ -63,6 +64,13 @@ module Passwordless
     def destroy
       sign_out authenticatable_class
       redirect_to passwordless_sign_out_redirect_path
+    end
+
+    def set_role
+      if current_user.roles.any? {|role| role.id == params[:id].to_i }
+        session['current_role'] = params[:id]
+      end
+      redirect_to '/'
     end
 
     protected
