@@ -45,11 +45,11 @@ class ApplicationPolicy
     def resolve
       scope.all
     end
+
+    def current_user_role
+      Role.find(session['current_role'])
+    end
   end
 
   protected
-
-  def current_user_role
-    Role.find(session['current_role'])
-  end
 end
