@@ -39,6 +39,7 @@ const getUserEmail = () => {
 const updateEdits = (userEmail) => {
     const div = document.getElementById("concurrent-users");
     div.innerHTML = '';
+    div.className = 'outdated';
     const ul = document.createElement("ul");
     div.appendChild(ul);
     ul.textContent = 'This record is out of date';
