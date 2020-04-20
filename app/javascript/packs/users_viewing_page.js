@@ -8,15 +8,15 @@ let currentPeople = [];
 const subscription = consumer.subscriptions.create({ channel: 'ContactChannel', id: contactId }, {
     connected() {
         this.perform("viewing", { "contact_id": contactId });
-        interval = setInterval(() => { this.perform("viewing", { "contact_id": contactId }) }, 2000);
+        interval = setInterval(() => { this.perform("viewing", { "contact_id": contactId }) }, 3000);
         updateNames = setInterval(() => {
             const filterEmail = document.getElementById('filterEmail').textContent;
             currentPeople = currentPeople.filter(p => p.lastSeen > Date.now() - 4000).filter(p => p.name !== filterEmail);
             const div = document.getElementById("concurrent-users");
-            div.innerHTML = '';
 
             // add warning title
             if (currentPeople.length > 0) {
+                div.innerHTML = '';
                 const ul = document.createElement("ul");
                 
                 div.appendChild(ul);
