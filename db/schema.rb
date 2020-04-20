@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_172718) do
+ActiveRecord::Schema.define(version: 2020_04_20_071847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2020_04_15_172718) do
     t.string "nhs_number"
     t.date "date_of_birth"
     t.boolean "has_covid_symptoms"
+    t.integer "lock_version", default: 0
     t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
   end
 
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 2020_04_15_172718) do
     t.boolean "is_urgent", default: false
     t.datetime "start_on"
     t.jsonb "supplemental_data"
+    t.integer "lock_version", default: 0
     t.index ["contact_id"], name: "index_needs_on_contact_id"
     t.index ["user_id"], name: "index_needs_on_user_id"
   end

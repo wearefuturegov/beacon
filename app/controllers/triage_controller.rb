@@ -25,6 +25,13 @@ class TriageController < ApplicationController
 
     NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
     redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = 'Invalid Action: somebody else has edited this form, please refresh the current page.'
+    # repopulate the label/colour data
+    @contact_needs.needs_list.each_with_index do |need, index|
+      need[1].merge!(view_context.needs[index])
+    end
+    render :edit
   end
 
   private
@@ -37,7 +44,7 @@ class TriageController < ApplicationController
     params.require(:contact).permit(:first_name, :middle_names, :surname, :address, :postcode, :email, :telephone,
                                     :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_below_15,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
-                                    :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms)
+                                    :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version)
   end
 
   def contact_needs_params

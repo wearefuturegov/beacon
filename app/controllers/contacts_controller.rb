@@ -31,6 +31,9 @@ class ContactsController < ApplicationController
     else
       render :edit
     end
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = 'Invalid Action: somebody else has edited this form, please refresh the current page.'
+    render :edit
   end
 
   private
@@ -43,6 +46,6 @@ class ContactsController < ApplicationController
     params.require(:contact).permit(:first_name, :middle_names, :surname, :address, :postcode, :email, :telephone,
                                     :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_below_15,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
-                                    :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms)
+                                    :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version)
   end
 end

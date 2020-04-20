@@ -1,5 +1,5 @@
 <%= form_with(model: @need, local: true, class: "need-actions") do |f| %>
-
+    <%= f.hidden_field :lock_version, :value => @need.lock_version %>
     <div class="need-actions__field">
     <%= f.label :user_id, 'Assigned to', class: 'need-actions__label' %>
     <%= f.collection_select :user_id, @users, :id, :name_or_email, { include_blank: "Unassigned" }, { class: "need-actions__select" } %>
