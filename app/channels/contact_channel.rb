@@ -1,6 +1,7 @@
 class ContactChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "contact_id_#{params[:id]}"
+    contact = Contact.find(params[:id])
+    stream_for contact
   end
 
   def viewing(contact_id)

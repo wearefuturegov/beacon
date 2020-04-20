@@ -29,7 +29,6 @@ class NeedsController < ApplicationController
   end
 
   def update
-    
     if @need.update(need_params)
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else
@@ -37,8 +36,8 @@ class NeedsController < ApplicationController
       render :show
     end
   rescue ActiveRecord::StaleObjectError
-    flash[:alert] = 'Invalid Action: somebody else has edited this form, please refresh the current page.'
-    @users = User.all
+    flash[:alert] =
+      @users = User.all
     render :show
   end
 

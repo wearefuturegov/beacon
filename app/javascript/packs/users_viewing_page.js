@@ -7,7 +7,7 @@ let currentPeople = [];
 
 const subscription = consumer.subscriptions.create({ channel: 'ContactChannel', id: contactId }, {
     connected() {
-        this.perform("viewing", { "contact_id": contactId });
+      //  this.perform("viewing", { "contact_id": contactId });
         interval = setInterval(() => { this.perform("viewing", { "contact_id": contactId }) }, 3000);
         updateNames = setInterval(() => {
             const filterEmail = document.getElementById('filterEmail').textContent;

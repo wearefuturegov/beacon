@@ -29,12 +29,13 @@ class ContactsController < ApplicationController
 
   def update
     if @contact.update(contact_params)
+      ContactChannel.broadcast_to(@contact, 'record updated')
       redirect_to contact_path(@contact), notice: 'Contact was successfully updated.'
     else
       render :edit
     end
   rescue ActiveRecord::StaleObjectError
-    flash[:alert] = 'Invalid Action: somebody else has edited this form, please refresh the current page.'
+    flash[:alert] = STALE_ERROR_MESSAGE
     render :edit
   end
 

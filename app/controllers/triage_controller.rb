@@ -17,25 +17,28 @@ class TriageController < ApplicationController
     @contact.valid?
 
     if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
-      # repopulate the label/colour data
-      @contact_needs.needs_list.each_with_index do |need, index|
-        need[1].merge!(view_context.needs[index])
-      end
+      add_contact_needs
       return render :edit
     end
+
+    ContactChannel.broadcast_to(@contact, 'record updated')
 
     NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
     redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
   rescue ActiveRecord::StaleObjectError
-    flash[:alert] = 'Invalid Action: somebody else has edited this form, please refresh the current page.'
-    # repopulate the label/colour data
-    @contact_needs.needs_list.each_with_index do |need, index|
-      need[1].merge!(view_context.needs[index])
-    end
+    flash[:alert] = STALE_ERROR_MESSAGE
+    add_contact_needs
     render :edit
   end
 
   private
+
+  # repopulate the label/colour data
+  def add_contact_needs
+    @contact_needs.needs_list.each_with_index do |need, index|
+      need[1].merge!(view_context.needs[index])
+    end
+  end
 
   def set_contact
     @contact = Contact.find(params[:contact_id])
