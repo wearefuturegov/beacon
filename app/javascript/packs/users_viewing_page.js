@@ -5,28 +5,31 @@ let currentPeople = [];
 
 const subscription = consumer.subscriptions.create({ channel: 'ContactChannel', id: contactId }, {
     connected() {
+        console.debug("connected: ", contactId);
+        // Calls `ContactChannel#appear(data)` on the server.
+        this.perform("appear", { user_email: getUserEmail(), contact_id: contactId })
     },
     received(data) {
-        const person = currentPeople.find(p => p.name === data);
-        if (person == null) currentPeople.push({ name: data, lastSeen: Date.now() });
+        console.debug("received: ", data);
+        const person = currentPeople.find(p => p.name === data.userEmail);
+        if (person == null) currentPeople.push({ name: userEmail });
         else person.lastSeen = Date.now();
     },
     disconnected() {
-        cleanup();
     }
 });
 
-const cleanup = () => {
-    console.log("cleanup");
-    subscription.unsubscribe();
-};
+
+const getUserEmail = () => {
+    return document.getElementById('userEmail').textContent;
+}
 
 const updateNames = () => {
-    const filterEmail = document.getElementById('filterEmail').textContent;
-    currentPeople = currentPeople.filter(p => p.lastSeen > Date.now() - 4000).filter(p => p.name !== filterEmail);
+    currentPeople = currentPeople.filter(p => p.name !== getUserEmail());
     const div = document.getElementById("concurrent-users");
 
     // add warning title
+    console.debug("current people ", currentPeople);
     if (currentPeople.length > 0) {
         div.innerHTML = '';
         const ul = document.createElement("ul");
@@ -45,5 +48,3 @@ const updateNames = () => {
     }
 }
 
-addEventListener("beforeunload", cleanup);
-addEventListener("turbolinks:before-render", cleanup); 
