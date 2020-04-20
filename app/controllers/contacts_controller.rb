@@ -23,7 +23,9 @@ class ContactsController < ApplicationController
     @completed_needs = @contact.needs.where.not(completed_on: nil)
   end
 
-  def edit; end
+  def edit
+    @edit_contact_id = @contact.id
+  end
 
   def update
     if @contact.update(contact_params)
