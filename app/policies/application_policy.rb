@@ -48,4 +48,7 @@ class ApplicationPolicy
   end
 
   protected
+  def is_admin?
+    @user.in_role_name?('manager')
+  end
 end
