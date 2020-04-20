@@ -33,15 +33,15 @@
   </section>
 
   <fieldset class="field-section">
-      <legend class="field-section__title">Is this user an admin?</legend>
-      <div class="radio">
-        <%= form.radio_button :admin, true %>
-        <label for="user_admin_true" class="radio__label">Yes</label>
+      <legend class="field-section__title">What roles is this user in?</legend>
+      <% @roles.each do |role| %>
+      <div class="field">
+        <div class="checkbox">
+          <%= form.check_box :roles, { multiple: true }, role.id, false %>
+          <%= form.label :roles, role.name, { :value => role.id, :class => 'checkbox__label'}  %>
+        </div>
       </div>
-      <div class="radio">
-        <%= form.radio_button :admin, false %>
-        <label for="user_admin_false" class="radio__label">No</label>
-      </div>
+      <% end %>
   </fieldset>
 
   <div class="actions">

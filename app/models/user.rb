@@ -12,13 +12,15 @@ class User < ApplicationRecord
   has_many :uncompleted_needs, -> { uncompleted }, class_name: 'Need'
   has_many :uncompleted_contacts, through: :uncompleted_needs, source: :contact
   has_many :completed_contacts, through: :completed_needs, source: :contact
+  has_many :user_roles
+  has_many :roles, through: :user_roles
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   passwordless_with :email
 
   has_paper_trail
 
-  def role_title
-    admin ? 'Admin' : 'User'
+  def role_names
+    roles.map(&:name).join(',')
   end
 
   def name

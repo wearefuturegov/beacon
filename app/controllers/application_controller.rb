@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   before_action :require_user!
+  include Pundit
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'

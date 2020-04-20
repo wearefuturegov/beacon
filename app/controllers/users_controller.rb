@@ -12,16 +12,22 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @roles = Role.all
   end
 
   # POST /users
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.except(:roles))
+    @user.user_roles = user_params[:roles].map do |role_id|
+      UserRole.new(user_id: @user, role_id: role_id)
+    end
+
     @user.invited = DateTime.now
     if @user.save
       UserSignInMailer.send_invite_email(@user, root_url).deliver
       redirect_to :users, notice: 'User was successfully created.'
     else
+      @roles = Role.all
       render :new
     end
   end
@@ -41,7 +47,7 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :admin, :first_name, :last_name)
+    params.require(:user).permit(:email, :admin, :first_name, :last_name, :roles => [])
   end
 
   def require_admin

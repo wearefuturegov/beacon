@@ -10,8 +10,9 @@ class NeedsController < ApplicationController
   def index
     @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
     @users = User.all
-    @needs = Need.started
-    @needs = @needs.filter_and_sort(@params.slice(:category, :user_id, :status, :is_urgent), @params.slice(:order, :order_dir))
+    @needs = policy_scope(Need)
+                 .started
+                 .filter_and_sort(@params.slice(:category, :user_id, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
     respond_to do |format|
       format.html
