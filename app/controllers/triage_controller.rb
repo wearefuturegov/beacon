@@ -21,7 +21,7 @@ class TriageController < ApplicationController
       return render :edit
     end
 
-    ContactChannel.broadcast_to(@contact, 'record updated')
+    ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
 
     NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
     redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'

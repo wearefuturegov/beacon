@@ -16,8 +16,14 @@ const subscription = consumer.subscriptions.create({ channel: 'ContactChannel', 
         const person = currentPeople.find(p => p.name === data.userEmail);
         if (person == null) currentPeople.push({ name: data.userEmail, lastSeen: Date.now() });
         else person.lastSeen = Date.now();
+        if (data.type === 'VIEW') {
+            updateViewings();
+        } else if (data.type === 'CHANGED') {
+            currentPeople = [];
+            updateEdits(data.userEmail);
+            subscription.unsubscribe();
+        }
 
-        updateNames();
     },
     disconnected() {
         clearInterval(interval);
@@ -30,7 +36,18 @@ const getUserEmail = () => {
     return document.getElementById('userEmail').textContent;
 }
 
-const updateNames = () => {
+const updateEdits = (userEmail) => {
+    const div = document.getElementById("concurrent-users");
+    div.innerHTML = '';
+    const ul = document.createElement("ul");
+    div.appendChild(ul);
+    ul.textContent = 'This record is out of date';
+    const li = document.createElement("li");
+    li.appendChild(document.createTextNode("Contact: " + userEmail + " for clarifications."));
+    ul.appendChild(li);
+}
+
+const updateViewings = () => {
     currentPeople = currentPeople.filter(p => p.lastSeen > Date.now() - 4000);
     let otherPeople = currentPeople.filter(p => p.name !== getUserEmail());
     const div = document.getElementById("concurrent-users");

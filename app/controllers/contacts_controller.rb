@@ -29,7 +29,7 @@ class ContactsController < ApplicationController
 
   def update
     if @contact.update(contact_params)
-      ContactChannel.broadcast_to(@contact, 'record updated')
+      ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
       redirect_to contact_path(@contact), notice: 'Contact was successfully updated.'
     else
       render :edit
