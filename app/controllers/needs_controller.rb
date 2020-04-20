@@ -29,6 +29,7 @@ class NeedsController < ApplicationController
   end
 
   def update
+    
     if @need.update(need_params)
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else
@@ -36,8 +37,8 @@ class NeedsController < ApplicationController
       render :show
     end
   rescue ActiveRecord::StaleObjectError
-    flash[:alert] =
-      @users = User.all
+    flash[:alert] = STALE_ERROR_MESSAGE
+    @users = User.all
     render :show
   end
 

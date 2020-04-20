@@ -15,21 +15,16 @@
         </nav>
       </header>
       
+      <!-- Concurrent Users modal -->
       <div id="concurrent-users-modal">
         <div id="concurrent-users"></div>
-        <% if @edit_contact_id %>
-          <div id="contactId" hidden="hidden"><%= @edit_contact_id %></div>
-        <% end %>
+        <div id="contactId" hidden="hidden"><%= @edit_contact_id %></div>
         <div id="filterEmail" hidden="hidden"><%= current_user.email %></div>
       </div>
 
-      <%# is there a better catchall for this? %>
-      <% if flash[:notice] %>
-        <div class="notice"><%= flash[:notice] %></div>
-      <% else %>
-        <% flash.each do |name, msg| %>
-          <div class="alert"><%= msg %></div>
-        <% end %>
+      <!-- Notifications -->
+      <% flash.each do |type, msg| %>
+        <div class="<%= type %>"><%= msg %></div>
       <% end %>
 
       <%= yield %>
