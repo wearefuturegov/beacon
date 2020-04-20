@@ -55,7 +55,7 @@ class Need < ApplicationRecord
   }
 
   scope :order_by_last_phoned_date, lambda { |direction|
-    order("last_phoned_date #{direction} NULLS LAST")
+    order("last_phoned_date #{direction}")
   }
 
   counter_culture :contact,
