@@ -61,6 +61,7 @@ class UsersController < ApplicationController
 
   def user_roles_from_params
     return [] if user_params[:roles].nil?
+
     Role.find(user_params[:roles])
   end
 
@@ -71,6 +72,6 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :admin, :first_name, :last_name, :roles => [])
+    params.require(:user).permit(:email, :admin, :first_name, :last_name, roles: [])
   end
 end

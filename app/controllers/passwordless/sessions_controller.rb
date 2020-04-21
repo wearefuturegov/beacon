@@ -49,6 +49,7 @@ module Passwordless
       sign_in passwordless_session
 
       raise 'User cannot log in without assigned roles' if current_user.roles.empty?
+
       current_user.role = current_user.roles.first
       current_user.save
 
@@ -70,7 +71,7 @@ module Passwordless
     end
 
     def set_role
-      if current_user.roles.any? {|role| role.id == params[:id].to_i }
+      if current_user.roles.any? { |role| role.id == params[:id].to_i }
         current_user.role_id = params[:id].to_i
         current_user.save
       end

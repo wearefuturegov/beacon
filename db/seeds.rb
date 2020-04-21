@@ -40,14 +40,12 @@ ActiveRecord::Base.transaction do
     end
   end
 
-
-
   {
-      'Contact Centre Manager' => 'manager',
-      'Contact Centre Agent' => 'agent',
-      'MDT' => 'mdt',
-      'Council service team' => 'service_member',
-      'Food Delivery Team Manager' => 'food_delivery_manager',
+    'Contact Centre Manager' => 'manager',
+    'Contact Centre Agent' => 'agent',
+    'MDT' => 'mdt',
+    'Council service team' => 'service_member',
+    'Food Delivery Team Manager' => 'food_delivery_manager'
   }.each do |name, role|
     Role.create(name: name, role: role)
   end
