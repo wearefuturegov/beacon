@@ -1,9 +1,7 @@
 RSpec.describe TriageController, type: :controller do
   before :each do
     controller.class.skip_before_action :require_user!, raise: false
-    controller.instance_variable_set(:@current_user, {})
-
-    allow(double('ContactChannel')).to receive(:broadcast_to)
+    controller.instance_variable_set(:@current_user, User.new)
 
     @test_contact = double('Contact')
     allow(@test_contact).to receive(:id).and_return 1
