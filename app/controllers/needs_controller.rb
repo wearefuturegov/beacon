@@ -44,6 +44,9 @@ class NeedsController < ApplicationController
   def set_need
     @need = Need.find(params[:id])
     @contact = @need.contact
+
+    authorize(@need)
+    authorize(@contact)
   end
 
   def set_contact

@@ -12,9 +12,17 @@ class NeedPolicy < ApplicationPolicy
         Need.where(id: -1)
       end
     end
+  end
 
-    def update
-      %w(manager agent).include? @user.role_type
-    end
+  def index?
+    is_admin?
+  end
+
+  def update?
+    is_admin?
+  end
+
+  def show?
+    is_admin?
   end
 end

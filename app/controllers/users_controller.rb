@@ -18,9 +18,9 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    authorize @user
+    authorize User
     @user = User.new(user_params.except(:roles))
-    @user.user_roles = user_roles_from_params
+    @user.roles = user_roles_from_params
 
     @user.invited = DateTime.now
     if @user.save
