@@ -26,8 +26,7 @@ const subscription = consumer.subscriptions.create({ channel: 'ContactChannel', 
 
     },
     disconnected() {
-        clearInterval(interval);
-        subscription.unsubscribe();
+        cleanup();
     }
 });
 
@@ -71,3 +70,11 @@ const updateViewings = () => {
         div.innerHTML = '';
     }
 }
+
+const cleanup = () => {
+    clearInterval(interval);
+    subscription.unsubscribe();
+};
+
+addEventListener("beforeunload", cleanup);
+addEventListener("turbolinks:before-render", cleanup); 
