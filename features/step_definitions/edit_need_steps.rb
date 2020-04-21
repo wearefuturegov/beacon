@@ -57,16 +57,16 @@ When("I change someone else's need status to 'complete'") do
     @expected_assignee = 'test@test.com'
     page.find('.notice', text: 'Need was successfully updated.')
   end
-
   page.select 'Complete', from: 'need_status'
 end
 
 Then('I see my change was unsuccessful') do
   page.find('.alert', text: 'Error. Somebody else has changed this record, please refresh.')
   visit "/needs/#{@need.id}"
-  index_of_select = page.find('#assigned-actions__field select').value
-  assigned_to = page.find("#assigned-actions__field option:nth-child(#{index_of_select})").text
-  expect(assigned_to).to have_content @expected_assignee
+
+  # should be in 'To do'
+  status = page.find('#status-actions__field select').value
+  expect(status).to have_content 'To do'
 end
 
 def get_area_panel(area)
