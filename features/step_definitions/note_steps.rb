@@ -4,6 +4,14 @@ Given('a resident with a {string} need') do |need|
   step 'I submit the add needs form'
 end
 
+Given('a resident with {string} needs') do |needs|
+  @contact = Contact.create!(first_name: 'Test')
+  needs.split(', ').each do |need|
+    step "I add needs \"#{need}\""
+    step 'I submit the add needs form'
+  end
+end
+
 When('I add a {string} note {string}') do |category, content|
   visit "/needs/#{@contact.needs.first.id}"
   choose_note_type_from(category)

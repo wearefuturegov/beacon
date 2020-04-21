@@ -4,7 +4,7 @@
         <%= link_to "Clear filters", root_path, class: "button button--dark"%>
         <div class="filters__content">
     <% else %>
-        <button class="button button--dark filters__controls" aria-expanded="false">Filters</button>
+        <button id="needs-filters" class="button button--dark filters__controls" aria-expanded="false">Filters</button>
         <div class="filters__content" hidden>
     <% end %>
         <%= form_with(url: root_path, method: :get, local: true, class: "filters__form") do %>
