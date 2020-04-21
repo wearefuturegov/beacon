@@ -8,9 +8,15 @@ Feature: Edit records concurrently
     * Someone else is logged into the system
 
   @javascript
-  Scenario:
+  Scenario: Update a need concurrently
     Given a resident with a need exists
     And I have assigned the need to me
     And the need has status 'to do'
     When I change someone else's need status to 'complete'
-    Then I see my change was unsuccessful
+    Then I see my need change was unsuccessful
+
+  @javascript
+  Scenario: Update resident name concurrently
+    Given a resident
+    When I change someone else's residents record
+    Then I see my resident change was unsuccessful

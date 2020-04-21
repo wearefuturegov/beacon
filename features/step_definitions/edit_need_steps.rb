@@ -60,7 +60,7 @@ When("I change someone else's need status to 'complete'") do
   page.select 'Complete', from: 'need_status'
 end
 
-Then('I see my change was unsuccessful') do
+Then('I see my need change was unsuccessful') do
   page.find('.alert', text: 'Error. Somebody else has changed this record, please refresh.')
   visit "/needs/#{@need.id}"
 
