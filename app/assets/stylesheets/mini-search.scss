@@ -13,9 +13,6 @@
         border-bottom: 1px solid $text;
         width: 100%;
         padding-right: 50px;
-        &::placeholder{
-            color: transparentize($text, 0.5);
-        }
         &:focus{
             outline: none;
             border-color: $yellow;
