@@ -6,7 +6,7 @@ let interval = null;
 
 const subscription = consumer.subscriptions.create({ channel: 'ContactChannel', id: contactId }, {
     connected() {
-        // Calls `ContactChannel#appear(data)` on the server.
+        // Calls `ContactChannel#viewing(data)` on the server.
         interval = setInterval(() => { 
          this.perform("viewing", { user_email: getUserEmail(), contact_id: contactId });
         }, 3000);
@@ -18,7 +18,7 @@ const subscription = consumer.subscriptions.create({ channel: 'ContactChannel', 
         else person.lastSeen = Date.now();
         if (data.type === 'VIEW') {
             updateViewings();
-        } else if (data.type === 'CHANGED') {
+        } else if (data.type === 'UPDATED') {
             currentPeople = [];
             updateEdits(data.userEmail);
             subscription.unsubscribe();
