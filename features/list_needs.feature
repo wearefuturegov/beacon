@@ -15,3 +15,35 @@ Feature: List needs
     And I submit the form to create the note
     When I view any needs list row for that resident
     Then I see the last contacted date is today
+
+  @javascript
+  Scenario Outline: Filter resident needs by category
+    Given a resident with a "<category>" need
+    When I view any needs list row for that resident
+    And I filter needs by category "<category>"
+    Then I see the need for category "<category>" in the results
+    Examples:
+      | category    |
+      | Dog walking |
+
+  @javascript
+  Scenario Outline: Filter all needs by category
+    Given many needs exist
+    When I filter needs by category "<category>"
+    Then I see every needs with category "<category>" in the results
+    Examples:
+      | category                   |
+      | Groceries and cooked meals |
+      | Financial support          |
+      | Dog walking                |
+
+
+  Scenario: Sort needs by category ascending
+    Given a resident with "Book drops and entertainment, Dog walking, Groceries and cooked meals" needs
+    When I sort needs by category in "ASC" order
+    Then I see the need for category "Book drops and entertainment" first in the results
+
+  Scenario: Sort needs by category descending
+    Given a resident with "Book drops and entertainment, Dog walking, Groceries and cooked meals" needs
+    When I sort needs by category in "DESC" order
+    Then I see the need for category "Groceries and cooked meals" first in the results

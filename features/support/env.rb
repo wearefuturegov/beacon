@@ -64,6 +64,14 @@ Capybara.register_driver :firefox do |app|
   Capybara::Selenium::Driver.new(app, browser: :firefox, options: opts)
 end
 
+Capybara.register_driver :headless_chrome do |app|
+  opts = Selenium::WebDriver::Chrome::Options.new
+  opts.add_argument '--start-maximized'
+  opts.add_argument '--disable-infobars'
+  opts.add_argument '--headless'
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: opts)
+end
+
 Capybara.register_driver :remote_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome
   Capybara::Selenium::Driver.new(app, browser: :chrome, url: 'http://localhost:9515', desired_capabilities: capabilities)
