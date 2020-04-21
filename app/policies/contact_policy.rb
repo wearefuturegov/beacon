@@ -1,19 +1,7 @@
 class ContactPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      Contact.all
-      # todo this is placeholder code until we understand requirements
-      case @user.role_type
-      when 'manager', 'agent'
-        Contact.all
-      when 'mdt'
-        # todo: MDT need?
-        Contact.joins(:needs).where(needs: { category: 'phone triage' })
-      when 'food_delivery_manager'
-        Contact.where(id: -1)
-      else
-        Contact.where(id: -1)
-      end
+      @user.in_role_names?(%w(manager agent)) ? Contact.all : Contact.where(id: -1)
     end
   end
 
@@ -26,6 +14,10 @@ class ContactPolicy < ApplicationPolicy
   end
 
   def show?
+    is_admin?
+  end
+
+  def create?
     is_admin?
   end
 end

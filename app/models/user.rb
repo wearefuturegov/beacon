@@ -49,6 +49,10 @@ class User < ApplicationRecord
     role.role == role_name
   end
 
+  def in_role_names?(role_names)
+    role_names.include? role.role
+  end
+
   def has_role?(role_name)
     roles.any? {|r| r.role == role_name}
   end

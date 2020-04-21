@@ -1,16 +1,7 @@
 class NeedPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      case @user.role_type
-      when 'manager', 'agent'
-        Need.all
-      when 'mdt'
-        Need.where(category: 'phone triage')
-      when 'food_delivery_manager'
-        Need.where(category: 'groceries and cooked meals')
-      else
-        Need.where(id: -1)
-      end
+      @user.in_role_names?(%w(manager agent)) ? Need.all : Need.where(id: -1)
     end
   end
 
@@ -23,6 +14,10 @@ class NeedPolicy < ApplicationPolicy
   end
 
   def show?
+    is_admin?
+  end
+
+  def create?
     is_admin?
   end
 end
