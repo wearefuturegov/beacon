@@ -3,8 +3,8 @@
 
   <%# this extra value is saved to the need, instead of the contact %>
   <div class="field field--span-two-cols">
-    <label for="<%= "needs_list[#{need_index}][start_on]" %>" class="field__label">Date (e.g. <%= DateTime.now.strftime("%-d/%-m/%Y") %>)</label>
-    <%= need_form.text_field "needs_list[#{need_index}][start_on]" %>
+    <%= need_form.label :start_on, "Date (e.g. #{DateTime.now.strftime("%-d/%-m/%Y")})", class: "field__label" %>
+    <%= need_form.text_field :start_on, value: need[:start_on] %>
   </div>
 </fieldset>
 <%= javascript_pack_tag 'phone_triage_datepicker' %>

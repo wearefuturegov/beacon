@@ -47,3 +47,10 @@ Feature: Add needs
     Then the residents list of needs contains "Groceries and cooked meals"
     And the residents list of needs contains "Staying social"
     And the residents list of needs contains "Dog walking"
+
+  Scenario: Enter an invalid phone triage need
+    Given a resident
+    When I add needs "Phone triage"
+    And I set the start date for the "Phone triage" need to "an_invalid_date"
+    When I submit the add needs form
+    Then I see an error message 'Phone triage call date is not a valid date'

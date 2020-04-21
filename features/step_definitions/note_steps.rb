@@ -15,6 +15,7 @@ end
 When('I add a {string} note {string}') do |category, content|
   visit "/needs/#{@contact.needs.first.id}"
   choose_note_type_from(category)
+  @last_note = content
   fill_in('note_body', with: content)
 end
 
@@ -28,6 +29,11 @@ end
 
 And('the note category is {string}') do |category|
   expect(page).to have_content(category)
+end
+
+And('the last note is at the top') do
+  top_entry = page.find('.notes__list > article.note:nth-child(1)')
+  expect(top_entry).to have_content(@last_note)
 end
 
 def choose_note_type_from(category)
