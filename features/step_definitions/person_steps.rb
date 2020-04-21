@@ -46,11 +46,10 @@ When("I change someone a resident's name concurrently") do
   fill_in('contact_first_name', with: 'TestFirstName1')
 
   user_two_updates_residents_name
-
   click_button('Save changes')
 end
 
-Given("someone else updates the resident's name") do
+When("someone else updates the resident's name") do
   user_two_updates_residents_name
 end
 
@@ -67,6 +66,11 @@ def user_two_updates_residents_name
     fill_in('contact_first_name', with: 'TestFirstName2')
     click_button('Save changes')
   end
+end
+
+Then('I am informed another user has changed the record') do
+  # this is the javascript / web socket message
+  expect(page.find('#concurrent-users')).to have_text('This record is out of date')
 end
 
 When(/^I edit the residents address$/) do
