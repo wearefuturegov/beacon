@@ -7,7 +7,7 @@ When('I (assign)/(have assigned) the need to me') do
   visit "/needs/#{@need.id}"
   page.select 'admin@test.com', from: 'need_user_id'
   @expected_assignee = 'admin@test.com'
-  page.find('.alert', text: 'Need was successfully updated.')
+  page.find('.notice', text: 'Need was successfully updated.')
 end
 
 When('I assign the need to another user') do
@@ -15,13 +15,13 @@ When('I assign the need to another user') do
   visit "/needs/#{@need.id}"
   page.select 'other_user@email.com', from: 'need_user_id'
   @expected_assignee = 'other_user@email.com'
-  page.find('.alert', text: 'Need was successfully updated.')
+  page.find('.notice', text: 'Need was successfully updated.')
 end
 
 When("I change the need status to 'complete'") do
   visit "/needs/#{@need.id}"
   page.select 'Complete', from: 'need_status'
-  page.find('.alert', text: 'Need was successfully updated.')
+  page.find('.notice', text: 'Need was successfully updated.')
 end
 
 And("the need has status 'to do'") do

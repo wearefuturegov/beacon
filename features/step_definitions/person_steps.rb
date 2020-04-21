@@ -107,7 +107,7 @@ Then('the residents list of needs contains {string}') do |need|
 end
 
 Then(/^I see a resident updated message$/) do
-  expect(page.find('.alert')).to have_text('Contact was successfully updated.')
+  expect(page.find('.notice')).to have_text('Contact was successfully updated.')
 end
 
 Then('the special delivery details are {string}') do |details|
