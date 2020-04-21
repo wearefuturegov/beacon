@@ -1,11 +1,11 @@
 <%= form_with(model: @need, local: true, class: "need-actions") do |f| %>
     <%= f.hidden_field :lock_version, :value => @need.lock_version %>
-    <div class="need-actions__field">
+    <div class="need-actions__field" id="assigned-actions__field">
     <%= f.label :user_id, 'Assigned to', class: 'need-actions__label' %>
     <%= f.collection_select :user_id, @users, :id, :name_or_email, { include_blank: "Unassigned" }, { class: "need-actions__select" } %>
     </div>
 
-    <div class="need-actions__field">
+    <div class="need-actions__field" id="priority-actions__field">
     <%= f.label :is_urgent, 'Priority', class: 'need-actions__label' %>
     <%= f.select :is_urgent, {
         "Urgent" => true,
@@ -13,7 +13,7 @@
     }, {}, { class: @need.is_urgent ? "need-actions__select need-actions__select--red" : "need-actions__select" } %>
     </div>
 
-    <div class="need-actions__field">
+    <div class="need-actions__field" id="status-actions__field">
     <%= f.label :status, 'Status', class: 'need-actions__label' %>
     <%= f.select :status, ['To do', 'Complete'], {}, { class: "need-actions__select" } %>
     </div>

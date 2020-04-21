@@ -48,6 +48,27 @@ And("I see the updated need details in the contact's {string} list") do |area|
   expect(assignee_column).to have_content @expected_assignee
 end
 
+When("I change someone else's need status to 'complete'") do
+  visit "/needs/#{@need.id}"
+
+  Capybara.using_session('Second_users_session') do
+    visit "/needs/#{@need.id}"
+    page.select 'test@test.com', from: 'need_user_id'
+    @expected_assignee = 'test@test.com'
+    page.find('.notice', text: 'Need was successfully updated.')
+  end
+
+  page.select 'Complete', from: 'need_status'
+end
+
+Then('I see my change was unsuccessful') do
+  page.find('.alert', text: 'Error. Somebody else has changed this record, please refresh.')
+  visit "/needs/#{@need.id}"
+  index_of_select = page.find('#assigned-actions__field select').value
+  assigned_to = page.find("#assigned-actions__field option:nth-child(#{index_of_select})").text
+  expect(assigned_to).to have_content @expected_assignee
+end
+
 def get_area_panel(area)
   case area
   when 'needs'
