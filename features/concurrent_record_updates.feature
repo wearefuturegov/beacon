@@ -1,3 +1,4 @@
+@javascript
 Feature: Edit records concurrently
   As a user of the system
   I want to be informed when other users access or change the same data I am working on
@@ -7,16 +8,22 @@ Feature: Edit records concurrently
     * I am logged into the system as an admin
     * Someone else is logged into the system
 
-  @javascript
-  Scenario: Update a need concurrently
+  Scenario: Update need record concurrently
     Given a resident with a need exists
     And I have assigned the need to me
     And the need has status 'to do'
     When I change someone else's need status to 'complete'
     Then I see my need change was unsuccessful
 
-  @javascript
-  Scenario: Update resident name concurrently
+  Scenario: Update resident record concurrently
     Given a resident
-    When I change someone else's residents record
+    When I change someone a resident's name concurrently
+    Then I see my resident change was unsuccessful
+
+  Scenario: Update resident triage record concurrently
+    Given I am on a call with a resident
+    And I am conducting a triage of the residents needs
+    But someone else updates the resident's name
+    When I edit the total number of people to "99"
+    And I save the edit resident form
     Then I see my resident change was unsuccessful

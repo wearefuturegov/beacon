@@ -40,25 +40,33 @@ When(/^I edit the residents name$/) do
   fill_in('contact_surname', with: 'TestSurname')
 end
 
-When("I change someone else's residents record") do
+When("I change someone a resident's name concurrently") do
   visit "contacts/#{@contact.id}"
   click_link 'Edit'
   fill_in('contact_first_name', with: 'TestFirstName1')
 
-  Capybara.using_session('Second_users_session') do
-    visit "contacts/#{@contact.id}"
-    click_link 'Edit'
-    fill_in('contact_first_name', with: 'TestFirstName2')
-    click_button('Save changes')
-  end
+  user_two_updates_residents_name
 
   click_button('Save changes')
+end
+
+Given("someone else updates the resident's name") do
+  user_two_updates_residents_name
 end
 
 Then('I see my resident change was unsuccessful') do
   page.find('.alert', text: 'Error. Somebody else has changed this record, please refresh.')
   visit "contacts/#{@contact.id}"
   expect(page.find_by_id('contact_name')).to have_text('TestFirstName2')
+end
+
+def user_two_updates_residents_name
+  Capybara.using_session('Second_users_session') do
+    visit "contacts/#{@contact.id}"
+    click_link 'Edit'
+    fill_in('contact_first_name', with: 'TestFirstName2')
+    click_button('Save changes')
+  end
 end
 
 When(/^I edit the residents address$/) do
