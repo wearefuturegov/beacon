@@ -28,7 +28,7 @@ Feature: Edit records concurrently
     And I save the edit resident form
     Then I see my resident change was unsuccessful
 
-  Scenario: Inform users of concurrent changes
+  Scenario: Inform users in real time of concurrent changes
     Given I am on a call with a resident
     And I am conducting a triage of the residents needs
     When someone else updates the resident's name
