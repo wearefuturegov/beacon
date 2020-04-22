@@ -42,14 +42,22 @@ class User < ApplicationRecord
   end
 
   def in_role?(role_id)
+    assign_role_if_empty
     roles.any? { |r| r.id == role_id }
   end
 
   def in_role_name?(role_name)
+    assign_role_if_empty
     role.role == role_name
   end
 
   def in_role_names?(role_names)
+    assign_role_if_empty
     role_names.include? role.role
+  end
+
+  def assign_role_if_empty
+    self.role = roles.first if role.nil?
+    raise Exceptions::NoValidRoleError if role.nil?
   end
 end

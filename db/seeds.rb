@@ -61,6 +61,7 @@ seed_user_emails.split(',').each do |email|
       .update!(
         admin: true,
         invited: DateTime.now,
-        roles: [admin_role]
+        roles: [admin_role],
+        role: admin_role
       )
 end

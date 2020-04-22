@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+require 'errors'
+
 class ApplicationController < ActionController::Base
   before_action :require_user!
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Exceptions::NoValidRoleError, with: :redirect_to_logout
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'
@@ -57,5 +60,9 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to(request.referrer || root_path)
+  end
+
+  def redirect_to_logout
+    redirect_to auth.sign_out_path
   end
 end

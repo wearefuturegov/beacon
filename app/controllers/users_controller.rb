@@ -57,6 +57,14 @@ class UsersController < ApplicationController
     redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
+  def set_role
+    if current_user.roles.any? { |role| role.id == params[:id].to_i }
+      current_user.role_id = params[:id].to_i
+      current_user.save
+    end
+    redirect_to '/'
+  end
+
   private
 
   def user_roles_from_params
