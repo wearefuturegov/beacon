@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_20_071847) do
+ActiveRecord::Schema.define(version: 2020_04_22_121439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(version: 2020_04_20_071847) do
     t.date "date_of_birth"
     t.boolean "has_covid_symptoms"
     t.integer "lock_version", default: 0
+    t.string "channel"
+    t.boolean "enquiry_referral", default: false
+    t.text "enquiry_message"
     t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
   end
 
