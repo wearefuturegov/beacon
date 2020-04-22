@@ -40,6 +40,39 @@ When(/^I edit the residents name$/) do
   fill_in('contact_surname', with: 'TestSurname')
 end
 
+When("I change someone a resident's name concurrently") do
+  visit "contacts/#{@contact.id}"
+  click_link 'Edit'
+  fill_in('contact_first_name', with: 'TestFirstName1')
+
+  user_two_updates_residents_name
+  click_button('Save changes')
+end
+
+When("someone else updates the resident's name") do
+  user_two_updates_residents_name
+end
+
+Then('I see my resident change was unsuccessful') do
+  page.find('.alert', text: 'Error. Somebody else has changed this record, please refresh.')
+  visit "contacts/#{@contact.id}"
+  expect(page.find_by_id('contact_name')).to have_text('TestFirstName2')
+end
+
+def user_two_updates_residents_name
+  Capybara.using_session('Second_users_session') do
+    visit "contacts/#{@contact.id}"
+    click_link 'Edit'
+    fill_in('contact_first_name', with: 'TestFirstName2')
+    click_button('Save changes')
+  end
+end
+
+Then('I am informed another user has changed the record') do
+  # this is the javascript / web socket message
+  expect(page.find('#concurrent-users')).to have_text('This record is out of date')
+end
+
 When(/^I edit the residents address$/) do
   visit "contacts/#{@contact.id}"
   click_link 'Edit'
@@ -107,7 +140,7 @@ Then('the residents list of needs contains {string}') do |need|
 end
 
 Then(/^I see a resident updated message$/) do
-  expect(page.find('.alert')).to have_text('Contact was successfully updated.')
+  expect(page.find('.notice')).to have_text('Contact was successfully updated.')
 end
 
 Then('the special delivery details are {string}') do |details|

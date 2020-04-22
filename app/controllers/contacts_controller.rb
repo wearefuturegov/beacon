@@ -41,14 +41,20 @@ class ContactsController < ApplicationController
     @completed_needs = @contact.needs.where.not(completed_on: nil)
   end
 
-  def edit; end
+  def edit
+    @edit_contact_id = @contact.id
+  end
 
   def update
     if @contact.update(contact_params)
+      ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
       redirect_to contact_path(@contact), notice: 'Contact was successfully updated.'
     else
       render :edit
     end
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = STALE_ERROR_MESSAGE
+    render :edit
   end
 
   private
@@ -61,6 +67,6 @@ class ContactsController < ApplicationController
     params.require(:contact).permit(:first_name, :middle_names, :surname, :address, :postcode, :email, :telephone,
                                     :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_below_15,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
-                                    :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms)
+                                    :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version)
   end
 end
