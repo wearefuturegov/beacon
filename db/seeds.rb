@@ -14,8 +14,22 @@ ActiveRecord::Base.transaction do
 
   Faker::Config.locale = 'en-GB'
 
+  roles = {
+      'Contact Centre Manager' => 'manager',
+      'Contact Centre Agent' => 'agent',
+      'MDT' => 'mdt',
+      'Council service team' => 'service_member',
+      'Food Delivery Team Manager' => 'food_delivery_manager'
+  }.map do |name, role|
+    created_role = Role.create(name: name, role: role)
+    return [role, created_role.id]
+  end.to_h
+
   if ENV['COUNCIL'] == 'camden'
     FactoryBot.create_list(:user, 5).each
+    user.roles = [roles[%w(manager agent).sample]]
+    user.save
+
     contacts = FactoryBot.create_list :contact, 50
 
     contacts.each do |contact|
@@ -25,6 +39,9 @@ ActiveRecord::Base.transaction do
     end
   else
     FactoryBot.create_list(:user, 5).each do |user|
+      user.roles = [roles[%w(manager agent).sample]]
+      user.save
+
       contacts = FactoryBot.create_list :contact, 50
 
       contacts.first(10).each do |contact|
@@ -38,16 +55,6 @@ ActiveRecord::Base.transaction do
         end
       end
     end
-  end
-
-  {
-    'Contact Centre Manager' => 'manager',
-    'Contact Centre Agent' => 'agent',
-    'MDT' => 'mdt',
-    'Council service team' => 'service_member',
-    'Food Delivery Team Manager' => 'food_delivery_manager'
-  }.each do |name, role|
-    Role.create(name: name, role: role)
   end
 
   puts "Finished seeding the database."
