@@ -1,0 +1,70 @@
+<header class="panel-header" id="enquiry-details-panel">
+  <h2 class="panel-header__title">New Enquiry</h2>
+</header>
+
+<!-- New contact form -->
+<%= form_with(model: @contact, local: true, class: "margin-bottom-70 two-thirds") do |f| %>   
+  
+  <fieldset class="field-section field-section--two-cols">
+  
+    <!-- Errors -->
+    <% if @contact.errors.any? %>
+      <div class="error" id="error_explanation">
+        <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+      
+        <ul>
+          <% @contact.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    <!-- Temporary -->
+    <div class="field field--span-two-cols">
+      <label>Channel</label>
+      <select class="">
+            <option>Email</option>
+            <option>Phone call</option>
+            <option>SMS</option>
+            <option>Facebook</option>
+      </select>
+    </div>
+    
+    <!-- end Temporary -->
+
+    
+    <div class="field field--span-two-cols">
+      <%= f.label :first_name, class: "field__label"%>
+      <%= f.text_field :first_name, required: true %>
+    </div>
+
+    <div class="field field--span-two-cols">
+      <%= f.label :last_name, class: "field__label" %>
+      <%= f.text_field :last_name %>
+    </div>
+
+    <div class="field field--span-two-cols checkbox">
+      <%= f.check_box :is_urgent, class: 'checkbox__input', checked: '0' %>
+      <%= f.label :is_urgent, 'Are you contacting on behalf of another person?', class: 'checkbox__label' %>
+    </div>
+
+    <div class="field field--span-two-cols">
+      <%= f.label :telephone, "Telephone", class: "field__label" %>
+      <%= f.text_field :telephone %>
+    </div>
+
+    <div class="field field--span-two-cols">
+      <label>Add message</label>
+      <textarea rows="7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non purus eu risus dignissim pharetra ac vel massa. Mauris nulla purus, viverra at laoreet sit amet, rhoncus eget ante. Proin id tellus et ipsum dapibus aliquet. Etiam cursus vulputate pulvinar. Duis id arcu vitae dui placerat eleifend. In hac habitasse platea dictumst. Mauris dignissim vestibulum convallis. Phasellus tristique dignissim nibh, ut laoreet lacus maximus sed. Sed ut tincidunt ligula. Fusce a turpis ac erat accumsan mollis at tincidunt felis. Nullam efficitur est ut fermentum ornare. Vestibulum tortor mi, commodo eget lorem sit amet, blandit faucibus quam.
+      </textarea>
+    </div>
+
+
+    <div class="field field--span-two-cols">
+      <%= link_to 'Cancel', contacts_path, class: "button button--small" %>
+      <%= f.submit "Continue", class: "button" %>
+    </div>
+  </fieldset>
+<% end %>

@@ -26,7 +26,8 @@ module NeedsHelper
       { label: 'Staying social', border: '#A0CAC9' },
       { label: 'Prescription pickups', border: '#971964' },
       { label: 'Book drops and entertainment', border: '#43387B' },
-      { label: 'Dog walking', border: '#1C52A3' }
+      { label: 'Dog walking', border: '#1C52A3' },
+      { label: 'Initial review', border: '#1C52A3' }
     ]
   end
 

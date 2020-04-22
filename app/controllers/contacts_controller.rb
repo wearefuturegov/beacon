@@ -10,6 +10,24 @@ class ContactsController < ApplicationController
     @contacts = @contacts.page(@params[:page])
   end
 
+  def new
+    @contact = Contact.new
+  end
+
+  def create
+    @contact = Contact.new(contact_params)
+    if @contact.save
+      need = Need.new
+      need.category = 'initial review'
+      need.name = need.category.humanize
+      @contact.needs.push(need)
+      need.save
+      redirect_to contact_path(@contact), notice: 'Contact was successfully created.'
+    else
+      render :new
+    end
+  end
+
   def call_list; end
 
   def needs
