@@ -16,7 +16,15 @@
   </aside>
 
   <aside class="with-left-sidebar__right">
-    <header class="panel-header">
+
+    <header class="panel-header" id="enquiry-details-panel">
+      <h2 class="panel-header__title">Enquiry Details</h2>
+    </header>
+    <div class="panel panel--unpadded">  
+      <%= render partial: 'enquiry', locals: { contact: @contact } %>
+    </div>
+
+    <header class="panel-header" id="needs-panel">
       <h2 class="panel-header__title">Needs</h2>
       <% if @open_needs.any? %>
         <span class="panel-header__badge"><%= @open_needs.count %></span>
@@ -28,7 +36,7 @@
     </div>
 
     <% if @completed_needs.any? %>
-      <header class="panel-header">
+      <header class="panel-header" id="completed-needs-panel">
         <h2 class="panel-header__title">Completed</h2>
       </header>
       <div class="panel panel--unpadded">  

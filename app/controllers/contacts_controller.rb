@@ -10,6 +10,24 @@ class ContactsController < ApplicationController
     @contacts = @contacts.page(@params[:page])
   end
 
+  def new
+    @contact = Contact.new
+  end
+
+  def create
+    @contact = Contact.new(contact_params)
+    if @contact.save
+      need = Need.new
+      need.category = 'initial review'
+      need.name = need.category.humanize
+      @contact.needs.push(need)
+      need.save
+      redirect_to contact_path(@contact), notice: 'Contact was successfully created.'
+    else
+      render :new
+    end
+  end
+
   def call_list; end
 
   def needs
@@ -49,6 +67,6 @@ class ContactsController < ApplicationController
     params.require(:contact).permit(:first_name, :middle_names, :surname, :address, :postcode, :email, :telephone,
                                     :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_below_15,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
-                                    :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version)
+                                    :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version, :enquiry_message, :channel, :enquiry_referral)
   end
 end
