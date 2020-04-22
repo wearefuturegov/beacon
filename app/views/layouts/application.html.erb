@@ -28,10 +28,17 @@
           <%= link_to 'Log out', auth.sign_out_path, class: "button button--small" %>
         </nav>
       </header>
+      
+      <!-- Concurrent Users modal -->
+      <div id="concurrent-users-modal">
+        <div id="concurrent-users"></div>
+        <div id="contactId" hidden="hidden"><%= @edit_contact_id %></div>
+        <div id="userEmail" hidden="hidden"><%= current_user.email %></div>
+      </div>
 
-      <%# is there a better catchall for this? %>
-      <% flash.each do |name, msg| %>
-        <div class="alert"><%= msg %></div>
+      <!-- Notifications -->
+      <% flash.each do |type, msg| %>
+        <div class="<%= type %>"><%= msg %></div>
       <% end %>
 
       <%= yield %>

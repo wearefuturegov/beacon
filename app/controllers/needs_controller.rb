@@ -35,8 +35,12 @@ class NeedsController < ApplicationController
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else
       @users = User.all
-      render :edit
+      render :show
     end
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = STALE_ERROR_MESSAGE
+    @users = User.all
+    render :show
   end
 
   private
@@ -54,6 +58,6 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent)
+    params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent, :lock_version)
   end
 end
