@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :notes
   end
 
-  resources :users, only: [:index, :new, :create, :destroy]
+  resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+  post 'role', to: 'users#set_role', as: 'set_role'
   passwordless_for :users, at: '/', as: :auth
 end

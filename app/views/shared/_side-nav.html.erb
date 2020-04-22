@@ -40,13 +40,13 @@
             <% end %>
         </li>
 
-        <% if current_user.admin %>
-            <li class="main-menu__item">
-                <%= link_to_unless_current "Users", users_path, class: "main-menu__link" do %>
-                    <span class="main-menu__current">Users</span>
-                <% end %>
-            </li>
-        <% end %>
+      <% if policy(User).index? %>
+        <li class="main-menu__item">
+          <%= link_to_unless_current "Users", users_path, class: "main-menu__link" do %>
+            <span class="main-menu__current">Users</span>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
 
 </nav>

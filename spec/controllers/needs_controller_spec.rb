@@ -13,6 +13,7 @@ RSpec.describe NeedsController, type: :controller do
     allow(need).to receive(:filter_and_sort).and_return(need)
     allow(need).to receive(:page).and_return(need)
     allow(need).to receive(:started).and_return(need)
+    allow(controller).to receive(:policy_scope).with(Need).and_return(need)
     need
   end
 
