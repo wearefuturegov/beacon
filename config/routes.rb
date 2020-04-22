@@ -18,6 +18,5 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :new, :create, :destroy]
   passwordless_for :users, at: '/', as: :auth
 
-  get '/needs_multiple' => 'needs#update_multiple'
   patch '/needs_multiple' => 'needs#update_multiple'
 end
