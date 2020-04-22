@@ -84,3 +84,27 @@
   </div>
 
 </fieldset>
+
+<fieldset class="field-section field-section--two-cols">
+  <legend><h2 class="field-section__title">Consents</h2></legend>
+  <% if not request.path_info.include?('/triage') %>
+    <div class="checkbox">
+      <input type="checkbox" />
+      <label class="checkbox__label">Do Not Call</label>
+    </div>
+    <div class="checkbox">
+      <input type="checkbox" />
+      <label class="checkbox__label">Deceased</label>
+    </div>
+  <% end %>
+</fieldset>
+<fieldset class="field-section field-section--two-cols">
+  <div class="checkbox">
+    <input type="checkbox"/>
+    <label class="checkbox__label">Consent to share data</label>
+  </div>
+  <div class="field">
+    <%= form.label :channel, class: "field__label" %>
+    <%= form.text_field :channel, placeholder: "Eg: phone, email, social media" %>
+  </div>
+</fieldset>
