@@ -5,7 +5,7 @@ Given(/^I am logged into the system$/) do
 end
 
 Given(/^I am logged into the system as an admin$/) do
-  visit generate_magic_link(true)
+  visit generate_magic_link('manager')
   expect(page.status_code).to eq(200) if Capybara.current_driver == :rack_test
   expect(page).to have_selector(:link_or_button, 'Log out')
 end
@@ -18,11 +18,12 @@ Given(/^Someone else is logged into the system$/) do
   end
 end
 
-def generate_magic_link(admin = false)
-  email = admin ? 'test@test.com' : 'admin@test.com'
+def generate_magic_link(role = 'agent')
+  @role = Role.create(name: "#{role} role", role: role)
+  email = role == 'agent' ? 'test@test.com' : 'admin@test.com'
   tester = User.create!(email: email,
                         invited: Date.today,
-                        admin: admin, roles: [Role.create(name: 'Manager role', role: 'manager')])
+                        admin: false, roles: [@role])
   @user = tester
   session = Passwordless::Session.new({
                                         authenticatable: tester,
