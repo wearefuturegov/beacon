@@ -86,6 +86,7 @@ class Need < ApplicationRecord
       contact_telephone: 'telephone',
       contact_mobile: 'mobile',
 
+      name: 'description',
       food_priority: 'food_priority',
       food_service_type: 'food_service_type',
       contact_count_people_in_house: 'count_people_in_house',
