@@ -13,11 +13,16 @@
   <h1 class="panel-header__title">All needs</h1>
 </header>
 
+<%= render "bulk-actions" %>
+
 <div class="panel">
   <% if @needs.any? %>
     <table class="table data-table">
       <thead>
       <tr>
+        <th>
+          <%= check_box_tag("select-all-needs", nil, false, { class: "select-all-needs" }) %>
+        </th>
         <th>
           <div class="sortable">
               Category
@@ -64,6 +69,9 @@
       <% @needs.each do |n| %>
         <tr class="clickable" onclick="window.location='<%= need_path(n) %>'">
           <td>
+            <%= check_box_tag("need[#{n.id}]", n.id, false, { class: "select-needs" }) %>
+          </td>
+          <td>
             <%= link_to humanize_text(n.category), n, class: "primary-link" %>
           </td>
           <td><%= n.contact_name %></td>
@@ -98,6 +106,7 @@
       </tbody>
     </table>
     <%= render "shared/pagination", model: @needs %>
+    <%= javascript_pack_tag 'bulk-actions', 'data-turbolinks-track': 'reload' %>
   <% else %>
     <p class="no-results">No matches</p>
   <% end %>

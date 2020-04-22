@@ -1,0 +1,27 @@
+@import "variables";
+
+.bulk-actions{
+    flex-direction: row;
+    flex: 1 0 auto;
+    .assign__needs{
+        margin-left: 5px;
+        width: 135px;
+        appearence: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border-radius: 0px;
+        padding: 5px;
+        border: none;
+        font-size: 0.9rem;
+        background: $pale;
+        cursor: pointer;
+        background-position: 90% center;
+        background-repeat: no-repeat;
+        background-size: 13px;
+        background-image: url(asset_path('select-dark.svg'));
+        padding-right: 35px;
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+    }
+}

@@ -1,0 +1,6 @@
+<div>
+  <div id="assign-selected-needs" hidden="true" class="panel bulk-actions" style="display: default">
+    <%= select_tag("user_id", content_tag(:option,'Unassigned',:value => "Unassigned") + options_from_collection_for_select(@users, :id, :name_or_email), prompt: 'Assign to', class: "assign__needs") %>
+  </div>
+</div>
+
