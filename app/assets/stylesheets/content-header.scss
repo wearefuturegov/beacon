@@ -19,3 +19,26 @@
         margin-right: 10px;
     }
 }
+
+#concurrent-users{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 100;
+    background: $yellow;
+
+    ul{
+        list-style: none;
+        margin-bottom: 25px;
+        font-size: 1.4rem;
+        li{
+            padding-top: 5px;
+            font-size: 1.2rem;
+        }
+    }
+}
