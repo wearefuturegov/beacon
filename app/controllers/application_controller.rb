@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   before_action :require_user!
   include Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'
@@ -49,5 +50,10 @@ class ApplicationController < ActionController::Base
 
     save_passwordless_redirect_location!(User)
     redirect_to auth.sign_in_path
+  end
+  
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
   end
 end
