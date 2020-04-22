@@ -53,9 +53,9 @@ class ApplicationController < ActionController::Base
     save_passwordless_redirect_location!(User)
     redirect_to auth.sign_in_path
   end
-  
+
   def user_not_authorized
-    flash[:alert] = "You are not authorized to perform this action."
+    flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to(request.referrer || root_path)
   end
 end
