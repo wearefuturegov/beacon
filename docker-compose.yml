@@ -10,8 +10,3 @@ services:
       POSTGRES_DB: i_have_i_need_development
       POSTGRES_USER: dev_local_user
       POSTGRES_PASSWORD: password
-  maildev:
-    image: maildev/maildev
-    ports:
-      - "1080:80"
-      - "1025:25"

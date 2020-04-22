@@ -114,6 +114,13 @@ ActiveRecord::Schema.define(version: 2020_04_22_121439) do
     t.index ["authenticatable_type", "authenticatable_id"], name: "authenticatable"
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "role", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.bigint "tag_id"
     t.string "taggable_type"
@@ -143,6 +150,13 @@ ActiveRecord::Schema.define(version: 2020_04_22_121439) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "user_roles", id: false, force: :cascade do |t|
+    t.bigint "role_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["role_id"], name: "index_user_roles_on_role_id"
+    t.index ["user_id"], name: "index_user_roles_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -153,8 +167,10 @@ ActiveRecord::Schema.define(version: 2020_04_22_121439) do
     t.datetime "invited", null: false
     t.boolean "admin", default: false, null: false
     t.datetime "last_logged_in"
+    t.bigint "role_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organisation_id"], name: "index_users_on_organisation_id"
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   create_table "versions", force: :cascade do |t|
@@ -176,5 +192,8 @@ ActiveRecord::Schema.define(version: 2020_04_22_121439) do
   add_foreign_key "notes", "needs"
   add_foreign_key "notes", "users"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "user_roles", "roles"
+  add_foreign_key "user_roles", "users"
   add_foreign_key "users", "organisations"
+  add_foreign_key "users", "roles"
 end

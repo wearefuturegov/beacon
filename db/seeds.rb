@@ -40,15 +40,28 @@ ActiveRecord::Base.transaction do
     end
   end
 
+  {
+    'Contact Centre Manager' => 'manager',
+    'Contact Centre Agent' => 'agent',
+    'MDT' => 'mdt',
+    'Council service team' => 'service_member',
+    'Food Delivery Team Manager' => 'food_delivery_manager'
+  }.each do |name, role|
+    Role.create(name: name, role: role)
+  end
+
   puts "Finished seeding the database."
 end
 
 # make an initial user for sake of the readme
 seed_user_emails = ENV['SEED_USER_EMAILS'] || 'admin@example.com'
 seed_user_emails.split(',').each do |email|
+  admin_role = Role.find_by(role: 'manager')
   User.find_or_initialize_by(email: email.strip)
       .update!(
         admin: true,
-        invited: DateTime.now
+        invited: DateTime.now,
+        roles: [admin_role],
+        role: admin_role
       )
 end

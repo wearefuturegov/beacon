@@ -22,7 +22,7 @@ def generate_magic_link(admin = false)
   email = admin ? 'test@test.com' : 'admin@test.com'
   tester = User.create!(email: email,
                         invited: Date.today,
-                        admin: admin)
+                        admin: admin, roles: [Role.create(name: 'Manager role', role: 'manager')])
   @user = tester
   session = Passwordless::Session.new({
                                         authenticatable: tester,
