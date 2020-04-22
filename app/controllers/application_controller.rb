@@ -63,6 +63,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_logout
+    logger.error "Clearing user session for user with id:#{current_user.id} as no valid role could be found"
     redirect_to auth.sign_out_path
   end
 end
