@@ -42,6 +42,7 @@ class TriageController < ApplicationController
 
   def set_contact
     @contact = Contact.find(params[:contact_id])
+    authorize(@contact, :update?)
   end
 
   def contact_params
