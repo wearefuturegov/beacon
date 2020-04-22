@@ -96,7 +96,7 @@ body{
     }
 }
 
-.vulnerable-banner{
+.vulnerable-banner, .no-call-banner, .deceased-banner{
     padding: 25px;
     background: $red;
     color: $white;
@@ -106,7 +106,7 @@ body{
     justify-content: flex-start;
     align-items: center;
     font-size: 1.2rem;
-    .vulnerable-banner__icon{
+    .vulnerable-banner__icon, .no-call-banner__icon, .deceased-banner__icon{
         margin-right: 15px;
     }
 }
