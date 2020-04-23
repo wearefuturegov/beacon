@@ -84,14 +84,13 @@
         <%= form.label :other_need, "Describe any other needs not covered above", class: "field__label" %>
         <%= form.text_area :other_need, rows: "2" %>
       </div>
+      
+      <input type="hidden" name="save_for_later" value="true">
 
       <%= form.button "Save changes", class: "button button--primary" %>
     </div>
   </div>
 
-
-
 <% end %>
-
 
 <%= javascript_pack_tag 'users_viewing_page.js' %>
