@@ -2,23 +2,28 @@ class ContactPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       @user.assign_role_if_empty
-      @user.in_role_names?(%w[manager agent]) ? Contact.all : Contact.where(id: -1)
+      case @user.role
+      when 'manager', 'agent'
+        Contact.all
+      else
+        raise "Cannot determine contact scope for role #{@user.role.name}"
+      end
     end
   end
 
   def index?
-    admin?
+    @user.in_role_names?(%w(manager agent mdt food_delivery_manager))
   end
 
   def update?
-    admin?
+    admin? || agent? || mdt?
   end
 
   def show?
-    admin?
+    @user.in_role_names?(%w(manager agent mdt food_delivery_manager))
   end
 
   def create?
-    admin?
+    admin? || agent? || mdt?
   end
 end

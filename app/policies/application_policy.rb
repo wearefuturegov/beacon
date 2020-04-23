@@ -53,4 +53,12 @@ class ApplicationPolicy
   def admin?
     @user.in_role_name?('manager')
   end
+
+  def agent?
+    @user.in_role_name?('agent')
+  end
+
+  def mdt?
+    @user.in_role_name?('mdt')
+  end
 end

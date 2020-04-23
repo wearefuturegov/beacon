@@ -63,3 +63,14 @@ Feature: Restrict viewing/editing access to a user based on their role
     Examples:
       | role                  |
       | food_delivery_manager |
+
+  Scenario Outline: Can add notes to a need I have access to edit
+    Given I am logged into the system as a "<role>" user
+    And a need is assigned to me
+    And I go to the contact page for that need
+    And I add a "Note" note "test"
+    When I submit the form to create the note
+    Then the list of notes contains "Resident confirmed required help"
+    Examples:
+      | role                  |
+      | food_delivery_manager |
