@@ -5,8 +5,8 @@ end
 
 When('I (assign)/(have assigned) the need to me') do
   visit "/needs/#{@need.id}"
-  page.select 'admin@test.com', from: 'need_user_id'
-  @expected_assignee = 'admin@test.com'
+  page.select 'test@test.com', from: 'need_user_id'
+  @expected_assignee = 'test@test.com'
   page.find('.notice', text: 'Need was successfully updated.')
 end
 
@@ -32,7 +32,7 @@ Then("I see the need in the 'assigned to me' page") do
   visit "/?user_id=#{@user.id}"
   table_row = find('tbody tr')
   assignee_column = table_row.find('td:nth-child(7)')
-  expect(assignee_column).to have_content 'admin@test.com'
+  expect(assignee_column).to have_content 'test@test.com'
 end
 
 Then("I no longer see the need in the 'assigned to me' page") do

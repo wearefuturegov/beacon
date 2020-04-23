@@ -1,3 +1,9 @@
+Given('a user exists with the email {string}') do |email|
+  User.create!(email: email,
+              invited: Date.today,
+              admin: false)
+end
+
 Given('a users email address {string}') do |email|
   @user_email = email
 end

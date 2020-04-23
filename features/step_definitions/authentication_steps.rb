@@ -12,7 +12,7 @@ end
 
 Given(/^Someone else is logged into the system$/) do
   Capybara.using_session('Second_users_session') do
-    visit generate_magic_link(false)
+    visit generate_magic_link
     expect(page.status_code).to eq(200) if Capybara.current_driver == :rack_test
     expect(page).to have_selector(:link_or_button, 'Log out')
   end
