@@ -17,18 +17,18 @@ class ContactPolicy < ApplicationPolicy
     end
 
     def contacts_me_or_role(role_tag)
-      Contact.where(id: -1)
-      # Need.includes(:role)
-      #     .where(roles: { tag: role_tag })
-      #     .or(Need.includes(:role).where(user: @user))
+      Contact.joins(:needs)
+          .left_joins(:needs => [:user])
+          .left_joins(:needs => [:role])
+          .where("user_id = #{@user.id} or roles.role = '#{role_tag}'")
     end
 
     def contacts_me_role_team(role_tag)
-      Contact.where(id: -1)
-      # Need.includes(:role, user: [:roles])
-      #     .where(roles: { tag: role_tag })
-      #     .or(Need.includes(:role, user: [:roles]).where(user: @user))
-      #     .or(Need.includes(:role, user: [:roles]).where("roles_users.role = '#{role_tag}'"))
+      Contact.joins(:needs)
+          .left_joins(:needs => [{:user => [:roles] }])
+          .left_joins(:needs => [:role])
+          .where("users.id = #{@user.id} or roles_needs.role = '#{role_tag}' or roles.role = '#{role_tag}'")
+          .distinct
     end
   end
 
