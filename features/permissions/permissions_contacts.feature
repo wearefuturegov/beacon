@@ -23,12 +23,12 @@ Feature: Restrict viewing/editing contact access to a user based on their role
     When I go to the contact list
     Then I can see the contact in the list
     Examples:
-      | role                  |
-      | manager               |
-      | agent                 |
-      | mdt                   |
-      | food_delivery_manager |
-      | service_member        |
+      | role                            |
+      | manager                         |
+      | agent                           |
+      | mdt                             |
+      | food_delivery_manager           |
+      | council_service_name_of_service |
 
   @list
   Scenario Outline: Certain roles can view contacts with needs that are assigned to a member of their team
@@ -38,9 +38,9 @@ Feature: Restrict viewing/editing contact access to a user based on their role
     When I go to the contact list
     Then I can see the contact in the list
     Examples:
-      | role                  |
-      | food_delivery_manager |
-      | service_member        |
+      | role                            |
+      | food_delivery_manager           |
+      | council_service_name_of_service |
 
   @list
   Scenario: MDT user cannot see contacts with needs assigned to another MDT user
@@ -57,11 +57,11 @@ Feature: Restrict viewing/editing contact access to a user based on their role
     When I go to the contact page for that contact
     Then I can see the option to edit the contact
     Examples:
-      | role           |
-      | manager        |
-      | agent          |
-      | mdt            |
-      | service_member |
+      | role                            |
+      | manager                         |
+      | agent                           |
+      | mdt                             |
+      | council_service_name_of_service |
 
   @edit
   Scenario Outline: Roles that can not edit a contact

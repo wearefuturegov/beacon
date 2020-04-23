@@ -3,6 +3,7 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: %i[edit update show needs add_needs]
 
+  # to do - search with policy scope?
   def index
     @params = params.permit(:search, :page)
     @contacts = policy_scope(Contact)
@@ -19,8 +20,8 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @open_needs = @contact.needs.where(completed_on: nil).sort { |a, b| Need.sort_created_and_start_date(a, b) }
-    @completed_needs = @contact.needs.where.not(completed_on: nil)
+    @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope).where(completed_on: nil).sort { |a, b| Need.sort_created_and_start_date(a, b) }
+    @completed_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope).where.not(completed_on: nil)
   end
 
   def edit

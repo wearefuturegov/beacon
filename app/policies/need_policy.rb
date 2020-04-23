@@ -9,8 +9,8 @@ class NeedPolicy < ApplicationPolicy
         needs_me_or_role 'mdt'
       when 'food_delivery_manager'
         needs_me_role_team'food_delivery_manager'
-      when 'service_member'
-        needs_me_role_team 'service_member'
+      when -> (r) { r.start_with? 'council_service_' }
+        needs_me_role_team @user.role.tag
       else
         raise "Cannot determine need scope for role #{@user.role.name} #{@user.role.tag}"
       end
@@ -20,6 +20,7 @@ class NeedPolicy < ApplicationPolicy
       Need.includes(:role)
           .where(roles: { tag: role_tag })
           .or(Need.includes(:role).where(user: @user))
+          .distinct
     end
 
     def needs_me_role_team(role_tag)
@@ -27,23 +28,24 @@ class NeedPolicy < ApplicationPolicy
           .where(roles: { tag: role_tag })
           .or(Need.includes(:role, user: [:roles]).where(user: @user))
           .or(Need.includes(:role, user: [:roles]).where("roles_users.role = '#{role_tag}'"))
+          .distinct
     end
 
   end
 
   def index?
-    @user.in_role_names?(%w(manager agent mdt food_delivery_manager service_member))
+    all_roles?
   end
 
   def update?
-    @user.in_role_names?(%w(manager agent mdt food_delivery_manager service_member))
+    all_roles?
   end
 
   def show?
-    @user.in_role_names?(%w(manager agent mdt food_delivery_manager service_member))
+    all_roles?
   end
 
   def create?
-    admin? || agent? || mdt? || @user.in_role_name?('service_member')
+    admin? || agent? || mdt? || council_service?
   end
 end

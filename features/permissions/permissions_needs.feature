@@ -11,12 +11,12 @@ Feature: Restrict viewing/editing need access to a user based on their role
     When I go to the need list
     Then I can see the need in the list
     Examples:
-      | role                  |
-      | manager               |
-      | agent                 |
-      | mdt                   |
-      | food_delivery_manager |
-      | service_member        |
+      | role                            |
+      | manager                         |
+      | agent                           |
+      | mdt                             |
+      | food_delivery_manager           |
+      | council_service_name_of_service |
 
   @list
   Scenario Outline: Can view needs that are assigned to my team
@@ -25,12 +25,12 @@ Feature: Restrict viewing/editing need access to a user based on their role
     When I go to the need list
     Then I can see the need in the list
     Examples:
-      | role                  |
-      | manager               |
-      | agent                 |
-      | mdt                   |
-      | food_delivery_manager |
-      | service_member        |
+      | role                            |
+      | manager                         |
+      | agent                           |
+      | mdt                             |
+      | food_delivery_manager           |
+      | council_service_name_of_service |
 
   @list
   Scenario Outline: Certain roles can view needs that are assigned to a member of their team
@@ -40,9 +40,10 @@ Feature: Restrict viewing/editing need access to a user based on their role
     When I go to the need list
     Then I can see the need in the list
     Examples:
-      | role                  |
-      | food_delivery_manager |
-      | service_member        |
+      | role                              |
+      | food_delivery_manager             |
+      | council_service_adult_social_care |
+      | council_service_name_of_service  |
 
   @list
   Scenario: MDT user cannot see needs assigned to another MDT user
@@ -59,11 +60,12 @@ Feature: Restrict viewing/editing need access to a user based on their role
     When I go to the contact page for that need
     Then I should be able to add needs to that contact
     Examples:
-      | role           |
-      | manager        |
-      | agent          |
-      | mdt            |
-      | service_member |
+      | role                              |
+      | manager                           |
+      | agent                             |
+      | mdt                               |
+      | council_service_adult_social_care |
+      | council_service_housing           |
 
   @edit
   Scenario Outline: Cannot create needs when not allowed by the role
@@ -84,12 +86,13 @@ Feature: Restrict viewing/editing need access to a user based on their role
     When I submit the form to create the note
     Then the list of notes contains "<note>"
     Examples:
-      | role                  | note                      |
-      | manager               | I'm a manager             |
-      | agent                 | Agent makes a comment     |
-      | service_member        | We think we can help here |
-      | food_delivery_manager | Unable to deliver food    |
-      | mdt                   | Triage has been postponed |
+      | role                              | note                       |
+      | manager                           | I'm a manager              |
+      | agent                             | Agent makes a comment      |
+      | council_service_adult_social_care | Adult social care can help |
+      | council_service_housing           | Housing can help           |
+      | food_delivery_manager             | Unable to deliver food     |
+      | mdt                               | Triage has been postponed  |
 
   @show
   Scenario Outline: I can see all needs for a user on the details page
@@ -99,11 +102,12 @@ Feature: Restrict viewing/editing need access to a user based on their role
     And I go to the contact page for that need
     Then I can see the other needs for that contact
     Examples:
-      | role           |
-      | manager        |
-      | agent          |
-      | service_member |
-      | mdt            |
+      | role                              |
+      | manager                           |
+      | agent                             |
+      | council_service_adult_social_care |
+      | council_service_housing           |
+      | mdt                               |
 
   @show
   Scenario Outline: I can only see relevant needs for a user on the details page

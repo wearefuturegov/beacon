@@ -9,8 +9,8 @@ class ContactPolicy < ApplicationPolicy
         contacts_me_or_role 'mdt'
       when 'food_delivery_manager'
         contacts_me_role_team'food_delivery_manager'
-      when 'service_member'
-        contacts_me_role_team 'service_member'
+      when -> (r) { r.start_with? 'council_service_' }
+        contacts_me_role_team @user.role.tag
       else
         raise "Cannot determine contact scope for role #{@user.role.name}"
       end
@@ -33,15 +33,15 @@ class ContactPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.in_role_names?(%w(manager agent mdt food_delivery_manager service_member))
+    all_roles?
   end
 
   def update?
-    admin? || agent? || mdt? || @user.in_role_name?('service_member')
+    admin? || agent? || mdt? || council_service?
   end
 
   def show?
-    @user.in_role_names?(%w(manager agent mdt food_delivery_manager service_member))
+    all_roles?
   end
 
   def create?

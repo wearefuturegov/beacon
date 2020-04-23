@@ -53,8 +53,8 @@ When("I change someone else's need status to 'complete'") do
 
   Capybara.using_session('Second_users_session') do
     visit "/needs/#{@need.id}"
-    page.select 'test@test.com', from: 'need_user_id'
-    @expected_assignee = 'test@test.com'
+    page.select 'admin@test.com', from: 'need_user_id'
+    @expected_assignee = 'admin@test.com'
     page.find('.notice', text: 'Need was successfully updated.')
   end
   page.select 'Complete', from: 'need_status'

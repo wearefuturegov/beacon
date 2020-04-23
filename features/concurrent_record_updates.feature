@@ -5,9 +5,10 @@ Feature: Edit records concurrently
   So that the information I key-in can be stored correctly
 
   Background:
-    * I am logged into the system as an admin
+    * I am logged into the system
     * Someone else is logged into the system
 
+    @blah
   Scenario: Update need record concurrently
     Given a resident with a need exists
     And I have assigned the need to me
