@@ -1,5 +1,7 @@
 <% content_for :header do %>
-  <%= link_to "Triage", contact_triage_path(@contact), class: "button button--dark" %>
+  <% if policy(Need).create? %>
+    <%= link_to "Triage", contact_triage_path(@contact), class: "button button--dark" %>
+  <% end %>
 <% end %>
 
 <%= render "shared/vulnerable-banner" %>

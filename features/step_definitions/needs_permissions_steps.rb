@@ -5,8 +5,8 @@ Given('I am logged into the system as a(n) {string} user') do |role|
 end
 
 And('a need is assigned to me') do
-  @need_contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
-  @need = Need.create!(contact: @need_contact, name: 'Phone Triage', category: 'Phone Triage', user: @user)
+  @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
+  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', user: @user)
 end
 
 When('I go to the need list') do
@@ -14,16 +14,16 @@ When('I go to the need list') do
 end
 
 Then('I can see the need in the list') do
-  expect(page).to have_content(@need_contact.first_name)
+  expect(page).to have_content(@contact.first_name)
 end
 
 Then('I can not see that need in the list') do
-  expect(page).not_to have_content(@need_contact.first_name)
+  expect(page).not_to have_content(@contact.first_name)
 end
 
 And('a need is assigned to that role') do
-  @need_contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
-  @need = Need.create!(contact: @need_contact, name: 'Phone Triage', category: 'Phone Triage', role: @role)
+  @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
+  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', role: @role)
 end
 
 And('another user exists in that role') do
@@ -31,13 +31,13 @@ And('another user exists in that role') do
 end
 
 And('a need is assigned to the other user') do
-  @need_contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
-  @need = Need.create!(contact: @need_contact, name: 'Phone Triage', category: 'Phone Triage', user: @other_user)
+  @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
+  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', user: @other_user)
 end
 
 
 When('I go to the contact page for that need') do
-  visit "/contacts/#{@need_contact.id}"
+  visit "/contacts/#{@contact.id}"
 end
 
 Then('I should be able to add needs to that contact') do

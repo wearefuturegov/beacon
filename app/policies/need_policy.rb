@@ -44,6 +44,6 @@ class NeedPolicy < ApplicationPolicy
   end
 
   def create?
-    admin? || agent? || mdt?
+    admin? || agent? || mdt? || @user.in_role_name?('council_service_team')
   end
 end
