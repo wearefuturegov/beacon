@@ -31,7 +31,7 @@ end
 Then("I see the need in the 'assigned to me' page") do
   visit "/?user_id=#{@user.id}"
   table_row = find('tbody tr')
-  assignee_column = table_row.find('td:nth-child(7)')
+  assignee_column = table_row.find('td:nth-child(8)')
   expect(assignee_column).to have_content 'test@test.com'
 end
 
@@ -72,9 +72,9 @@ end
 def get_area_panel(area)
   case area
   when 'needs'
-    panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(1)'
-  when 'completed'
     panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(2)'
+  when 'completed'
+    panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(3)'
   else
     raise "Cannot look for non-existent panel #{area}"
   end
