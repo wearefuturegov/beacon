@@ -31,7 +31,7 @@ end
 Then("I see the need in the 'assigned to me' page") do
   visit "/?user_id=#{@user.id}"
   table_row = find('tbody tr')
-  assignee_column = table_row.find('td:nth-child(7)')
+  assignee_column = table_row.find('td:nth-child(8)')
   expect(assignee_column).to have_content 'admin@test.com'
 end
 
