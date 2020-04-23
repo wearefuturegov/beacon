@@ -33,7 +33,6 @@ const subscription = consumer.subscriptions.create({ channel: 'ContactChannel', 
 
 
 const cleanup = () => {
-    console.log("cleanup");
     clearInterval(interval);
     subscription.unsubscribe();
 };
