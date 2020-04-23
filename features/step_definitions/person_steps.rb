@@ -2,6 +2,14 @@ Given(/^a resident$/) do
   @contact = Contact.create!(first_name: 'Test')
 end
 
+Given(/^a resident with a complete profile$/) do
+  @contact = Contact.create!(first_name: 'Forename',
+                             surname: 'Surname',
+                             date_of_birth: Date.new(1982,07,01),
+                             postcode: 'AB12 9YZ',
+                             nhs_number: 'NHS-999999')
+end
+
 Given(/^a unique resident$/) do
   @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
 end
@@ -192,4 +200,28 @@ end
 
 Then(/^the residents covid-19 status has been updated$/) do
   expect(page.find_by_id('contact-has-covid')).to have_text('Yes')
+end
+
+
+When('I search for the resident by {string}') do |query|
+  visit 'contacts'
+  fill_in('search', with: query)
+  click_button('search-submit')
+end
+
+Then(/^I see the resident in the search results$/) do
+  expect(page.find_link('Forename Surname')).not_to be_nil
+  results_table = page.find('.table')
+  expect(results_table).to have_text('Forename Surname')
+  expect(results_table).to have_text('1982')
+  expect(results_table).to have_text('AB12 9YZ')
+  expect(results_table).to have_text('NHS-999999')
+end
+
+Then('I see an option to add a person') do
+  expect(page.find_link('Add a person')).not_to be_nil
+end
+
+Then('I see a {string} message') do |message|
+  expect(page.find('.no-results')).to have_text(message)
 end
