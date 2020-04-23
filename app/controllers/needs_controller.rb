@@ -30,7 +30,6 @@ class NeedsController < ApplicationController
   end
 
   def update
-    authorize @need
     if @need.update(need_params)
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else
@@ -47,6 +46,7 @@ class NeedsController < ApplicationController
     for_update = JSON.parse(params[:for_update])
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
+      authorize(@need)
       need.update!(user_id: obj['user_id'])
     end
     render json: { status: 'ok' }
@@ -59,7 +59,7 @@ class NeedsController < ApplicationController
     @contact = @need.contact
 
     authorize(@need)
-    authorize(@contact)
+    authorize(@contact, :show?)
   end
 
   def set_contact

@@ -23,7 +23,7 @@
                 <%= @contact.mobile %>
             </dd>
         </dl>
-      <% if policy(Contact).edit? %>
+      <% if policy(@contact).edit? %>
         <%= link_to "Edit", edit_contact_path(@contact), class: "accordion__edit-link" %>
       <% end %>
     </div>

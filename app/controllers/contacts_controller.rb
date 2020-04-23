@@ -16,6 +16,7 @@ class ContactsController < ApplicationController
   end
 
   def create
+    authorize Contact
     @contact = Contact.new(contact_params)
     if @contact.save
       need = Need.new
@@ -62,6 +63,7 @@ class ContactsController < ApplicationController
 
   def set_contact
     @contact = Contact.find(params[:id])
+    authorize(@contact)
   end
 
   def contact_params

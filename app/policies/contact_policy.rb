@@ -37,14 +37,16 @@ class ContactPolicy < ApplicationPolicy
   end
 
   def update?
-    admin? || agent? || mdt? || council_service?
+    return true if permissive_roles?
   end
 
   def show?
-    all_roles?
+    return true if permissive_roles?
+
+    Pundit.policy_scope!(@user, Contact).where(id: @record.id).exists?
   end
 
   def create?
-    admin? || agent? || mdt?
+    admin? || agent? || mdt? || council_service?
   end
 end

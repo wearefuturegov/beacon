@@ -66,7 +66,14 @@ class ApplicationPolicy
     @user.role.role.start_with? 'council_service_'
   end
 
+  # these roles have trusted access to the system
+  # even if their list view is restricted, they can
+  # still see items via other means
+  def permissive_roles?
+    admin? || agent? || mdt? || council_service?
+  end
+
   def all_roles?
-    admin? || agent? || mdt? || council_service? || @user.in_role_name?('food_delivery_manager')
+    permissive_roles? || @user.in_role_name?('food_delivery_manager')
   end
 end

@@ -33,18 +33,26 @@ class NeedPolicy < ApplicationPolicy
   end
 
   def index?
-    all_roles?
+    true
   end
 
   def update?
-    all_roles?
+    return true if permissive_roles?
+
+    Pundit.policy_scope!(@user, Need).where(id: @record.id).exists?
   end
 
   def show?
-    all_roles?
+    return true if permissive_roles?
+
+    Pundit.policy_scope!(@user, Need).where(id: @record.id).exists?
   end
 
   def create?
-    admin? || agent? || mdt? || council_service?
+    permissive_roles?
+  end
+
+  def update_multiple?
+    update?
   end
 end
