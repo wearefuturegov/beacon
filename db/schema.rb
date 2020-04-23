@@ -10,25 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_145507) do
+ActiveRecord::Schema.define(version: 2020_04_23_135354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "contact_list_users", force: :cascade do |t|
-    t.bigint "contact_list_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["contact_list_id"], name: "index_contact_list_users_on_contact_list_id"
-    t.index ["user_id"], name: "index_contact_list_users_on_user_id"
-  end
-
-  create_table "contact_lists", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
 
   create_table "contacts", force: :cascade do |t|
     t.string "first_name"
@@ -42,7 +27,6 @@ ActiveRecord::Schema.define(version: 2020_04_22_145507) do
     t.boolean "is_vulnerable"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "contact_list_id"
     t.integer "needs_count", default: 0
     t.integer "uncompleted_needs_count", default: 0
     t.integer "completed_needs_count", default: 0
@@ -65,7 +49,6 @@ ActiveRecord::Schema.define(version: 2020_04_22_145507) do
     t.boolean "no_calls_flag", default: false
     t.boolean "deceased_flag", default: false
     t.boolean "share_data_flag"
-    t.index ["contact_list_id"], name: "index_contacts_on_contact_list_id"
   end
 
   create_table "needs", force: :cascade do |t|
@@ -94,13 +77,6 @@ ActiveRecord::Schema.define(version: 2020_04_22_145507) do
     t.jsonb "import_data"
     t.index ["need_id"], name: "index_notes_on_need_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
-  end
-
-  create_table "organisations", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_organisations_on_name"
   end
 
   create_table "passwordless_sessions", force: :cascade do |t|
@@ -163,7 +139,6 @@ ActiveRecord::Schema.define(version: 2020_04_22_145507) do
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.bigint "organisation_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "email", null: false
@@ -172,7 +147,6 @@ ActiveRecord::Schema.define(version: 2020_04_22_145507) do
     t.datetime "last_logged_in"
     t.bigint "role_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["organisation_id"], name: "index_users_on_organisation_id"
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
@@ -187,9 +161,6 @@ ActiveRecord::Schema.define(version: 2020_04_22_145507) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  add_foreign_key "contact_list_users", "contact_lists"
-  add_foreign_key "contact_list_users", "users"
-  add_foreign_key "contacts", "contact_lists"
   add_foreign_key "needs", "contacts"
   add_foreign_key "needs", "users"
   add_foreign_key "notes", "needs"
@@ -197,6 +168,5 @@ ActiveRecord::Schema.define(version: 2020_04_22_145507) do
   add_foreign_key "taggings", "tags"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
-  add_foreign_key "users", "organisations"
   add_foreign_key "users", "roles"
 end
