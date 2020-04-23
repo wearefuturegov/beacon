@@ -90,3 +90,28 @@ Feature: Restrict viewing/editing need access to a user based on their role
       | service_member        | We think we can help here |
       | food_delivery_manager | Unable to deliver food    |
       | mdt                   | Triage has been postponed |
+
+  @show
+  Scenario Outline: I can see all needs for a user on the details page
+    Given I am logged into the system as a "<role>" user
+    And a need is assigned to me
+    And the contact has other needs that I cannot see in the list
+    And I go to the contact page for that need
+    Then I can see the other needs for that contact
+    Examples:
+      | role           |
+      | manager        |
+      | agent          |
+      | service_member |
+      | mdt            |
+
+  @show
+  Scenario Outline: I can only see relevant needs for a user on the details page
+    Given I am logged into the system as a "<role>" user
+    And a need is assigned to me
+    And the contact has other needs that I cannot see in the list
+    And I go to the contact page for that need
+    Then I can not see the other needs for that contact
+    Examples:
+      | role                  |
+      | food_delivery_manager |
