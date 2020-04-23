@@ -14,7 +14,7 @@ class Contact < ApplicationRecord
   validates :first_name, presence: true
 
   pg_search_scope :search,
-                  against: [:first_name, :surname, :postcode],
+                  against: [:first_name, :surname, :postcode, :nhs_number, :date_of_birth],
                   using: {
                     tsearch: { prefix: true }
                   }
