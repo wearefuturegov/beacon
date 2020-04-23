@@ -78,12 +78,7 @@ Coming soon...
 
 | Name             | Description                         |
 |------------------|-------------------------------------|
-| SMTP_DOMAIN      | HELO domain                         |
-| SMTP_ADDRESS     | Address for SMTP server             |
-| SMTP_USERNAME    | Username for SMTP server            |
-| SMTP_PASSWORD    | Password for SMTP server            |
-| SMTP_PORT        | Port for SMTP server                |
 | COUNCIL          | Config key for `councils.yml`       |
-| SENDGRID_API_KEY | Sendgrid API key (production only   |
-| HOSTNAME         | Optional hostname used in outbound emails (e.g. `x.beacon.com`) |
+| NOTIFY_API_KEY   | Gov.uk Notify API key (production only)   |
+| HOSTNAME         | Hostname used in outbound emails (e.g. `x.beacon.com`). Defaults to heroku app name |
 | SEED_USER_EMAILS | Optional comma-separated list of emails to seed users table with |
