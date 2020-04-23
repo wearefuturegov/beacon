@@ -55,15 +55,9 @@
       <% end %>
       <% if params[:search].present? %>
         <tr class="clickable" onclick="window.location='<%= new_contact_path %>'">
-          <td>
+          <td colspan="7">
             <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
           </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
         </tr>
       <% end %>
       </tbody>
