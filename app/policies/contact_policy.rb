@@ -12,7 +12,7 @@ class ContactPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.in_role_names?(%w(manager agent mdt food_delivery_manager))
+    @user.in_role_names?(%w(manager agent mdt food_delivery_manager service_member))
   end
 
   def update?
@@ -20,7 +20,7 @@ class ContactPolicy < ApplicationPolicy
   end
 
   def show?
-    @user.in_role_names?(%w(manager agent mdt food_delivery_manager))
+    @user.in_role_names?(%w(manager agent mdt food_delivery_manager service_member))
   end
 
   def create?

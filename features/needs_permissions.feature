@@ -25,7 +25,7 @@ Feature: Restrict viewing/editing access to a user based on their role
       | agent   |
       | mdt     |
 
-  Scenario Outline: Can view needs that are assigned to a member of my team where appropriate
+  Scenario Outline: Certain roles can view needs that are assigned to a member of their team
     Given I am logged into the system as a "<role>" user
     And another user exists in that role
     And a need is assigned to the other user
@@ -34,7 +34,7 @@ Feature: Restrict viewing/editing access to a user based on their role
     Examples:
       | role                  |
       | food_delivery_manager |
-      | council_service_team  |
+      | service_member        |
 
   Scenario: MDT user cannot see needs assigned to another MDT user
     Given I am logged into the system as an "MDT" user
@@ -49,11 +49,11 @@ Feature: Restrict viewing/editing access to a user based on their role
     When I go to the contact page for that need
     Then I should be able to add needs to that contact
     Examples:
-      | role                 |
-      | manager              |
-      | agent                |
-      | mdt                  |
-      | council_service_team |
+      | role           |
+      | manager        |
+      | agent          |
+      | mdt            |
+      | service_member |
 
   Scenario Outline: Cannot create needs when not allowed by the role
     Given I am logged into the system as a "<role>" user
@@ -72,5 +72,7 @@ Feature: Restrict viewing/editing access to a user based on their role
     When I submit the form to create the note
     Then the list of notes contains "<note>"
     Examples:
-      | role                  | note                   |
-      | food_delivery_manager | Unable to deliver food |
+      | role                  | note                      |
+      | service_member        | We think we can help here |
+      | food_delivery_manager | Unable to deliver food    |
+      | mdt                   | Triage has been postponed |

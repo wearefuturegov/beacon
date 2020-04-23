@@ -9,10 +9,10 @@ class NeedPolicy < ApplicationPolicy
         needs_me_or_role 'mdt'
       when 'food_delivery_manager'
         needs_me_role_team'food_delivery_manager'
-      when 'council_service_team'
-        needs_me_role_team 'council_service_team'
+      when 'service_member'
+        needs_me_role_team 'service_member'
       else
-        raise "Cannot determine need scope for role #{@user.role.name}"
+        raise "Cannot determine need scope for role #{@user.role.name} #{@user.role.tag}"
       end
     end
 
@@ -32,18 +32,18 @@ class NeedPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.in_role_names?(%w(manager agent mdt food_delivery_manager))
+    @user.in_role_names?(%w(manager agent mdt food_delivery_manager service_member))
   end
 
   def update?
-    @user.in_role_names?(%w(manager agent mdt food_delivery_manager))
+    @user.in_role_names?(%w(manager agent mdt food_delivery_manager service_member))
   end
 
   def show?
-    @user.in_role_names?(%w(manager agent mdt food_delivery_manager))
+    @user.in_role_names?(%w(manager agent mdt food_delivery_manager service_member))
   end
 
   def create?
-    admin? || agent? || mdt? || @user.in_role_name?('council_service_team')
+    admin? || agent? || mdt? || @user.in_role_name?('service_member')
   end
 end
