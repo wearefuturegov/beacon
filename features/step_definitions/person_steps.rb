@@ -135,8 +135,8 @@ When(/^I save the edit resident form$/) do
 end
 
 Then('the residents list of needs contains {string}') do |need|
-  visit "/contacts/#{@contact.id}"
-  expect(page.find('.with-left-sidebar__right')).to have_text(need)
+  visit "/contacts/#{@contact.id}" unless @contact.nil?
+  expect(page.find('.needs-table')).to have_text(need)
 end
 
 Then(/^I see a resident updated message$/) do

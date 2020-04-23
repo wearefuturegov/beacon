@@ -10,7 +10,8 @@ need_categories = [
   'prescription pickups',
   'book drops and entertainment',
   'dog walking',
-  'other'
+  'other',
+  'initial review'
 ]
 
 FactoryBot.define do
