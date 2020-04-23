@@ -29,11 +29,8 @@ RSpec.describe Need, type: :model do
   it { is_expected.to be_versioned }
 
   it '#status' do
-    need1 = build :need, name: 'medicines', completed_on: nil
-    expect(need1.status).to eq 'To do'
-
-    need2 = build :need, name: 'food', completed_on: DateTime.now
-    expect(need2.status).to eq 'Complete'
+    need1 = build :need, name: 'medicines', status: :to_do
+    expect(need1.status_label).to eq 'To do'
   end
 
   describe 'sort_created_and_start_date' do
