@@ -10,20 +10,21 @@
       People in need
     <% end %>
   </h1>
-  <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
 </header>
 
 <div class="panel">
   <% if @contacts.any? %>
     <table class="table">
       <thead>
-        <tr>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Needs</th>
-          <th>Vulnerable</th>
-          <th>First added</th>
-        </tr>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Needs</th>
+        <th>Vulnerable</th>
+        <th>Date of Birth</th>
+        <th>NHS Number</th>
+        <th>Postcode</th>
+      </tr>
       </thead>
       <tbody>
       <% @contacts.each do |contact| %>
@@ -47,13 +48,29 @@
               —
             <% end %>
           </td>
-          <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
+          <td><%= contact.date_of_birth&.strftime("%-d %B %Y") %></td>
+          <td><%= contact.nhs_number %></td>
+          <td><%= contact.postcode %></td>
         </tr>
-      <% end%>
+      <% end %>
+      <% if params[:search].present? %>
+        <tr class="clickable" onclick="window.location='<%= new_contact_path %>'">
+          <td>
+            <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
       </tbody>
     </table>
     <%= render "shared/pagination", model: @contacts %>
   <% else %>
     <p class="no-results">No matches</p>
+    <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
   <% end %>
 </div>

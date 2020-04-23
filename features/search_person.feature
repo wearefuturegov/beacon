@@ -7,12 +7,16 @@ Feature: Search person
   Background:
     * I am logged into the system
 
-  Scenario: The person searched for exists in the system
+  Scenario: The named person searched for exists in the system
     Given a resident
     When I search for the resident by name
     Then I see the residents details
 
-  Scenario: The person searched for does not exist in the system
+  Scenario: Search by dob
+
+  Scenario: search by NHS number
+
+  Scenario: The named person searched for does not exist in the system
     Given a name of "NoNameMatch"
     When I search by name "NoNameMatch"
     Then I see an error message "No match"
