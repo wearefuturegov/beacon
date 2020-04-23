@@ -1,7 +1,8 @@
 RSpec.describe TriageController, type: :controller do
   before :each do
+    expect_any_instance_of(controller.class).to receive(:authorize).and_return(nil)
     controller.class.skip_before_action :require_user!, raise: false
-    controller.instance_variable_set(:@current_user, {})
+    controller.instance_variable_set(:@current_user, User.new)
 
     @test_contact = double('Contact')
     allow(@test_contact).to receive(:id).and_return 1

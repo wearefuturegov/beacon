@@ -38,6 +38,7 @@
           <div class="triage-grid__inner">
             <h3 class="triage-grid__title"><%= need[:label] %></h3>
 
+            <%= need_form.hidden_field :lock_version, :value => need[:lock_version] %>
             <%= need_form.hidden_field :name, :value => need[:label].parameterize.underscore %>
 
             <fieldset class="field-section field-section--two-cols">
@@ -47,7 +48,7 @@
                 <%= need_form.label :active_true, "Yes", class: "radio__label" %>
               </div>
               <div class="radio">
-                <%= need_form.radio_button :active, false, {:checked => need[:active] == 'false'} %>
+                <%= need_form.radio_button :active,  false, {:checked => need[:active] == 'false'} %>
                 <%= need_form.label :active_false, "No", class: "radio__label" %>
               </div>
             </fieldset>
@@ -91,3 +92,6 @@
 
 
 <% end %>
+
+
+<%= javascript_pack_tag 'users_viewing_page.js' %>

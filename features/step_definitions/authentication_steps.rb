@@ -10,11 +10,19 @@ Given(/^I am logged into the system as an admin$/) do
   expect(page).to have_selector(:link_or_button, 'Log out')
 end
 
+Given(/^Someone else is logged into the system$/) do
+  Capybara.using_session('Second_users_session') do
+    visit generate_magic_link(false)
+    expect(page.status_code).to eq(200) if Capybara.current_driver == :rack_test
+    expect(page).to have_selector(:link_or_button, 'Log out')
+  end
+end
+
 def generate_magic_link(admin = false)
   email = admin ? 'test@test.com' : 'admin@test.com'
   tester = User.create!(email: email,
                         invited: Date.today,
-                        admin: admin)
+                        admin: admin, roles: [Role.create(name: 'Manager role', role: 'manager')])
   @user = tester
   session = Passwordless::Session.new({
                                         authenticatable: tester,

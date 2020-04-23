@@ -14,6 +14,7 @@ RSpec.describe ContactsController do
     contact = class_double('Contact').as_stubbed_const
     allow(contact).to receive(:all).and_return(contact)
     allow(contact).to receive(:page).and_return(contact)
+    allow(controller).to receive(:policy_scope).with(Contact).and_return(contact)
     contact
   end
 

@@ -10,8 +10,9 @@ class NeedsController < ApplicationController
   def index
     @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
     @users = User.all
-    @needs = Need.started
-    @needs = @needs.filter_and_sort(@params.slice(:category, :user_id, :status, :is_urgent), @params.slice(:order, :order_dir))
+    @needs = policy_scope(Need)
+             .started
+             .filter_and_sort(@params.slice(:category, :user_id, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
     respond_to do |format|
       format.html
@@ -29,12 +30,17 @@ class NeedsController < ApplicationController
   end
 
   def update
+    authorize @need
     if @need.update(need_params)
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else
       @users = User.all
-      render :edit
+      render :show
     end
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = STALE_ERROR_MESSAGE
+    @users = User.all
+    render :show
   end
 
   def update_multiple
@@ -51,6 +57,9 @@ class NeedsController < ApplicationController
   def set_need
     @need = Need.find(params[:id])
     @contact = @need.contact
+
+    authorize(@need)
+    authorize(@contact)
   end
 
   def set_contact
@@ -58,6 +67,6 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent)
+    params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent, :lock_version)
   end
 end

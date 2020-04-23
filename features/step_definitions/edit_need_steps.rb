@@ -7,7 +7,7 @@ When('I (assign)/(have assigned) the need to me') do
   visit "/needs/#{@need.id}"
   page.select 'admin@test.com', from: 'need_user_id'
   @expected_assignee = 'admin@test.com'
-  page.find('.alert', text: 'Need was successfully updated.')
+  page.find('.notice', text: 'Need was successfully updated.')
 end
 
 When('I assign the need to another user') do
@@ -15,13 +15,13 @@ When('I assign the need to another user') do
   visit "/needs/#{@need.id}"
   page.select 'other_user@email.com', from: 'need_user_id'
   @expected_assignee = 'other_user@email.com'
-  page.find('.alert', text: 'Need was successfully updated.')
+  page.find('.notice', text: 'Need was successfully updated.')
 end
 
 When("I change the need status to 'complete'") do
   visit "/needs/#{@need.id}"
   page.select 'Complete', from: 'need_status'
-  page.find('.alert', text: 'Need was successfully updated.')
+  page.find('.notice', text: 'Need was successfully updated.')
 end
 
 And("the need has status 'to do'") do
@@ -46,6 +46,27 @@ And("I see the updated need details in the contact's {string} list") do |area|
   need_row = get_area_panel(area).find('tbody tr')
   assignee_column = need_row.find('td:nth-child(3)')
   expect(assignee_column).to have_content @expected_assignee
+end
+
+When("I change someone else's need status to 'complete'") do
+  visit "/needs/#{@need.id}"
+
+  Capybara.using_session('Second_users_session') do
+    visit "/needs/#{@need.id}"
+    page.select 'test@test.com', from: 'need_user_id'
+    @expected_assignee = 'test@test.com'
+    page.find('.notice', text: 'Need was successfully updated.')
+  end
+  page.select 'Complete', from: 'need_status'
+end
+
+Then('I see my need change was unsuccessful') do
+  page.find('.alert', text: 'Error. Somebody else has changed this record, please refresh.')
+  visit "/needs/#{@need.id}"
+
+  # should be in 'To do'
+  status = page.find('#status-actions__field select').value
+  expect(status).to have_content 'To do'
 end
 
 def get_area_panel(area)

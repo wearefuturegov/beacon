@@ -1,51 +1,43 @@
-<%= form_with(model: user, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
+<section class="field-section field-section--two-cols">
+  <% if user.errors.any? %>
+    <div class="error" id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-  <section class="field-section field-section--two-cols">
-    <% if user.errors.any? %>
-      <div class="error" id="error_explanation">
-        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-        <ul>
-          <% user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div class="field">
-      <%= form.label :first_name, class: "field__label" %>
-      <%= form.text_field :first_name %>
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
+  <% end %>
 
-    <div class="field">
-      <%= form.label :last_name, class: "field__label" %>
-      <%= form.text_field :last_name %>
-    </div>
-
-    <div class="field field--span-two-cols">
-      <%= form.label :email, 
-        "Their email address", 
-        class: "field__label"
-      %>
-      <%= form.email_field :email, placeholder: "eg. example@email.com" %>
-    </div>
-  </section>
-
-  <fieldset class="field-section">
-      <legend class="field-section__title">Is this user an admin?</legend>
-      <div class="radio">
-        <%= form.radio_button :admin, true %>
-        <label for="user_admin_true" class="radio__label">Yes</label>
-      </div>
-      <div class="radio">
-        <%= form.radio_button :admin, false %>
-        <label for="user_admin_false" class="radio__label">No</label>
-      </div>
-  </fieldset>
-
-  <div class="actions">
-    <%= form.button "Send invite", class: "button button--primary" %>
+  <div class="field">
+    <%= form.label :first_name, class: "field__label" %>
+    <%= form.text_field :first_name %>
   </div>
-<% end %>
-</div>
+
+  <div class="field">
+    <%= form.label :last_name, class: "field__label" %>
+    <%= form.text_field :last_name %>
+  </div>
+
+  <div class="field field--span-two-cols">
+    <%= form.label :email,
+                   "Their email address",
+                   class: "field__label"
+    %>
+    <%= form.email_field :email, placeholder: "eg. example@email.com" %>
+  </div>
+</section>
+
+<fieldset class="field-section">
+  <legend class="field-section__title">What roles is this user in?</legend>
+  <% @roles.each do |role| %>
+    <div class="field">
+      <div class="checkbox">
+        <%= form.check_box :roles, {multiple: true, checked: @user.in_role?(role.id)}, role.id, false %>
+        <%= form.label :roles, role.name, {:value => role.id, :class => 'checkbox__label'} %>
+      </div>
+    </div>
+  <% end %>
+</fieldset>
