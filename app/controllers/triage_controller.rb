@@ -7,12 +7,13 @@ class TriageController < ApplicationController
 
   def edit
     @edit_contact_id = @contact.id
-
     if session[:triage] && session[:triage]['contact_id'] == @contact.id
-      @contact_needs = session[:triage]['contact_needs_params']
       @contact.assign_attributes(session[:triage]['contact_params'])
+      @contact_needs = ContactNeeds.new(session[:triage]['contact_needs_params'])
+      merge_contact_needs
+    else
+      @contact_needs = create_contact_needs
     end
-    @contact_needs = create_contact_needs
   end
 
   def update
@@ -26,7 +27,7 @@ class TriageController < ApplicationController
       @contact.valid?
 
       if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
-        add_contact_needs
+        merge_contact_needs
         return render :edit
       end
 
@@ -37,7 +38,7 @@ class TriageController < ApplicationController
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
-    add_contact_needs
+    merge_contact_needs
     render :edit
   end
 
@@ -52,7 +53,7 @@ class TriageController < ApplicationController
   end
 
   # repopulate the label/colour data
-  def add_contact_needs
+  def merge_contact_needs
     @contact_needs.needs_list.each_with_index do |need, index|
       need[1].merge!(view_context.needs[index])
     end
