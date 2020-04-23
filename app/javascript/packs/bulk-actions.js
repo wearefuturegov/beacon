@@ -15,17 +15,19 @@ let showHideAssignAction = () => {
 let needClicked = (e) => {
   e.stopPropagation()
   showAssignAction = false
-  needs.forEach((need) => {
-    if (need.checked) {
+  for (let i = 0; i < needs.length; i++) {
+    if (needs[i].checked) {
       showAssignAction = true
-      return;
+      break;
     }
-  })
-  
+  }
+
   showHideAssignAction()
 }
 
-needs.forEach((need) => need.addEventListener('click', needClicked))
+for (let i = 0; i < needs.length; i++) {
+  needs[i].addEventListener('click', needClicked)
+}
 
 let allNeeds = document.querySelector("#select-all-needs")
 let selectAllNeeds = () => {
@@ -39,13 +41,13 @@ let selectAllNeeds = () => {
   }
   
   showHideAssignAction()
-  needs.forEach((need) => {
-    need.checked = checked
-  })
+  for (let i = 0; i < needs.length; i++) {
+    needs[i].checked = checked
+  }
 }
 
 allNeeds.addEventListener('click', selectAllNeeds)
-
+    
 document.querySelector("#assign-selected-needs").addEventListener("change", (e) => {
   let user_id = e.target.value
   if(e.target.value) {
@@ -53,27 +55,27 @@ document.querySelector("#assign-selected-needs").addEventListener("change", (e) 
       user_id = null
     }
     let for_update = []
-    needs.forEach((need) => {
-      if (need.checked) {
-        for_update.push({ need_id: need.value, user_id: user_id })
+    for (let i = 0; i < needs.length; i++) {
+      if (needs[i].checked) {
+        for_update.push({ need_id: needs[i].value, user_id: user_id })
       }
-    })
+    }
     
-    fetch(`/needs_multiple`,{
-      method: 'PATCH',
-      body: `for_update=${JSON.stringify(for_update)}`,
+    $.ajax({
+      url: '/needs_multiple',
+      type: 'PATCH',
+      data: `for_update=${JSON.stringify(for_update)}`,
       headers:  { 
         'Content-type': 'application/x-www-form-urlencoded',
         "X-CSRF-Token": getMetaValue("csrf-token")
       },
-      credentials: 'same-origin' 
-    })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.status === 'ok') {
-        location.reload()
+      dataType: "json",
+      success: function(res) {
+        if (res.status === 'ok') {
+          location.reload()
+        }
       }
-    })
+    })  
   }
 })
 
