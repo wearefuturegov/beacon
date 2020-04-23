@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_145507) do
+ActiveRecord::Schema.define(version: 2020_04_23_135024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,9 @@ ActiveRecord::Schema.define(version: 2020_04_22_145507) do
     t.datetime "start_on"
     t.jsonb "supplemental_data"
     t.integer "lock_version", default: 0
+    t.string "status"
     t.index ["contact_id"], name: "index_needs_on_contact_id"
+    t.index ["status"], name: "index_needs_on_status"
     t.index ["user_id"], name: "index_needs_on_user_id"
   end
 
