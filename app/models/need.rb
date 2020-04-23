@@ -6,6 +6,7 @@ class Need < ApplicationRecord
   include Filterable
   self.ignored_columns = %w[due_by]
 
+  enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
   belongs_to :role, optional: true
@@ -33,14 +34,7 @@ class Need < ApplicationRecord
     end
   }
 
-  scope :filter_by_status, lambda { |status|
-    status = status.downcase
-    if status == 'to do'
-      where(completed_on: nil)
-    else
-      where.not(completed_on: nil)
-    end
-  }
+  scope :filter_by_status, ->(status) { where(status: status) }
 
   scope :filter_by_is_urgent, lambda { |is_urgent|
     is_urgent = is_urgent.downcase
@@ -102,9 +96,8 @@ class Need < ApplicationRecord
 
     CSV.generate(headers: true) do |csv|
       csv << attributes.values
-
       all.each do |record|
-        csv << attributes.keys.map { |attr| record.send(attr) }
+        csv << attributes.keys.map { |attr| attr == :status ? record.send(:status_label) : record.send(attr) }
       end
     end
   end
@@ -113,16 +106,8 @@ class Need < ApplicationRecord
     "need-pane--#{category.parameterize}"
   end
 
-  def status
-    completed_on.present? ? 'Complete' : 'To do'
-  end
-
-  def status=(state)
-    self.completed_on = if state == 'Complete'
-                          DateTime.now
-                        else
-                          ''
-                        end
+  def status_label
+    self[:status]&.humanize || Need.statuses[:to_do].humanize
   end
 
   def self.base_query
