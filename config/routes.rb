@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'needs#index'
 
-  resources :contacts, only: [:index, :show, :edit, :update, :new] do
+  resources :contacts, only: [:index, :show, :edit, :update, :new, :create] do
     resources :needs, only: [:new, :create]
     # collection do
     #   get 'call-list'
