@@ -87,3 +87,5 @@ Coming soon...
 | SENDGRID_API_KEY | Sendgrid API key (production only   |
 | HOSTNAME         | Optional hostname used in outbound emails (e.g. `x.beacon.com`) |
 | SEED_USER_EMAILS | Optional comma-separated list of emails to seed users table with |
+| REDIS_URL        | redis store url                     |
+| REDIS_PASSWORD   | redis store password                |

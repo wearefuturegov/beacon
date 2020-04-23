@@ -1,6 +1,10 @@
 const form = document.querySelector(".role-switcher")
-document.querySelector(".role-switcher input[type='submit']").style.display = "none"
-
-form.addEventListener("change", () => {
-    form.submit()
-})
+const submitBtn = document.querySelector(".role-switcher input[type='submit']");
+if(submitBtn){
+    submitBtn.style.display = "none";
+}
+if(form){
+    form.addEventListener("change", () => {
+        form.submit()
+    });
+}
