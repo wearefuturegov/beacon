@@ -21,7 +21,7 @@
         <th>Phone</th>
         <th>Needs</th>
         <th>Vulnerable</th>
-        <th>Date of Birth</th>
+        <th>Year of Birth</th>
         <th>NHS Number</th>
         <th>Postcode</th>
       </tr>
@@ -48,7 +48,7 @@
               —
             <% end %>
           </td>
-          <td><%= contact.date_of_birth&.strftime("%-d %B %Y") %></td>
+          <td><%= contact.date_of_birth&.strftime("%Y") %></td>
           <td><%= contact.nhs_number %></td>
           <td><%= contact.postcode %></td>
         </tr>
