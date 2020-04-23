@@ -22,11 +22,11 @@ ActiveRecord::Base.transaction do
       'Food Delivery Team Manager' => 'food_delivery_manager'
   }.map do |name, role|
     created_role = Role.create(name: name, role: role)
-    return [role, created_role.id]
+    [role, created_role]
   end.to_h
 
   if ENV['COUNCIL'] == 'camden'
-    FactoryBot.create_list(:user, 5).each
+    FactoryBot.create_list(:user, 5).each do |user|
     user.roles = [roles[%w(manager agent).sample]]
     user.save
 
@@ -37,8 +37,10 @@ ActiveRecord::Base.transaction do
                         notes_count: 1,
                         contact: contact
     end
+  end
   else
     FactoryBot.create_list(:user, 5).each do |user|
+      puts user.id
       user.roles = [roles[%w(manager agent).sample]]
       user.save
 
