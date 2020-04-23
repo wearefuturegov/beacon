@@ -23,7 +23,9 @@
                 <%= @contact.mobile %>
             </dd>
         </dl>
+      <% if policy(Contact).edit? %>
         <%= link_to "Edit", edit_contact_path(@contact), class: "accordion__edit-link" %>
+      <% end %>
     </div>
 
     <button class="accordion__control" aria-expanded="true">
