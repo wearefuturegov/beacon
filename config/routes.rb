@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
   post 'role', to: 'users#set_role', as: 'set_role'
   passwordless_for :users, at: '/', as: :auth
+
+  patch '/needs_multiple' => 'needs#update_multiple'
 end

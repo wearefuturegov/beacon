@@ -9,7 +9,7 @@
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
     "flatpickr": "^4.6.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",

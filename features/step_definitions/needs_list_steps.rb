@@ -17,7 +17,7 @@ end
 
 Then('I see the need for category {string} in the results') do |category|
   resident_row = find_resident_row(@contact.first_name)
-  category_column = resident_row.find('td:first-child')
+  category_column = resident_row.find('td:nth-child(2)')
   expect(category_column).to have_content(category)
 end
 
@@ -33,7 +33,7 @@ end
 
 Then('I see the need for category {string} first in the results') do |category|
   first_row = page.find('table > tbody > tr:nth-child(1)')
-  category_column = first_row.find('td:first-child')
+  category_column = first_row.find('td:nth-child(2)')
   expect(category_column).to have_content(category)
 end
 
