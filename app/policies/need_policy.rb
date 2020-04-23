@@ -8,8 +8,8 @@ class NeedPolicy < ApplicationPolicy
       when 'mdt'
         needs_me_or_role 'mdt'
       when 'food_delivery_manager'
-        needs_me_role_team'food_delivery_manager'
-      when -> (r) { r.start_with? 'council_service_' }
+        needs_me_role_team 'food_delivery_manager'
+      when ->(r) { r.start_with? 'council_service_' }
         needs_me_role_team @user.role.tag
       else
         raise "Cannot determine need scope for role #{@user.role.name} #{@user.role.tag}"
@@ -30,7 +30,6 @@ class NeedPolicy < ApplicationPolicy
           .or(Need.includes(:role, user: [:roles]).where("roles_users.role = '#{role_tag}'"))
           .distinct
     end
-
   end
 
   def index?

@@ -67,6 +67,6 @@ class ApplicationPolicy
   end
 
   def all_roles?
-    admin? || agent? || mdt? || council_service? ||  @user.in_role_name?('food_delivery_manager')
+    admin? || agent? || mdt? || council_service? || @user.in_role_name?('food_delivery_manager')
   end
 end
