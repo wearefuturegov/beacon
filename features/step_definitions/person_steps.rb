@@ -5,7 +5,7 @@ end
 Given(/^a resident with a complete profile$/) do
   @contact = Contact.create!(first_name: 'Forename',
                              surname: 'Surname',
-                             date_of_birth: Date.new(1982,07,01),
+                             date_of_birth: Date.new(1982, 7, 1),
                              postcode: 'AB12 9YZ',
                              nhs_number: 'NHS-999999')
 end
@@ -201,7 +201,6 @@ end
 Then(/^the residents covid-19 status has been updated$/) do
   expect(page.find_by_id('contact-has-covid')).to have_text('Yes')
 end
-
 
 When('I search for the resident by {string}') do |query|
   visit 'contacts'

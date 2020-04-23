@@ -1,6 +1,6 @@
 When('I view any needs list row for that resident') do
   visit '/'
-  page.should have_content('All needs')
+  expect(page).to have_text('All needs')
   @resident_row = find_resident_row(@contact.first_name)
   expect(@resident_row).not_to be_nil
 end
