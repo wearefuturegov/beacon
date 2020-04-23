@@ -8,7 +8,6 @@ Feature: Edit records concurrently
     * I am logged into the system
     * Someone else is logged into the system
 
-    @blah
   Scenario: Update need record concurrently
     Given a resident with a need exists
     And I have assigned the need to me

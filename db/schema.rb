@@ -80,7 +80,9 @@ ActiveRecord::Schema.define(version: 2020_04_22_145507) do
     t.datetime "start_on"
     t.jsonb "supplemental_data"
     t.integer "lock_version", default: 0
+    t.bigint "role_id"
     t.index ["contact_id"], name: "index_needs_on_contact_id"
+    t.index ["role_id"], name: "index_needs_on_role_id"
     t.index ["user_id"], name: "index_needs_on_user_id"
   end
 
@@ -191,6 +193,7 @@ ActiveRecord::Schema.define(version: 2020_04_22_145507) do
   add_foreign_key "contact_list_users", "users"
   add_foreign_key "contacts", "contact_lists"
   add_foreign_key "needs", "contacts"
+  add_foreign_key "needs", "roles"
   add_foreign_key "needs", "users"
   add_foreign_key "notes", "needs"
   add_foreign_key "notes", "users"

@@ -51,7 +51,6 @@ ActiveRecord::Base.transaction do
   end
   else
     FactoryBot.create_list(:user, 5).each do |user|
-      puts user.id
       user.roles = [roles[%w(manager agent).sample]]
       user.save
 
