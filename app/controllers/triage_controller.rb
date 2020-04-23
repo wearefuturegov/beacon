@@ -17,7 +17,7 @@ class TriageController < ApplicationController
   end
 
   def update
-    if params.require(:save_for_later)
+    if params.require(:save_for_later) == 'true'
       save_for_later(@contact.id, contact_params, contact_needs_params)
       redirect_to contact_path(@contact.id), notice: 'Triage temporarely saved.'
     else
