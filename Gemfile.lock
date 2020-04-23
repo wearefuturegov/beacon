@@ -127,6 +127,7 @@ GEM
     govuk_notify_rails (2.1.2)
       notifications-ruby-client (~> 5.1)
       rails (>= 4.1.0)
+    hiredis (0.6.3)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
@@ -242,6 +243,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.0.3)
     regexp_parser (1.7.0)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -350,6 +352,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   govuk_notify_rails
+  hiredis
   jbuilder (~> 2.7)
   jsonb_accessor (~> 1.0.0)
   kaminari
@@ -364,6 +367,7 @@ DEPENDENCIES
   pundit (~> 2.1.0)
   rails (~> 6.0.2, >= 6.0.2.2)
   rails-controller-testing
+  redis
   rspec-rails (~> 4.0.0)
   rubocop-rails
   sass-rails (>= 6)

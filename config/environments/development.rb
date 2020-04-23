@@ -64,6 +64,11 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  # set cache store to use redis
+  config.cache_store = :redis_cache_store, { url: 'redis://localhost:6379/0/cache', password: 'g71kLdC1QvEzDlV6' }
+  config.action_controller.perform_caching = true
+  config.session_store :cache_store, key: ENV['APP_SESSION_KEY']
+
   ActionMailer::Base.smtp_settings = {
       :domain => 'maildev',
       :address => 'localhost',

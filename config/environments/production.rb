@@ -119,6 +119,11 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
+  # set cache store to use redis
+  config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"], password: ENV["REDIS_PASSWORD"] }
+  config.action_controller.perform_caching = true
+  config.session_store :cache_store, key: ENV['APP_SESSION_KEY']
+
   ActionMailer::Base.smtp_settings = {
       :domain => ENV['SMTP_DOMAIN'],
       :address => ENV['SMTP_ADDRESS'],
