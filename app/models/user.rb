@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  belongs_to :organisation, optional: true
-  has_many :contact_list_users
   has_many :notes, dependent: :destroy
-  has_many :contact_lists, through: :contact_list_users
-  has_many :contacts, through: :contact_lists
   has_many :needs, dependent: :destroy
   has_many :assigned_contacts, through: :needs, source: :contact
   has_many :completed_needs, -> { completed }, class_name: 'Need'
