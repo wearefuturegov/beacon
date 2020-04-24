@@ -6,7 +6,7 @@ class ContactsController < ApplicationController
   def index
     @params = params.permit(:search, :page)
     @contacts = policy_scope(Contact)
-    @contacts = @contacts.search(@params[:search]) if @params[:search].present?
+    @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id)) if @params[:search].present?
     @contacts = @contacts.page(@params[:page])
   end
 
@@ -15,6 +15,7 @@ class ContactsController < ApplicationController
   end
 
   def create
+    authorize Contact
     @contact = Contact.new(contact_params)
     if @contact.save
       need = Need.new
@@ -37,8 +38,8 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @open_needs = @contact.needs.where(completed_on: nil).sort { |a, b| Need.sort_created_and_start_date(a, b) }
-    @completed_needs = @contact.needs.where.not(completed_on: nil)
+    @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope).where(completed_on: nil).sort { |a, b| Need.sort_created_and_start_date(a, b) }
+    @completed_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope).where.not(completed_on: nil)
   end
 
   def edit
@@ -61,6 +62,7 @@ class ContactsController < ApplicationController
 
   def set_contact
     @contact = Contact.find(params[:id])
+    authorize(@contact)
   end
 
   def contact_params

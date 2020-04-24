@@ -25,6 +25,24 @@
         width: 100%;
         display: block;
     }
+
+    .nav-bottom {
+      position: fixed;
+      bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      .current-user {
+        color: $pale;
+        margin-bottom: 10px;
+      }
+      .button.button--small {
+        color: $pale;
+        border-color: $pale;
+      }
+      .button.button--small:hover {
+        background-color: inherit;
+      }
+  }
     @media screen and (max-width: $breakpoint-l){
         width: 170px;
         min-width: 170px;
