@@ -16,7 +16,8 @@ Feature: Invite user
   Scenario: Add a duplicate user
   email addresses must be unique the test email is
   used to login to run the tests so is a duplicate
-    Given a users email address "test@test.com"
+    Given a user exists with the email "test@test.com"
+    And a users email address "test@test.com"
     When I enter the email address into the user form
     And I send the invite
     Then I see an error message about the email
