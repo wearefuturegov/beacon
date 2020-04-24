@@ -65,6 +65,8 @@
     <%= render "shared/pagination", model: @contacts %>
   <% else %>
     <p class="no-results">No matches</p>
-    <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
+    <% if policy(Need).create? %>
+      <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
+    <% end %>
   <% end %>
 </div>

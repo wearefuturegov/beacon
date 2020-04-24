@@ -30,3 +30,7 @@ end
 Then('I can not see that contact/need in the list') do
   expect(page).not_to have_content(@contact.first_name)
 end
+
+Then('I see a permissions error') do
+  find('.alert', text: "You are not authorized to perform this action.")
+end

@@ -72,3 +72,12 @@ Feature: Restrict viewing/editing contact access to a user based on their role
     Examples:
       | role                  |
       | food_delivery_manager |
+
+  @create
+  Scenario Outline: Roles that can not create a contact
+    Given I am logged into the system as a "<role>" user
+    And I go to the contact list
+    Then I cannot see the option to create a contact
+    Examples:
+      | role                  |
+      | food_delivery_manager |

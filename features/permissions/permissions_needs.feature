@@ -119,3 +119,14 @@ Feature: Restrict viewing/editing need access to a user based on their role
     Examples:
       | role                  |
       | food_delivery_manager |
+
+  @show
+  Scenario Outline: I can't navigate to needs I don't have permission to view
+    Given I am logged into the system as a "<role>" user
+    And a need is assigned to me
+    And the contact has other needs that I cannot see in the list
+    And I go to the url for that other need
+    Then I see a permissions error
+    Examples:
+      | role                  |
+      | food_delivery_manager |
