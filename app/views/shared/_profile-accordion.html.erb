@@ -72,8 +72,10 @@
               <%= friendly_boolean @contact.eligible_for_free_prescriptions %>
             </dd>
 
+          <% if policy(@contact).see_sensitive_info? %>
             <dt class="details-list__caption">Any additional information</dt>
             <dd class="details-list__value" id="additional_info"><%= dash_if_empty @contact.additional_info %></dd>
+          <% end %>
 
 
             <dt class="details-list__caption">Anyone in their home showing symptoms of COVID-19</dt>

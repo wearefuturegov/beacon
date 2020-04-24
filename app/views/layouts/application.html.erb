@@ -10,6 +10,18 @@
       <header class="panel content-header">
         <%= yield :header %>
         <nav class="content-header__actions-right">
+          <% if current_user.roles.count > 1 %>
+            <%# Switch role section %>
+            <%= form_tag(set_role_path, :method => :post, :class => 'role-switcher') do %>
+              <%= label_tag :id, 'Role:' %>
+              <%= select_tag :id, options_from_collection_for_select(current_user.roles.order(:id), :id, :name, current_user.role_id) %>
+              <%= submit_tag 'Switch' %>
+            <% end %>
+          <% else %>
+            (<%= current_user.role.name %>)
+          <% end %>
+          <%= javascript_pack_tag 'role-switcher' %>
+
           <%= link_to "Add Enquiry", new_contact_path, {:remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window', id: "btnAddEnquiry", class: "button button--dark" } %>
         </nav>
       </header>
@@ -31,8 +43,6 @@
     </div>
 
     <%= render :partial =>  "shared/popup" %>
-
-    <%= javascript_pack_tag 'role-switcher' %>
     <%= javascript_pack_tag 'enquiry-common' %>
   </body>
 </html>
