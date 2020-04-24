@@ -88,6 +88,12 @@ Feature: On call with resident
     But I choose to stay on the page
     Then I can still see the triage form
   
+  @javascript
+  Scenario: Save for later - return to triage
+    Given I have a draft triage pending completion
+    When I return to the triage
+    Then I see the triage draft values again
+
   Scenario: Special dietary requirements Microwave
   Scenario: Special dietary requirements Hob and Oven
   Scenario: Person has no food today
