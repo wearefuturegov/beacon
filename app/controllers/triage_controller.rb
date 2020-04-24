@@ -24,20 +24,7 @@ class TriageController < ApplicationController
       save_for_later(@contact.id, contact_params, contact_needs_params)
       redirect_to contact_path(@contact.id), notice: 'Triage temporarely saved.'
     else
-      @contact.assign_attributes(contact_params)
-      @contact_needs = ContactNeeds.new(contact_needs_params)
-      @contact_needs.valid?
-      @contact.valid?
-
-      if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
-        merge_contact_needs
-        return render :edit
-      end
-
-      ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
-      NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
-      session[:triage] = nil
-      redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
+      apply_update
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
@@ -46,6 +33,23 @@ class TriageController < ApplicationController
   end
 
   private
+
+  def apply_update
+    @contact.assign_attributes(contact_params)
+    @contact_needs = ContactNeeds.new(contact_needs_params)
+    @contact_needs.valid?
+    @contact.valid?
+
+    if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
+      merge_contact_needs
+      render(:edit) && return
+    end
+
+    ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
+    NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
+    session[:triage] = nil
+    redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
+  end
 
   def save_for_later(contact_id, contact_params, contact_needs_params)
     session[:triage] = {
