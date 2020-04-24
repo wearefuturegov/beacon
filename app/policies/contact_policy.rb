@@ -21,6 +21,7 @@ class ContactPolicy < ApplicationPolicy
              .left_joins(needs: [:user])
              .left_joins(needs: [:role])
              .where("user_id = #{@user.id} or roles.role = '#{role_tag}'")
+              .distinct
     end
 
     def contacts_me_role_team(role_tag)
@@ -37,7 +38,7 @@ class ContactPolicy < ApplicationPolicy
   end
 
   def update?
-    return true if permissive_roles?
+    permissive_roles?
   end
 
   def show?
