@@ -27,7 +27,7 @@ end
 Given('I have a draft triage pending completion') do
   step 'I am on a call with a resident'
   step 'I am conducting a triage of the residents needs'
-  page.find('#first-name').set('DraftName')
+  page.find('#contact_first_name').set('DraftName')
   page.find('#contact_needs_needs_list_0_start_on').set('01/01/2099')
   step 'I start a new enquiry'
   step 'I choose to save the triage for later'
@@ -40,7 +40,7 @@ When('I return to the triage') do
 end
 
 Then('I see the triage draft values again') do
-  expect(page.find('#first-name').value).to eq('DraftName')
+  expect(page.find('#contact_first_name').value).to eq('DraftName')
   expect(page.find('#contact_needs_needs_list_0_start_on').value).to eq('01/01/2099')
 end
 
