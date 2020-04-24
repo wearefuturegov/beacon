@@ -49,4 +49,8 @@
       <% end %>
     </ul>
 
+    <div class="nav-bottom">
+      <span class="current-user"><%= current_user.email %></span>
+      <%= link_to 'Sign out', auth.sign_out_path, class: "button button--small", id: "sign-out-link"%>
+    </div>
 </nav>
