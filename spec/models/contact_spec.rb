@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe Contact, type: :model do
   describe 'associations' do
     it { is_expected.to have_many(:needs).dependent(:destroy) }
-    it { is_expected.to have_many(:uncompleted_needs).conditions(completed_on: nil) }
-    it { is_expected.to have_many(:completed_needs).conditions('completed_on IS NOT NULL') }
+    it { is_expected.to have_many(:uncompleted_needs).conditions('status <> complete') }
+    it { is_expected.to have_many(:completed_needs).conditions(status: :complete) }
   end
 
   describe 'validations' do

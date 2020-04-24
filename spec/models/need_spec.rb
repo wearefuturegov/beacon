@@ -14,8 +14,8 @@ RSpec.describe Need, type: :model do
   end
 
   describe 'scopes' do
-    let!(:uncompleted_need) { create :need }
-    let!(:completed_need) { create :need, :completed }
+    let!(:uncompleted_need) { create :need, status: :to_do }
+    let!(:completed_need) { create :need, status: :complete }
 
     it '.uncompleted' do
       expect(described_class.uncompleted[0]).to eq uncompleted_need
@@ -31,6 +31,12 @@ RSpec.describe Need, type: :model do
   it '#status' do
     need1 = build :need, name: 'medicines', status: :to_do
     expect(need1.status_label).to eq 'To do'
+
+    need2 = create :need, name: 'medicines', status: 'complete'
+    expect(need2.completed_on.to_date).to eql(DateTime.now.to_date)
+
+    need3 = build :need, name: 'medicines', status: :in_progress
+    expect(need3.completed_on).to be_nil
   end
 
   describe 'sort_created_and_start_date' do
