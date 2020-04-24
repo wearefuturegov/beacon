@@ -4,18 +4,31 @@ Given('I am logged into the system as a(n) {string} user') do |role|
   expect(page).to have_selector(:link_or_button, 'Log out')
 end
 
+# Shortcuts for assigned to me, role, team
 And('a need (for a contact )is assigned to me') do
-  @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
-  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', user: @user)
-end
-
-And('a need (for a contact )is assigned to that role') do
-  @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
-  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', role: @role)
+  step 'a need for contact "Test" is assigned to me'
 end
 
 And('a need (for a contact )is assigned to the other user') do
-  @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
+  step 'a need for contact "Test" is assigned to the other user'
+end
+
+And('a need (for a contact )is assigned to that role') do
+  step 'a need for contact "Test" is assigned to that role'
+end
+
+And('a need for contact {string} is assigned to me') do |name|
+  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
+  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', user: @user)
+end
+
+And('a need for contact {string} is assigned to that role') do |name|
+  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
+  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', role: @role)
+end
+
+And('a need for contact {string} is assigned to the other user') do |name|
+  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
   @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', user: @other_user)
 end
 
