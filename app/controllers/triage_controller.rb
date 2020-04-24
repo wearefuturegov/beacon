@@ -7,34 +7,60 @@ class TriageController < ApplicationController
 
   def edit
     @edit_contact_id = @contact.id
-    @contact_needs = create_contact_needs
+    if session[:triage] && session[:triage][:contact_id] == @contact.id
+      @contact.assign_attributes(session[:triage][:contact_params])
+      @contact_needs = ContactNeeds.new(session[:triage][:contact_needs_params])
+      merge_contact_needs
+    else
+      @contact_needs = create_contact_needs
+    end
   end
 
   def update
+    if params.require(:discard_draft) == 'true'
+      session[:triage] = nil
+      redirect_to contact_path(@contact.id), notice: 'Draft triage discarded.'
+    elsif params.require(:save_for_later) == 'true'
+      save_for_later(@contact.id, contact_params, contact_needs_params)
+      redirect_to new_contact_path, notice: 'Triage temporarily saved.'
+    else
+      apply_update
+    end
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = STALE_ERROR_MESSAGE
+    merge_contact_needs
+    render :edit
+  end
+
+  private
+
+  def apply_update
     @contact.assign_attributes(contact_params)
     @contact_needs = ContactNeeds.new(contact_needs_params)
     @contact_needs.valid?
     @contact.valid?
 
     if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
-      add_contact_needs
-      return render :edit
+      merge_contact_needs
+      render(:edit) && return
     end
 
     ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
-
     NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
+    session[:triage] = nil
     redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
-  rescue ActiveRecord::StaleObjectError
-    flash[:alert] = STALE_ERROR_MESSAGE
-    add_contact_needs
-    render :edit
   end
 
-  private
+  def save_for_later(contact_id, contact_params, contact_needs_params)
+    session[:triage] = {
+      contact_id: contact_id,
+      contact_params: contact_params,
+      contact_needs_params: contact_needs_params
+    }
+  end
 
   # repopulate the label/colour data
-  def add_contact_needs
+  def merge_contact_needs
     @contact_needs.needs_list.each_with_index do |need, index|
       need[1].merge!(view_context.needs[index])
     end

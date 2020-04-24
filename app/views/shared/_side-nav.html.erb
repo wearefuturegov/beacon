@@ -47,6 +47,13 @@
           <% end %>
         </li>
       <% end %>
+
+      <!-- Draft Triage in progress -->
+      <% if session[:triage] %>
+      <li class="main-menu__item">
+        <%= link_to "Draft Triage", contact_triage_path(session[:triage][:contact_id]), class: "main-menu__link main-menu__draft", id: "draft-triage-quick-link" %>
+      </li>
+    <% end %>
     </ul>
 
     <div class="nav-bottom">
