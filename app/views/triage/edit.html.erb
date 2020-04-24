@@ -1,9 +1,7 @@
 
 <% if session[:triage] %>
-  <button id="discard-draft-btn" class="button button--primary" style="float: right">Discard Draft</button>
+  <button id="discard-draft-btn" class="button button--dark" style="float: right">Discard Draft</button><br>
 <% end %>
-  <button id="save-for-later-btn" class="button button--primary" style="float: right">Temporary Save for later</button>
-<br>
 
 <% if @contact_needs.errors.any? || @contact.errors.any? %>
   <div class="error" id="error_explanation">

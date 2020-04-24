@@ -51,7 +51,7 @@
       <!-- Draft Triage in progress -->
       <% if session[:triage] %>
       <li class="main-menu__item">
-        <%= link_to "Draft Triage (1)", contact_triage_path(@contact), class: "main-menu__link main-menu__draft" %>
+        <%= link_to "Draft Triage (1)", contact_triage_path(session[:triage][:contact_id]), class: "main-menu__link main-menu__draft" %>
       </li>
     <% end %>
     </ul>

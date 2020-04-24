@@ -28,9 +28,17 @@ Popup.prototype.close = function() {
     modalWindow.css("display", "none");
 };
 
-$(document).ready(() => {
+$(document).ready(() => {    
     $("#btnAddEnquiry").click(function() {
         const popup = new Popup();
-        popup.show("<p>My content</p>", "This is my header");
+        const title = "You are about to exit this page";
+        const p1 = "<p>You can save the triage info and continue later or stay on this page</p>";
+        const buttons = "<button id='save-for-later-btn' class='button button--dark'>Save for later</button>";
+        popup.show(p1 + buttons, title);
+
+        $("#save-for-later-btn").on("click", function(event){
+            $('#save-triage-for-later').val('true');
+            $('#triage-submit-btn').click();
+        });        
     })
 })
