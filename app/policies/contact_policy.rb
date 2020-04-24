@@ -21,7 +21,7 @@ class ContactPolicy < ApplicationPolicy
              .left_joins(needs: [:user])
              .left_joins(needs: [:role])
              .where("user_id = #{@user.id} or roles.role = '#{role_tag}'")
-              .distinct
+             .distinct
     end
 
     def contacts_me_role_team(role_tag)
