@@ -8,6 +8,7 @@ class Need < ApplicationRecord
 
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
+  belongs_to :role, optional: true
   has_many :notes, dependent: :destroy
 
   has_paper_trail

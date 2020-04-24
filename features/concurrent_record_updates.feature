@@ -5,7 +5,7 @@ Feature: Edit records concurrently
   So that the information I key-in can be stored correctly
 
   Background:
-    * I am logged into the system as an admin
+    * I am logged into the system
     * Someone else is logged into the system
 
   Scenario: Update need record concurrently
