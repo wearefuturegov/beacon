@@ -2,7 +2,7 @@
 
 class ContactsController < ApplicationController
   before_action :set_contact, only: %i[edit update show needs add_needs]
-  
+
   def index
     @params = params.permit(:search, :page)
     @contacts = policy_scope(Contact)
