@@ -28,7 +28,7 @@ RSpec.describe TriageController, type: :controller do
       needs_list = { 1 => { active: false } }
       put :update, params: { id: 1, contact_id: 1, contact: { id: 1 }, contact_needs: { needs_list: needs_list }, discard_draft: 'false', save_for_later: 'true' }
       expect(response).to redirect_to new_contact_path
-      expect(controller).to set_flash[:notice].to('Triage temporarely saved.')
+      expect(controller).to set_flash[:notice].to('Triage temporarily saved.')
     end
 
     it 'discards the draft and redirects to the contact page' do

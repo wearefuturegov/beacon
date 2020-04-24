@@ -9,7 +9,7 @@ When('I choose to save the triage for later') do
 end
 
 Then('I see a triage saved for draft message') do
-  expect(page.find('.notice')).to have_content('Triage temporarely saved.')
+  expect(page.find('.notice')).to have_content('Triage temporarily saved.')
 end
 
 Then('the new enquiry form is displayed to me') do

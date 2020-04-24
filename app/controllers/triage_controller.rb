@@ -22,7 +22,7 @@ class TriageController < ApplicationController
       redirect_to contact_path(@contact.id), notice: 'Draft triage discarded.'
     elsif params.require(:save_for_later) == 'true'
       save_for_later(@contact.id, contact_params, contact_needs_params)
-      redirect_to new_contact_path, notice: 'Triage temporarely saved.'
+      redirect_to new_contact_path, notice: 'Triage temporarily saved.'
     else
       apply_update
     end
