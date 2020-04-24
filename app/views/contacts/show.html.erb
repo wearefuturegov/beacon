@@ -1,13 +1,6 @@
-<% content_for :header do %>
-  <% if policy(Need).create? %>
-    <%= link_to "Triage", contact_triage_path(@contact), class: "button button--dark" %>
-  <% end %>
-<% end %>
-
 <%= render "shared/vulnerable-banner" %>
 
 <div class="with-left-sidebar">
-
   <aside class="with-left-sidebar__left">
     <header class="panel-header">
       <h2 class="panel-header__title">Profile</h2>
@@ -18,6 +11,12 @@
   </aside>
 
   <aside class="with-left-sidebar__right">
+
+    <header class="panel-header" id="triage-panel">
+      <% if policy(Need).create? %>
+        <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+      <% end %>
+    </header>
 
     <header class="panel-header" id="enquiry-details-panel">
       <h2 class="panel-header__title">Enquiry Details</h2>
@@ -31,7 +30,6 @@
       <% if @open_needs.any? %>
         <span class="panel-header__badge"><%= @open_needs.count %></span>
       <% end %>
-      <%#= link_to "Add a need", new_contact_need_path(@contact), class: "panel-header__action" %>
     </header>
     <div class="panel panel--unpadded">  
       <%= render "needs-table" %>
@@ -41,7 +39,7 @@
       <header class="panel-header" id="completed-needs-panel">
         <h2 class="panel-header__title">Completed</h2>
       </header>
-      <div class="panel panel--unpadded">  
+      <div class="panel panel--unpadded">
         <table class="needs-table">
           <thead class="visually-hidden">
             <tr>

@@ -1,9 +1,3 @@
-Given('I am logged into the system as a(n) {string} user') do |role|
-  visit generate_magic_link(role.downcase)
-  expect(page.status_code).to eq(200) if Capybara.current_driver == :rack_test
-  expect(page).to have_selector(:link_or_button, 'Log out')
-end
-
 # Shortcuts for assigned to me, role, team
 And('a need (for a contact )is assigned to me') do
   step 'a need for contact "Test" is assigned to me'
