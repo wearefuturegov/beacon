@@ -12,6 +12,10 @@
 
   <aside class="with-left-sidebar__right">
 
+    <header class="panel-header" id="triage-panel">
+      <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>  
+    </header>
+
     <header class="panel-header" id="enquiry-details-panel">
       <h2 class="panel-header__title">Enquiry Details</h2>
     </header>
@@ -23,9 +27,7 @@
       <h2 class="panel-header__title">Needs</h2>
       <% if @open_needs.any? %>
         <span class="panel-header__badge"><%= @open_needs.count %></span>
-      <% end %>
-
-      <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+      <% end %>     
     </header>
     <div class="panel panel--unpadded">  
       <%= render "needs-table" %>
