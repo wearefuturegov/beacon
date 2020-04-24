@@ -11,8 +11,8 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:needs).dependent(:destroy) }
     it { is_expected.to have_many(:notes).dependent(:destroy) }
     it { is_expected.to have_many(:assigned_contacts).through(:needs).source(:contact) }
-    it { is_expected.to have_many(:uncompleted_needs).conditions(completed_on: nil) }
-    it { is_expected.to have_many(:completed_needs).conditions('completed_on IS NOT NULL') }
+    it { is_expected.to have_many(:uncompleted_needs).conditions('status <> complete') }
+    it { is_expected.to have_many(:completed_needs).conditions(status: :complete) }
     it { is_expected.to have_many(:uncompleted_contacts).through(:uncompleted_needs).source(:contact) }
     it { is_expected.to have_many(:completed_contacts).through(:completed_needs).source(:contact) }
   end
