@@ -17,8 +17,9 @@
       <% if @contact.needs.any? %>
         <span class="panel-header__badge"><%= @contact.needs.count %></span>
       <% end %>
-
-      <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+      <% if policy(Need).create? %>
+        <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+      <% end %>
     </header>
     <div class="panel panel--unpadded" style="border-left: 5px solid <%= get_need_border(@need.category) %>">
       <%= link_to @need.category.humanize, @contact, class: "panel__header" %>
