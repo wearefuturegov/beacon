@@ -6,6 +6,7 @@ class Need < ApplicationRecord
   include Filterable
   self.ignored_columns = %w[due_by]
 
+  enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
   belongs_to :contact, counter_cache: true
   belongs_to :user, optional: true
   belongs_to :role, optional: true
@@ -20,8 +21,8 @@ class Need < ApplicationRecord
   # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
   # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
 
-  scope :completed, -> { where.not(completed_on: nil) }
-  scope :uncompleted, -> { where(completed_on: nil) }
+  scope :completed, -> { where(status: :complete) }
+  scope :uncompleted, -> { where.not(status: :complete) }
   scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
@@ -33,14 +34,7 @@ class Need < ApplicationRecord
     end
   }
 
-  scope :filter_by_status, lambda { |status|
-    status = status.downcase
-    if status == 'to do'
-      where(completed_on: nil)
-    else
-      where.not(completed_on: nil)
-    end
-  }
+  scope :filter_by_status, ->(status) { where(status: status) }
 
   scope :filter_by_is_urgent, lambda { |is_urgent|
     is_urgent = is_urgent.downcase
@@ -60,7 +54,7 @@ class Need < ApplicationRecord
   }
 
   counter_culture :contact,
-                  column_name: proc { |model| model.completed_on ? 'completed_needs_count' : 'uncompleted_needs_count' },
+                  column_name: proc { |model| model.complete? ? 'completed_needs_count' : 'uncompleted_needs_count' },
                   column_names: {
                     Need.uncompleted => :uncompleted_needs_count,
                     Need.completed => :completed_needs_count
@@ -102,9 +96,8 @@ class Need < ApplicationRecord
 
     CSV.generate(headers: true) do |csv|
       csv << attributes.values
-
       all.each do |record|
-        csv << attributes.keys.map { |attr| record.send(attr) }
+        csv << attributes.keys.map { |attr| attr == :status ? record.send(:status_label) : record.send(attr) }
       end
     end
   end
@@ -113,16 +106,17 @@ class Need < ApplicationRecord
     "need-pane--#{category.parameterize}"
   end
 
-  def status
-    completed_on.present? ? 'Complete' : 'To do'
+  def status_label
+    self[:status]&.humanize || Need.statuses[:to_do].humanize
   end
 
   def status=(state)
-    self.completed_on = if state == 'Complete'
+    self.completed_on = if state == 'complete'
                           DateTime.now
                         else
                           ''
                         end
+    self[:status] = state
   end
 
   def self.base_query

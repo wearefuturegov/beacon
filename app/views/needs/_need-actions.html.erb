@@ -15,7 +15,7 @@
 
     <div class="need-actions__field" id="status-actions__field">
     <%= f.label :status, 'Status', class: 'need-actions__label' %>
-    <%= f.select :status, ['To do', 'Complete'], {}, { class: "need-actions__select" } %>
+    <%= f.select :status, need_statuses, {}, { class: "need-actions__select" } %>
     </div>
 <% end %>
 

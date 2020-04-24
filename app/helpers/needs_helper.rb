@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 module NeedsHelper
-  def status(completed_on)
-    completed_on ? 'Completed' : 'To do'
-  end
-
   def need_statuses
-    ['To do', 'Completed']
+    Need.statuses.map { |k, v| [v.humanize, k] }
   end
 
   def need_is_vulnerable_options

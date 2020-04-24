@@ -66,7 +66,7 @@ Then('I see my need change was unsuccessful') do
 
   # should be in 'To do'
   status = page.find('#status-actions__field select').value
-  expect(status).to have_content 'To do'
+  expect(status).to have_content 'to_do'
 end
 
 def get_area_panel(area)
