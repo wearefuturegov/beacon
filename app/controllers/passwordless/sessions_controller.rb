@@ -60,7 +60,6 @@ module Passwordless
     #   Signs user out. Redirects to root_path
     # @see ControllerHelpers#sign_out
     def destroy
-      session[:triage] = nil
       sign_out authenticatable_class
       redirect_to passwordless_sign_out_redirect_path
     end
