@@ -69,6 +69,16 @@ Feature: On call with resident
     And the dietary requirements is "Yes"
     And the dietary details is "Vegan"
 
+  @javascript
+  Scenario: Save for later - new enquiry
+    Given I am on a call with a resident
+    And I am conducting a triage of the residents needs
+    And I edit the total number of people to "99"
+    When I start a new enquiry
+    And I choose to save the triage for later
+    Then I see a triage saved for draft message
+    And the new enquiry form is displayed to me
+
   Scenario: Special dietary requirements Microwave
   Scenario: Special dietary requirements Hob and Oven
   Scenario: Person has no food today
