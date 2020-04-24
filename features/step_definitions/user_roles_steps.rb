@@ -1,0 +1,43 @@
+Then('I see the option to view the list of users') do
+  main_menu = find('.main-menu')
+  expect(main_menu).to have_selector(:link_or_button, 'Users')
+end
+
+And('I am viewing the users list') do
+  find('.main-menu__link', text: 'Users').click
+end
+
+When('I select a user') do
+  user_row = first('tr.clickable')
+  user_row.click
+end
+
+And('another role {string} exists') do |role|
+  Role.create(name: role, role: role)
+end
+
+Then('I can see the edit users page') do
+  expect(page).to have_content('Edit admin@test.com')
+end
+
+And('I am editing my user profile') do
+  visit("/users/#{@user.id}/edit")
+end
+
+And('I select that I am in the {string} role') do |role|
+  find('label', text: role).click
+end
+
+When('I save my changes') do
+  find('button[type=submit]').click
+end
+
+Then('I see that my roles have been updated') do
+  user_row = first('tr.clickable')
+  expect(user_row).to have_content('other role, manager role')
+end
+
+And('I see the option to switch between my roles') do
+  role_switcher = find('form.role-switcher')
+  expect(role_switcher).to have_select('id', :options => ['other role', 'manager role'])
+end
