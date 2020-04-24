@@ -57,6 +57,5 @@ jobs:
     - name: Run cucumber tests
       env:
         RAILS_ENV: test
-        BROWSER: headless_chrome #test
       run: |
         bundle exec cucumber
