@@ -13,7 +13,15 @@ Then('I see a triage saved for draft message') do
 end
 
 Then('the new enquiry form is displayed to me') do
-    expect(page.find('h1')).to have_content('New Enquiry')
+  expect(page.find('h1')).to have_content('New Enquiry')
+end
+
+When('I choose to stay on the page') do
+  page.find('#cancel-modal-btn').click
+end
+
+Then('I can still see the triage form') do
+  expect(page.find('h1')).to have_content('Triage a person in need')
 end
 
 def click_add_enquiry
