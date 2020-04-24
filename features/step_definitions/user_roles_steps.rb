@@ -34,7 +34,8 @@ end
 
 Then('I see that my roles have been updated') do
   user_row = first('tr.clickable')
-  expect(user_row).to have_content('other role, manager role')
+  expect(user_row).to have_content('other role')
+  expect(user_row).to have_content('manager role')
 end
 
 And('I see the option to switch between my roles') do
