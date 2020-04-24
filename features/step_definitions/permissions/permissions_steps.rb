@@ -32,5 +32,5 @@ Then('I can not see that contact/need in the list') do
 end
 
 Then('I see a permissions error') do
-  find('.alert', text: "You are not authorized to perform this action.")
+  find('.alert', text: 'You are not authorized to perform this action.')
 end
