@@ -5,10 +5,16 @@
     </button>
     <div class="accordion__content">  
         <dl class="details-list">
-            <dt class="details-list__caption">Name</dt>
-            <dd class="details-list__value" id="contact_name"><%= @contact.name %></dd>
+          <dt class="details-list__caption">Name</dt>
+          <dd class="details-list__value" id="contact_name"><%= @contact.name %></dd>
 
-            <dt class="details-list__caption">Address</dt>
+          <dt class="details-list__caption">Date of Birth</dt>
+          <dd class="details-list__value" id="contact_dob"><%= @contact.date_of_birth&.strftime("%-d %B %Y") %></dd>
+
+          <dt class="details-list__caption">NHS Number</dt>
+          <dd class="details-list__value" id="contact_nhs_number"><%= @contact.nhs_number %></dd>
+
+          <dt class="details-list__caption">Address</dt>
             <dd class="details-list__value" id="address_details">
                 <%= @contact.address %><br/>
                 <%= @contact.postcode %>
