@@ -1,4 +1,8 @@
-<button id="save-for-later-btn" class="button button--primary" style="float: right">Temporary Save for later</button>
+
+<% if session[:triage] %>
+  <button id="discard-draft-btn" class="button button--primary" style="float: right">Discard Draft</button>
+<% end %>
+  <button id="save-for-later-btn" class="button button--primary" style="float: right">Temporary Save for later</button>
 <br>
 
 <% if @contact_needs.errors.any? || @contact.errors.any? %>
@@ -87,6 +91,7 @@
       </div>
       
       <input id="save-triage-for-later" type="hidden" name="save_for_later" value="false">
+      <input id="discard-draft" type="hidden" name="discard_draft" value="false">
 
       <%= form.button "Save changes", class: "button button--primary", id: "triage-submit-btn" %>
     </div>

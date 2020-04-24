@@ -7,9 +7,9 @@ class TriageController < ApplicationController
 
   def edit
     @edit_contact_id = @contact.id
-    if session[:triage] && session[:triage]['contact_id'] == @contact.id
-      @contact.assign_attributes(session[:triage]['contact_params'])
-      @contact_needs = ContactNeeds.new(session[:triage]['contact_needs_params'])
+    if session[:triage] && session[:triage][:contact_id] == @contact.id
+      @contact.assign_attributes(session[:triage][:contact_params])
+      @contact_needs = ContactNeeds.new(session[:triage][:contact_needs_params])
       merge_contact_needs
     else
       @contact_needs = create_contact_needs
@@ -17,7 +17,10 @@ class TriageController < ApplicationController
   end
 
   def update
-    if params.require(:save_for_later) == 'true'
+    if params.require(:discard_draft) == 'true'
+      session[:triage] = nil
+      redirect_to contact_path(@contact.id), notice: 'Draft triage discarded.'
+    elsif params.require(:save_for_later) == 'true'
       save_for_later(@contact.id, contact_params, contact_needs_params)
       redirect_to contact_path(@contact.id), notice: 'Triage temporarely saved.'
     else
