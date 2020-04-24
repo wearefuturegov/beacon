@@ -4,7 +4,7 @@ class NeedPolicy < ApplicationPolicy
       @user.assign_role_if_empty
       case @user.role.tag
       when 'manager', 'agent'
-        Need.all
+        @scope
       when 'mdt'
         needs_me_or_role 'mdt'
       when 'food_delivery_manager'
@@ -17,14 +17,14 @@ class NeedPolicy < ApplicationPolicy
     end
 
     def needs_me_or_role(role_tag)
-      Need.includes(:role)
+      @scope.includes(:role)
           .where(roles: { tag: role_tag })
           .or(Need.includes(:role).where(user: @user))
           .distinct
     end
 
     def needs_me_role_team(role_tag)
-      Need.includes(:role, user: [:roles])
+      @scope.includes(:role, user: [:roles])
           .where(roles: { tag: role_tag })
           .or(Need.includes(:role, user: [:roles]).where(user: @user))
           .or(Need.includes(:role, user: [:roles]).where("roles_users.role = '#{role_tag}'"))

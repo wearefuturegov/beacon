@@ -7,7 +7,9 @@ class ContactsController < ApplicationController
   def index
     @params = params.permit(:search, :page)
     @contacts = policy_scope(Contact)
-    @contacts = @contacts.search(@params[:search]) if @params[:search].present?
+    if @params[:search].present?
+      @contacts = Contact.search(@params[:search]).where(id: @contacts.ids)
+    end
     @contacts = @contacts.page(@params[:page])
   end
 

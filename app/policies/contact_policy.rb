@@ -4,7 +4,7 @@ class ContactPolicy < ApplicationPolicy
       @user.assign_role_if_empty
       case @user.role.tag
       when 'manager', 'agent'
-        Contact.all
+        @scope
       when 'mdt'
         contacts_me_or_role 'mdt'
       when 'food_delivery_manager'
