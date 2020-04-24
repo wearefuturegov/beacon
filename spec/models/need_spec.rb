@@ -29,14 +29,25 @@ RSpec.describe Need, type: :model do
   it { is_expected.to be_versioned }
 
   it '#status' do
-    need1 = build :need, name: 'medicines', status: :to_do
+    need1 = build :need, name: 'medicines', status: 'to_do'
+    expect(need1.completed_on).to be_nil
     expect(need1.status_label).to eq 'To do'
 
     need2 = create :need, name: 'medicines', status: 'complete'
     expect(need2.completed_on.to_date).to eql(DateTime.now.to_date)
+    expect(need2.status_label).to eq 'Complete'
 
-    need3 = build :need, name: 'medicines', status: :in_progress
+    need3 = build :need, name: 'medicines', status: 'in_progress'
     expect(need3.completed_on).to be_nil
+    expect(need3.status_label).to eq 'In progress'
+
+    need4 = build :need, name: 'medicines', status: 'blocked'
+    expect(need4.completed_on).to be_nil
+    expect(need4.status_label).to eq 'Blocked'
+
+    need5 = build :need, name: 'medicines', status: 'cancelled'
+    expect(need5.completed_on).to be_nil
+    expect(need5.status_label).to eq 'Cancelled'
   end
 
   describe 'sort_created_and_start_date' do
