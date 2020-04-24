@@ -1,11 +1,6 @@
-<% content_for :header do %>
-  <%= link_to "Triage", contact_triage_path(@contact), class: "button button--dark" %>
-<% end %>
-
 <%= render "shared/vulnerable-banner" %>
 
 <div class="with-left-sidebar">
-
   <aside class="with-left-sidebar__left">
     <header class="panel-header">
       <h2 class="panel-header__title">Profile</h2>
@@ -29,7 +24,8 @@
       <% if @open_needs.any? %>
         <span class="panel-header__badge"><%= @open_needs.count %></span>
       <% end %>
-      <%#= link_to "Add a need", new_contact_need_path(@contact), class: "panel-header__action" %>
+
+      <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
     </header>
     <div class="panel panel--unpadded">  
       <%= render "needs-table" %>
@@ -39,7 +35,7 @@
       <header class="panel-header" id="completed-needs-panel">
         <h2 class="panel-header__title">Completed</h2>
       </header>
-      <div class="panel panel--unpadded">  
+      <div class="panel panel--unpadded">
         <table class="needs-table">
           <thead class="visually-hidden">
             <tr>
