@@ -39,5 +39,5 @@ end
 
 And('I see the option to switch between my roles') do
   role_switcher = find('form.role-switcher')
-  expect(role_switcher).to have_select('id', :options => ['other role', 'manager role'])
+  expect(role_switcher).to have_select('id', options: ['other role', 'manager role'])
 end
