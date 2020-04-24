@@ -32,6 +32,12 @@ const subscription = consumer.subscriptions.create({ channel: 'ContactChannel', 
 });
 
 
+const cleanup = () => {
+    clearInterval(interval);
+    subscription.unsubscribe();
+};
+
+
 const getUserEmail = () => {
     return document.getElementById('userEmail').textContent;
 }
@@ -71,3 +77,6 @@ const updateViewings = () => {
         div.innerHTML = '';
     }
 }
+
+addEventListener("beforeunload", cleanup);
+addEventListener("turbolinks:before-render", cleanup); 
