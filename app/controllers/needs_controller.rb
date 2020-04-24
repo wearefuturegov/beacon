@@ -46,7 +46,7 @@ class NeedsController < ApplicationController
     for_update = JSON.parse(params[:for_update])
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
-      authorize(@need)
+      authorize(need)
       need.update!(user_id: obj['user_id'])
     end
     render json: { status: 'ok' }
