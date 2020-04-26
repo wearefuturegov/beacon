@@ -72,7 +72,7 @@
             <%= check_box_tag("need[#{n.id}]", n.id, false, { class: "select-needs bulk-action-checkbox" }) %>
           </td>
           <td>
-            <%= link_to humanize_text(n.category), n, class: "primary-link" %>
+            <%= link_to n.category, n, class: "primary-link" %>
           </td>
           <td><%= n.contact_name %></td>
           <td>

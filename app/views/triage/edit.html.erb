@@ -38,7 +38,7 @@
     <% @contact_needs.needs_list.each do |need_entry| %>
       <% need = need_entry[1] %>
       <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>       
-        <div class="triage-grid__need" style="border-left: 5px solid <%= need[:border] %>">
+        <div class="triage-grid__need need--<%= need[:label].parameterize %>">
           <div class="triage-grid__inner">
             <h3 class="triage-grid__title"><%= need[:label] %></h3>
 

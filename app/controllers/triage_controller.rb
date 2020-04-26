@@ -61,8 +61,8 @@ class TriageController < ApplicationController
 
   # repopulate the label/colour data
   def merge_contact_needs
-    @contact_needs.needs_list.each_with_index do |need, index|
-      need[1].merge!(view_context.needs[index])
+    @contact_needs.needs_list.each_with_index do |need, _index|
+      need[1]
     end
   end
 
@@ -85,9 +85,12 @@ class TriageController < ApplicationController
 
   def create_contact_needs
     contact_model = ContactNeeds.new
-    contact_model.needs_list = view_context.needs.each_with_index.map do |need, index|
-      need[:active] = 'false'
-      need[:start_on] = (Date.today + 6.days).strftime('%d/%m/%Y') if need[:label] == 'Phone triage'
+    contact_model.needs_list = Need.categories_for_triage.each_with_index.map do |(label, _slug), index|
+      need = {
+        label: label,
+        active: false
+      }
+      need[:start_on] = (Date.today + 6.days).strftime('%d/%m/%y') if label == 'Phone triage'
       [index.to_s, need]
     end.to_h
     contact_model
