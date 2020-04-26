@@ -24,6 +24,7 @@ class Need < ApplicationRecord
   scope :completed, -> { where(status: :complete) }
   scope :uncompleted, -> { where.not(status: :complete) }
   scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
+  scope :assessments, -> { where("category IN ('phone triage', 'check in')") }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
   scope :filter_by_user_id, lambda { |user_id|

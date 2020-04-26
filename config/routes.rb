@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     # collection do
     #   get 'call-list'
     # end
+    resources :assessments, only: [:new, :create]
+    get 'assessments/schedule', to: 'assessments#schedule', as: 'schedule_assessment'
+    get 'assessments/log', to: 'assessments#log', as: 'log_assessment'
+
     get 'triage', to: 'triage#edit', as: 'edit_triage'
     put 'triage', to: 'triage#update', as: 'triage'
   end

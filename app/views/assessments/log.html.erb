@@ -1,0 +1,83 @@
+<%= render "shared/vulnerable-banner" %>
+
+<div class="with-left-sidebar">
+
+  <aside class="with-left-sidebar__left">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Profile</h2>
+    </header>
+    <div class="panel panel--unpadded">  
+      <%= render "shared/profile-accordion" %>
+    </div>
+  </aside>
+
+  <aside class="with-left-sidebar__right">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Needs</h2>
+      <% if @contact.needs.any? %>
+        <span class="panel-header__badge"><%= @contact.needs.count %></span>
+      <% end %>
+      <% if policy(Need).create? %>
+        <div class="btn-triage-container">
+        <%= link_to "Add assessment", new_contact_assessment_path(@contact), class: "btn-triage button button--dark" %>
+        <%= link_to "Add needs", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+        </div>
+      <% end %>
+    </header>
+    <div class="panel panel--unpadded" style="border-left: 5px solid #2A2828">
+      <%= link_to 'Log a completed assessment', new_contact_assessment_path(@contact), class: "panel__header" %>
+      <div class="panel__body">
+
+        <%= form_with(model: @need, local: true) do |f| %>
+
+          <fieldset class="need-actions">
+            <div class="need-actions__field" id="assigned-actions__field">
+            <%= f.label :user_id, 'Completed by', class: 'need-actions__label' %>
+            <select id="user_id" name="user_id" class="need-actions__select" disabled>
+              <option value="<%= current_user.id %>"><%= current_user.name_or_email %></option>
+            </select>
+            </div>
+
+            <div class="need-actions__field" id="priority-actions__field">
+            <%= f.label :is_urgent, 'Priority', class: 'need-actions__label' %>
+            <%= f.select :is_urgent, {
+                "Normal" => false,
+                "Urgent" => true
+            }, {}, { class: "need-actions__select" } %>
+            </div>
+
+            <div class="need-actions__field" id="status-actions__field">
+            <%= f.label :status, 'Status', class: 'need-actions__label' %>
+            <select id="status" name="status" class="need-actions__select" disabled>
+              <option value="complete">Complete</option>
+            </select>
+            </div>
+          </fieldset>
+
+          <fieldset class="field-section field-section--two-cols">
+            <legend class="field-section__title">Assessment type</legend>
+            <div class="radio">
+              <%= f.radio_button :category, 'phone triage' %>
+              <%= f.label :category_phone_triage, "Phone triage", class: "radio__label" %>
+            </div>
+            <div class="radio">
+              <%= f.radio_button :category, 'check in' %>
+              <%= f.label :category_check_in, "Check-in", class: "radio__label" %>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <%= f.label :description, 'Call notes', class: 'field__label' %>
+            <%= f.text_area :description %>
+          </div>
+
+          <%= f.button "Save", class: "button button--primary", id: "triage-submit-btn" %>
+        <% end %>
+
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<%= javascript_pack_tag 'phone_triage_datepicker' %>

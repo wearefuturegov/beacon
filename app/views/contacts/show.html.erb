@@ -14,7 +14,10 @@
 
     <header class="panel-header" id="triage-panel">
       <% if policy(Need).create? %>
-        <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+        <div class="btn-triage-container">
+          <%= link_to "Add assessment", new_contact_assessment_path(@contact), class: "btn-triage button button--dark" %>
+          <%= link_to "Add needs", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+        </div>
       <% end %>
     </header>
 
@@ -32,7 +35,7 @@
       <% end %>
     </header>
     <div class="panel panel--unpadded">  
-      <%= render "needs-table" %>
+      <%= render "needs-table", locals: { needs: @open_needs } %>
     </div>
 
     <% if @completed_needs.any? %>

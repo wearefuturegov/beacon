@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_24_093556) do
+ActiveRecord::Schema.define(version: 2020_04_25_135930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_04_24_093556) do
     t.integer "lock_version", default: 0
     t.bigint "role_id"
     t.string "status"
+    t.string "type"
     t.index ["contact_id"], name: "index_needs_on_contact_id"
     t.index ["role_id"], name: "index_needs_on_role_id"
     t.index ["status"], name: "index_needs_on_status"

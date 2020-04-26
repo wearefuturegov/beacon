@@ -1,0 +1,73 @@
+<%= render "shared/vulnerable-banner" %>
+
+<div class="with-left-sidebar">
+
+  <aside class="with-left-sidebar__left">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Profile</h2>
+    </header>
+    <div class="panel panel--unpadded">  
+      <%= render "shared/profile-accordion" %>
+    </div>
+  </aside>
+
+  <aside class="with-left-sidebar__right">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Needs</h2>
+      <% if @contact.needs.any? %>
+        <span class="panel-header__badge"><%= @contact.needs.count %></span>
+      <% end %>
+      <% if policy(Need).create? %>
+        <div class="btn-triage-container">
+          <%= link_to "Add assessment", new_contact_assessment_path(@contact), class: "btn-triage button button--dark" %>
+          <%= link_to "Add needs", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+        </div>
+      <% end %>
+    </header>
+    <div class="panel panel--unpadded" style="border-left: 5px solid #2A2828">
+      <%= link_to 'Add assessment', @contact, class: "panel__header" %>
+      <div class="panel__body">
+        <p>Do you want to schedule an assesssment (e.g. phone triage or check-in) that needs to happen?</p>
+        <%= link_to 'Schedule an assessment', contact_schedule_assessment_path(@contact) %>
+
+        <% if @assessments.any? %>
+          <p>Or do you want to update/complete an assessment?</p>
+          <table class="needs-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Priority</th>
+                <th>Assigned</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @assessments.each do |n| %>
+                  <tr onclick="window.location='<%= need_path(n) %>'">
+                  <td style="border-left: 10px solid <%= get_need_border(n.category) %>">
+                    <%= link_to n.category.humanize, n %>
+                  </td>
+                  <td>
+                    <% if n.is_urgent %>
+                      <span class="urgent-tag">Urgent</span>
+                    <% else %>
+                      —
+                    <% end %>
+                  </td>
+                  <td><%= n.assigned %></td>
+                  <td><%= n.created_at&.strftime("%-d %B %Y") %></td>
+                  </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+
+        <p>Or do you want to log a completed assessment (e.g. phone triage or check-in)?</p>
+        <%= link_to 'Log an assessment', contact_log_assessment_path(@contact) %>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<%= javascript_pack_tag 'phone_triage_datepicker' %>
