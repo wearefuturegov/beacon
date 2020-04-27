@@ -191,7 +191,7 @@ Then(/^the residents contact details have been updated$/) do
 end
 
 Then(/^the residents vulnerability status has been updated$/) do
-  expect(page.find('.vulnerable-banner')).to have_text('This is a shielding person')
+  expect(page.find('.vulnerable-banner')).to have_text('This is a shielded person')
 end
 
 Then(/^the residents additional info has been updated$/) do
