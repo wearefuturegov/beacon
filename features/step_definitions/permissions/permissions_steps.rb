@@ -30,11 +30,11 @@ When('I go to the contact page for that support action/contact') do
   visit "/contacts/#{@contact.id}"
 end
 
-Then('I can see the contact/support action in the list') do
+Then('I can see the contact action in the list') do
   expect(page).to have_content(@contact.first_name)
 end
 
-Then('I can not see that contact/support action in the list') do
+Then('I can not see that contact action in the list') do
   expect(page).not_to have_content(@contact.first_name)
 end
 

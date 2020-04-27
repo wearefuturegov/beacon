@@ -48,7 +48,7 @@ Feature: Restrict viewing/editing contact access to a user based on their role
     And another user exists in that role
     And a support action for a contact is assigned to the other user
     When I go to the contact list
-    Then I can not see that contact in the list
+    Then I can not see that contact-support action in the list
 
   @edit
   Scenario Outline: Roles that can edit a contact
