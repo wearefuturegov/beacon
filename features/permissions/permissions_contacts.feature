@@ -73,6 +73,17 @@ Feature: Restrict viewing/editing contact access to a user based on their role
       | role                  |
       | food_delivery_manager |
 
+  @edit
+  Scenario Outline: Roles that can not see sensitive contact information
+    Given I am logged into the system as a "<role>" user
+    And a need for a contact is assigned to me
+    And the contact has sensitive information
+    When I go to the contact page for that contact
+    Then I cannot see that contact's sensitive information
+    Examples:
+      | role                  |
+      | food_delivery_manager |
+
   @create
   Scenario Outline: Roles that can not create a contact
     Given I am logged into the system as a "<role>" user

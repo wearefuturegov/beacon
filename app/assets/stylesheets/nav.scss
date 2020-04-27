@@ -34,6 +34,8 @@
       .current-user {
         color: $pale;
         margin-bottom: 10px;
+        text-align: center;
+        word-wrap: break-word;
       }
       .button.button--small {
         color: $pale;
@@ -41,6 +43,14 @@
       }
       .button.button--small:hover {
         background-color: inherit;
+      }
+
+      @media only screen and (max-width: 1100px) {
+        max-width: 130px;
+      }
+
+      @media only screen and (min-width: 1101px) {
+        max-width: 190px;
       }
   }
     @media screen and (max-width: $breakpoint-l){
