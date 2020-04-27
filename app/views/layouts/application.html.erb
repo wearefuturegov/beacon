@@ -10,15 +10,27 @@
       <header class="panel content-header">
         <%= yield :header %>
         <nav class="content-header__actions-right">
-        <% if policy(Contact).create? %>
-          <% if request.path_info.include?('/triage') %>
-            <!-- Ask the user to confirm you want to exit triage -->
-            <%= link_to "Add Enquiry", new_contact_path, {:remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window', id: "btnAddEnquiry", class: "button button--dark" } %>
+          <% if current_user.roles.count > 1 %>
+            <%# Switch role section %>
+            <%= form_tag(set_role_path, :method => :post, :class => 'role-switcher') do %>
+              <%= label_tag :id, 'Role:' %>
+              <%= select_tag :id, options_from_collection_for_select(current_user.roles.order(:id), :id, :name, current_user.role_id) %>
+              <%= submit_tag 'Switch' %>
+            <% end %>
           <% else %>
-            <!-- Go straight to Add enquiry page -->
-            <%= link_to "Add Enquiry", new_contact_path, class: "button button--dark", id:"btnAddEnquiry" %>
-          <% end %>    
-        <% end %>        
+            (<%= current_user.role.name %>)
+          <% end %>
+          <%= javascript_pack_tag 'role-switcher' %>
+
+          <% if policy(Contact).create? %>
+            <% if request.path_info.include?('/triage') %>
+              <!-- Ask the user to confirm you want to exit triage -->
+              <%= link_to "Add Enquiry", new_contact_path, {:remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window', id: "btnAddEnquiry", class: "button button--dark" } %>
+            <% else %>
+              <!-- Go straight to Add enquiry page -->
+              <%= link_to "Add Enquiry", new_contact_path, class: "button button--dark", id:"btnAddEnquiry" %>
+            <% end %>
+          <% end %>
         </nav>
       </header>
       
@@ -39,8 +51,6 @@
     </div>
 
     <%= render :partial =>  "shared/popup" %>
-
-    <%= javascript_pack_tag 'role-switcher' %>
     <%= javascript_pack_tag 'enquiry-common' %>
   </body>
 </html>

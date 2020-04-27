@@ -50,4 +50,10 @@ class ContactPolicy < ApplicationPolicy
   def create?
     admin? || agent? || mdt? || council_service?
   end
+
+  # Determines whether a user can see the further information field, and any other
+  # potentially sensitive fields on the contact page
+  def see_sensitive_info?
+    admin? || agent? || mdt? || council_service?
+  end
 end
