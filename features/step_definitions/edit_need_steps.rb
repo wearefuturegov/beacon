@@ -1,6 +1,6 @@
 Given('a resident with a need exists') do
   @contact = Contact.create!(first_name: 'Test')
-  @need = Need.create!(contact_id: @contact.id, name: 'Phone Triage', category: 'Phone Triage')
+  @need = Need.create!(contact_id: @contact.id, name: 'Phone Triage', category: 'Phone triage')
 end
 
 When('I (assign)/(have assigned) the need to me') do
@@ -37,7 +37,7 @@ end
 
 Then("I no longer see the need in the 'assigned to me' page") do
   visit "/?user_id=#{@user.id}"
-  content_panel = find('div.panel')
+  content_panel = find('p.no-results')
   expect(content_panel).to have_content 'No matches'
 end
 

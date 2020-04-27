@@ -46,6 +46,10 @@
     }
 }
 
+:disabled {
+  color: darkgray;
+}
+
 input[type=text],
 input[type=email],
 input[type=number],

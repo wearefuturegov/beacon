@@ -13,17 +13,17 @@ end
 
 And('a need for contact {string} is assigned to me') do |name|
   @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
-  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', user: @user)
+  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone triage', user: @user)
 end
 
 And('a need for contact {string} is assigned to that role') do |name|
   @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
-  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', role: @role)
+  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone triage', role: @role)
 end
 
 And('a need for contact {string} is assigned to the other user') do |name|
   @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
-  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', user: @other_user)
+  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone triage', user: @other_user)
 end
 
 When('I go to the contact page for that need/contact') do

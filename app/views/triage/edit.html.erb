@@ -50,11 +50,11 @@
         <% @contact_needs.needs_list.each do |need_entry| %>
           <% need = need_entry[1] %>
           <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>
-            <div class="triage-grid__need" style="border-left: 5px solid <%= need[:border] %>">
+            <div class="triage-grid__need need--<%= need[:name] %>">
               <div class="triage-grid__inner">
-                <h3 class="triage-grid__title"><%= need[:label] %></h3>
+                <h3 class="triage-grid__title"><%= need[:name].humanize %></h3>
 
-                <%= need_form.hidden_field :name, :value => need[:label].parameterize.underscore %>
+                <%= need_form.hidden_field :name, :value => need[:name] %>
 
                 <fieldset class="field-section field-section--two-cols">
                   <legend class="field-section__title">Is this needed?</legend>
@@ -80,10 +80,10 @@
               </div>
 
               <%= fields_for :contact, @contact do |contact_form| %>
-                <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need[:label].parameterize.underscore}.html.erb")) %>
+                <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need[:name].parameterize.underscore}.html.erb")) %>
                   <%# form will save to the need, contact_form will save to the contact %>
                   <div class="triage-grid__inner triage-grid__inner--grey">
-                    <%= render :partial => "#{need[:label].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need } %>
+                    <%= render :partial => "#{need[:name].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need } %>
                   </div>
                 <% end %>
               <% end %>
