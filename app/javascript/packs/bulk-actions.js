@@ -1,14 +1,14 @@
 let needs = document.querySelectorAll(".select-needs")
 
 let showAssignAction = false
-let assignAction = document.querySelector("#assign-selected-needs")
-assignAction.setAttribute("hidden", "true")
+let assignAction = document.querySelector("#assign-selected-needs-users")
+assignAction.setAttribute("disabled", "disabled")
 
-let showHideAssignAction = () => {
+let enableDisableAssignAction = () => {
   if(showAssignAction) {
-    assignAction.removeAttribute("hidden")
+    assignAction.removeAttribute("disabled")
   } else {
-    assignAction.setAttribute("hidden", "true")
+    assignAction.setAttribute("disabled", "disabled")
   }
 }
 
@@ -22,7 +22,7 @@ let needClicked = (e) => {
     }
   }
 
-  showHideAssignAction()
+  enableDisableAssignAction()
 }
 
 for (let i = 0; i < needs.length; i++) {
@@ -40,7 +40,7 @@ let selectAllNeeds = () => {
     showAssignAction = false
   }
   
-  showHideAssignAction()
+  enableDisableAssignAction()
   for (let i = 0; i < needs.length; i++) {
     needs[i].checked = checked
   }
@@ -48,7 +48,7 @@ let selectAllNeeds = () => {
 
 allNeeds.addEventListener('click', selectAllNeeds)
     
-document.querySelector("#assign-selected-needs").addEventListener("change", (e) => {
+document.querySelector("#assign-selected-needs-users").addEventListener("change", (e) => {
   let user_id = e.target.value
   if(e.target.value) {
     if (user_id === 'Unassigned') {
