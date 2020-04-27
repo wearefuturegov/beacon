@@ -34,6 +34,14 @@ class Need < ApplicationRecord
     end
   }
 
+  scope :filter_by_role_id, lambda { |role_id|
+    if role_id == 'Unassigned'
+      where(role_id: nil)
+    else
+      where(role_id: role_id)
+    end
+  }
+
   scope :filter_by_status, ->(status) { where(status: status) }
 
   scope :filter_by_is_urgent, lambda { |is_urgent|
