@@ -8,7 +8,7 @@ Given('a resident with {string} support actions') do |support_actions|
   @contact = Contact.create!(first_name: 'Test')
   support_actions.split(', ').each do |support_action|
     step "I add support actions \"#{support_action}\""
-    step 'submit the add support actions form'
+    step 'I submit the add support actions form'
   end
 end
 
