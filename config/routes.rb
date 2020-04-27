@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   passwordless_for :users, at: '/', as: :auth
 
   patch '/needs_multiple' => 'needs#update_multiple'
+
+  resources :needs, alias: :actions
 end

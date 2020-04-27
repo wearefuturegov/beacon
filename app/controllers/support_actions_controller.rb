@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NeedsController < ApplicationController
+class SupportActionsController < ApplicationController
   include ParamsConcern
   before_action :set_need, only: %i[show edit update]
   before_action :set_contact, only: %i[new create]
