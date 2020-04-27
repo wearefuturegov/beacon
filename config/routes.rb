@@ -19,7 +19,5 @@ Rails.application.routes.draw do
   post 'role', to: 'users#set_role', as: 'set_role'
   passwordless_for :users, at: '/', as: :auth
 
-  patch '/needs_multiple' => 'needs#update_multiple'
-
-  resources :needs, alias: :actions
+  patch '/assign_multiple' => 'needs#assign_multiple'
 end

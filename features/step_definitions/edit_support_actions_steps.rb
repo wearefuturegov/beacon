@@ -37,7 +37,7 @@ end
 
 Then("I no longer see the support action in the 'assigned to me' page") do
   visit "/?user_id=#{@user.id}"
-  content_panel = find('div.panel')
+  content_panel = find('p.no-results')
   expect(content_panel).to have_content 'No matches'
 end
 

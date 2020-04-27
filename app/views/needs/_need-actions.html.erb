@@ -5,6 +5,11 @@
     <%= f.collection_select :user_id, @users, :id, :name_or_email, { include_blank: "Unassigned" }, { class: "need-actions__select" } %>
     </div>
 
+    <div class="need-actions__field" id="teams-actions__field">
+    <%= f.label :user_id, 'Team', class: 'need-actions__label' %>
+    <%= f.collection_select :role_id, @roles, :id, :name, { include_blank: "Unassigned" }, { class: "need-actions__select" } %>
+    </div>
+
     <div class="need-actions__field" id="priority-actions__field">
     <%= f.label :is_urgent, 'Priority', class: 'need-actions__label' %>
     <%= f.select :is_urgent, {
