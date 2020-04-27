@@ -46,4 +46,4 @@ Feature: List needs
   Scenario: Sort needs by category descending
     Given a resident with "Book drops and entertainment, Dog walking, Groceries and cooked meals" needs
     When I sort needs by category in "DESC" order
-    Then I see the need for category "Groceries and cooked meals" first in the results
+    Then I see the need for category "Groceries and cooked meals" first in the results

@@ -12,7 +12,7 @@ end
 
 When('I filter needs by category {string}') do |category|
   page.find('#needs-filters').click
-  find('#category').find("option[value='#{category}']").select_option
+  find('#category').select(category)
 end
 
 Then('I see the need for category {string} in the results') do |category|
