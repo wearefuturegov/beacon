@@ -40,21 +40,14 @@
       <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>       
         <div class="triage-grid__need" style="border-left: 5px solid <%= need[:border] %>">
           <div class="triage-grid__inner">
-            <h3 class="triage-grid__title"><%= need[:label] %></h3>
+            <div class="checkbox">
+              <h3 class="triage-grid__title">
+                <%= need_form.check_box :active, { class: 'checkbox__input', checked: need['active'] == 'true' }, 'true', 'false' %>
+                <%= need_form.label :active, need[:label], class: 'checkbox__label' %>
+              </h3>
+            </div>
 
             <%= need_form.hidden_field :name, :value => need[:label].parameterize.underscore %>
-
-            <fieldset class="field-section field-section--two-cols">
-              <legend class="field-section__title">Is this needed?</legend>
-              <div class="radio">
-                <%= need_form.radio_button :active, true, {:checked => need['active'] == 'true'} %>
-                <%= need_form.label :active_true, "Yes", class: "radio__label" %>
-              </div>
-              <div class="radio">
-                <%= need_form.radio_button :active,  false, {:checked => need['active'] == 'false'} %>
-                <%= need_form.label :active_false, "No", class: "radio__label" %>
-              </div>
-            </fieldset>
 
             <div class="field">
               <%= need_form.label :description, 'Describe how we can help', class: 'field__label' %>
