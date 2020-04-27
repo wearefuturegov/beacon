@@ -71,7 +71,7 @@ end
 
 def get_area_panel(area)
   case area
-  when 'needs'
+  when 'support actions'
     panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(2)'
   when 'completed'
     panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(3)'
