@@ -22,7 +22,7 @@ Feature: Edit records concurrently
 
   Scenario: Update resident triage record concurrently
     Given I am on a call with a resident
-    And I am conducting a triage of the residents support actions
+    And I am conducting a triage of the residents needs
     When someone else updates the resident's name
     And I edit the total number of people to "99"
     And I save the edit resident form
@@ -30,6 +30,6 @@ Feature: Edit records concurrently
 
   Scenario: Inform users in real time of concurrent changes
     Given I am on a call with a resident
-    And I am conducting a triage of the residents support actions
+    And I am conducting a triage of the residents needs
     When someone else updates the resident's name
     Then I am informed another user has changed the record
