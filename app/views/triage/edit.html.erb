@@ -1,3 +1,8 @@
+
+<% if session[:triage] %>
+  <button id="discard-draft-btn" class="button button--dark" style="float: right">Discard Draft</button><br>
+<% end %>
+
 <% if @contact_needs.errors.any? || @contact.errors.any? %>
   <div class="error" id="error_explanation">
     <h2><%= pluralize(@contact_needs.errors.count + @contact.errors.count, "error") %> prohibited this triage form from being saved:</h2>
@@ -32,34 +37,32 @@
   <section class="triage-grid">
     <% @contact_needs.needs_list.each do |need_entry| %>
       <% need = need_entry[1] %>
-      <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>
-        <%#= need_form.text_field :description, value: need[:description] %>
+      <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>       
         <div class="triage-grid__need" style="border-left: 5px solid <%= need[:border] %>">
           <div class="triage-grid__inner">
             <h3 class="triage-grid__title"><%= need[:label] %></h3>
 
-            <%= need_form.hidden_field :lock_version, :value => need[:lock_version] %>
             <%= need_form.hidden_field :name, :value => need[:label].parameterize.underscore %>
 
             <fieldset class="field-section field-section--two-cols">
               <legend class="field-section__title">Is this needed?</legend>
               <div class="radio">
-                <%= need_form.radio_button :active, true, {:checked => need[:active] == 'true'} %>
+                <%= need_form.radio_button :active, true, {:checked => need['active'] == 'true'} %>
                 <%= need_form.label :active_true, "Yes", class: "radio__label" %>
               </div>
               <div class="radio">
-                <%= need_form.radio_button :active,  false, {:checked => need[:active] == 'false'} %>
+                <%= need_form.radio_button :active,  false, {:checked => need['active'] == 'false'} %>
                 <%= need_form.label :active_false, "No", class: "radio__label" %>
               </div>
             </fieldset>
 
             <div class="field">
               <%= need_form.label :description, 'Describe how we can help', class: 'field__label' %>
-              <%= need_form.text_area :description, value: need[:description] %>
+              <%= need_form.text_area :description, value: need['description'] %>
             </div>
 
             <div class="checkbox">
-              <%= need_form.check_box :is_urgent, class: 'checkbox__input', checked: need[:is_urgent] == '1' %>
+              <%= need_form.check_box :is_urgent, class: 'checkbox__input', checked: need['is_urgent'] == '1' %>
               <%= need_form.label :is_urgent, 'Urgent?', class: 'checkbox__label' %>
             </div>
           </div>
@@ -84,14 +87,16 @@
         <%= form.label :other_need, "Describe any other needs not covered above", class: "field__label" %>
         <%= form.text_area :other_need, rows: "2" %>
       </div>
+      
+      <input id="save-triage-for-later" type="hidden" name="save_for_later" value="false">
+      <input id="discard-draft" type="hidden" name="discard_draft" value="false">
 
-      <%= form.button "Save changes", class: "button button--primary" %>
+      <%= form.button "Save changes", class: "button button--primary", id: "triage-submit-btn" %>
     </div>
   </div>
 
-
-
 <% end %>
 
-
 <%= javascript_pack_tag 'users_viewing_page.js' %>
+
+<%= javascript_pack_tag 'save-for-later.js' %>

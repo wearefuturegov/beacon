@@ -16,15 +16,30 @@ RSpec.describe TriageController, type: :controller do
     allow(@contact).to receive(:find).and_return(@test_contact)
   end
 
-  describe 'PUT #create' do
-    it 'redirects to the contacts page for the given contact' do
+  describe 'PUT #update' do
+    it 'saves and redirects to the contacts page for the given contact' do
       needs_list = { 1 => { active: false } }
-      put :update, params: { id: 1, contact_id: 1, contact: { id: 1 }, contact_needs: { needs_list: needs_list } }
+      put :update, params: { id: 1, contact_id: 1, contact: { id: 1 }, contact_needs: { needs_list: needs_list }, discard_draft: 'false', save_for_later: 'false' }
       expect(response).to redirect_to controller: :contacts, action: :show, id: 1
+      expect(controller).to set_flash[:notice].to('Contact was successfully updated.')
+    end
+
+    it 'saves for later and redirects to the new enquiry' do
+      needs_list = { 1 => { active: false } }
+      put :update, params: { id: 1, contact_id: 1, contact: { id: 1 }, contact_needs: { needs_list: needs_list }, discard_draft: 'false', save_for_later: 'true' }
+      expect(response).to redirect_to new_contact_path
+      expect(controller).to set_flash[:notice].to('Triage temporarily saved.')
+    end
+
+    it 'discards the draft and redirects to the contact page' do
+      needs_list = { 1 => { active: false } }
+      put :update, params: { id: 1, contact_id: 1, contact: { id: 1 }, contact_needs: { needs_list: needs_list }, discard_draft: 'true', save_for_later: 'false' }
+      expect(response).to redirect_to controller: :contacts, action: :show, id: 1
+      expect(controller).to set_flash[:notice].to('Draft triage discarded.')
     end
   end
 
-  describe 'PUT #create fails validation' do
+  describe 'PUT #update triage form fails validation' do
     before(:each) do
       allow(@test_contact).to receive(:save).and_return(false)
 
@@ -32,9 +47,9 @@ RSpec.describe TriageController, type: :controller do
       allow(@contact_model).to receive(:find).and_return(@test_contact)
     end
 
-    it 'renders the edit page' do
+    it 'returns to the edit page' do
       needs_list = { 1 => { active: false } }
-      put :update, params: { id: 1, contact_id: 1, contact: { first_name: nil }, contact_needs: { needs_list: needs_list } }
+      put :update, params: { id: 1, contact_id: 1, contact: { first_name: nil }, contact_needs: { needs_list: needs_list }, discard_draft: 'false', save_for_later: 'false' }
       expect(response).to render_template :edit
     end
   end
