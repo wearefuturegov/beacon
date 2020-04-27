@@ -33,7 +33,7 @@
             </div>
         </th>
         <th>Person</th>
-        <th>Shielding</th>
+        <th>Shielded</th>
         <th>Status</th>
         <th>
           <div class="sortable">
@@ -77,7 +77,7 @@
           <td><%= n.contact_name %></td>
           <td>
             <% if n.contact_is_vulnerable %>
-              <%= image_tag "red-tick.svg", alt: "shielding" %>
+              <%= image_tag "red-tick.svg", alt: "shielded" %>
             <% else %>
               —
             <% end %>
