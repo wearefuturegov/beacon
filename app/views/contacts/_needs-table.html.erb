@@ -11,9 +11,9 @@
           </thead>
           <tbody>
             <% @open_needs.each do |n| %>
-              <tr onclick="window.location='<%= need_path(n) %>'">
-                <td style="border-left: 10px solid <%= get_need_border(n.category) %>">
-                  <%= link_to n.category.humanize, n %>
+              <tr onclick="window.location='<%= need_path(n) %>'" class="need--<%= n.category.parameterize %>">
+                <td>
+                  <%= link_to n.category, n %>
                 </td>
                 <td>
                   <% if n.is_urgent %>

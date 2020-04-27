@@ -52,7 +52,7 @@ class NeedPolicy < ApplicationPolicy
     permissive_roles?
   end
 
-  def update_multiple?
+  def assign_multiple?
     update?
   end
 end

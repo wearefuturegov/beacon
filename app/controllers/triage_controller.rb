@@ -10,7 +10,6 @@ class TriageController < ApplicationController
     if session[:triage] && session[:triage][:contact_id] == @contact.id
       @contact.assign_attributes(session[:triage][:contact_params])
       @contact_needs = ContactNeeds.new(session[:triage][:contact_needs_params])
-      merge_contact_needs
     else
       @contact_needs = create_contact_needs
     end
@@ -28,7 +27,6 @@ class TriageController < ApplicationController
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
-    merge_contact_needs
     render :edit
   end
 
@@ -40,10 +38,7 @@ class TriageController < ApplicationController
     @contact_needs.valid?
     @contact.valid?
 
-    if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
-      merge_contact_needs
-      render(:edit) && return
-    end
+    render(:edit) && return if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
 
     ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
     NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
@@ -57,13 +52,6 @@ class TriageController < ApplicationController
       contact_params: contact_params,
       contact_needs_params: contact_needs_params
     }
-  end
-
-  # repopulate the label/colour data
-  def merge_contact_needs
-    @contact_needs.needs_list.each_with_index do |need, index|
-      need[1].merge!(view_context.needs[index])
-    end
   end
 
   def set_contact
@@ -85,11 +73,21 @@ class TriageController < ApplicationController
 
   def create_contact_needs
     contact_model = ContactNeeds.new
-    contact_model.needs_list = view_context.needs.each_with_index.map do |need, index|
-      need[:active] = 'false'
-      need[:start_on] = (Date.today + 6.days).strftime('%d/%m/%Y') if need[:label] == 'Phone triage'
+    contact_model.needs_list = Need.categories_for_triage.each_with_index.map do |(label, _slug), index|
+      need = {
+        name: label,
+        active: false
+      }
+      if label == 'Phone triage'
+        need[:active] =
+          need[:start_on] = (Date.today + 6.days).strftime('%d/%m/%y')
+      end
       [index.to_s, need]
     end.to_h
     contact_model
+  end
+
+  def submitted_value(need_type)
+    contact_needs_params[:needs_list].values.find { |k| k[:name] == need_type }
   end
 end

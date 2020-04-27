@@ -27,6 +27,10 @@ body{
     &.panel--unpadded{
         padding: 0px;
     }
+    &.panel--stroked {
+        border-left-width: 5px;
+        border-left-style: solid;
+    }
     .panel__header{
         border: none;
         padding: 25px 35px;

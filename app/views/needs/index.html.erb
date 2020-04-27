@@ -21,7 +21,7 @@
       <thead>
       <tr>
         <th>
-          <%= check_box_tag("select-all-needs", nil, false, { class: "select-all-needs bulk-action-checkbox" }) %>
+          
         </th>
         <th>
           <div class="sortable">
@@ -54,6 +54,7 @@
             </div>
         </th>
         <th>Assigned to</th>
+        <th>Team</th>
         <th>
           <div class="sortable">
           Last contacted
@@ -72,7 +73,7 @@
             <%= check_box_tag("need[#{n.id}]", n.id, false, { class: "select-needs bulk-action-checkbox" }) %>
           </td>
           <td>
-            <%= link_to humanize_text(n.category), n, class: "primary-link" %>
+            <%= link_to n.category, n, class: "primary-link" %>
           </td>
           <td><%= n.contact_name %></td>
           <td>
@@ -96,6 +97,11 @@
               <%= n.user.name_or_email %>
             <% else %>
               Unassigned
+            <% end %>
+          </td>
+          <td>
+            <% if n.role %>
+              <%= n.role.name %>
             <% end %>
           </td>
           <td>

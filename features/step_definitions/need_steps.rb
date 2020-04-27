@@ -24,9 +24,7 @@ Then('I see an error message {string}') do |error|
 end
 
 def choose_yes_on_need(element, need)
-  need_block = find_need_block(element, need)
-  radio_fieldset = find_fieldset(need_block, 'Is this needed?')
-  radio_fieldset.find('label', text: 'Yes').click
+  element.find('label', text: need).click
 end
 
 def find_need_block(element, title_text)
