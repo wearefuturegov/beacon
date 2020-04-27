@@ -18,84 +18,98 @@
   </div>
 <% end %>
 
-<%= form_with(model: @contact_needs, url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
-
-  <header class="panel-header">
-    <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
-    <h1 class="panel-header__title">Triage a person in need</h1>
-  </header>
-
-  <div class="panel panel--unpadded">
-    <h2 class="panel__banner">Personal details</h2>
-    <div class="panel__body two-thirds">
-      <%= fields_for :contact, @contact do |contact_fields| %>
-        <%= render partial: 'contacts/form_fields', locals: {contact: @contact, form: contact_fields} %>
-      <% end %>
+<div class="with-left-sidebar">
+  <aside class="with-left-sidebar__left">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Profile</h2>
+    </header>
+    <div class="panel panel--unpadded">
+      <%= render "shared/profile-accordion" %>
     </div>
-  </div>
+  </aside>
 
-  <section class="triage-grid">
-    <% @contact_needs.needs_list.each do |need_entry| %>
-      <% need = need_entry[1] %>
-      <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>       
-        <div class="triage-grid__need" style="border-left: 5px solid <%= need[:border] %>">
-          <div class="triage-grid__inner">
-            <h3 class="triage-grid__title"><%= need[:label] %></h3>
 
-            <%= need_form.hidden_field :name, :value => need[:label].parameterize.underscore %>
+  <aside class="with-left-sidebar__right">
+    <%= form_with(model: @contact_needs, url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
 
-            <fieldset class="field-section field-section--two-cols">
-              <legend class="field-section__title">Is this needed?</legend>
-              <div class="radio">
-                <%= need_form.radio_button :active, true, {:checked => need['active'] == 'true'} %>
-                <%= need_form.label :active_true, "Yes", class: "radio__label" %>
-              </div>
-              <div class="radio">
-                <%= need_form.radio_button :active,  false, {:checked => need['active'] == 'false'} %>
-                <%= need_form.label :active_false, "No", class: "radio__label" %>
-              </div>
-            </fieldset>
+      <header class="panel-header">
+        <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
+        <h1 class="panel-header__title">Triage a person in need</h1>
+      </header>
 
-            <div class="field">
-              <%= need_form.label :description, 'Describe how we can help', class: 'field__label' %>
-              <%= need_form.text_area :description, value: need['description'] %>
-            </div>
-
-            <div class="checkbox">
-              <%= need_form.check_box :is_urgent, class: 'checkbox__input', checked: need['is_urgent'] == '1' %>
-              <%= need_form.label :is_urgent, 'Urgent?', class: 'checkbox__label' %>
-            </div>
-          </div>
-
-          <%= fields_for :contact, @contact do |contact_form| %>
-            <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need[:label].parameterize.underscore}.html.erb")) %>
-              <%# form will save to the need, contact_form will save to the contact %>
-              <div class="triage-grid__inner triage-grid__inner--grey">
-                <%= render :partial => "#{need[:label].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need } %>
-              </div>
-            <% end %>
+      <div class="panel panel--unpadded">
+        <h2 class="panel__banner">Personal details</h2>
+        <div class="panel__body two-thirds">
+          <%= fields_for :contact, @contact do |contact_fields| %>
+            <%= render partial: 'contacts/form_fields', locals: {contact: @contact, form: contact_fields} %>
           <% end %>
         </div>
-      <% end %>
-    <% end %>
-  </section>
-
-  <div class="panel panel--unpadded">
-    <h2 class="panel__banner">Other needs</h2>
-    <div class="panel__body two-thirds">
-      <div class="field">
-        <%= form.label :other_need, "Describe any other needs not covered above", class: "field__label" %>
-        <%= form.text_area :other_need, rows: "2" %>
       </div>
-      
-      <input id="save-triage-for-later" type="hidden" name="save_for_later" value="false">
-      <input id="discard-draft" type="hidden" name="discard_draft" value="false">
 
-      <%= form.button "Save changes", class: "button button--primary", id: "triage-submit-btn" %>
-    </div>
-  </div>
+      <section class="triage-grid">
+        <% @contact_needs.needs_list.each do |need_entry| %>
+          <% need = need_entry[1] %>
+          <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>
+            <div class="triage-grid__need" style="border-left: 5px solid <%= need[:border] %>">
+              <div class="triage-grid__inner">
+                <h3 class="triage-grid__title"><%= need[:label] %></h3>
 
-<% end %>
+                <%= need_form.hidden_field :name, :value => need[:label].parameterize.underscore %>
+
+                <fieldset class="field-section field-section--two-cols">
+                  <legend class="field-section__title">Is this needed?</legend>
+                  <div class="radio">
+                    <%= need_form.radio_button :active, true, {:checked => need['active'] == 'true'} %>
+                    <%= need_form.label :active_true, "Yes", class: "radio__label" %>
+                  </div>
+                  <div class="radio">
+                    <%= need_form.radio_button :active,  false, {:checked => need['active'] == 'false'} %>
+                    <%= need_form.label :active_false, "No", class: "radio__label" %>
+                  </div>
+                </fieldset>
+
+                <div class="field">
+                  <%= need_form.label :description, 'Describe how we can help', class: 'field__label' %>
+                  <%= need_form.text_area :description, value: need['description'] %>
+                </div>
+
+                <div class="checkbox">
+                  <%= need_form.check_box :is_urgent, class: 'checkbox__input', checked: need['is_urgent'] == '1' %>
+                  <%= need_form.label :is_urgent, 'Urgent?', class: 'checkbox__label' %>
+                </div>
+              </div>
+
+              <%= fields_for :contact, @contact do |contact_form| %>
+                <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need[:label].parameterize.underscore}.html.erb")) %>
+                  <%# form will save to the need, contact_form will save to the contact %>
+                  <div class="triage-grid__inner triage-grid__inner--grey">
+                    <%= render :partial => "#{need[:label].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need } %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </section>
+
+      <div class="panel panel--unpadded">
+        <h2 class="panel__banner">Other needs</h2>
+        <div class="panel__body two-thirds">
+          <div class="field">
+            <%= form.label :other_need, "Describe any other needs not covered above", class: "field__label" %>
+            <%= form.text_area :other_need, rows: "2" %>
+          </div>
+
+          <input id="save-triage-for-later" type="hidden" name="save_for_later" value="false">
+          <input id="discard-draft" type="hidden" name="discard_draft" value="false">
+
+          <%= form.button "Save changes", class: "button button--primary", id: "triage-submit-btn" %>
+        </div>
+      </div>
+
+    <% end %>
+  </aside>
+</div>
 
 <%= javascript_pack_tag 'users_viewing_page.js' %>
 
