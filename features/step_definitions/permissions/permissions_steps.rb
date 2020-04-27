@@ -44,8 +44,8 @@ Then('I can see the support action in the list') do
 end
 
 Then('I can not see that support action in the list') do
-  table_content = page.find('tbody').text.downcase
-  expect(table_content).not_to have_content(@support_action.name.downcase)
+  content_panel = find('p.no-results')
+  expect(content_panel).to have_content 'No matches'
 end
 
 Then('I can not see that contact in the list') do

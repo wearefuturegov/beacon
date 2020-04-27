@@ -29,7 +29,7 @@ Feature: Add support actions
     And I submit the add support actions form
     Then the residents list of support actions contains "<support actions>"
     Examples:
-      | support actions                          |
+      | support actions               |
       | Phone triage                  |
       | Groceries and cooked meals    |
       | Physical and mental wellbeing |
