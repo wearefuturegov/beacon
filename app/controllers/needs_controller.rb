@@ -23,10 +23,12 @@ class NeedsController < ApplicationController
 
   def show
     @users = User.all
+    @roles = Role.all
     @need.notes.order(created_at: :desc)
   end
 
   def edit
+    @roles = Role.all
     @users = User.all
   end
 
@@ -35,11 +37,13 @@ class NeedsController < ApplicationController
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else
       @users = User.all
+      @roles = Role.all
       render :show
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
     @users = User.all
+    @roles = Role.all
     render :show
   end
 
