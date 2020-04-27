@@ -8,7 +8,7 @@ Feature: Restrict viewing/editing support action access to a user based on their
   Scenario Outline: Can view support actions that are assigned to me
     Given I am logged into the system as a "<role>" user
     And a support action is assigned to me
-    When I go to the support action list
+    When I go to the support actions list
     Then I can see the support action in the list
     Examples:
       | role                            |
@@ -22,7 +22,7 @@ Feature: Restrict viewing/editing support action access to a user based on their
   Scenario Outline: Can view support actions that are assigned to my team
     Given I am logged into the system as a "<role>" user
     And a support action is assigned to that role
-    When I go to the support action list
+    When I go to the support actions list
     Then I can see the support action in the list
     Examples:
       | role                            |
@@ -37,7 +37,7 @@ Feature: Restrict viewing/editing support action access to a user based on their
     Given I am logged into the system as a "<role>" user
     And another user exists in that role
     And a support action is assigned to the other user
-    When I go to the support action list
+    When I go to the support actions list
     Then I can see the support action in the list
     Examples:
       | role                              |
@@ -50,7 +50,7 @@ Feature: Restrict viewing/editing support action access to a user based on their
     Given I am logged into the system as an "MDT" user
     And another user exists in that role
     And a support action is assigned to the other user
-    When I go to the support action list
+    When I go to the support actions list
     Then I can not see that support action in the list
 
   @edit
