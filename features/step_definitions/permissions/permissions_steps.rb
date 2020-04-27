@@ -26,15 +26,15 @@ And('a support action for contact {string} is assigned to the other user') do |n
   @support_action = Need.create!(contact: @contact, name: 'Phone Triage', category: 'Phone Triage', user: @other_user)
 end
 
-When('I go to the contact page for that support action/contact') do
+When('I go to the contact page for that contact') do
   visit "/contacts/#{@contact.id}"
 end
 
-Then('I can see the contact action in the list') do
+Then('I can see the contact in the list') do
   expect(page).to have_content(@contact.first_name)
 end
 
-Then('I can not see that contact action in the list') do
+Then('I can not see that contact in the list') do
   expect(page).not_to have_content(@contact.first_name)
 end
 
