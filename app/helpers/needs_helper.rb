@@ -6,7 +6,7 @@ module NeedsHelper
   end
 
   def need_is_vulnerable_options
-    ['Vulnerable']
+    ['Shielding']
   end
 
   def need_categories
