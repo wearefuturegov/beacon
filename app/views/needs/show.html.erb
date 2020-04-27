@@ -21,8 +21,8 @@
         <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
       <% end %>
     </header>
-    <div class="panel panel--unpadded" style="border-left: 5px solid <%= get_need_border(@need.category) %>">
-      <%= link_to @need.category.humanize, @contact, class: "panel__header" %>
+    <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
+      <%= link_to @need.category, @contact, class: "panel__header" %>
       <div class="panel__body">
 
         <%= render "need-actions" %>

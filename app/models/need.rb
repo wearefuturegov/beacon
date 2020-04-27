@@ -18,6 +18,17 @@ class Need < ApplicationRecord
                  food_priority: :string,
                  food_service_type: :string
 
+  enum category: { 'Phone triage': 'phone triage',
+                   'Groceries and cooked meals': 'groceries and cooked meals',
+                   'Physical and mental wellbeing': 'physical and mental wellbeing',
+                   'Financial support': 'financial support',
+                   'Staying social': 'staying social',
+                   'Prescription pickups': 'prescription pickups',
+                   'Book drops and entertainment': 'book drops and entertainment',
+                   'Dog walking': 'dog walking',
+                   'Initial review': 'initial review',
+                   'Other': 'other' }
+
   # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
   # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
 
@@ -143,6 +154,10 @@ class Need < ApplicationRecord
 
   def self.dynamic_fields
     %w[last_phoned_date]
+  end
+
+  def self.categories_for_triage
+    categories.except('Other')
   end
 
   def assigned

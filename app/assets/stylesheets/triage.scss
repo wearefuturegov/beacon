@@ -9,10 +9,11 @@
     }
     .triage-grid__need{
         margin: none;
-        border: none;
         background: $white;
         box-shadow: 2px 0px 10px transparentize($text, 0.95);
         margin-bottom: 30px;
+        border-left-width: 5px;
+        border-left-style: solid;
     }
     .triage-grid__inner{
         padding: 35px;
