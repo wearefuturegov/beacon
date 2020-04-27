@@ -1,15 +1,15 @@
 @javascript
-Feature: Add needs
+Feature: Add support actions
   As a Call centre agent
-  I want to add multiples needs to a person
-  So that I can confirm details with people on the phone as their needs are identified
+  I want to add multiples support actions to a person
+  So that I can confirm details with people on the phone as their support actions are identified
 
   Call centre manager: 200 new vulnerable people have been added to the list from online referrals,
   I need to *see what my staff are currently working on*
   so I know who has capacity and then have a way to divide and assign the new cases to my staff
 
   Service manager: 50 new referrals have come through to the emergency food service,
-  I need to *know who is a priority (e.g. needs food today)*
+  I need to *know who is a priority (e.g. need food today)*
   so I can prioritise assigning these cases to my team
 
   Call centre agent: I need to *know how I refer my calls or who I assign tasks to,
@@ -23,13 +23,13 @@ Feature: Add needs
   Background:
     * I am logged into the system
 
-  Scenario Outline: Add any needs
+  Scenario Outline: Add any support actions
     Given a resident
-    When I add needs "<need>"
-    And I submit the add needs form
-    Then the residents list of needs contains "<need>"
+    When I add support actions "<support actions>"
+    And I submit the add support actions form
+    Then the residents list of support actions contains "<support actions>"
     Examples:
-      | need                          |
+      | support actions                          |
       | Phone triage                  |
       | Groceries and cooked meals    |
       | Physical and mental wellbeing |
@@ -39,19 +39,19 @@ Feature: Add needs
       | Book drops and entertainment  |
       | Dog walking                   |
 
-  Scenario: Add multiple needs
+  Scenario: Add multiple support actions
     Given a resident
-    When I add needs "Groceries and cooked meals"
-    And I add another need "Staying social"
-    And I add another need "Dog walking"
-    And I submit the add needs form
-    Then the residents list of needs contains "Groceries and cooked meals"
-    And the residents list of needs contains "Staying social"
-    And the residents list of needs contains "Dog walking"
+    When I add support actions "Groceries and cooked meals"
+    And I add another support action "Staying social"
+    And I add another support action "Dog walking"
+    And I submit the add support actions form
+    Then the residents list of support actions contains "Groceries and cooked meals"
+    And the residents list of support actions contains "Staying social"
+    And the residents list of support actions contains "Dog walking"
 
-  Scenario: Enter an invalid phone triage need
+  Scenario: Enter an invalid phone triage support actions
     Given a resident
-    When I add needs "Phone triage"
-    And I set the start date for the "Phone triage" need to "an_invalid_date"
-    When I submit the add needs form
+    When I add support actions "Phone triage"
+    And I set the start date for the "Phone triage" support action to "an_invalid_date"
+    When I submit the add support actions form
     Then I see an error message 'Phone triage call date is not a valid date'

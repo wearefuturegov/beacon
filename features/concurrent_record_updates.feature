@@ -8,12 +8,12 @@ Feature: Edit records concurrently
     * I am logged into the system
     * Someone else is logged into the system
 
-  Scenario: Update need record concurrently
-    Given a resident with a need exists
-    And I have assigned the need to me
-    And the need has status 'to do'
-    When I change someone else's need status to 'complete'
-    Then I see my need change was unsuccessful
+  Scenario: Update support action record concurrently
+    Given a resident with a support action exists
+    And I have assigned the support action to me
+    And the support action has status 'to do'
+    When I change someone else's support action status to 'complete'
+    Then I see my support action change was unsuccessful
 
   Scenario: Update resident record concurrently
     Given a resident
@@ -22,7 +22,7 @@ Feature: Edit records concurrently
 
   Scenario: Update resident triage record concurrently
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     When someone else updates the resident's name
     And I edit the total number of people to "99"
     And I save the edit resident form
@@ -30,6 +30,6 @@ Feature: Edit records concurrently
 
   Scenario: Inform users in real time of concurrent changes
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     When someone else updates the resident's name
     Then I am informed another user has changed the record

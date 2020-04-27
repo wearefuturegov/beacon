@@ -13,15 +13,15 @@ Feature: On call with resident
 
   Scenario: Update total number of people in the household
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     When I edit the total number of people to "57"
     And I save the edit resident form
     Then I see a resident updated message
     And the total number of people is "57"
 
-  Scenario: Enter residents special delivery needs
+  Scenario: Enter residents special delivery support actions
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     When I edit the special delivery details "flats - need to buzz"
     And I save the edit resident form
     Then I see a resident updated message
@@ -29,7 +29,7 @@ Feature: On call with resident
 
   Scenario: Answer yes to any children under 15
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     When I choose "Yes" for any children under 15
     And I save the edit resident form
     Then I see a resident updated message
@@ -37,7 +37,7 @@ Feature: On call with resident
 
   Scenario: Answer no to any children under 15
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     When I choose "No" for any children under 15
     And I save the edit resident form
     Then I see a resident updated message
@@ -45,7 +45,7 @@ Feature: On call with resident
 
   Scenario: Answer yes to free prescriptions
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     When I choose "Yes" to eligible for free prescriptions
     And I save the edit resident form
     Then I see a resident updated message
@@ -53,7 +53,7 @@ Feature: On call with resident
 
   Scenario: Answer no to free prescriptions
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     When I choose "No" to eligible for free prescriptions
     And I save the edit resident form
     Then I see a resident updated message
@@ -61,7 +61,7 @@ Feature: On call with resident
 
   Scenario: Special dietary requirements no cooking facilities
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     When I choose "Yes" to any dietary requirements
     And I edit the dietary details to "Vegan"
     And I save the edit resident form
@@ -72,7 +72,7 @@ Feature: On call with resident
   @javascript
   Scenario: Save for later - new enquiry
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     And I edit the total number of people to "99"
     When I start a new enquiry
     And I choose to save the triage for later
@@ -82,7 +82,7 @@ Feature: On call with resident
   @javascript
   Scenario: Save for later - stay on the page
     Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
+    And I am conducting a triage of the residents support actions
     And I edit the total number of people to "99"
     When I start a new enquiry
     But I choose to stay on the page

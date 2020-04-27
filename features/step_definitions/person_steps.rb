@@ -142,9 +142,9 @@ When(/^I save the edit resident form$/) do
   click_button('Save changes')
 end
 
-Then('the residents list of needs contains {string}') do |need|
+Then('the residents list of support actions contains {string}') do |support_action|
   visit "/contacts/#{@contact.id}" unless @contact.nil?
-  expect(page.find('.needs-table')).to have_text(need)
+  expect(page.find('.needs-table')).to have_text(support_action)
 end
 
 Then(/^I see a resident updated message$/) do
