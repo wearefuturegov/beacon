@@ -107,6 +107,8 @@
     tbody{
         tr{
             border-top: 1px solid transparentize($text, 0.8);
+            border-left-width: 10px;
+            border-left-style: solid;
             cursor: pointer;
             &:hover{
                 background: transparentize($blue, 0.9);

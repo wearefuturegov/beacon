@@ -1,6 +1,6 @@
 Given('a resident with a need exists') do
   @contact = Contact.create!(first_name: 'Test')
-  @need = Need.create!(contact_id: @contact.id, name: 'Phone Triage', category: 'Phone Triage')
+  @need = Need.create!(contact_id: @contact.id, name: 'Phone Triage', category: 'Phone triage')
 end
 
 When('I (assign)/(have assigned) the need to me') do

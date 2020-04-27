@@ -1,0 +1,29 @@
+@import "variables";
+
+.need--phone-triage {
+  border-left-color: $text;
+}
+.need--groceries-and-cooked-meals {
+  border-left-color: #EAD95B;
+}
+.need--physical-and-mental-wellbeing {
+  border-left-color: #F18F01;
+}
+.need--financial-support {
+  border-left-color: #42807B;
+}
+.need--staying-social {
+  border-left-color: #A0CAC9;
+}
+.need--prescription-pickups {
+  border-left-color: #971964;
+}
+.need--book-drops-and-entertainment {
+  border-left-color: #43387B;
+}
+.need--dog-walking {
+  border-left-color: #1C52A3;
+}
+.need--initial-review {
+  border-left-color: $text;
+}
