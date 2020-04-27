@@ -1,6 +1,6 @@
 Given('a resident with a support action exists') do
   @contact = Contact.create!(first_name: 'Test')
-  @need = Need.create!(contact_id: @contact.id, name: 'Phone Triage', category: 'Phone triage')
+  @need = Need.create!(contact_id: @contact.id, name: 'Dog walking', category: 'Dog walking')
 end
 
 When('I (assign)/(have assigned) the support action to me') do
