@@ -1,3 +1,4 @@
+@javascript
 Feature: Add needs
   As a Call centre agent
   I want to add multiples needs to a person

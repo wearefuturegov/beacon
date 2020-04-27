@@ -1,3 +1,4 @@
+@javascript
 Feature: Create note
   As a Call centre agent
   I want to add notes and call logs to a residents needs

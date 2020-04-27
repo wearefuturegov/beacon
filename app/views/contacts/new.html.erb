@@ -22,6 +22,11 @@
         </div>
       <% end %>
       
+
+      <div class="field field--span-two-cols">
+        <%= link_to "Have you checked if this person exists?", contacts_path %>
+      </div>
+              
       <div class="field" id="first-name-field">
         <%= f.label :first_name, class: "field__label"%>
         <%= f.text_field :first_name%>
@@ -59,4 +64,4 @@
       </div>
     </section>
   <% end %>
-<div>
+</div>

@@ -82,7 +82,7 @@
               —
             <% end %>
           </td>
-          <td><%= status(n.completed_on) %></td>
+          <td><%= n.status_label %></td>
           <td>
             <% if n.is_urgent %>
               <span class="urgent-tag">Urgent</span>

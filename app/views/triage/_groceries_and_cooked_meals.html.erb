@@ -2,15 +2,15 @@
   <legend><h3 class="field-section__title">Food requirements priority</h3></legend>
 
   <div class="radio">
-    <%= need_form.radio_button :food_priority, '1', checked: need[:food_priority] == '1' %>
+    <%= need_form.radio_button :food_priority, '1', checked: need['food_priority'] == '1' %>
     <%= need_form.label :food_priority_1, 'Priority 1', class: 'radio__label' %>
   </div>
   <div class="radio">
-    <%= need_form.radio_button :food_priority, '2', checked: need[:food_priority] == '2' %>
+    <%= need_form.radio_button :food_priority, '2', checked: need['food_priority'] == '2' %>
     <%= need_form.label :food_priority_2, 'Priority 2', class: 'radio__label' %>
   </div>
   <div class="radio">
-    <%= need_form.radio_button :food_priority, '3', checked: need[:food_priority] == '3' %>
+    <%= need_form.radio_button :food_priority, '3', checked: need['food_priority'] == '3' %>
     <%= need_form.label :food_priority_3, 'Priority 3', class: 'radio__label' %>
   </div>
 
@@ -20,15 +20,15 @@
   <legend><h3 class="field-section__title">Which type of food service?</h3></legend>
 
   <div class="radio">
-    <%= need_form.radio_button :food_service_type, 'Hot meal', checked: need[:food_service_type] == 'Hot meal' %>
+    <%= need_form.radio_button :food_service_type, 'Hot meal', checked: need['food_service_type'] == 'Hot meal' %>
     <%= need_form.label :food_service_type_hot_meal, 'Hot meal', class: 'radio__label' %>
   </div>
   <div class="radio">
-    <%= need_form.radio_button :food_service_type, 'Heat up', checked: need[:food_service_type] == 'Heat up' %>
+    <%= need_form.radio_button :food_service_type, 'Heat up', checked: need['food_service_type'] == 'Heat up' %>
     <%= need_form.label :food_service_type_heat_up, 'Heat up', class: 'radio__label' %>
   </div>
   <div class="radio">
-    <%= need_form.radio_button :food_service_type, 'Grocery delivery', checked: need[:food_service_type] == 'Grocery delivery' %>
+    <%= need_form.radio_button :food_service_type, 'Grocery delivery', checked: need['food_service_type'] == 'Grocery delivery' %>
     <%= need_form.label :food_service_type_grocery_delivery, 'Grocery delivery', class: 'radio__label' %>
   </div>
 
