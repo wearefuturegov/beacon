@@ -6,7 +6,7 @@ module NeedsHelper
   end
 
   def need_is_vulnerable_options
-    ['Vulnerable']
+    ['Shielded']
   end
 
   def note_category_form_display(note_category)
