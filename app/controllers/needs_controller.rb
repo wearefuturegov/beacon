@@ -8,11 +8,12 @@ class NeedsController < ApplicationController
   helper_method :get_param
 
   def index
-    @params = params.permit(:user_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
+    @params = params.permit(:user_id, :role_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
     @users = User.all
+    @roles = Role.all
     @needs = policy_scope(Need)
              .started
-             .filter_and_sort(@params.slice(:category, :user_id, :status, :is_urgent), @params.slice(:order, :order_dir))
+             .filter_and_sort(@params.slice(:category, :user_id, :role_id, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
     respond_to do |format|
       format.html
@@ -42,12 +43,14 @@ class NeedsController < ApplicationController
     render :show
   end
 
-  def update_multiple
+  def assign_multiple
     for_update = JSON.parse(params[:for_update])
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
       authorize(need)
-      need.update!(user_id: obj['user_id'])
+      user_id = obj['user_id']
+      role_id = obj['role_id']
+      need.update!(user_id: user_id, role_id: role_id)
     end
     render json: { status: 'ok' }
   end
@@ -67,6 +70,6 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:name, :status, :user_id, :category, :is_urgent, :lock_version)
+    params.require(:need).permit(:name, :status, :user_id, :role_id, :category, :is_urgent, :lock_version)
   end
 end

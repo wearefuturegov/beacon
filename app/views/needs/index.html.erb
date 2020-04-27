@@ -54,6 +54,7 @@
             </div>
         </th>
         <th>Assigned to</th>
+        <th>Team</th>
         <th>
           <div class="sortable">
           Last contacted
@@ -96,6 +97,11 @@
               <%= n.user.name_or_email %>
             <% else %>
               Unassigned
+            <% end %>
+          </td>
+          <td>
+            <% if n.role %>
+              <%= n.role.name %>
             <% end %>
           </td>
           <td>
