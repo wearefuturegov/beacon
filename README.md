@@ -82,3 +82,4 @@ Coming soon...
 | NOTIFY_API_KEY   | Gov.uk Notify API key (production only)   |
 | HOSTNAME         | Hostname used in outbound emails (e.g. `x.beacon.com`). Defaults to heroku app name |
 | SEED_USER_EMAILS | Optional comma-separated list of emails to seed users table with |
+
