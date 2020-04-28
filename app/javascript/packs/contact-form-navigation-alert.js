@@ -1,7 +1,7 @@
 $(() => {
    $("body").attr("data-turbolinks", false);
 
-   const formElement = $("form");
+   const formElement = $("form.contact-form");
    const originalState = formElement.serialize();
    formElement.on("submit", onSubmit)
 
