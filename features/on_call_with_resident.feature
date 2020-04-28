@@ -69,31 +69,6 @@ Feature: On call with resident
     And the dietary requirements is "Yes"
     And the dietary details is "Vegan"
 
-  @javascript
-  Scenario: Save for later - new enquiry
-    Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
-    And I edit the total number of people to "99"
-    When I start a new enquiry
-    And I choose to save the triage for later
-    Then I see a triage saved for draft message
-    And the new enquiry form is displayed to me
-
-  @javascript
-  Scenario: Save for later - stay on the page
-    Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
-    And I edit the total number of people to "99"
-    When I start a new enquiry
-    But I choose to stay on the page
-    Then I can still see the triage form
-  
-  @javascript
-  Scenario: Save for later - return to triage
-    Given I have a draft triage pending completion
-    When I return to the triage
-    Then I see the triage draft values again
-
   Scenario: Special dietary requirements Microwave
   Scenario: Special dietary requirements Hob and Oven
   Scenario: Person has no food today
