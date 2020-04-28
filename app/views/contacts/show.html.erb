@@ -18,13 +18,6 @@
       <% end %>
     </header>
 
-    <header class="panel-header" id="enquiry-details-panel">
-      <h2 class="panel-header__title">Enquiry Details</h2>
-    </header>
-    <div class="panel panel--unpadded">  
-      <%= render partial: 'enquiry', locals: { contact: @contact } %>
-    </div>
-
     <header class="panel-header" id="needs-panel">
       <h2 class="panel-header__title">Support Actions</h2>
       <% if @open_needs.any? %>
