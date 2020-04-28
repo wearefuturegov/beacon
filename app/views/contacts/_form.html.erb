@@ -1,5 +1,5 @@
 <div class="two-thirds">
-  <%= form_with(model: contact, local: true) do |form| %>
+  <%= form_with(model: contact, local: true, html: { class: "contact-form" }) do |form| %>
     <%= render partial: 'form_fields', locals: { contact: @contact, form: form } %>
     <div class="actions">
       <%= form.button "Save changes", class: "button button--primary" %>
