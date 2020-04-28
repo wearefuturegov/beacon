@@ -5,6 +5,7 @@ require 'csv'
 class Need < ApplicationRecord
   include Filterable
   self.ignored_columns = %w[due_by]
+  before_update :assign_to
 
   enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
   belongs_to :contact, counter_cache: true
@@ -136,6 +137,11 @@ class Need < ApplicationRecord
                           ''
                         end
     self[:status] = state
+  end
+
+  def assign_to
+    self.role_id = nil if !user.nil? && user_id_changed?
+    self.user_id = nil if !role_id.nil? && role_id_changed?
   end
 
   def self.base_query
