@@ -11,4 +11,4 @@ Feature: Create an inbound enquiry
     When I add the enquiry details
     And I save the enquiry form
     Then I see a resident created message
-    And the residents list of needs contains "Initial review"
+    And the residents list of support actions contains "Initial review"
