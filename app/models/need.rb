@@ -73,6 +73,10 @@ class Need < ApplicationRecord
     order("last_phoned_date #{direction} NULLS LAST")
   }
 
+  scope :order_by_call_attempts, lambda { |direction|
+    order("call_attempts #{direction} NULLS LAST")
+  }
+
   counter_culture :contact,
                   column_name: proc { |model| model.complete? ? 'completed_needs_count' : 'uncompleted_needs_count' },
                   column_names: {
