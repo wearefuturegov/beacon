@@ -151,7 +151,14 @@ class Need < ApplicationRecord
           group by c.id) as contact_aggregation
           on contact_aggregation.id = contacts.id"
 
-    Need.joins(:contact, sql).select('needs.*', 'contact_aggregation.max as last_phoned_date')
+    sql += " left join (
+          select n.id, count(nt.id) from notes nt
+          join needs n on n.id = nt.need_id and nt.category in ('phone_success', 'phone_message', 'phone_failure')
+          group by n.id
+        ) as notes_aggr on notes_aggr.id = needs.id"
+
+    Need.joins(:contact, sql).select('needs.*', 'contact_aggregation.max as last_phoned_date',
+                                     'notes_aggr.count as call_attempts ')
   end
 
   def self.default_sort(results)
@@ -159,7 +166,7 @@ class Need < ApplicationRecord
   end
 
   def self.dynamic_fields
-    %w[last_phoned_date]
+    %w[last_phoned_date call_attempts]
   end
 
   def self.categories_for_triage
@@ -176,6 +183,10 @@ class Need < ApplicationRecord
 
   def last_phoned_date
     read_attribute('last_phoned_date')
+  end
+
+  def call_attempts
+    read_attribute('call_attempts')
   end
 
   # This sort method is to first sort future needs (where start_on > today) to the bottom of the list

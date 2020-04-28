@@ -6,8 +6,13 @@ When('I view any needs list row for that resident') do
 end
 
 Then('I see the last contacted date is today') do
-  last_contacted_column = @resident_row.find('td:last-child')
+  last_contacted_column = @resident_row.find('td:nth-child(10)')
   expect(last_contacted_column).to have_content(Date.today.strftime('%-d %B %Y'))
+end
+
+Then('I see one call attempt') do
+  call_attempt_column = @resident_row.find('td:last-child')
+  expect(call_attempt_column).to have_content(1)
 end
 
 When('I filter needs by category {string}') do |category|

@@ -64,6 +64,9 @@
           </div>
           </div>
         </th>
+        <th>
+          Call attempts 
+        </th>
       </tr>
       </thead>
       <tbody>
@@ -106,6 +109,9 @@
           </td>
           <td>
             <%= n.last_phoned_date&.strftime("%-d %B %Y") %>
+          </td>
+          <td>
+            <%= n.call_attempts %>
           </td>
         </tr>
       <% end %>
