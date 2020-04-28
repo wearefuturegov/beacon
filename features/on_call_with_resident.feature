@@ -19,7 +19,7 @@ Feature: On call with resident
     Then I see a resident updated message
     And the total number of people is "57"
 
-  Scenario: Enter residents special delivery needs
+  Scenario: Enter residents special delivery support actions
     Given I am on a call with a resident
     And I am conducting a triage of the residents needs
     When I edit the special delivery details "flats - need to buzz"

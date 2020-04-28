@@ -7,11 +7,11 @@
 
     <ul class="main-menu">
         <li class="main-menu__item">
-            <%= link_to_unless_current "Needs", root_path, class: "main-menu__link" do %>
+            <%= link_to_unless_current "Support Actions", root_path, class: "main-menu__link" do %>
               <% if params[:user_id] == current_user.id.to_s || params[:status].eql?("to_do") %>
-                <%= link_to "Needs", root_path, { class: "main-menu__current", style: "text-decoration: none" } %>
+                <%= link_to "Support Actions", root_path, { class: "main-menu__current", style: "text-decoration: none" } %>
               <% else %>
-                <span class="main-menu__current">Needs</span>
+                <span class="main-menu__current">Support Actions</span>
               <% end %>
             <% end %>
 
@@ -25,9 +25,9 @@
                 </li>
                 <li class="main-menu__submenu-item">
                     <% if current_page?(root_path) && params[:status].eql?("to_do") %>
-                      <span class="main-menu__submenu-current">Unmet needs</span>
+                      <span class="main-menu__submenu-current">Unmet support actions</span>
                     <% else %>
-                      <%= link_to "Unmet needs", root_path(:status => "to_do"), { class: "main-menu__submenu-link" } %>
+                      <%= link_to "Unmet support actions", root_path(:status => "to_do"), { class: "main-menu__submenu-link" } %>
                     <% end %>
                 </li>
             </ul>
