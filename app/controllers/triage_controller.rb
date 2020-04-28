@@ -8,6 +8,7 @@ class TriageController < ApplicationController
   def edit
     @edit_contact_id = @contact.id
     @contact_needs = if session[:triage] && session[:triage][:contact_id] == @contact.id
+                       @contact.assign_attributes(session[:triage][:contact_params])
                        ContactNeeds.new(session[:triage][:contact_needs_params])
                      else
                        create_contact_needs
@@ -31,9 +32,17 @@ class TriageController < ApplicationController
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def apply_update
+    @contact.assign_attributes(
+      any_dietary_requirements: contact_params[:any_dietary_requirements],
+      dietary_details: contact_params[:dietary_details],
+      eligible_for_free_prescriptions: contact_params[:eligible_for_free_prescriptions],
+      cooking_facilities: contact_params[:cooking_facilities]
+    )
     @contact_needs = ContactNeeds.new(contact_needs_params)
     @contact_needs.valid?
+    @contact.valid?
 
     render(:edit) && return if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
 
@@ -42,6 +51,7 @@ class TriageController < ApplicationController
     session[:triage] = nil
     redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
   end
+  # rubocop:enable Metrics/AbcSize
 
   def save_for_later(contact_id, contact_params, contact_needs_params)
     session[:triage] = {
@@ -57,10 +67,8 @@ class TriageController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:first_name, :middle_names, :surname, :address, :postcode, :email, :telephone,
-                                    :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_below_15,
-                                    :delivery_details, :any_dietary_requirements, :dietary_details,
-                                    :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version,
+    params.require(:contact).permit(:any_dietary_requirements, :dietary_details,
+                                    :cooking_facilities, :eligible_for_free_prescriptions, :lock_version,
                                     :share_data_flag, :channel)
   end
 
