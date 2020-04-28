@@ -11,4 +11,5 @@ controls.forEach((control, i) => control.addEventListener("click", e  => {
         control.setAttribute("aria-expanded", "false")
         contents[i].setAttribute("hidden", "true")
     }
+    e.preventDefault()
 }))
