@@ -4,7 +4,7 @@ Feature: Add support actions
   I want to add multiples support actions to a person
   So that I can confirm details with people on the phone as their support actions are identified
 
-  Call centre manager: 200 new vulnerable people have been added to the list from online referrals,
+  Call centre manager: 200 new shielded people have been added to the list from online referrals,
   I need to *see what my staff are currently working on*
   so I know who has capacity and then have a way to divide and assign the new cases to my staff
 
