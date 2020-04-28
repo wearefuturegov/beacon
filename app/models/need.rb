@@ -38,6 +38,10 @@ class Need < ApplicationRecord
   scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
+
+  scope :assessments, -> { where(category: ['phone triage' , 'check_in']) }
+  scope :not_assessments, -> { where.not(category: ['phone triage' , 'check_in']) }
+
   scope :filter_by_user_id, lambda { |user_id|
     if user_id == 'Unassigned'
       where(user_id: nil)

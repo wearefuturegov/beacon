@@ -1,0 +1,41 @@
+<% if @completed_assessments.any? %>
+  <table class="needs-table">
+    <thead>
+    <tr>
+      <th>Type</th>
+      <th>Priority</th>
+      <th>Assigned</th>
+      <th>Created</th>
+      <th>Starts on</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @completed_assessments.each do |n| %>
+      <tr onclick="window.location='<%= need_path(n) %>'" class="need--<%= n.category.parameterize %>">
+        <td>
+          <%= link_to n.category, n %>
+        </td>
+        <td>
+          <% if n.is_urgent %>
+            <span class="urgent-tag">Urgent</span>
+          <% else %>
+            —
+          <% end %>
+        </td>
+        <td><%= n.assigned %></td>
+        <td><%= n.created_at&.strftime("%-d %B %Y") %></td>
+        <td>
+          <%= n.start_on&.strftime("%-d %B %Y") %>
+
+          <%# is this a 'future' need %>
+          <% if !n.start_on.nil? && n.start_on > DateTime.now %>
+            <span>(Future)</span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+
+<% end %>

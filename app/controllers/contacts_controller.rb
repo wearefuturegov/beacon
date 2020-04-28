@@ -38,8 +38,19 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope).where(completed_on: nil).sort { |a, b| Need.sort_created_and_start_date(a, b) }
-    @completed_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope).where.not(completed_on: nil)
+    @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
+                      .uncompleted.not_assessments
+                      .sort { |a, b| Need.sort_created_and_start_date(a, b) }
+
+    @completed_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
+                           .completed.not_assessments
+
+    @open_assessments = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
+                            .uncompleted.assessments
+                            .sort { |a, b| Need.sort_created_and_start_date(a, b) }
+
+    @completed_assessments = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
+                                 .completed.assessments
   end
 
   def edit
