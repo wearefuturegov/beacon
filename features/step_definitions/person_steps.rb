@@ -25,7 +25,7 @@ end
 
 Given(/^I am conducting a triage of the residents needs$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Triage'
+  click_link 'Add Needs'
 end
 
 When('I edit the special delivery details {string}') do |details|

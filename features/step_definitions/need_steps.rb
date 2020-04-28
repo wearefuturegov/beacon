@@ -1,6 +1,6 @@
 When('I add needs {string}') do |need|
   visit "/contacts/#{@contact.id}"
-  click_link 'Triage'
+  click_link 'Add Needs'
   choose_yes_on_need(page, need)
 end
 
