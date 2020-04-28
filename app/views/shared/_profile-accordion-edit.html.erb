@@ -1,0 +1,120 @@
+<section class="accordion">
+
+  <button class="accordion__control" aria-expanded="true">
+    <h2 class="accordion__title">Personal details</h2>
+  </button>
+  <div class="accordion__content">
+    <%= form.hidden_field :lock_version, :value => contact.lock_version %>
+    <div class="field">
+      <%= form.label :first_name, class: "field__label" %>
+      <%= form.text_field :first_name, id: "contact_first_name" %>
+    </div>
+    <div class="field">
+      <%= form.label :middle_names, class: "field__label" %>
+      <%= form.text_field :middle_names %>
+    </div>
+    <div class="field">
+      <%= form.label :surname, class: "field__label" %>
+      <%= form.text_field :surname %>
+    </div>
+
+    <div class="field">
+      <%= form.label :date_of_birth, class: "field__label" %>
+      <%= form.text_field :date_of_birth, :value => "#{@contact.date_of_birth&.strftime('%-d/%-m/%Y')}" %>
+    </div>
+
+    <dl class="details-list">
+      <dt class="details-list__caption">NHS Number</dt>
+      <dd class="details-list__value" id="contact_nhs_number"><%= dash_if_empty @contact.nhs_number %></dd>
+    </dl>
+
+    <div class="field field--span-two-cols">
+      <%= form.label :address, class: "field__label" %>
+      <%= form.text_area :address %>
+    </div>
+
+    <div class="field">
+      <%= form.label :postcode, class: "field__label" %>
+      <%= form.text_field :postcode %>
+    </div>
+
+    <div class="field">
+      <%= form.label :email, class: "field__label" %>
+      <%= form.text_field :email %>
+    </div>
+
+    <div class="field">
+      <%= form.label :telephone, "Landline", class: "field__label" %>
+      <%= form.text_field :telephone %>
+    </div>
+    <div class="field">
+      <%= form.label :mobile, class: "field__label" %>
+      <%= form.text_field :mobile %>
+    </div>
+  </div>
+
+  <button class="accordion__control" aria-expanded="true">
+    <h2 class="accordion__title">Household</h2>
+  </button>
+  <div class="accordion__content">
+    <dl class="details-list">
+      <div class="field field count-people-in-house-field">
+        <%= form.label :count_people_in_house, 'How many people in total live there?', class: "field__label" %>
+        <%= form.number_field :count_people_in_house %>
+      </div>
+    </dl>
+
+    <div class="checkbox">
+      <%= form.check_box :any_children_below_15, class: 'checkbox__input', checked: @contact.any_children_below_15 == '1' %>
+      <%= form.label :any_children_below_15, 'Any children under 15?', class: 'checkbox__label' %>
+    </div>
+  </div>
+
+  <button class="accordion__control" aria-expanded="true">
+    <h2 class="accordion__title">Delivery requirements</h2>
+  </button>
+  <div class="accordion__content">
+    <dl class="details-list">
+      <div class="field field--span-two-cols">
+        <%= form.label :delivery_details, 'Any special delivery details?', class: "field__label" %>
+        <%= form.text_area :delivery_details %>
+      </div>
+    </dl>
+  </div>
+
+  <button class="accordion__control" aria-expanded="true" id="contact-additional-info-accordion">
+    <h2 class="accordion__title">Additional information</h2>
+  </button>
+  <div class="accordion__content">
+    <dl class="details-list">
+      <dt class="details-list__caption">Dietary requirements</dt>
+      <dd class="details-list__value" id="any_dietary_requirements">
+        <%= friendly_boolean @contact.any_dietary_requirements %>
+      </dd>
+      <dd class="details-list__value" id="dietary_details">
+        <%= dash_if_empty @contact.dietary_details %>
+      </dd>
+
+      <dt class="details-list__caption">Cooking facilities</dt>
+      <dd class="details-list__value"><%= dash_if_empty @contact.cooking_facilities %></dd>
+
+      <dt class="details-list__caption">Eligible for free prescriptions</dt>
+      <dd class="details-list__value" id="eligible_for_free_prescriptions">
+        <%= friendly_boolean @contact.eligible_for_free_prescriptions %>
+      </dd>
+
+      <div class="field field--span-two-cols">
+        <%= form.label :additional_info, class: "field__label" %>
+        <%= form.text_area :additional_info %>
+      </div>
+
+      <div class="checkbox">
+        <%= form.check_box :has_covid_symptoms, class: 'checkbox__input', checked: @contact.has_covid_symptoms == '1' %>
+        <%= form.label :has_covid_symptoms, 'Are you or anyone in your home showing any symptoms of COVID-19?', class: 'checkbox__label' %>
+      </div>
+    </dl>
+  </div>
+
+</section>
+
+<%= javascript_pack_tag 'accordion', 'data-turbolinks-track': 'reload' %>
