@@ -32,19 +32,10 @@
   <aside class="with-left-sidebar__right">
     <%= form_with(model: @contact_needs, url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
 
-      <header class="panel-header">
-        <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
-        <h1 class="panel-header__title">Triage a person in need</h1>
-      </header>
-
-      <div class="panel panel--unpadded">
-        <h2 class="panel__banner">Personal details</h2>
-        <div class="panel__body two-thirds">
-          <%= fields_for :contact, @contact do |contact_fields| %>
-            <%= render partial: 'contacts/form_fields', locals: {contact: @contact, form: contact_fields} %>
-          <% end %>
-        </div>
-      </div>
+    <header class="panel-header">
+      <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
+      <h1 class="panel-header__title">Add needs to a contact</h1>
+    </header>
 
   <section class="triage-grid">
     <% @contact_needs.needs_list.each do |need_entry| %>
@@ -53,7 +44,8 @@
         <div class="triage-grid__need need--<%= need[:name] %>">
           <div class="triage-grid__inner">
             <div class="checkbox">
-              <h3 class="triage-grid__title">
+              <h3 class="triage-grid
+              __title">
                 <%= need_form.check_box :active, { class: 'checkbox__input', checked: need['active'] == 'true' }, 'true', 'false' %>
                 <%= need_form.label :active, need[:name], class: 'checkbox__label' %>
               </h3>

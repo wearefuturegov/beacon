@@ -7,7 +7,7 @@ And('another user exists in that role') do
 end
 
 Then('I should be able to add needs to that contact') do
-  expect(page).to have_selector(:link_or_button, 'Triage')
+  expect(page).to have_selector(:link_or_button, 'Add Needs')
 end
 
 Then('I should not be able to add needs to that contact') do

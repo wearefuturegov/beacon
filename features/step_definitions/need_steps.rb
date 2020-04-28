@@ -1,6 +1,6 @@
 When('I add needs {string}') do |need|
   visit "/contacts/#{@contact.id}"
-  click_link 'Triage'
+  click_link 'Add Needs'
   choose_yes_on_need(page, need)
 end
 
@@ -28,7 +28,7 @@ def choose_yes_on_need(element, need)
 end
 
 def find_need_block(element, title_text)
-  element.find('.triage-grid__title', text: title_text)
+  element.find('.checkbox__label', text: title_text)
          .ancestor('.triage-grid__need')
 end
 

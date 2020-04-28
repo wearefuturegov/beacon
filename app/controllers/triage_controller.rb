@@ -7,12 +7,11 @@ class TriageController < ApplicationController
 
   def edit
     @edit_contact_id = @contact.id
-    if session[:triage] && session[:triage][:contact_id] == @contact.id
-      @contact.assign_attributes(session[:triage][:contact_params])
-      @contact_needs = ContactNeeds.new(session[:triage][:contact_needs_params])
-    else
-      @contact_needs = create_contact_needs
-    end
+    @contact_needs = if session[:triage] && session[:triage][:contact_id] == @contact.id
+                       ContactNeeds.new(session[:triage][:contact_needs_params])
+                     else
+                       create_contact_needs
+                     end
   end
 
   def update
@@ -33,10 +32,8 @@ class TriageController < ApplicationController
   private
 
   def apply_update
-    @contact.assign_attributes(contact_params)
     @contact_needs = ContactNeeds.new(contact_needs_params)
     @contact_needs.valid?
-    @contact.valid?
 
     render(:edit) && return if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
 

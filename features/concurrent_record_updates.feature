@@ -20,14 +20,6 @@ Feature: Edit records concurrently
     When I change someone a resident's name concurrently
     Then I see my resident change was unsuccessful
 
-  Scenario: Update resident triage record concurrently
-    Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
-    When someone else updates the resident's name
-    And I edit the total number of people to "99"
-    And I save the edit resident form
-    Then I see my resident change was unsuccessful
-
   Scenario: Inform users in real time of concurrent changes
     Given I am on a call with a resident
     And I am conducting a triage of the residents needs
