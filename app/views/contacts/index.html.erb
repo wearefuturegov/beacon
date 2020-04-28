@@ -20,7 +20,7 @@
         <th>Name</th>
         <th>Phone</th>
         <th>Needs</th>
-        <th>Vulnerable</th>
+        <th>Shielded</th>
         <th>Year of Birth</th>
         <th>NHS Number</th>
         <th>Postcode</th>
@@ -43,7 +43,7 @@
           </td>
           <td>
             <% if contact.is_vulnerable? %>
-              <%= image_tag "red-tick.svg", alt: "vulnerable" %>
+              <%= image_tag "red-tick.svg", alt: "shielded" %>
             <% else %>
               —
             <% end %>
