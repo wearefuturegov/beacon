@@ -1,8 +1,4 @@
 
-<% if session[:triage] %>
-  <button id="discard-draft-btn" class="button button--dark" style="float: right">Discard Draft</button><br>
-<% end %>
-
 <% if @contact_needs.errors.any? || @contact.errors.any? %>
   <div class="error" id="error_explanation">
     <h2><%= pluralize(@contact_needs.errors.count + @contact.errors.count, "error") %> prohibited this triage form from being saved:</h2>
@@ -92,10 +88,6 @@
             <%= form.label :other_need, "Describe any other needs not covered above", class: "field__label" %>
             <%= form.text_area :other_need, rows: "2" %>
           </div>
-
-          <input id="save-triage-for-later" type="hidden" name="save_for_later" value="false">
-          <input id="discard-draft" type="hidden" name="discard_draft" value="false">
-
           <%= form.button "Save changes", class: "button button--primary", id: "triage-submit-btn" %>
         </div>
       </div>
@@ -105,5 +97,3 @@
 </div>
 
 <%= javascript_pack_tag 'users_viewing_page.js' %>
-
-<%= javascript_pack_tag 'save-for-later.js' %>

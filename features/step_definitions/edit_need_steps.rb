@@ -72,9 +72,9 @@ end
 def get_area_panel(area)
   case area
   when 'needs'
-    panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(2)'
+    panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(1)'
   when 'completed'
-    panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(3)'
+    panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(2)'
   else
     raise "Cannot look for non-existent panel #{area}"
   end
