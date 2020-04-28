@@ -4,7 +4,6 @@
   <%# this extra value is saved to the need, instead of the contact %>
   <div class="field field--span-two-cols">
     <%= need_form.label :start_on, "Date (e.g. #{DateTime.now.strftime("%-d/%-m/%Y")})", class: "field__label" %>
-    <%= need_form.text_field :start_on, value: need['start_on'] %>
+    <%= need_form.text_field :start_on, value: need['start_on'], datepicker: "flatpickr" %>
   </div>
 </fieldset>
-<%= javascript_pack_tag 'phone_triage_datepicker' %>
