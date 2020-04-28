@@ -21,7 +21,7 @@ When('I choose to stay on the page') do
 end
 
 Then('I can still see the triage form') do
-  expect(page.find('h1')).to have_content('Triage a person in need')
+  expect(page.find('h1')).to have_content('Add needs')
 end
 
 Given('I have a draft triage pending completion') do

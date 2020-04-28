@@ -14,7 +14,7 @@
 
     <header class="panel-header" id="triage-panel">
       <% if policy(Need).create? %>
-        <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+        <%= link_to "Add Needs", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
       <% end %>
     </header>
 

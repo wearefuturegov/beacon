@@ -1,6 +1,6 @@
 When('I add support actions {string}') do |support_action|
   visit "/contacts/#{@contact.id}"
-  click_link 'Triage'
+  click_link 'Add Needs'
   choose_yes_on_support_action(page, support_action)
 end
 

@@ -17,6 +17,7 @@
     </ul>
   </div>
 <% end %>
+<%= form_with(model: @contact_needs, url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
 
 <div class="with-left-sidebar">
   <aside class="with-left-sidebar__left">
@@ -24,27 +25,19 @@
       <h2 class="panel-header__title">Profile</h2>
     </header>
     <div class="panel panel--unpadded">
-      <%= render "shared/profile-accordion" %>
+      <%= fields_for :contact, @contact do |contact_fields| %>
+        <%= render partial: 'shared/profile-accordion-edit', locals: {contact: @contact, form: contact_fields} %>
+      <% end %>
     </div>
   </aside>
 
 
   <aside class="with-left-sidebar__right">
-    <%= form_with(model: @contact_needs, url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
 
       <header class="panel-header">
         <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
-        <h1 class="panel-header__title">Triage a person in need</h1>
+        <h1 class="panel-header__title">Add needs</h1>
       </header>
-
-      <div class="panel panel--unpadded">
-        <h2 class="panel__banner">Personal details</h2>
-        <div class="panel__body two-thirds">
-          <%= fields_for :contact, @contact do |contact_fields| %>
-            <%= render partial: 'contacts/form_fields', locals: {contact: @contact, form: contact_fields} %>
-          <% end %>
-        </div>
-      </div>
 
   <section class="triage-grid">
     <% @contact_needs.needs_list.each do |need_entry| %>
@@ -99,11 +92,9 @@
           <%= form.button "Save changes", class: "button button--primary", id: "triage-submit-btn" %>
         </div>
       </div>
-
-    <% end %>
   </aside>
 </div>
-
+<% end %>
 <%= javascript_pack_tag 'users_viewing_page.js' %>
-
 <%= javascript_pack_tag 'save-for-later.js' %>
+<%= javascript_pack_tag 'triage_datepicker' %>
