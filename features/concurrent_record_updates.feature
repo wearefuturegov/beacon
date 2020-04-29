@@ -8,12 +8,12 @@ Feature: Edit records concurrently
     * I am logged into the system
     * Someone else is logged into the system
 
-  Scenario: Update need record concurrently
-    Given a resident with a need exists
-    And I have assigned the need to me
-    And the need has status 'to do'
-    When I change someone else's need status to 'complete'
-    Then I see my need change was unsuccessful
+  Scenario: Update support action record concurrently
+    Given a resident with a support action exists
+    And I have assigned the support action to me
+    And the support action has status 'to do'
+    When I change someone else's support action status to 'complete'
+    Then I see my support action change was unsuccessful
 
   Scenario: Update resident record concurrently
     Given a resident

@@ -5,9 +5,9 @@ Feature: Restrict viewing/editing contact access to a user based on their role
   so that data is kept secure
 
   @list
-  Scenario Outline: Can view contacts with needs that are assigned to me
+  Scenario Outline: Can view contacts with support actions that are assigned to me
     Given I am logged into the system as a "<role>" user
-    And a need for a contact is assigned to me
+    And a support action for a contact is assigned to me
     When I go to the contact list
     Then I can see the contact in the list
     Examples:
@@ -19,7 +19,7 @@ Feature: Restrict viewing/editing contact access to a user based on their role
   @list
   Scenario Outline: Can view contacts that are assigned to my team
     Given I am logged into the system as a "<role>" user
-    And a need for a contact is assigned to that role
+    And a support action for a contact is assigned to that role
     When I go to the contact list
     Then I can see the contact in the list
     Examples:
@@ -31,10 +31,10 @@ Feature: Restrict viewing/editing contact access to a user based on their role
       | council_service_name_of_service |
 
   @list
-  Scenario Outline: Certain roles can view contacts with needs that are assigned to a member of their team
+  Scenario Outline: Certain roles can view contacts with support actions that are assigned to a member of their team
     Given I am logged into the system as a "<role>" user
     And another user exists in that role
-    And a need is assigned to the other user
+    And a support action is assigned to the other user
     When I go to the contact list
     Then I can see the contact in the list
     Examples:
@@ -43,17 +43,17 @@ Feature: Restrict viewing/editing contact access to a user based on their role
       | council_service_name_of_service |
 
   @list
-  Scenario: MDT user cannot see contacts with needs assigned to another MDT user
+  Scenario: MDT user cannot see contacts with support actions assigned to another MDT user
     Given I am logged into the system as an "MDT" user
     And another user exists in that role
-    And a need for a contact is assigned to the other user
+    And a support action for a contact is assigned to the other user
     When I go to the contact list
     Then I can not see that contact in the list
 
   @edit
   Scenario Outline: Roles that can edit a contact
     Given I am logged into the system as a "<role>" user
-    And a need for a contact is assigned to me
+    And a support action for a contact is assigned to me
     When I go to the contact page for that contact
     Then I can see the option to edit the contact
     Examples:
@@ -66,7 +66,7 @@ Feature: Restrict viewing/editing contact access to a user based on their role
   @edit
   Scenario Outline: Roles that can not edit a contact
     Given I am logged into the system as a "<role>" user
-    And a need for a contact is assigned to me
+    And a support action for a contact is assigned to me
     When I go to the contact page for that contact
     Then I cannot see the option to edit the contact
     Examples:
@@ -76,7 +76,7 @@ Feature: Restrict viewing/editing contact access to a user based on their role
   @edit
   Scenario Outline: Roles that can not see sensitive contact information
     Given I am logged into the system as a "<role>" user
-    And a need for a contact is assigned to me
+    And a support action for a contact is assigned to me
     And the contact has sensitive information
     When I go to the contact page for that contact
     Then I cannot see that contact's sensitive information

@@ -19,7 +19,7 @@ Feature: On call with resident
     Then I see a resident updated message
     And the total number of people is "57"
 
-  Scenario: Enter residents special delivery needs
+  Scenario: Enter residents special delivery support actions
     Given I am on a call with a resident
     And I am conducting a triage of the residents needs
     When I edit the special delivery details "flats - need to buzz"
@@ -68,31 +68,6 @@ Feature: On call with resident
     Then I see a resident updated message
     And the dietary requirements is "Yes"
     And the dietary details is "Vegan"
-
-  @javascript
-  Scenario: Save for later - new enquiry
-    Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
-    And I edit the total number of people to "99"
-    When I start a new enquiry
-    And I choose to save the triage for later
-    Then I see a triage saved for draft message
-    And the new enquiry form is displayed to me
-
-  @javascript
-  Scenario: Save for later - stay on the page
-    Given I am on a call with a resident
-    And I am conducting a triage of the residents needs
-    And I edit the total number of people to "99"
-    When I start a new enquiry
-    But I choose to stay on the page
-    Then I can still see the triage form
-  
-  @javascript
-  Scenario: Save for later - return to triage
-    Given I have a draft triage pending completion
-    When I return to the triage
-    Then I see the triage draft values again
 
   Scenario: Special dietary requirements Microwave
   Scenario: Special dietary requirements Hob and Oven

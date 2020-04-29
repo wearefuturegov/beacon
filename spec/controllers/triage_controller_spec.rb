@@ -23,20 +23,6 @@ RSpec.describe TriageController, type: :controller do
       expect(response).to redirect_to controller: :contacts, action: :show, id: 1
       expect(controller).to set_flash[:notice].to('Contact was successfully updated.')
     end
-
-    it 'saves for later and redirects to the new enquiry' do
-      needs_list = { 1 => { active: false } }
-      put :update, params: { id: 1, contact_id: 1, contact: { id: 1 }, contact_needs: { needs_list: needs_list }, discard_draft: 'false', save_for_later: 'true' }
-      expect(response).to redirect_to new_contact_path
-      expect(controller).to set_flash[:notice].to('Triage temporarily saved.')
-    end
-
-    it 'discards the draft and redirects to the contact page' do
-      needs_list = { 1 => { active: false } }
-      put :update, params: { id: 1, contact_id: 1, contact: { id: 1 }, contact_needs: { needs_list: needs_list }, discard_draft: 'true', save_for_later: 'false' }
-      expect(response).to redirect_to controller: :contacts, action: :show, id: 1
-      expect(controller).to set_flash[:notice].to('Draft triage discarded.')
-    end
   end
 
   describe 'PUT #update triage form fails validation' do
