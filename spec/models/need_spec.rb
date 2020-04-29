@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe Need, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:contact).counter_cache(true) }
     it { is_expected.to belong_to(:user).optional(true) }
     it { is_expected.to have_many(:notes).dependent(:destroy) }
   end
