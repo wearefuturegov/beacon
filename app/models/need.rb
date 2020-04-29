@@ -41,7 +41,6 @@ class Need < ApplicationRecord
   scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
-
   scope :assessments, -> { where(category: ['phone triage', 'check in']) }
   scope :not_assessments, -> { where.not(category: ['phone triage', 'check in']) }
 
@@ -197,7 +196,7 @@ class Need < ApplicationRecord
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  def has_valid_start_on?
+  def valid_start_on?
     if start_on.nil?
       errors.add(:start_on, 'must be set')
       false

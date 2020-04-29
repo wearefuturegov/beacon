@@ -75,13 +75,14 @@
       <h2 class="panel-header__title">Assessments</h2>
 
       <%# Clicking this link should display 'schedule_an_assessment as a pseudo-drop down' %>
-      <a style="flex:1; text-align:right" href="#" hidden="hidden">Add new assessment+</a>
-
-      <%# This is visible by default as a non-javascript fallback, but should be pulled into a toggleable drop down %>
-      <ul id="schedule_an_assessment">
-        <li><%= link_to('Schedule an assessment', new_contact_assessment_path(@contact.id, :type => 'schedule')) %></li>
-        <li><%= link_to('Log an assessment', new_contact_assessment_path(@contact.id, :type => 'log')) %></li>
-      </ul>
+      <div style="flex:1; text-align:right">
+        Add new assessment+
+        <%# This is visible by default as a non-javascript fallback, but should be pulled into a toggleable drop down %>
+        <ul style="list-style-type: none" id="schedule_an_assessment">
+          <li><%= link_to('Schedule an assessment', new_contact_assessment_path(@contact.id, :type => 'schedule')) %></li>
+          <li><%= link_to('Log an assessment', new_contact_assessment_path(@contact.id, :type => 'log')) %></li>
+        </ul>
+      </div>
     </header>
     <div class="panel panel--unpadded">
       <%= render "assessments" %>

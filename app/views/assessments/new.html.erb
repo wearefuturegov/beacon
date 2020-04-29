@@ -87,7 +87,7 @@
           <% elsif @type == 'schedule' %>
             <div class="field">
               <%= form.label :start_on, "When should the call be scheduled for?", class: "field__label" %>
-              <%= form.text_field :start_on %>
+              <%= form.text_field :start_on, { autocomplete: 'off' } %>
             </div>
           <% end %>
 

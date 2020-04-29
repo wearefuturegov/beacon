@@ -4,7 +4,7 @@ class AssessmentsController < ApplicationController
   def new
     @users = User.all
     @roles = Role.all
-    @type = %w(log schedule).include?(type_param) ? type_param : 'log'
+    @type = %w[log schedule].include?(type_param) ? type_param : 'log'
 
     @need = Need.new
     @note = Note.new
@@ -14,7 +14,7 @@ class AssessmentsController < ApplicationController
   end
 
   def create
-    @type = %w(log schedule).include?(type_param) ? type_param : 'log'
+    @type = %w[log schedule].include?(type_param) ? type_param : 'log'
     if @type == 'log'
       log_assessment
     else
@@ -44,7 +44,7 @@ class AssessmentsController < ApplicationController
   def schedule_assessment
     @need = Need.new(assessment_params.merge(contact: @contact, name: 'Scheduled Assessment'))
     @note = Note.new
-    unless @need.valid? && @need.has_valid_start_on?
+    unless @need.valid? && @need.valid_start_on?
       @users = User.all
       @roles = Role.all
       render :new
@@ -66,5 +66,4 @@ class AssessmentsController < ApplicationController
   def notes_params
     params.require(:note).permit(:body)
   end
-
 end
