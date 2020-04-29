@@ -1,7 +1,8 @@
 
 <% if @contact_needs.errors.any? || @contact.errors.any? %>
   <div class="error" id="error_explanation">
-    <h2><%= pluralize(@contact_needs.errors.count + @contact.errors.count, "error") %> prohibited this triage form from being saved:</h2>
+    <h2><%= pluralize(@contact_needs.errors.count + @contact.errors.count, "error") %> prohibited this triage form from
+      being saved:</h2>
 
     <ul>
       <% @contact.errors.full_messages.each do |message| %>
@@ -15,41 +16,40 @@
 <% end %>
 <%= form_with(model: @contact_needs, url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
 
-<div class="with-left-sidebar">
-  <aside class="with-left-sidebar__left">
-    <header class="panel-header">
-      <h2 class="panel-header__title">Profile</h2>
-    </header>
-    <div class="panel panel--unpadded">
-      <%= fields_for :contact, @contact do |contact_fields| %>
-        <%= render partial: 'shared/profile-accordion-edit', locals: {contact: @contact, form: contact_fields} %>
-      <% end %>
-    </div>
-  </aside>
+  <div class="with-left-sidebar">
+    <aside class="with-left-sidebar__left">
+      <header class="panel-header">
+        <h2 class="panel-header__title">Profile</h2>
+      </header>
+      <div class="panel panel--unpadded">
+        <%= fields_for :contact, @contact do |contact_fields| %>
+          <%= render partial: 'shared/profile-accordion-edit', locals: {contact: @contact, form: contact_fields} %>
+        <% end %>
+      </div>
+    </aside>
 
 
-  <aside class="with-left-sidebar__right">
+    <aside class="with-left-sidebar__right">
 
       <header class="panel-header">
         <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
         <h1 class="panel-header__title">Add needs</h1>
       </header>
 
-  <section class="triage-grid">
-    <% @contact_needs.needs_list.each do |need_entry| %>
-      <% need = need_entry[1] %>
-      <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>       
-        <div class="triage-grid__need need--<%= need[:name] %>">
-          <div class="triage-grid__inner">
-            <div class="checkbox">
-              <h3 class="triage-grid__title">
-                <%= need_form.check_box :active, { class: 'checkbox__input', checked: need['active'] == 'true' }, 'true', 'false' %>
-                <%= need_form.label :active, need[:name], class: 'checkbox__label' %>
-              </h3>
-            </div>
+      <section class="triage-grid">
+        <% @contact_needs.needs_list.each do |need_entry| %>
+          <% need = need_entry[1] %>
+          <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>
+            <div class="triage-grid__need need--<%= need[:name] %>">
+              <div class="triage-grid__inner">
+                <div class="checkbox">
+                  <h3 class="triage-grid__title">
+                    <%= need_form.check_box :active, {class: 'checkbox__input', checked: need['active'] == 'true'}, 'true', 'false' %>
+                    <%= need_form.label :active, need[:name], class: 'checkbox__label' %>
+                  </h3>
+                </div>
 
-            <%= need_form.hidden_field :name, :value => need[:name] %>
-
+                <%= need_form.hidden_field :name, :value => need[:name] %>
                 <div class="field">
                   <%= need_form.label :description, 'Describe how we can help', class: 'field__label' %>
                   <%= need_form.text_area :description, value: need['description'] %>
@@ -65,7 +65,7 @@
                 <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need[:name].parameterize.underscore}.html.erb")) %>
                   <%# form will save to the need, contact_form will save to the contact %>
                   <div class="triage-grid__inner triage-grid__inner--grey">
-                    <%= render :partial => "#{need[:name].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need } %>
+                    <%= render :partial => "#{need[:name].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need} %>
                   </div>
                 <% end %>
               <% end %>
@@ -84,10 +84,8 @@
           <%= form.button "Save changes", class: "button button--primary", id: "triage-submit-btn" %>
         </div>
       </div>
-  </aside>
-</div>
-
-<%= javascript_pack_tag 'triage_datepicker' %>
-<%= javascript_pack_tag 'users_viewing_page.js' %>
+    </aside>
+  </div>
+  <%= javascript_pack_tag 'users_viewing_page.js' %>
+  <%= javascript_pack_tag 'triage_datepicker' %>
 <% end %>
-

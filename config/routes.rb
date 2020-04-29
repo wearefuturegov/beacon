@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :contacts, only: [:index, :show, :edit, :update, :new, :create] do
     resources :needs, only: [:new, :create]
+    resources :assessments, only: [:new, :create]
     # collection do
     #   get 'call-list'
     # end

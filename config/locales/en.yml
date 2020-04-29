@@ -36,6 +36,7 @@ en:
         user: "Assignee"
         name: "Task body"
         due_by: "Due by date"
+        start_on: "Scheduled for date"
     errors:
       models:
         contact:
