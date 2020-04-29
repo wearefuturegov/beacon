@@ -34,10 +34,10 @@
             <%= contact.telephone || contact.mobile %>
           </td>
           <td>
-            <% if contact.needs_count > 0 %>
-              <%= pluralize(contact.uncompleted_needs_count, 'need') %>
-              <% if contact.completed_needs_count > 0 %>
-                <small>(<%= contact.completed_needs_count %> completed)</small>
+            <% if contact.needs.count > 0 %>
+              <%= pluralize(contact.needs.uncompleted.count, 'need') %>
+              <% if contact.needs.completed.count > 0 %>
+                <small>(<%= contact.needs.completed.count %> completed)</small>
               <% end %>
             <% end %>
           </td>
