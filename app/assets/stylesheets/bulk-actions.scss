@@ -4,14 +4,21 @@
     display: flex;
     flex-direction: row;
     flex: 1 0 auto;
+    flex-wrap: wrap;
     align-items: center;
     .last-element {
       margin-left: auto;
       display: flex;
-      flex-direction: row-reverse;
+      //flex-direction: row-reverse;
     }
     #btnExport {
-      margin-left: 10px;
+      margin-left: auto;
+      order: 2;
+      &[data-open=true] {
+        @media screen and (max-width: 1526px) {
+          margin-top: 10px;
+        }
+      }
     }
     #assign-selected-needs-users, #assign-selected-needs-team {
       width: 160px;
@@ -27,3 +34,5 @@
   transform: scale(1.5);
   padding: 10px;
 }
+
+

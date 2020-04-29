@@ -6,13 +6,18 @@
     flex: 1 0 auto;
     // .filters__controls{}
     .filters__content{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
         margin-left: 0px;
         &[hidden]{
             display: none;
         }
+    }
+    #needs-filters {
+      margin-left: auto;
+      order: 1;
+    }
+    &[data-open=true] {
+      @media screen and (max-width: 1526px) {
+        margin-top: 10px;
+      }
     }
 }
