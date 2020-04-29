@@ -7,32 +7,10 @@ class TriageController < ApplicationController
 
   def edit
     @edit_contact_id = @contact.id
-    if session[:triage] && session[:triage][:contact_id] == @contact.id
-      @contact.assign_attributes(session[:triage][:contact_params])
-      @contact_needs = ContactNeeds.new(session[:triage][:contact_needs_params])
-    else
-      @contact_needs = create_contact_needs
-    end
+    @contact_needs = create_contact_needs
   end
 
   def update
-    if params.require(:discard_draft) == 'true'
-      session[:triage] = nil
-      redirect_to contact_path(@contact.id), notice: 'Draft triage discarded.'
-    elsif params.require(:save_for_later) == 'true'
-      save_for_later(@contact.id, contact_params, contact_needs_params)
-      redirect_to new_contact_path, notice: 'Triage temporarily saved.'
-    else
-      apply_update
-    end
-  rescue ActiveRecord::StaleObjectError
-    flash[:alert] = STALE_ERROR_MESSAGE
-    render :edit
-  end
-
-  private
-
-  def apply_update
     @contact.assign_attributes(contact_params)
     @contact_needs = ContactNeeds.new(contact_needs_params)
     @contact_needs.valid?
@@ -44,15 +22,12 @@ class TriageController < ApplicationController
     NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
     session[:triage] = nil
     redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = STALE_ERROR_MESSAGE
+    render :edit
   end
 
-  def save_for_later(contact_id, contact_params, contact_needs_params)
-    session[:triage] = {
-      contact_id: contact_id,
-      contact_params: contact_params,
-      contact_needs_params: contact_needs_params
-    }
-  end
+  private
 
   def set_contact
     @contact = Contact.find(params[:contact_id])
@@ -60,7 +35,7 @@ class TriageController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:first_name, :middle_names, :surname, :address, :postcode, :email, :telephone,
+    params.require(:contact).permit(:first_name, :middle_names, :surname, :date_of_birth, :address, :postcode, :email, :telephone,
                                     :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_below_15,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
                                     :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version,

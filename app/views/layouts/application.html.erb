@@ -21,16 +21,6 @@
             (<%= current_user.role.name %>)
           <% end %>
           <%= javascript_pack_tag 'role-switcher' %>
-
-          <% if policy(Contact).create? %>
-            <% if request.path_info.include?('/triage') %>
-              <!-- Ask the user to confirm you want to exit triage -->
-              <%= link_to "Add Enquiry", new_contact_path, {:remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window', id: "btnAddEnquiry", class: "button button--dark" } %>
-            <% else %>
-              <!-- Go straight to Add enquiry page -->
-              <%= link_to "Add Enquiry", new_contact_path, class: "button button--dark", id:"btnAddEnquiry" %>
-            <% end %>
-          <% end %>
         </nav>
       </header>
       
@@ -51,6 +41,5 @@
     </div>
 
     <%= render :partial =>  "shared/popup" %>
-    <%= javascript_pack_tag 'enquiry-common' %>
   </body>
 </html>

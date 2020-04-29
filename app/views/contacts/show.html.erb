@@ -14,19 +14,12 @@
 
     <header class="panel-header" id="triage-panel">
       <% if policy(Need).create? %>
-        <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+        <%= link_to "Add Needs", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
       <% end %>
     </header>
 
-    <header class="panel-header" id="enquiry-details-panel">
-      <h2 class="panel-header__title">Enquiry Details</h2>
-    </header>
-    <div class="panel panel--unpadded">  
-      <%= render partial: 'enquiry', locals: { contact: @contact } %>
-    </div>
-
     <header class="panel-header" id="needs-panel">
-      <h2 class="panel-header__title">Needs</h2>
+      <h2 class="panel-header__title">Support Actions</h2>
       <% if @open_needs.any? %>
         <span class="panel-header__badge"><%= @open_needs.count %></span>
       <% end %>

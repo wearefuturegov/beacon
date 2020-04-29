@@ -7,3 +7,9 @@ flatpickr(dateElement, {
     defaultDate: dateElement.value ? null : new Date().fp_incr(6),
     allowInput: true
 });
+
+const contactDobElement = document.getElementById("contact_date_of_birth");
+flatpickr(contactDobElement, {
+    dateFormat: "d/m/Y",
+    allowInput: true
+});
