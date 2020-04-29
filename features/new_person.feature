@@ -1,5 +1,5 @@
 Feature: Add a new person
-  As a an internal council user
+  As a an internal council
   I want to add a new person into beacon
   so that I can help with the person's needs
 
