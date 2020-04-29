@@ -19,5 +19,6 @@ module IHaveINeed
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag.html_safe }
   end
 end
