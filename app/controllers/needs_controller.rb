@@ -36,14 +36,12 @@ class NeedsController < ApplicationController
     if @need.update(need_params)
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else
-      @users = User.all
-      @roles = Role.all
+      @assigned_to_options = construct_assigned_to_options
       render :show
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
-    @users = User.all
-    @roles = Role.all
+    @assigned_to_options = construct_assigned_to_options
     render :show
   end
 
