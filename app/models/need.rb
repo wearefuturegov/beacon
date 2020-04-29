@@ -77,7 +77,7 @@ class Need < ApplicationRecord
   scope :order_by_call_attempts, lambda { |direction|
     order("call_attempts #{direction} NULLS LAST")
   }
-  
+
   validates :name, presence: true
 
   delegate :name, :address, :postcode, :telephone, :mobile, :is_vulnerable,
