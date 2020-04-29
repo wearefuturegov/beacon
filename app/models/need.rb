@@ -20,6 +20,7 @@ class Need < ApplicationRecord
                  food_service_type: :string
 
   enum category: { 'Phone triage': 'phone triage',
+                   'Check in': 'check in',
                    'Groceries and cooked meals': 'groceries and cooked meals',
                    'Physical and mental wellbeing': 'physical and mental wellbeing',
                    'Financial support': 'financial support',

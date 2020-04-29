@@ -1,11 +1,18 @@
 <div id="assign-needs-to-users">
-  <div class="panel bulk-actions" style="display: default">
+  <div class="panel bulk-actions">
     <%= check_box_tag("select-all-needs", nil, false, { class: "select-all-needs bulk-action-checkbox" }) %>
-    
-    <%= select_tag("user_id", content_tag(:option,'Unassigned',:value => "Unassigned") + options_from_collection_for_select(@users, :id, :name_or_email), 
-        prompt: 'Assign to person', class: "assign__needs",  id: "assign-selected-needs-users") %>
 
-    <%= select_tag("role_id", content_tag(:option,'Unassigned',:value => "Unassigned") + options_from_collection_for_select(@roles, :id, :name), 
-        prompt: 'Assign to team', class: "assign__needs",  id: "assign-selected-needs-team") %>
+    <%= select_tag("user_id", content_tag(:option,'Unassigned',:value => "Unassigned") + options_from_collection_for_select(@users, :id, :name_or_email),
+                   prompt: 'Assign to person', class: "assign__needs",  id: "assign-selected-needs-users", class: "dropdown") %>
+
+    <%= select_tag("role_id", content_tag(:option,'Unassigned',:value => "Unassigned") + options_from_collection_for_select(@roles, :id, :name),
+                   prompt: 'Assign to team', class: "assign__needs",  id: "assign-selected-needs-team", class: "dropdown")  %>
+
+    <div class="last-element">
+      <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--dark" %>
+      <%= render "filters" %>
+    </div>
   </div>
 </div>
+
+<%= javascript_pack_tag 'filters' %>
