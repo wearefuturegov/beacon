@@ -7,32 +7,14 @@
 
     <ul class="main-menu">
         <li class="main-menu__item">
-            <%= link_to_unless_current "Support Actions", root_path, class: "main-menu__link" do %>
-              <% if params[:user_id] == current_user.id.to_s || params[:status].eql?("to_do") %>
-                <%= link_to "Support Actions", root_path, { class: "main-menu__current", style: "text-decoration: none" } %>
-              <% else %>
-                <span class="main-menu__current">Support Actions</span>
-              <% end %>
-            <% end %>
-
-            <ul class="main-menu__submenu">
-                <li class="main-menu__submenu-item">
-                  <% if current_page?(root_path) && params[:user_id] == current_user.id.to_s %>
-                    <span class="main-menu__submenu-current">Assigned to me</span>
-                  <% else %>
-                    <%= link_to "Assigned to me", root_path(:user_id => current_user.id), { class: "main-menu__submenu-link" } %>
-                  <% end %>
-                </li>
-                <li class="main-menu__submenu-item">
-                    <% if current_page?(root_path) && params[:status].eql?("to_do") %>
-                      <span class="main-menu__submenu-current">Unmet support actions</span>
-                    <% else %>
-                      <%= link_to "Unmet support actions", root_path(:status => "to_do"), { class: "main-menu__submenu-link" } %>
-                    <% end %>
-                </li>
-            </ul>
-
-
+          <%= link_to_unless_current "My dashboard", root_path(:user_id => current_user.id), class: "main-menu__link" do %>
+            <span class="main-menu__current">My dashboard</span>
+          <% end %>
+        </li>
+        <li class="main-menu__item">
+          <%= link_to_unless_current "Support Actions", root_path(:status => "to_do"), class: "main-menu__link" do %>
+            <span class="main-menu__current">Support Actions</span>
+          <% end %>
         </li>
         <li class="main-menu__item">
             <%= link_to_unless_current "People", contacts_path, class: "main-menu__link" do %>
