@@ -24,5 +24,7 @@ module IHaveINeed
     ActiveRecord::SessionStore::Session.primary_key = 'session_id'
     ActiveRecord::SessionStore::Session.data_column_name = 'data'
     ActiveRecord::SessionStore::Session.serializer = :json
+
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag.html_safe }
   end
 end

@@ -28,7 +28,10 @@ class Need < ApplicationRecord
                    'Book drops and entertainment': 'book drops and entertainment',
                    'Dog walking': 'dog walking',
                    'Initial review': 'initial review',
+                   'Check In': 'check in',
                    'Other': 'other' }
+
+  validates :category, presence: true
 
   # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
   # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
@@ -39,8 +42,8 @@ class Need < ApplicationRecord
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
 
-  scope :assessments, -> { where(category: ['phone triage' , 'check_in']) }
-  scope :not_assessments, -> { where.not(category: ['phone triage' , 'check_in']) }
+  scope :assessments, -> { where(category: ['phone triage', 'check in']) }
+  scope :not_assessments, -> { where.not(category: ['phone triage', 'check in']) }
 
   scope :filter_by_user_id, lambda { |user_id|
     if user_id == 'Unassigned'
@@ -193,4 +196,13 @@ class Need < ApplicationRecord
     first.created_at <=> second.created_at
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  def has_valid_start_on?
+    if start_on.nil?
+      errors.add(:start_on, 'must be set')
+      false
+    else
+      true
+    end
+  end
 end

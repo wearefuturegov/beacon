@@ -84,12 +84,9 @@
       </ul>
     </header>
     <div class="panel panel--unpadded">
-      <%= render "open_assessments" %>
+      <%= render "assessments" %>
     </div>
-
-    <div class="panel panel--unpadded">
-      <%= render "complete_assessments" %>
-    </div>
+    <a id="toggle-visibility-completed-assessments" role="button" href="#"><%= @completed_assessments.count %> completed assessments</a>
   </aside>
-
 </div>
+<%= javascript_pack_tag 'assessments' %>

@@ -1,0 +1,19 @@
+<table class="needs-table">
+  <thead>
+  <tr>
+    <th>Type</th>
+    <th>Priority</th>
+    <th>Assigned</th>
+    <th>Created</th>
+    <th>Starts on</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @open_assessments.each do |n| %>
+    <%= render partial: 'assessment_row', locals: {n: n} %>
+  <% end %>
+  <% @completed_assessments.each do |n| %>
+    <%= render partial: 'assessment_row', locals: {n: n} %>
+  <% end %>
+  </tbody>
+</table>
