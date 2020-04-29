@@ -13,6 +13,14 @@
     <%= form.label :surname, class: "field__label" %>
     <%= form.text_field :surname %>
   </div>
+  <div class="field">
+    <%= form.label :date_of_birth, class: "field__label" %>
+    <%= form.text_field :date_of_birth, placeholder: 'Eg: 01/11/1943'%>
+  </div>
+  <div class="field">
+    <%= form.label :nhs_number, class: "field__label" %>
+    <%= form.text_field :nhs_number %>
+  </div>
 </fieldset>
 
 <fieldset class="field-section field-section--two-cols">
@@ -62,11 +70,11 @@
 </fieldset>
 
 <fieldset class="field-section field-section--two-cols">
-  <legend><h2 class="field-section__title">Is this person particularly shielded or high priority?</h2></legend>
+  <legend><h2 class="field-section__title">Is this person Shielded?</h2></legend>
 
   <details class="field-section__hint details">
     <summary class="details__summary">What does shielded mean?</summary>
-    <p>We consider someone shielded if they are:</p>
+    <p>Someone is shielded if they are:</p>
     <ul>
       <li>Over 70 years old</li>
       <li>Under 70 years old and has an underlying health condition (i.e. normally asked by the NHS to get a flu jab)</li>

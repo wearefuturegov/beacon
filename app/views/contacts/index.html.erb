@@ -10,7 +10,11 @@
       People in need
     <% end %>
   </h1>
+  <% if policy(Contact).create? %>
+    <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
+  <% end %>
 </header>
+
 
 <div class="panel">
   <% if @contacts.any? %>
@@ -53,20 +57,10 @@
           <td><%= contact.postcode %></td>
         </tr>
       <% end %>
-      <% if params[:search].present? %>
-        <tr class="clickable" onclick="window.location='<%= new_contact_path %>'">
-          <td colspan="7">
-            <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
-          </td>
-        </tr>
-      <% end %>
       </tbody>
     </table>
     <%= render "shared/pagination", model: @contacts %>
   <% else %>
     <p class="no-results">No matches</p>
-    <% if policy(Need).create? %>
-      <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
-    <% end %>
   <% end %>
 </div>

@@ -20,4 +20,19 @@ RSpec.describe Contact, type: :model do
 
     expect(contact.name).to eq 'John Ryan Doe'
   end
+
+  it 'validates date of birth with blank date' do
+    valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', date_of_birth: ''
+    expect(valid_contact.valid?).to be_truthy
+  end
+
+  it 'validates date of birth with date' do
+    valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', date_of_birth: '1/2/1945'
+    expect(valid_contact.valid?).to be_truthy
+  end
+
+  it 'validates date of birth with invalid date' do
+    valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', date_of_birth: 'abc'
+    expect(valid_contact.valid?).to be_falsy
+  end
 end

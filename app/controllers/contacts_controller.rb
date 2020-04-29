@@ -10,6 +10,20 @@ class ContactsController < ApplicationController
     @contacts = @contacts.page(@params[:page])
   end
 
+  def new
+    @contact = Contact.new
+  end
+
+  def create
+    authorize Contact
+    @contact = Contact.new(contact_params)
+    if @contact.save
+      redirect_to contact_path(@contact), notice: 'Contact was successfully created.'
+    else
+      render :new
+    end
+  end
+
   def call_list; end
 
   def needs
@@ -51,6 +65,6 @@ class ContactsController < ApplicationController
                                     :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_below_15,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
                                     :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version,
-                                    :channel, :no_calls_flag, :deceased_flag, :share_data_flag)
+                                    :channel, :no_calls_flag, :deceased_flag, :share_data_flag, :date_of_birth, :nhs_number)
   end
 end
