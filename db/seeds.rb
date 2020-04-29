@@ -63,7 +63,7 @@ ActiveRecord::Base.transaction do
                             contact: contact,
                             user: [user, nil].sample,
                             is_urgent: [true, false].sample,
-                            status: ['to_do', 'complete'].sample
+                            status: Need.statuses.map { |_k,v| v }.sample
         end
       end
     end
