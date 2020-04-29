@@ -6,7 +6,7 @@ When('I view any support actions list row for that resident') do
 end
 
 Then('I see the last contacted date is today') do
-  last_contacted_column = @resident_row.find('td:nth-child(10)')
+  last_contacted_column = @resident_row.find('td:nth-child(9)')
   expect(last_contacted_column).to have_content(Date.today.strftime('%-d %B %Y'))
 end
 
