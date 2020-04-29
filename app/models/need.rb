@@ -206,6 +206,8 @@ class Need < ApplicationRecord
   def assigned
     if user
       user.name_or_email
+    elsif role
+      role.name
     else
       'Unassigned'
     end
