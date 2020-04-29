@@ -15,6 +15,7 @@ Feature: List support actions
     And I submit the form to create the note
     When I view any support actions list row for that resident
     Then I see the last contacted date is today
+    Then I see one call attempt
 
   @javascript
   Scenario Outline: Filter resident support actions by category
