@@ -1,14 +1,14 @@
-Given('a resident with a {string} need') do |need|
+Given('a resident with a {string} support action') do |support_action|
   @contact = Contact.create!(first_name: 'Test')
-  step "I add needs \"#{need}\""
-  step 'I submit the add needs form'
+  step "I add support actions \"#{support_action}\""
+  step 'I submit the add support actions form'
 end
 
-Given('a resident with {string} needs') do |needs|
+Given('a resident with {string} support actions') do |support_actions|
   @contact = Contact.create!(first_name: 'Test')
-  needs.split(', ').each do |need|
-    step "I add needs \"#{need}\""
-    step 'I submit the add needs form'
+  support_actions.split(', ').each do |support_action|
+    step "I add support actions \"#{support_action}\""
+    step 'I submit the add support actions form'
   end
 end
 

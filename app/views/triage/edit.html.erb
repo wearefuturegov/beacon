@@ -1,6 +1,3 @@
-<% if session[:triage] %>
-  <button id="discard-draft-btn" class="button button--dark" style="float: right">Discard Draft</button><br>
-<% end %>
 
 <% if @contact_needs.errors.any? || @contact.errors.any? %>
   <div class="error" id="error_explanation">
@@ -78,22 +75,17 @@
       </section>
 
       <div class="panel panel--unpadded">
-        <h2 class="panel__banner">Other needs</h2>
+        <h2 class="panel__banner">Other support actions</h2>
         <div class="panel__body two-thirds">
           <div class="field">
             <%= form.label :other_need, "Describe any other needs not covered above", class: "field__label" %>
             <%= form.text_area :other_need, rows: "2" %>
           </div>
-
-          <input id="save-triage-for-later" type="hidden" name="save_for_later" value="false">
-          <input id="discard-draft" type="hidden" name="discard_draft" value="false">
-
           <%= form.button "Save changes", class: "button button--primary", id: "triage-submit-btn" %>
         </div>
       </div>
     </aside>
   </div>
+  <%= javascript_pack_tag 'users_viewing_page.js' %>
+  <%= javascript_pack_tag 'triage_datepicker' %>
 <% end %>
-<%= javascript_pack_tag 'users_viewing_page.js' %>
-<%= javascript_pack_tag 'save-for-later.js' %>
-<%= javascript_pack_tag 'triage_datepicker' %>
