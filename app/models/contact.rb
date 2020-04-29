@@ -10,7 +10,7 @@ class Contact < ApplicationRecord
   has_paper_trail
 
   validates :first_name, presence: true
-  validates_date :date_of_birth, :allow_nil => true, :allow_blank => true
+  validates_date :date_of_birth, allow_nil: true, allow_blank: true
 
   pg_search_scope :search,
                   against: [:first_name, :surname, :postcode, :nhs_number, :date_of_birth],
