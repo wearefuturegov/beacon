@@ -27,9 +27,6 @@ ActiveRecord::Schema.define(version: 2020_04_29_134037) do
     t.boolean "is_vulnerable"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "needs_count", default: 0
-    t.integer "uncompleted_needs_count", default: 0
-    t.integer "completed_needs_count", default: 0
     t.text "email"
     t.string "additional_info"
     t.integer "count_people_in_house"
