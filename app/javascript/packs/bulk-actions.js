@@ -72,7 +72,9 @@ document.querySelector("#assign-selected-needs").addEventListener("change", (e) 
         for_update.push({ need_id: needs[i].value, assigned_to: assigned_to });
       }
     }    
-    applyPatchUpdate(for_update);
+    if (for_update.length > 0) {
+      applyPatchUpdate(for_update);
+    }
   }
 });
 
