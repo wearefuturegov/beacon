@@ -8,7 +8,7 @@ class Need < ApplicationRecord
   before_update :assign_to
 
   enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
-  belongs_to :contact, counter_cache: true
+  belongs_to :contact
   belongs_to :user, optional: true
   belongs_to :role, optional: true
   has_many :notes, dependent: :destroy
@@ -82,13 +82,6 @@ class Need < ApplicationRecord
   scope :order_by_call_attempts, lambda { |direction|
     order("call_attempts #{direction} NULLS LAST")
   }
-
-  counter_culture :contact,
-                  column_name: proc { |model| model.complete? ? 'completed_needs_count' : 'uncompleted_needs_count' },
-                  column_names: {
-                    Need.uncompleted => :uncompleted_needs_count,
-                    Need.completed => :completed_needs_count
-                  }
 
   validates :name, presence: true
 
