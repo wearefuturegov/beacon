@@ -13,13 +13,13 @@ When('I choose to log an assessment') do
 end
 
 Then('I see the schedule assessment form') do
-  expect(page).to have_css(".panel__header", text: 'Schedule an assessment')
+  expect(page).to have_css('.panel__header', text: 'Schedule an assessment')
   expect(page).to have_field('need[start_on]')
   expect(page).not_to have_field('note[body]')
 end
 
 Then('I see the log assessment form') do
-  expect(page).to have_css(".panel__header", text: 'Log an assessment')
+  expect(page).to have_css('.panel__header', text: 'Log an assessment')
   expect(page).not_to have_field('need[start_on]')
   expect(page).to have_field('note[body]')
 end
@@ -46,6 +46,6 @@ Then('I see the saved assessment details on the contact') do
     assessments_table = find('.assessments-table')
     assessment_row = assessments_table.find('tbody tr')
     expect(assessment_row).to have_content('Check In')
-    expect(assessment_row).to have_content("#{@scheduled_date.strftime("%-d %B %Y")} (Future)")
+    expect(assessment_row).to have_content("#{@scheduled_date.strftime('%-d %B %Y')} (Future)")
   end
 end
