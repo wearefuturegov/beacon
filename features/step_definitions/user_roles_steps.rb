@@ -43,7 +43,6 @@ And('I see the option to switch between my roles') do
   expect(role_switcher).to have_select('id', options: ['other role', 'manager role'])
 end
 
-
 Then(/^I can see the support action filters$/) do
   main_menu = find('.main-menu')
   expect(main_menu).to have_selector(:link_or_button, 'Open Covid Triages')

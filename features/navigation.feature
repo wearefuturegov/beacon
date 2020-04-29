@@ -11,7 +11,6 @@ Feature: Navigation
       | role                            |
       | manager                         |
       | agent                           |
-      | food_delivery_manager           |
 
   Scenario Outline: Support actions filters are not visible
     Given I am logged into the system as a "<role>" user
@@ -21,3 +20,4 @@ Feature: Navigation
       | role                            |
       | mdt                             |
       | council_service_name_of_service |
+      | food_delivery_manager           |
