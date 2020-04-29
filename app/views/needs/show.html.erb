@@ -13,16 +13,16 @@
 
   <aside class="with-left-sidebar__right">
     <header class="panel-header">
-      <h2 class="panel-header__title">Needs</h2>
+      <h2 class="panel-header__title">Support Actions</h2>
       <% if @contact.needs.any? %>
         <span class="panel-header__badge"><%= @contact.needs.count %></span>
       <% end %>
       <% if policy(Need).create? %>
-        <%= link_to "Triage", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+        <%= link_to "Add Needs", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
       <% end %>
     </header>
-    <div class="panel panel--unpadded" style="border-left: 5px solid <%= get_need_border(@need.category) %>">
-      <%= link_to @need.category.humanize, @contact, class: "panel__header" %>
+    <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
+      <%= link_to @need.category, @contact, class: "panel__header" %>
       <div class="panel__body">
 
         <%= render "need-actions" %>

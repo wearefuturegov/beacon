@@ -80,4 +80,33 @@ RSpec.describe Need, type: :model do
       expect(needs[1].name).to eq 'created tomorrow, no start date'
     end
   end
+
+  describe 'assing user or team at the same moment' do
+    let(:user) { create :user }
+    let(:role) { create :role }
+
+    it 'update need with user and role at the same time' do
+      need = create :need, name: 'medicines'
+      need.update user: user, role: role
+
+      expect(need.user).to be user
+      expect(need.role).to be_nil
+    end
+
+    it 'update need with role to have user' do
+      need = create :need, name: 'medicines', role: role
+      need.update user: user
+
+      expect(need.user).to be user
+      expect(need.role).to be_nil
+    end
+
+    it 'update need with user to have role' do
+      need = create :need, name: 'medicines', user: user
+      need.update role: role
+
+      expect(need.user).to be_nil
+      expect(need.role).to be_role
+    end
+  end
 end

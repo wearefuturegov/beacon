@@ -5,6 +5,7 @@ require 'csv'
 class Need < ApplicationRecord
   include Filterable
   self.ignored_columns = %w[due_by]
+  before_update :assign_to
 
   enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
   belongs_to :contact, counter_cache: true
@@ -17,6 +18,17 @@ class Need < ApplicationRecord
   jsonb_accessor :supplemental_data,
                  food_priority: :string,
                  food_service_type: :string
+
+  enum category: { 'Phone triage': 'phone triage',
+                   'Groceries and cooked meals': 'groceries and cooked meals',
+                   'Physical and mental wellbeing': 'physical and mental wellbeing',
+                   'Financial support': 'financial support',
+                   'Staying social': 'staying social',
+                   'Prescription pickups': 'prescription pickups',
+                   'Book drops and entertainment': 'book drops and entertainment',
+                   'Dog walking': 'dog walking',
+                   'Initial review': 'initial review',
+                   'Other': 'other' }
 
   # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
   # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
@@ -31,6 +43,14 @@ class Need < ApplicationRecord
       where(user_id: nil)
     else
       where(user_id: user_id)
+    end
+  }
+
+  scope :filter_by_role_id, lambda { |role_id|
+    if role_id == 'Unassigned'
+      where(role_id: nil)
+    else
+      where(role_id: role_id)
     end
   }
 
@@ -119,6 +139,11 @@ class Need < ApplicationRecord
     self[:status] = state
   end
 
+  def assign_to
+    self.role_id = nil if !user.nil? && user_id_changed?
+    self.user_id = nil if !role_id.nil? && role_id_changed?
+  end
+
   def self.base_query
     sql = "LEFT JOIN (select c.id, max(nt.created_at) from contacts c
           left join needs n on n.contact_id = c.id
@@ -135,6 +160,10 @@ class Need < ApplicationRecord
 
   def self.dynamic_fields
     %w[last_phoned_date]
+  end
+
+  def self.categories_for_triage
+    categories.except('Other')
   end
 
   def assigned

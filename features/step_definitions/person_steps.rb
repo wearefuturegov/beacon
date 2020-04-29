@@ -25,7 +25,7 @@ end
 
 Given(/^I am conducting a triage of the residents needs$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Triage'
+  click_link 'Add Needs'
 end
 
 When('I edit the special delivery details {string}') do |details|
@@ -110,9 +110,9 @@ end
 
 When('I choose {string} for any children under 15') do |option|
   if option == 'Yes'
-    choose 'any_children_below_15_true', allow_label_click: true
+    check 'contact_any_children_below_15'
   else
-    choose 'any_children_below_15_false', allow_label_click: true
+    uncheck 'contact_any_children_below_15'
   end
 end
 
@@ -142,9 +142,9 @@ When(/^I save the edit resident form$/) do
   click_button('Save changes')
 end
 
-Then('the residents list of needs contains {string}') do |need|
+Then('the residents list of support actions contains {string}') do |support_action|
   visit "/contacts/#{@contact.id}" unless @contact.nil?
-  expect(page.find('.needs-table')).to have_text(need)
+  expect(page.find('.needs-table')).to have_text(support_action)
 end
 
 Then(/^I see a resident updated message$/) do
@@ -191,7 +191,7 @@ Then(/^the residents contact details have been updated$/) do
 end
 
 Then(/^the residents vulnerability status has been updated$/) do
-  expect(page.find('.vulnerable-banner')).to have_text('This is a vulnerable person')
+  expect(page.find('.vulnerable-banner')).to have_text('This is a shielded person')
 end
 
 Then(/^the residents additional info has been updated$/) do

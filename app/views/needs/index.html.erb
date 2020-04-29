@@ -10,7 +10,7 @@
 <% end %>
 
 <header class="panel-header">
-  <h1 class="panel-header__title">All needs</h1>
+  <h1 class="panel-header__title">All support actions</h1>
 </header>
 
 <%= render "bulk-actions" %>
@@ -21,7 +21,7 @@
       <thead>
       <tr>
         <th>
-          <%= check_box_tag("select-all-needs", nil, false, { class: "select-all-needs bulk-action-checkbox" }) %>
+          
         </th>
         <th>
           <div class="sortable">
@@ -33,7 +33,7 @@
             </div>
         </th>
         <th>Person</th>
-        <th>Vulnerable</th>
+        <th>Shielded</th>
         <th>Status</th>
         <th>
           <div class="sortable">
@@ -72,12 +72,12 @@
             <%= check_box_tag("need[#{n.id}]", n.id, false, { class: "select-needs bulk-action-checkbox" }) %>
           </td>
           <td>
-            <%= link_to humanize_text(n.category), n, class: "primary-link" %>
+            <%= link_to n.category, n, class: "primary-link" %>
           </td>
           <td><%= n.contact_name %></td>
           <td>
             <% if n.contact_is_vulnerable %>
-              <%= image_tag "red-tick.svg", alt: "vulnerable" %>
+              <%= image_tag "red-tick.svg", alt: "shielded" %>
             <% else %>
               —
             <% end %>
@@ -92,11 +92,7 @@
           </td>
           <td><%= n.created_at.strftime("%-d %B %Y") %></td>
           <td>
-            <% if n.user %>
-              <%= n.user.name_or_email %>
-            <% else %>
-              Unassigned
-            <% end %>
+            <%= n.user&.name_or_email || n.role&.name || 'Unassigned' %>
           </td>
           <td>
             <%= n.last_phoned_date&.strftime("%-d %B %Y") %>

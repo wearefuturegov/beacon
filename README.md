@@ -14,7 +14,7 @@
 
 🚨**This is BETA software.** Please submit issues for any bugs you find.🚨
 
-This is a tool for local authorities and voluntary organisations to record and triage the needs of vulnerable people in their jurisdiction, and assign those needs to those who can meet them.
+This is a tool for local authorities and voluntary organisations to record and triage the needs of shielded people in their jurisdiction, and assign those needs to those who can meet them.
 
 It deals in:
 
@@ -82,3 +82,4 @@ Coming soon...
 | NOTIFY_API_KEY   | Gov.uk Notify API key (production only)   |
 | HOSTNAME         | Hostname used in outbound emails (e.g. `x.beacon.com`). Defaults to heroku app name |
 | SEED_USER_EMAILS | Optional comma-separated list of emails to seed users table with |
+
