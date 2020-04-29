@@ -1,5 +1,5 @@
 Feature: Add a new person
-  As a call centre agent
+  As a an internal council user
   I want to add a new person into beacon
   so that I can help with the person's needs
 
