@@ -1,3 +1,16 @@
+<!-- Errors -->
+<% if @contact.errors.any? %>
+  <div class="error" id="error_explanation">
+    <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+    <ul>
+      <% @contact.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="two-thirds">
   <%= form_with(model: contact, local: true, html: { class: "contact-form" }) do |form| %>
     <%= render partial: 'form_fields', locals: { contact: @contact, form: form } %>

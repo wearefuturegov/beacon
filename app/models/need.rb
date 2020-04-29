@@ -8,7 +8,7 @@ class Need < ApplicationRecord
   before_update :assign_to
 
   enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
-  belongs_to :contact, counter_cache: true
+  belongs_to :contact
   belongs_to :user, optional: true
   belongs_to :role, optional: true
   has_many :notes, dependent: :destroy
@@ -31,6 +31,8 @@ class Need < ApplicationRecord
                    'Initial review': 'initial review',
                    'Other': 'other' }
 
+  validates :category, presence: true
+
   # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
   # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
 
@@ -38,6 +40,9 @@ class Need < ApplicationRecord
   scope :uncompleted, -> { where.not(status: :complete) }
   scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
+
+  scope :assessments, -> { where(category: ['phone triage', 'check in']) }
+  scope :not_assessments, -> { where.not(category: ['phone triage', 'check in']) }
 
   scope :filter_by_user_id, lambda { |user_id|
     if user_id == 'Unassigned'
@@ -74,12 +79,9 @@ class Need < ApplicationRecord
     order("last_phoned_date #{direction} NULLS LAST")
   }
 
-  counter_culture :contact,
-                  column_name: proc { |model| model.complete? ? 'completed_needs_count' : 'uncompleted_needs_count' },
-                  column_names: {
-                    Need.uncompleted => :uncompleted_needs_count,
-                    Need.completed => :completed_needs_count
-                  }
+  scope :order_by_call_attempts, lambda { |direction|
+    order("call_attempts #{direction} NULLS LAST")
+  }
 
   validates :name, presence: true
 
@@ -152,7 +154,14 @@ class Need < ApplicationRecord
           group by c.id) as contact_aggregation
           on contact_aggregation.id = contacts.id"
 
-    Need.joins(:contact, sql).select('needs.*', 'contact_aggregation.max as last_phoned_date')
+    sql += " left join (
+          select n.id, count(nt.id) from notes nt
+          join needs n on n.id = nt.need_id and nt.category in ('phone_success', 'phone_message', 'phone_failure')
+          group by n.id
+        ) as notes_aggr on notes_aggr.id = needs.id"
+
+    Need.joins(:contact, sql).select('needs.*', 'contact_aggregation.max as last_phoned_date',
+                                     'notes_aggr.count as call_attempts ')
   end
 
   def self.default_sort(results)
@@ -160,7 +169,7 @@ class Need < ApplicationRecord
   end
 
   def self.dynamic_fields
-    %w[last_phoned_date]
+    %w[last_phoned_date call_attempts]
   end
 
   def self.categories_for_triage
@@ -179,6 +188,10 @@ class Need < ApplicationRecord
     read_attribute('last_phoned_date')
   end
 
+  def call_attempts
+    read_attribute('call_attempts')
+  end
+
   # This sort method is to first sort future needs (where start_on > today) to the bottom of the list
   # and then sort by created_at
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -190,4 +203,13 @@ class Need < ApplicationRecord
     first.created_at <=> second.created_at
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  def valid_start_on?
+    if start_on.nil?
+      errors.add(:start_on, 'must be set')
+      false
+    else
+      true
+    end
+  end
 end
