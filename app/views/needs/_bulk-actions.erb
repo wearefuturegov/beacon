@@ -1,10 +1,17 @@
 <div id="assign-needs-to-users">
-  <div class="panel bulk-actions" style="display: default">
+  <div class="panel bulk-actions">
     <%= check_box_tag("select-all-needs", nil, false, { class: "select-all-needs bulk-action-checkbox" }) %>
 
     <%= label_tag :assigned_to, 'Assign to', class: 'visually-hidden' %>
     <%= select_tag :assigned_to,
         content_tag(:option,'Unassigned',:value => "Unassigned") + grouped_options_for_select(@assigned_to_options),
-        prompt: 'Assign to...', class: "assign__needs", id: 'assign-selected-needs' %>
+        prompt: 'Assign to...', class: "assign__needs dropdown", id: 'assign-selected-needs' %>
+
+    <div class="last-element">
+      <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--dark" %>
+      <%= render "filters" %>
+    </div>
   </div>
 </div>
+
+<%= javascript_pack_tag 'filters' %>

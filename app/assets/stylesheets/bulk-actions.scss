@@ -1,34 +1,29 @@
 @import "variables";
 
 .bulk-actions{
+    display: flex;
     flex-direction: row;
     flex: 1 0 auto;
-    .assign__needs{
-        margin-left: 5px;
-        width: auto;
-        border-radius: 0px;
-        padding: 5px;
-        border: none;
-        font-size: 0.9rem;
-        background: $pale;
-        cursor: pointer;
-        background-position: 90% center;
-        background-repeat: no-repeat;
-        background-size: 13px;
-        background-image: url(asset_path('select-dark.svg'));
-        padding-right: 35px;
-        &:focus{
-            outline: 2px solid $yellow;
-        }
+    align-items: center;
+    .last-element {
+      margin-left: auto;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+    #btnExport {
+      margin-left: 10px;
+    }
+    #assign-selected-needs-users, #assign-selected-needs-team {
+      width: 160px;
     }
 }
 
 .bulk-action-checkbox{
-  /* Double-sized Checkboxes */
-  -ms-transform: scale(2); /* IE */
-  -moz-transform: scale(2); /* FF */
-  -webkit-transform: scale(2); /* Safari and Chrome */
-  -o-transform: scale(2); /* Opera */
-  transform: scale(2);
+
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5);
   padding: 10px;
 }

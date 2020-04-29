@@ -36,6 +36,12 @@ en:
         user: "Assignee"
         name: "Task body"
         due_by: "Due by date"
+    errors:
+      models:
+        contact:
+          attributes:
+            date_of_birth:
+              invalid_date: "must be a valid date"
 
   passwordless:
     mailer:

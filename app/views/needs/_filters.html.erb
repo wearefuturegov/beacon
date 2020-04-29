@@ -10,16 +10,16 @@
         <%= form_with(url: root_path, method: :get, local: true, class: "filters__form") do %>
           <label for="assigned_to" class="visually-hidden">By assigned user or team</label>
           <%= select_tag("assigned_to",
-              content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["assigned_to"] == "Unassigned") + grouped_options_for_select(@assigned_to_options, params['role_id']), prompt: 'All users/teams', class: "filters__select") %>
+              content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["assigned_to"] == "Unassigned") + grouped_options_for_select(@assigned_to_options, params['assigned_to']), prompt: 'All users/teams', class: "filters__select dropdown") %>
 
           <label for="category" class="visually-hidden">By category</label>
-          <%= select_tag("category", options_for_select(Need.categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select") %>
+          <%= select_tag("category", options_for_select(Need.categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select dropdown") %>
         
           <label for="status" class="visually-hidden">By status</label>
-          <%= select_tag("status", options_for_select(need_statuses, :selected => params["status"]), prompt: 'All statuses', class: "filters__select") %>
+          <%= select_tag("status", options_for_select(need_statuses, :selected => params["status"]), prompt: 'All statuses', class: "filters__select dropdown") %>
 
           <label for="is_urgent" class="visually-hidden">By priority</label>
-          <%= select_tag("is_urgent", options_for_select(need_urgencies, :selected => get_param_capitalized('is_urgent')), prompt: 'All priorities', class: "filters__select") %>
+          <%= select_tag("is_urgent", options_for_select(need_urgencies, :selected => get_param_capitalized('is_urgent')), prompt: 'All priorities', class: "filters__select dropdown") %>
         <% end %>
     </div>
 </section>
