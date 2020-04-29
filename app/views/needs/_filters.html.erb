@@ -8,11 +8,9 @@
         <div class="filters__content" hidden>
     <% end %>
         <%= form_with(url: root_path, method: :get, local: true, class: "filters__form") do %>
-          <label for="user_id" class="visually-hidden">By assigned user</label>
-          <%= select_tag("user_id", content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["user_id"] == "Unassigned") + options_from_collection_for_select(@users, :id, :name_or_email, :selected => params['user_id']), prompt: 'All users', class: "filters__select") %>
-
-          <label for="role_id" class="visually-hidden">By assigned team</label>
-          <%= select_tag("role_id", content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["role_id"] == "Unassigned") + options_from_collection_for_select(@roles, :id, :name, :selected => params['role_id']), prompt: 'All teams', class: "filters__select") %>
+          <label for="assigned_to" class="visually-hidden">By assigned user or team</label>
+          <%= select_tag("assigned_to",
+              content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["assigned_to"] == "Unassigned") + grouped_options_for_select(@assigned_to_options, params['role_id']), prompt: 'All users/teams', class: "filters__select") %>
 
           <label for="category" class="visually-hidden">By category</label>
           <%= select_tag("category", options_for_select(Need.categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select") %>

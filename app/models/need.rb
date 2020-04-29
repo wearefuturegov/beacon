@@ -5,7 +5,6 @@ require 'csv'
 class Need < ApplicationRecord
   include Filterable
   self.ignored_columns = %w[due_by]
-  before_update :assign_to
 
   enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
   belongs_to :contact, counter_cache: true
@@ -46,11 +45,16 @@ class Need < ApplicationRecord
     end
   }
 
-  scope :filter_by_role_id, lambda { |role_id|
-    if role_id == 'Unassigned'
-      where(role_id: nil)
+  scope :filter_by_assigned_to, lambda { |assigned_to|
+    if assigned_to == 'Unassigned'
+      where('user_id IS NULL and role_id IS NULL')
     else
-      where(role_id: role_id)
+      (assoc, unsanitised_key) = assigned_to&.split('-')
+      if assoc == 'user'
+        where(user_id: unsanitised_key)
+      elsif assoc == 'role'
+        where(role_id: unsanitised_key)
+      end
     end
   }
 
@@ -139,9 +143,26 @@ class Need < ApplicationRecord
     self[:status] = state
   end
 
-  def assign_to
-    self.role_id = nil if !user.nil? && user_id_changed?
-    self.user_id = nil if !role_id.nil? && role_id_changed?
+  def assigned_to
+    if user_id
+      "user-#{user_id}"
+    elsif role_id
+      "role-#{role_id}"
+    end
+  end
+
+  def assigned_to=(assigned_to)
+    (assoc, unsanitised_key) = assigned_to&.split('-')
+    if assoc == 'user'
+      self.user_id = unsanitised_key.to_i
+      self.role_id = nil
+    elsif assoc == 'role'
+      self.user_id = nil
+      self.role_id = unsanitised_key.to_i
+    else
+      self.user_id = nil
+      self.role_id = nil
+    end
   end
 
   def self.base_query
