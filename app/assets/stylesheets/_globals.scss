@@ -45,6 +45,11 @@ select::-ms-expand {
   display: none;
 }
 
+#roleSwitcherDropdown {
+  width: 300px;
+  background-position: 95% center;
+}
+
 .dropdown {
   margin-left: 5px;
   width: 135px;
@@ -61,7 +66,6 @@ select::-ms-expand {
   background-repeat: no-repeat;
   background-size: 13px;
   background-image: url(asset_path('select-dark.svg'));
-  text-overflow: ellipsis;
   padding-right: 35px;
   &:focus{
     outline: 2px solid $yellow;
