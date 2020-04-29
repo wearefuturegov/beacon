@@ -2,6 +2,7 @@
 
 class Contact < ApplicationRecord
   include PgSearch::Model
+  self.ignored_columns = ['needs_count', 'uncompleted_needs_count', 'completed_needs_count']
 
   has_many :needs, dependent: :destroy
   has_many :uncompleted_needs, -> { uncompleted }, class_name: 'Need'
