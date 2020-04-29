@@ -29,7 +29,6 @@ class Need < ApplicationRecord
                    'Book drops and entertainment': 'book drops and entertainment',
                    'Dog walking': 'dog walking',
                    'Initial review': 'initial review',
-                   'Check In': 'check in',
                    'Other': 'other' }
 
   validates :category, presence: true

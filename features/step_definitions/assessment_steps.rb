@@ -25,7 +25,7 @@ Then('I see the log assessment form') do
 end
 
 And('I enter valid details') do
-  page.find('label', text: 'Check In').click
+  page.find('label', text: 'Check in').click
   if @assessment_type == 'log'
     page.find('#note_body').fill_in(with: 'Some call notes')
   elsif @assessment_type == 'schedule'
