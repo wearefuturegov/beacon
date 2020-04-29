@@ -2,6 +2,7 @@ require 'rails_helper'
 require 'spec_helper'
 
 RSpec.describe AssessmentsController do
+
   let(:user) { User.new }
 
   before(:each) do
@@ -34,6 +35,7 @@ RSpec.describe AssessmentsController do
 
   describe 'POST #create' do
     before(:each) do
+      allow_any_instance_of(controller.class).to receive(:authorize).and_return(nil)
       @need = class_double('Need').as_stubbed_const
       @note = class_double('Note').as_stubbed_const
 
