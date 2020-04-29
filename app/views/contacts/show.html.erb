@@ -64,6 +64,25 @@
       </div>
     <% end %>
 
-  </aside>
+    <header class="panel-header" id="needs-panel">
+      <h2 class="panel-header__title">Assessments</h2>
 
+      <% if policy(Need).create? %>
+        <div style="flex:1; text-align:right">
+          <%# Clicking this should display 'schedule_an_assessment as a pseudo-drop down' %>
+          Add new assessment+
+          <%# This is visible by default as a non-javascript fallback, but should be pulled into a toggleable drop down %>
+          <ul style="list-style-type: none" id="schedule_an_assessment">
+            <li><%= link_to('Schedule an assessment', new_contact_assessment_path(@contact.id, :type => 'schedule')) %></li>
+            <li><%= link_to('Log an assessment', new_contact_assessment_path(@contact.id, :type => 'log')) %></li>
+          </ul>
+        </div>
+      <% end %>
+    </header>
+    <div class="panel panel--unpadded">
+      <%= render "assessments" %>
+    </div>
+    <a id="toggle-visibility-completed-assessments" role="button" href="#"><%= @completed_assessments.count %> completed assessments</a>
+  </aside>
 </div>
+<%= javascript_pack_tag 'assessments' %>

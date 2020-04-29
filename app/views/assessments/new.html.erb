@@ -1,0 +1,108 @@
+<%= render "shared/vulnerable-banner" %>
+
+<div class="with-left-sidebar">
+
+  <aside class="with-left-sidebar__left">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Profile</h2>
+    </header>
+    <div class="panel panel--unpadded">
+      <%= render "shared/profile-accordion" %>
+    </div>
+  </aside>
+
+  <aside class="with-left-sidebar__right">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Assessments</h2>
+    </header>
+    <div class="panel panel--unpadded panel--stroked need--phone-triage">
+      <%= link_to "#{@type.humanize} an assessment", contact_path(@contact.id), class: "panel__header" %>
+      <div class="panel__body">
+        <% if @need.errors.any? || @note.errors.any? %>
+          <div class="error" id="error_explanation">
+            <h2><%= pluralize(@need.errors.count + @note.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+            <ul>
+              <% @need.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              <% @note.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= form_with(model: @need, url: contact_assessments_path, local: true) do |form| %>
+          <input type="hidden" value="<%= @type %>" name="type" hidden="hidden">
+          <div class="need-actions">
+            <div class="need-actions__field" id="assigned-actions__field">
+              <%= form.label :user_id, 'Assigned to', class: 'need-actions__label' %>
+              <%= form.collection_select :user_id, @users, :id, :name_or_email, {include_blank: "Unassigned"}, {class: "need-actions__select"} %>
+            </div>
+
+            <div class="need-actions__field" id="teams-actions__field">
+              <%= form.label :user_id, 'Team', class: 'need-actions__label' %>
+              <%= form.collection_select :role_id, @roles, :id, :name, {include_blank: "Unassigned"}, {class: "need-actions__select"} %>
+            </div>
+
+            <div class="need-actions__field" id="priority-actions__field">
+              <%= form.label :is_urgent, 'Priority', class: 'need-actions__label' %>
+              <%= form.select :is_urgent, {
+                  "Urgent" => true,
+                  "Normal" => false
+              }, {}, {class: @need.is_urgent ? "need-actions__select need-actions__select--red" : "need-actions__select"} %>
+            </div>
+
+            <div class="need-actions__field" id="status-actions__field">
+              <%= form.label :status, 'Status', class: 'need-actions__label' %>
+
+              <% if @type == 'log' %>
+                <%= form.select :status, [%w(Complete complete)], {}, {class: "need-actions__select", readonly: true} %>
+              <% else %>
+                <%= form.select :status, need_statuses, {}, {class: "need-actions__select"} %>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="field">
+            <span>Assessment Type</span>
+            <div class="radio">
+              <%= form.radio_button :category, 'phone triage', {:checked => @need[:category] == 'Phone triage'} %>
+              <%= form.label :category_phone_triage, "Phone Triage", class: "radio__label" %>
+            </div>
+            <div class="radio">
+              <%= form.radio_button :category, 'check in', {:checked => @need[:category] == 'Check In'} %>
+              <%= form.label :category_check_in, "Check in", class: "radio__label" %>
+            </div>
+          </div>
+          <br/>
+
+          <% if @type == 'log' %>
+            <%= fields_for :note, @note do |notes_fields| %>
+              <div class="field">
+                <%= notes_fields.text_area :body, placeholder: 'Call notes' %>
+              </div>
+            <% end %>
+          <% elsif @type == 'schedule' %>
+            <div class="field">
+              <%= form.label :name, "Task body", class: "field__label" %>
+              <%= form.text_field :name, placeholder: 'Describe the support action' %>
+            </div>
+
+            <div class="field">
+              <%= form.label :start_on, "When should the call be scheduled for?", class: "field__label" %>
+              <%= form.text_field :start_on, { autocomplete: 'off' } %>
+            </div>
+          <% end %>
+
+          <%= form.button "Save to profile", class: "button button--primary" %>
+        <% end %>
+        </div>
+      </div>
+  </aside>
+
+</div>
+
+<%= javascript_pack_tag 'assessment_datepicker' %>
+<%= javascript_pack_tag 'users_viewing_page.js' %>
