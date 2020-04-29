@@ -26,10 +26,10 @@ end
 
 And('I enter valid details') do
   page.find('label', text: 'Check in').click
-  page.find('#need_name').fill_in(with: 'A task description')
   if @assessment_type == 'log'
     page.find('#note_body').fill_in(with: 'Some call notes')
   elsif @assessment_type == 'schedule'
+    page.find('#need_name').fill_in(with: 'A task description')
     @scheduled_date = (Date.today + 1.day)
     page.find('#need_start_on').fill_in(with: @scheduled_date.strftime('%-d/%-m/%Y'))
   end

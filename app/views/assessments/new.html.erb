@@ -78,11 +78,6 @@
           </div>
           <br/>
 
-          <div class="field">
-            <%= form.label :name, "Task body", class: "field__label" %>
-            <%= form.text_field :name, placeholder: 'Describe the support action' %>
-          </div>
-
           <% if @type == 'log' %>
             <%= fields_for :note, @note do |notes_fields| %>
               <div class="field">
@@ -90,6 +85,11 @@
               </div>
             <% end %>
           <% elsif @type == 'schedule' %>
+            <div class="field">
+              <%= form.label :name, "Task body", class: "field__label" %>
+              <%= form.text_field :name, placeholder: 'Describe the support action' %>
+            </div>
+
             <div class="field">
               <%= form.label :start_on, "When should the call be scheduled for?", class: "field__label" %>
               <%= form.text_field :start_on, { autocomplete: 'off' } %>
