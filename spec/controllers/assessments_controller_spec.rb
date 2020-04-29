@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'spec_helper'
 
 RSpec.describe AssessmentsController do
-
   let(:user) { User.new }
 
   before(:each) do

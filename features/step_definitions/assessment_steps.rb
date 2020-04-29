@@ -26,6 +26,7 @@ end
 
 And('I enter valid details') do
   page.find('label', text: 'Check in').click
+  page.find('#need_name').fill_in(with: 'A task description')
   if @assessment_type == 'log'
     page.find('#note_body').fill_in(with: 'Some call notes')
   elsif @assessment_type == 'schedule'
