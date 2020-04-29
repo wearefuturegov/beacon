@@ -42,3 +42,17 @@ And('I see the option to switch between my roles') do
   role_switcher = find('form.role-switcher')
   expect(role_switcher).to have_select('id', options: ['other role', 'manager role'])
 end
+
+Then(/^I can see the support action filters$/) do
+  main_menu = find('.main-menu')
+  expect(main_menu).to have_selector(:link_or_button, 'Open Covid Triages')
+  expect(main_menu).to have_selector(:link_or_button, 'In Progress Shielded Check-ins')
+  expect(main_menu).to have_selector(:link_or_button, 'Un-started Shielded Check-ins')
+end
+
+Then(/^I can not see the support action filters$/) do
+  main_menu = find('.main-menu')
+  expect(main_menu).not_to have_selector(:link_or_button, 'Open Covid Triages')
+  expect(main_menu).not_to have_selector(:link_or_button, 'In Progress Shielded Check-ins')
+  expect(main_menu).not_to have_selector(:link_or_button, 'Un-started Shielded Check-ins')
+end
