@@ -15,7 +15,7 @@
           <%= link_to_unless_current "Support Actions", root_path(:status => "to_do"), class: "main-menu__link" do %>
             <span class="main-menu__current">Support Actions</span>
           <% end %>
-          <% if display_support_actions? %>
+            <% if policy(Need).display_support_actions? %>
             <%= link_to_unless_current "Un-started Shielded Check-ins", root_path(:status => "to_do", :category => "initial review"), class: "main-menu__submenu-link" do %>
               <span class="main-menu__submenu-current">Unstarted Shielded Check-ins</span>
             <% end %>

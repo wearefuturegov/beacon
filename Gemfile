@@ -22,6 +22,7 @@ gem 'factory_bot_rails', require: false
 gem 'faker', require: false
 gem 'jsonb_accessor', '~> 1.0.0'
 gem 'pundit', '~> 2.1.0'
+gem 'validates_timeliness'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
