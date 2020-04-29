@@ -14,6 +14,7 @@ class AssessmentsController < ApplicationController
   end
 
   def create
+    authorize Need
     @type = %w[log schedule].include?(type_param) ? type_param : 'log'
     if @type == 'log'
       log_assessment
@@ -29,8 +30,8 @@ class AssessmentsController < ApplicationController
   end
 
   def log_assessment
-    @need = Need.new(assessment_params.merge(contact_id: @contact.id, name: 'Logged Assessment'))
-    @note = Note.new(notes_params.merge(need: @need))
+    @need = Need.new(assessment_params.merge(contact_id: @contact.id))
+    @note = Note.new(notes_params.merge(need: @need, category: 'phone_success'))
     if @need.valid? && @note.valid? && @need.save && @note.save
       redirect_to contact_path(@contact)
       return
@@ -42,7 +43,7 @@ class AssessmentsController < ApplicationController
   end
 
   def schedule_assessment
-    @need = Need.new(assessment_params.merge(contact_id: @contact.id, name: 'Scheduled Assessment'))
+    @need = Need.new(assessment_params.merge(contact_id: @contact.id))
     @note = Note.new
     unless @need.valid? && @need.valid_start_on?
       @users = User.all
@@ -60,7 +61,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_params
-    params.require(:need).permit(:user_id, :role_id, :is_urgent, :status, :category, :status, :start_on)
+    params.require(:need).permit(:user_id, :role_id, :name, :is_urgent, :status, :category, :status, :start_on)
   end
 
   def notes_params

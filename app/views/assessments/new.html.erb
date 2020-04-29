@@ -78,10 +78,15 @@
           </div>
           <br/>
 
+          <div class="field">
+            <%= form.label :name, "Description", class: "radio__label" %>
+            <%= form.text_field :name, placeholder: 'Describe the support action' %>
+          </div>
+
           <% if @type == 'log' %>
             <%= fields_for :note, @note do |notes_fields| %>
               <div class="field">
-                <%= notes_fields.text_field :body, placeholder: 'Call notes' %>
+                <%= notes_fields.text_area :body, placeholder: 'Call notes' %>
               </div>
             <% end %>
           <% elsif @type == 'schedule' %>
