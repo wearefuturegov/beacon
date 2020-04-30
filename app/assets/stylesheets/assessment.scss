@@ -1,0 +1,43 @@
+@import "variables";
+
+.assessment-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+  #btnAssessmentDropdown,
+  #btnAssessmentDropdown:focus,
+  #btnAssessmentDropdown:active {
+    color: $blue;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+  }
+}
+
+.assessment-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 5%;
+  background-color: $white;
+  min-width: 300px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+
+  a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    &:hover {
+      background-color: $blue-hover;
+    }
+  }
+}
+
+.assessment-dropdown-show {
+  display: block;
+}
