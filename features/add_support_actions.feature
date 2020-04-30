@@ -30,7 +30,6 @@ Feature: Add support actions
     Then the residents list of support actions contains "<support actions>"
     Examples:
       | support actions               |
-      | Phone triage                  |
       | Groceries and cooked meals    |
       | Physical and mental wellbeing |
       | Financial support             |
@@ -39,6 +38,15 @@ Feature: Add support actions
       | Book drops and entertainment  |
       | Dog walking                   |
 
+  Scenario Outline: Add any support actions should not add assessment types
+    Given a resident
+    When I add support actions
+    Then I should not be able to add "<assessment types>"
+    Examples:
+      | assessment types               |
+      | Phone triage                  |
+      | Check in                      |
+      
   Scenario: Add multiple support actions
     Given a resident
     When I add support actions "Groceries and cooked meals"
@@ -48,10 +56,3 @@ Feature: Add support actions
     Then the residents list of support actions contains "Groceries and cooked meals"
     And the residents list of support actions contains "Staying social"
     And the residents list of support actions contains "Dog walking"
-
-  Scenario: Enter an invalid phone triage support actions
-    Given a resident
-    When I add support actions "Phone triage"
-    And I set the start date for the "Phone triage" support action to "an_invalid_date"
-    When I submit the add support actions form
-    Then I see an error message 'Phone triage call date is not a valid date'
