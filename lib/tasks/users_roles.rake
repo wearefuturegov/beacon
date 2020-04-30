@@ -1,5 +1,5 @@
 namespace :upgrade do
-  namespace :v1_2 do
+  namespace :v1_1_0 do
     desc 'Create roles in the database'
     task create_roles: :environment do
       {
