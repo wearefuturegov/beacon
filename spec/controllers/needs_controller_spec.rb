@@ -27,10 +27,10 @@ RSpec.describe NeedsController, type: :controller do
     it 'passes filterable fields to model' do
       expect(need).to receive(:filter_and_sort)
         .with(hash_including(category: 'category_test',
-                             user_id: '1',
+                             assigned_to: 'user-1',
                              status: 'test_status',
                              is_urgent: 'false'), any_args).and_return(need)
-      get :index, params: { category: 'category_test', user_id: '1', status: 'test_status', is_urgent: 'false' }
+      get :index, params: { category: 'category_test', assigned_to: 'user-1', status: 'test_status', is_urgent: 'false' }
       expect(response).to be_successful
     end
 

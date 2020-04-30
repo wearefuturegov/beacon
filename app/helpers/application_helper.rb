@@ -26,4 +26,8 @@ module ApplicationHelper
       '—'
     end
   end
+
+  def current_role_id
+    current_user.role&.id
+  end
 end

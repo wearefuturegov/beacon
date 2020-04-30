@@ -56,3 +56,19 @@ Then(/^I can not see the support action filters$/) do
   expect(main_menu).not_to have_selector(:link_or_button, 'In Progress Shielded Check-ins')
   expect(main_menu).not_to have_selector(:link_or_button, 'Un-started Shielded Check-ins')
 end
+
+Then(/^I can see the team action filters$/) do
+  main_menu = find('.main-menu')
+  expect(main_menu).to have_selector(:link_or_button, 'Team referrals')
+  expect(main_menu).to have_selector(:link_or_button, 'Team to do')
+  expect(main_menu).to have_selector(:link_or_button, 'Team in progress')
+  expect(main_menu).to have_selector(:link_or_button, 'Team completed')
+end
+
+Then(/^I can not see the team action filters$/) do
+  main_menu = find('.main-menu')
+  expect(main_menu).not_to have_selector(:link_or_button, 'Team referrals')
+  expect(main_menu).not_to have_selector(:link_or_button, 'Team to do')
+  expect(main_menu).not_to have_selector(:link_or_button, 'Team in progress')
+  expect(main_menu).not_to have_selector(:link_or_button, 'Team completed')
+end

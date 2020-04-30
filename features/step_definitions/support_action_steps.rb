@@ -4,6 +4,15 @@ When('I add support actions {string}') do |support_action|
   choose_yes_on_support_action(page, support_action)
 end
 
+When('I add support actions') do
+  visit "/contacts/#{@contact.id}"
+  click_link 'Add Needs'
+end
+
+Then('I should not be able to add {string}') do |assessment_type|
+  expect(page).not_to have_content(assessment_type)
+end
+
 And('I set the start date for the {string} support action to {string}') do |support_action, start_date|
   support_action_block = find_support_action_block(page, support_action)
   start_date_fieldset = find_fieldset(support_action_block, /scheduled/)
