@@ -2,8 +2,7 @@ class AssessmentsController < ApplicationController
   before_action :set_contact, only: %i[new create]
 
   def new
-    @users = User.all
-    @roles = Role.all
+    @assigned_to_options = construct_assigned_to_options
     @type = %w[log schedule].include?(type_param) ? type_param : 'log'
 
     @need = Need.new
@@ -37,8 +36,7 @@ class AssessmentsController < ApplicationController
       return
     end
 
-    @users = User.all
-    @roles = Role.all
+    @assigned_to_options = construct_assigned_to_options
     render :new
   end
 
@@ -46,8 +44,7 @@ class AssessmentsController < ApplicationController
     @need = Need.new(assessment_params.merge(contact_id: @contact.id))
     @note = Note.new
     unless @need.valid? && @need.valid_start_on?
-      @users = User.all
-      @roles = Role.all
+      @assigned_to_options = construct_assigned_to_options
       render :new
       return
     end
@@ -61,10 +58,20 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_params
-    params.require(:need).permit(:user_id, :role_id, :name, :is_urgent, :status, :category, :status, :start_on)
+    params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on)
   end
 
   def notes_params
     params.require(:note).permit(:body)
+  end
+
+  def construct_assigned_to_options
+    roles = Role.all.order(:name)
+    users = User.all.order(:first_name, :last_name)
+
+    {
+      'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
+      'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
+    }
   end
 end

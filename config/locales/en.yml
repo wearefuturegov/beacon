@@ -34,7 +34,7 @@ en:
     attributes:
       need:
         user: "Assignee"
-        name: "Task body"
+        name: "Support action description"
         due_by: "Due by date"
         start_on: "Scheduled for date"
     errors:
