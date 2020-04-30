@@ -67,6 +67,10 @@ class Need < ApplicationRecord
     end
   }
 
+  scope :filter_by_team, lambda { |role_id|
+    where(assigned_to: User.with_role(role_id))
+  }
+
   scope :filter_by_status, ->(status) { where(status: status) }
 
   scope :filter_by_is_urgent, lambda { |is_urgent|
