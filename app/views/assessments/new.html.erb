@@ -24,10 +24,10 @@
 
             <ul>
               <% @need.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
+                <li>Assessment <%= message.downcase %></li>
               <% end %>
               <% @note.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
+                <li>Note <%= message.downcase %></li>
               <% end %>
             </ul>
           </div>
@@ -36,14 +36,9 @@
         <%= form_with(model: @need, url: contact_assessments_path, local: true) do |form| %>
           <input type="hidden" value="<%= @type %>" name="type" hidden="hidden">
           <div class="need-actions">
-            <div class="need-actions__field" id="assigned-actions__field">
-              <%= form.label :user_id, 'Assigned to', class: 'need-actions__label' %>
-              <%= form.collection_select :user_id, @users, :id, :name_or_email, {include_blank: "Unassigned"}, {class: "need-actions__select"} %>
-            </div>
-
             <div class="need-actions__field" id="teams-actions__field">
-              <%= form.label :user_id, 'Team', class: 'need-actions__label' %>
-              <%= form.collection_select :role_id, @roles, :id, :name, {include_blank: "Unassigned"}, {class: "need-actions__select"} %>
+              <%= form.label :user_id, 'Assigned to', class: 'need-actions__label' %>
+              <%= form.select :assigned_to, grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: 'Unassigned'), {}, { class: "need-actions__select" } %>
             </div>
 
             <div class="need-actions__field" id="priority-actions__field">
@@ -65,17 +60,17 @@
             </div>
           </div>
 
-          <div class="field">
-            <span>Assessment Type</span>
+          <fieldset class="field-section">
+            <legend class="field-section__title">Assessment Category</legend>
             <div class="radio">
               <%= form.radio_button :category, 'phone triage', {:checked => @need[:category] == 'Phone triage'} %>
               <%= form.label :category_phone_triage, "Phone Triage", class: "radio__label" %>
             </div>
             <div class="radio">
-              <%= form.radio_button :category, 'check in', {:checked => @need[:category] == 'Check In'} %>
+              <%= form.radio_button :category, 'check in', {:checked => @need[:category] == 'Check in'} %>
               <%= form.label :category_check_in, "Check in", class: "radio__label" %>
             </div>
-          </div>
+          </fieldset>
           <br/>
 
           <% if @type == 'log' %>
@@ -86,7 +81,7 @@
             <% end %>
           <% elsif @type == 'schedule' %>
             <div class="field">
-              <%= form.label :name, "Task body", class: "field__label" %>
+              <%= form.label :name, "Support action description", class: "field__label" %>
               <%= form.text_field :name, placeholder: 'Describe the support action' %>
             </div>
 

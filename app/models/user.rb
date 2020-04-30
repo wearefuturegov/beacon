@@ -16,6 +16,8 @@ class User < ApplicationRecord
 
   has_paper_trail
 
+  scope :with_role, ->(role_id) { joins(:user_roles).where(user_roles: { role_id: role_id }) }
+
   def role_names
     roles.map(&:name).join(', ')
   end

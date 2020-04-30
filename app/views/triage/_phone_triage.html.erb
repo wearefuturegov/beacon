@@ -1,9 +1,0 @@
-<fieldset class="field-section field-section--two-cols">
-  <legend><h3 class="field-section__title">When should this call be scheduled for?</h3></legend>
-
-  <%# this extra value is saved to the need, instead of the contact %>
-  <div class="field field--span-two-cols">
-    <%= need_form.label :start_on, "Date (e.g. #{DateTime.now.strftime("%-d/%-m/%Y")})", class: "field__label" %>
-    <%= need_form.text_field :start_on, value: need['start_on'] %>
-  </div>
-</fieldset>
