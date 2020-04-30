@@ -44,7 +44,7 @@ end
 Then('I see the saved assessment details on the contact') do
   if @assessment_type == 'log'
     completed_link = find('#toggle-visibility-completed-assessments')
-    expect(completed_link).to have_content('1 x completed assessments')
+    expect(completed_link).to have_content('1 x completed assessment')
   elsif @assessment_type == 'schedule'
     assessments_table = find('.assessments-table')
     assessment_row = assessments_table.find('tbody tr')
