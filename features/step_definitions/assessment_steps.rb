@@ -4,14 +4,24 @@ end
 
 When('I choose to schedule an assessment') do
   @assessment_type = 'schedule'
-  page.find('#assessmentDropdownElements').click
-  page.find('#schedule-assesment-btn').click
+  if Capybara.current_driver == :rack_test
+    page.find('#assessmentDropdownElements').click
+    page.find('#schedule-assesment-btn').click
+  else
+    click_button 'Add new assessment +'
+    click_link 'Schedule an assessment'
+  end
 end
 
 When('I choose to log an assessment') do
   @assessment_type = 'log'
-  page.find('#assessmentDropdownElements').click
-  page.find('#log-assesment-btn').click
+  if Capybara.current_driver == :rack_test
+    page.find('#assessmentDropdownElements').click
+    page.find('#log-assesment-btn').click
+  else
+    click_button 'Add new assessment +'
+    click_link 'Log an assessment'
+  end
 end
 
 Then('I see the schedule assessment form') do
