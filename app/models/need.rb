@@ -87,7 +87,7 @@ class Need < ApplicationRecord
   }
 
   scope :order_by_last_phoned_date, lambda { |direction|
-    order("last_phoned_date #{direction} NULLS LAST")
+    order("last_phoned_date #{direction}")
   }
 
   scope :order_by_call_attempts, lambda { |direction|
@@ -115,6 +115,7 @@ class Need < ApplicationRecord
       contact_telephone: 'telephone',
       contact_mobile: 'mobile',
 
+      name: 'description',
       food_priority: 'food_priority',
       food_service_type: 'food_service_type',
       contact_count_people_in_house: 'count_people_in_house',
