@@ -8,8 +8,7 @@ Feature: List support actions
 
   Scenario: View last contacted date
     Given a unique resident
-    When I add support actions "Phone triage"
-    And I set the start date for the "Phone triage" support action to "1/1/2020"
+    When I add support actions "Dog walking"
     And I submit the add support actions form
     And I add a "Successful Call" note "Phone call text"
     And I submit the form to create the note
