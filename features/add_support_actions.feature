@@ -43,7 +43,7 @@ Feature: Add support actions
     When I add support actions
     Then I should not be able to add "<assessment types>"
     Examples:
-      | assessment types               |
+      | assessment types              |
       | Phone triage                  |
       | Check in                      |
       
