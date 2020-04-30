@@ -4,12 +4,22 @@ end
 
 When('I choose to schedule an assessment') do
   @assessment_type = 'schedule'
-  click_link 'Schedule an assessment'
+  if Capybara.current_driver == :rack_test
+    page.find('noscript a', text: 'Schedule an assessment').click
+  else
+    click_button 'Add new assessment +'
+    click_link 'Schedule an assessment'
+  end
 end
 
 When('I choose to log an assessment') do
   @assessment_type = 'log'
-  click_link 'Log an assessment'
+  if Capybara.current_driver == :rack_test
+    page.find('noscript a', text: 'Log an assessment').click
+  else
+    click_button 'Add new assessment +'
+    click_link 'Log an assessment'
+  end
 end
 
 Then('I see the schedule assessment form') do
