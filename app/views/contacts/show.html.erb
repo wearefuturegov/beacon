@@ -63,13 +63,12 @@
     <div class="panel panel--unpadded">
       <%= render "assessments" %>
     </div>
-    <!-- <a id="toggle-visibility-completed-assessments" role="button" href="#"><%= @completed_assessments.count %> completed assessments</a> -->
     <div class="panel panel--unpadded">
       <table class="completed-needs-table-nav-show">
         <tbody>
           <tr id="toggle-visibility-completed-assessments" class="need--financial-support">
             <td>
-              <b><%= pluralize(@completed_needs.count, 'x completed assessment') %></b>
+              <b><%= pluralize(@completed_assessments.count, 'x completed assessment') %></b>
             </td>
           </tr>
         </tbody>
