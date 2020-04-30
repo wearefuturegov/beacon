@@ -33,6 +33,8 @@ class Need < ApplicationRecord
 
   validates :category, presence: true
 
+  ASSESSMENT_CATEGORIES = ['phone triage', 'check in'].freeze
+
   # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
   # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
 
@@ -41,8 +43,8 @@ class Need < ApplicationRecord
   scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
-  scope :assessments, -> { where(category: ['phone triage', 'check in']) }
-  scope :not_assessments, -> { where.not(category: ['phone triage', 'check in']) }
+  scope :assessments, -> { where(category: ASSESSMENT_CATEGORIES) }
+  scope :not_assessments, -> { where.not(category: ASSESSMENT_CATEGORIES) }
 
   scope :filter_by_user_id, lambda { |user_id|
     if user_id == 'Unassigned'
@@ -63,6 +65,10 @@ class Need < ApplicationRecord
         where(role_id: unsanitised_key)
       end
     end
+  }
+
+  scope :filter_by_team, lambda { |role_id|
+    where(assigned_to: User.with_role(role_id))
   }
 
   scope :filter_by_status, ->(status) { where(status: status) }
@@ -200,7 +206,7 @@ class Need < ApplicationRecord
   end
 
   def self.categories_for_triage
-    categories.except('Other')
+    categories.except('Other').reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
   end
 
   def assigned

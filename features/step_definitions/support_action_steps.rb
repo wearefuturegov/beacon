@@ -1,7 +1,16 @@
 When('I add support actions {string}') do |support_action|
   visit "/contacts/#{@contact.id}"
-  click_link 'Add Needs'
+  click_link 'Add support actions'
   choose_yes_on_support_action(page, support_action)
+end
+
+When('I add support actions') do
+  visit "/contacts/#{@contact.id}"
+  click_link 'Add support actions'
+end
+
+Then('I should not be able to add {string}') do |assessment_type|
+  expect(page).not_to have_content(assessment_type)
 end
 
 And('I set the start date for the {string} support action to {string}') do |support_action, start_date|
