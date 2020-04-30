@@ -15,30 +15,32 @@
           <%= link_to_unless_current "Support Actions", root_path(:status => "to_do"), class: "main-menu__link" do %>
             <span class="main-menu__current">Support Actions</span>
           <% end %>
+          <ul class="main-menu__submenu">
             <% if policy(Need).display_support_actions? %>
-            <%= link_to_unless_current "Un-started Shielded Check-ins", root_path(:category => "check in", :status => "to_do"), class: "main-menu__submenu-link" do %>
-              <span class="main-menu__submenu-current">Unstarted Shielded Check-ins</span>
+              <%= link_to_unless_current "Unstarted Shielded Check-ins", root_path(:category => "check in", :status => "to_do"), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">Unstarted Shielded Check-ins</span>
+              <% end %>
+              <%= link_to_unless_current "In Progress Shielded Check-ins", root_path(:category => "check in", :status => "in_progress"), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">In Progress Shielded Check-ins</span>
+              <% end %>
+              <%= link_to_unless_current "Open Covid Triages", root_path(:status => "to_do", :category => "phone triage"), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">Open Covid Triages</span>
+              <% end %>
+            <% else %>
+              <%= link_to_unless_current "Team referrals", root_path(:status => "to_do", :assigned_to => "role-#{current_role_id}"), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">Team referrals</span>
+              <% end %>
+              <%= link_to_unless_current "Team to do", root_path(:status => "to_do", :team => current_role_id), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">Team to do</span>
+              <% end %>
+              <%= link_to_unless_current "Team in progress", root_path(:status => "in_progress", :team => current_role_id), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">Team in progress</span>
+              <% end %>
+              <%= link_to_unless_current "Team completed", root_path(:status => "complete", :team => current_role_id), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">Team Completed</span>
+              <% end %>
             <% end %>
-            <%= link_to_unless_current "In Progress Shielded Check-ins", root_path(:category => "check in", :status => "in_progress"), class: "main-menu__submenu-link" do %>
-              <span class="main-menu__submenu-current">In Progress Shielded Check-ins</span>
-            <% end %>
-            <%= link_to_unless_current "Open Covid Triages", root_path(:status => "to_do", :category => "phone triage"), class: "main-menu__submenu-link" do %>
-              <span class="main-menu__submenu-current">Open Covid Triages</span>
-            <% end %>
-          <% else %>
-            <%= link_to_unless_current "Team referrals", root_path(:status => "to_do", :assigned_to => "role-#{current_role_id}"), class: "main-menu__submenu-link" do %>
-              <span class="main-menu__submenu-current">Team referrals</span>
-            <% end %>
-            <%= link_to_unless_current "Team to do", root_path(:status => "to_do", :team => current_role_id), class: "main-menu__submenu-link" do %>
-              <span class="main-menu__submenu-current">Team to do</span>
-            <% end %>
-            <%= link_to_unless_current "Team in progress", root_path(:status => "in_progress", :team => current_role_id), class: "main-menu__submenu-link" do %>
-              <span class="main-menu__submenu-current">Team in progress</span>
-            <% end %>
-            <%= link_to_unless_current "Team completed", root_path(:status => "complete", :team => current_role_id), class: "main-menu__submenu-link" do %>
-              <span class="main-menu__submenu-current">Team Completed</span>
-            <% end %>
-          <% end %>
+          </ul>
         </li>
         <li class="main-menu__item">
             <%= link_to_unless_current "People", contacts_path, class: "main-menu__link" do %>
