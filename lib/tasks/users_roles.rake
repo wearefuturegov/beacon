@@ -31,4 +31,31 @@ namespace :users_roles do
       user.save!
     end
   end
+
+  desc 'Move needs assigned to pseudo-role users to proper roles'
+  task migrate_needs_to_role: :environment do
+    roles_map = Role.all.map { |role| [role.role, role.id] }.to_h
+
+    # List of roles that might potentially need to be mapped
+    # mdt
+    # food_delivery_manager
+    # council_service_adult_social_care
+    # council_service_child_social_care
+    # council_service_housing
+    # council_service_early_help
+    # council_service_welfare_rights
+    # council_service_public_health
+    # council_service_mental_health
+    # council_service_employment
+    # council_service_vcs
+    # council_service_neighbourhood_vcs
+    # council_service_simple_needs
+    # council_service_social_prescribing
+
+    # TODO: Replace the emails
+    # todo: Add further rows, replacing the email and the roles_map key
+    Need.all.includes(:user).where(users: { email: 'dummy_mdt_role_email' }).update_all(user_id: nil, role_id: roles_map['mdt'])
+    Need.all.includes(:user).where(users: { email: 'dummy_food_manager_role_email' }).update_all(user_id: nil, role_id: roles_map['food_delivery_manager'])
+    Need.all.includes(:user).where(users: { email: 'dummy_council_service_housing_email' }).update_all(user_id: nil, role_id: roles_map['council_service_housing'])
+  end
 end
