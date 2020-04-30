@@ -5,7 +5,7 @@ require 'csv'
 class Need < ApplicationRecord
   include Filterable
   self.ignored_columns = %w[due_by]
-  before_update :assign_to
+  before_update :enforce_single_assignment
 
   enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
   belongs_to :contact
@@ -33,6 +33,8 @@ class Need < ApplicationRecord
 
   validates :category, presence: true
 
+  ASSESSMENT_CATEGORIES = ['phone triage', 'check in'].freeze
+
   # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
   # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
 
@@ -41,8 +43,8 @@ class Need < ApplicationRecord
   scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
-  scope :assessments, -> { where(category: ['phone triage', 'check in']) }
-  scope :not_assessments, -> { where.not(category: ['phone triage', 'check in']) }
+  scope :assessments, -> { where(category: ASSESSMENT_CATEGORIES) }
+  scope :not_assessments, -> { where.not(category: ASSESSMENT_CATEGORIES) }
 
   scope :filter_by_user_id, lambda { |user_id|
     if user_id == 'Unassigned'
@@ -52,12 +54,21 @@ class Need < ApplicationRecord
     end
   }
 
-  scope :filter_by_role_id, lambda { |role_id|
-    if role_id == 'Unassigned'
-      where(role_id: nil)
+  scope :filter_by_assigned_to, lambda { |assigned_to|
+    if assigned_to == 'Unassigned'
+      where('user_id IS NULL and role_id IS NULL')
     else
-      where(role_id: role_id)
+      (assoc, unsanitised_key) = assigned_to&.split('-')
+      if assoc == 'user'
+        where(user_id: unsanitised_key)
+      elsif assoc == 'role'
+        where(role_id: unsanitised_key)
+      end
     end
+  }
+
+  scope :filter_by_team, lambda { |role_id|
+    where(assigned_to: User.with_role(role_id))
   }
 
   scope :filter_by_status, ->(status) { where(status: status) }
@@ -142,9 +153,31 @@ class Need < ApplicationRecord
     self[:status] = state
   end
 
-  def assign_to
+  def enforce_single_assignment
     self.role_id = nil if !user.nil? && user_id_changed?
     self.user_id = nil if !role_id.nil? && role_id_changed?
+  end
+
+  def assigned_to
+    if user_id
+      "user-#{user_id}"
+    elsif role_id
+      "role-#{role_id}"
+    end
+  end
+
+  def assigned_to=(assigned_to)
+    (assoc, unsanitised_key) = assigned_to&.split('-')
+    if assoc == 'user'
+      self.user_id = unsanitised_key.to_i
+      self.role_id = nil
+    elsif assoc == 'role'
+      self.user_id = nil
+      self.role_id = unsanitised_key.to_i
+    else
+      self.user_id = nil
+      self.role_id = nil
+    end
   end
 
   def self.base_query
@@ -173,12 +206,14 @@ class Need < ApplicationRecord
   end
 
   def self.categories_for_triage
-    categories.except('Other')
+    categories.except('Other').reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
   end
 
   def assigned
     if user
       user.name_or_email
+    elsif role
+      role.name
     else
       'Unassigned'
     end

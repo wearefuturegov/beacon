@@ -15,9 +15,9 @@ Feature: Create note
     And the note category is "category"
     Examples:
       | support_action                | category        | text                              |
-      | Phone triage                  | Successful Call | Resident does not require help    |
-      | Phone triage                  | Failed Call     | Tried twice with no answer        |
-      | Phone triage                  | Left Message    | Left the helpline number          |
+      | Financial support             | Successful Call | Resident does not require help    |
+      | Financial support             | Failed Call     | Tried twice with no answer        |
+      | Financial support             | Left Message    | Left the helpline number          |
       | Groceries and cooked meals    | Failed Call     | Number not recognised             |
       | Physical and mental wellbeing | Note            | Resident requested weekly call    |
       | Financial support             | Successful Call | Resident concerned about the rent |
@@ -26,16 +26,16 @@ Feature: Create note
       | Book drops and entertainment  | Successful Call | Would like some novels            |
       | Dog walking                   | Note            | Dog is lively                     |
 
-  Scenario: Add a Successful call to a phone triage
-    Given a resident with a "Phone triage" support action
+  Scenario: Add a Successful call to a Dog walking
+    Given a resident with a "Dog walking" support action
     When I add a "Successful Call" note "Resident confirmed required help"
     And I submit the form to create the note
     Then the list of notes contains "Resident confirmed required help"
     And the note category is "Successful Call"
     And the last note is at the top
 
-  Scenario: Add a Successful call to a phone triage with a blank note
-    Given a resident with a "Phone triage" support action
+  Scenario: Add a Successful call to a Dog walking with a blank note
+    Given a resident with a "Dog walking" support action
     When I add a "Successful Call" note ""
     And I submit the form to create the note
     Then the list of notes contains "No details captured"
