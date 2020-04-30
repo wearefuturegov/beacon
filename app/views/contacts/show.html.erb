@@ -29,14 +29,20 @@
     </div>
 
     <% if @completed_needs.any? %>
-      <header class="panel-header" id="completed-needs-panel">
-        <h2 class="panel-header__title">Completed</h2>
-        <span class="panel-header__badge"><%= @completed_needs.count %></span>
-      </header>
+      <div class="panel panel--unpadded">
+        <table class="completed-needs-table-nav-show">
+          <tbody>
+            <tr id="toggle-visibility-completed-needs" class="need--financial-support">
+              <td>
+                <b><%= pluralize(@completed_needs.count, 'x completed need') %></b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="panel panel--unpadded">
         <%= render "completed-needs" %>
       </div>
-      <a id="toggle-visibility-completed-needs" role="button" href="#"><%= pluralize(@completed_needs.count, 'completed need') %></a>
     <% end %>
 
     <header class="panel-header" id="needs-panel">
@@ -57,7 +63,18 @@
     <div class="panel panel--unpadded">
       <%= render "assessments" %>
     </div>
-    <a id="toggle-visibility-completed-assessments" role="button" href="#"><%= @completed_assessments.count %> completed assessments</a>
+    <!-- <a id="toggle-visibility-completed-assessments" role="button" href="#"><%= @completed_assessments.count %> completed assessments</a> -->
+    <div class="panel panel--unpadded">
+      <table class="completed-needs-table-nav-show">
+        <tbody>
+          <tr id="toggle-visibility-completed-assessments" class="need--financial-support">
+            <td>
+              <b><%= pluralize(@completed_needs.count, 'x completed assessment') %></b>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </aside>
 </div>
 <%= javascript_pack_tag 'assessments' %>
