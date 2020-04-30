@@ -1,11 +1,24 @@
-Array.prototype.slice.call(document.querySelectorAll('.need--status_complete')).forEach((e, i) => e => e.style.display = 'none');
+const allNeedsStatusComplete = document.querySelectorAll('.need--status_complete')
+const showHideAllNeedsStatusComplete = (display) => {
+  for(let i = 0; i < allNeedsStatusComplete.length; i++) {
+    allNeedsStatusComplete[i].style.display = display
+  }  
+}
+showHideAllNeedsStatusComplete('none')
 
 let showCompletedNeeds = false;
 const toggleDisplay = (show) => show ? 'table-row' : 'none';
 
-document.getElementById('toggle-visibility-completed-assessments').addEventListener('click', (e) => {
+const toggleVisibilityCompletedAssessments = document.getElementById('toggle-visibility-completed-assessments')
+toggleVisibilityCompletedAssessments.addEventListener('click', (e) => {
     showCompletedNeeds = !showCompletedNeeds;
-    document.querySelectorAll('.need--status_complete').forEach(e => e.style.display = toggleDisplay(showCompletedNeeds));
+    const table = toggleVisibilityCompletedAssessments.parentNode.parentNode
+    if(showCompletedNeeds) {
+      table.classList.add("table-nav-hide")
+    } else {
+      table.classList.remove("table-nav-hide")
+    }
+    showHideAllNeedsStatusComplete(toggleDisplay(showCompletedNeeds))
     e.preventDefault()
 });
 

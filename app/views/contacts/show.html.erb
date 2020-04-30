@@ -29,38 +29,19 @@
     </div>
 
     <% if @completed_needs.any? %>
-      <header class="panel-header" id="completed-needs-panel">
-        <h2 class="panel-header__title">Completed</h2>
-      </header>
       <div class="panel panel--unpadded">
-        <table class="needs-table">
-          <thead class="visually-hidden">
-            <tr>
-              <th>Type</th>
-              <th>Priority</th>
-              <th>Assigned</th>
-              <th>Created</th>
-            </tr>
-          </thead>
+        <table class="completed-needs-table-nav-show">
           <tbody>
-            <% @completed_needs.each do |n| %>
-                <tr onclick="window.location='<%= need_path(n) %>'" class="need--<%= n.category.parameterize %>">
-                <td>
-                  <%= link_to n.category, n %>
-                </td>
-                <td>
-                  <% if n.is_urgent %>
-                    <span class="urgent-tag">Urgent</span>
-                  <% else %>
-                    —
-                  <% end %>
-                </td>
-                <td><%= n.assigned %></td>
-                <td><%= n.created_at&.strftime("%-d %B %Y") %></td>
-                </tr>
-            <% end %>
+            <tr id="toggle-visibility-completed-needs" class="need--financial-support">
+              <td>
+                <b><%= pluralize(@completed_needs.count, 'x completed need') %></b>
+              </td>
+            </tr>
           </tbody>
         </table>
+      </div>
+      <div class="panel panel--unpadded">
+        <%= render "completed-needs" %>
       </div>
     <% end %>
 
@@ -90,7 +71,18 @@
     <div class="panel panel--unpadded">
       <%= render "assessments" %>
     </div>
-    <a id="toggle-visibility-completed-assessments" role="button" href="#"><%= @completed_assessments.count %> completed assessments</a>
+    <div class="panel panel--unpadded">
+      <table class="completed-needs-table-nav-show">
+        <tbody>
+          <tr id="toggle-visibility-completed-assessments" class="need--financial-support">
+            <td>
+              <b><%= pluralize(@completed_assessments.count, 'x completed assessment') %></b>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </aside>
 </div>
 <%= javascript_pack_tag 'assessments' %>
+<%= javascript_pack_tag 'completed-needs' %>
