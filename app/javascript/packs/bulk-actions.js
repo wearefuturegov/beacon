@@ -60,39 +60,24 @@ applyPatchUpdate = (for_update) => {
 allNeeds.addEventListener('click', selectAllNeeds)
 
 // assign to users event listener
-document.querySelector("#assign-selected-needs-users").addEventListener("change", (e) => {
-  let user_id = e.target.value
+document.querySelector("#assign-selected-needs").addEventListener("change", (e) => {
+  let assigned_to = e.target.value
   if(e.target.value) {
-    if (user_id === 'Unassigned') {
-      user_id = null;
+    if (assigned_to === 'Unassigned') {
+      assigned_to = null;
     }
     let for_update = []
     for (let i = 0; i < needs.length; i++) {
       if (needs[i].checked) {
-        for_update.push({ need_id: needs[i].value, user_id: user_id });
+        for_update.push({ need_id: needs[i].value, assigned_to: assigned_to });
       }
     }    
-    applyPatchUpdate(for_update);
-  }
-});
-
-
-// assign to team event listener
-document.querySelector("#assign-selected-needs-team").addEventListener("change", (e) => {
-  let role_id = e.target.value
-  if(e.target.value) {
-    if (role_id === 'Unassigned') {
-      role_id = null;
+    if (for_update.length > 0) {
+      applyPatchUpdate(for_update);
     }
-    let for_update = []
-    for (let i = 0; i < needs.length; i++) {
-      if (needs[i].checked) {
-        for_update.push({ need_id: needs[i].value, role_id: role_id });
-      }
-    }    
-    applyPatchUpdate(for_update);
   }
 });
+
 
 function getMetaValue(name) {
   return document.head.querySelector(`meta[name="${name}"]`).getAttribute("content");
