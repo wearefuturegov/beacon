@@ -7,7 +7,12 @@
 
     <%= select_tag("role_id", content_tag(:option,'Unassigned',:value => "Unassigned") + options_from_collection_for_select(@roles, :id, :name),
                    prompt: 'Assign to team', class: "assign__needs",  id: "assign-selected-needs-team", class: "dropdown")  %>
-    <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--dark" %>
+    <% if params[:user_id] || params[:status] || params[:category] || params[:is_urgent] %>
+      <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--dark", "data-open" => "true" %>
+    <% else %>
+      <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--dark" %>
+    <% end %>
+
     <%= render "filters" %>
   </div>
 </div>

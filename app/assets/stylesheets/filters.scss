@@ -1,5 +1,11 @@
 @import "variables";
 
+*[data-open=true] {
+  @media screen and (max-width: 1526px) {
+    margin-top: 10px;
+  }
+}
+
 .filters{
     display: flex;
     flex-direction: row;
@@ -11,13 +17,8 @@
             display: none;
         }
     }
-    #needs-filters {
+    #needs-filters, #btnClearFilters {
       margin-left: auto;
       order: 1;
-    }
-    &[data-open=true] {
-      @media screen and (max-width: 1526px) {
-        margin-top: 10px;
-      }
     }
 }
