@@ -27,4 +27,4 @@ Feature: Edit support actions
     And I have assigned the support action to me
     And the support action has status 'to do'
     When I change the support action status to 'complete'
-    Then I see the updated support action details in the contact's 'completed' list
+    Then I see the saved completed task details on the contact

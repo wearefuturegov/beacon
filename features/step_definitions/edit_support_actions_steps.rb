@@ -48,6 +48,12 @@ And("I see the updated support action details in the contact's {string} list") d
   expect(assignee_column).to have_content @expected_assignee
 end
 
+And('I see the saved completed task details on the contact') do
+  visit "/contacts/#{@contact.id}"
+  completed_link = find('#toggle-visibility-completed-needs')
+  expect(completed_link).to have_content('1 completed need')
+end
+
 When("I change someone else's support action status to 'complete'") do
   visit "/needs/#{@need.id}"
 
