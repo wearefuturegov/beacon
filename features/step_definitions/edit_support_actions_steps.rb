@@ -5,7 +5,7 @@ end
 
 When('I (assign)/(have assigned) the support action to me') do
   visit "/needs/#{@need.id}"
-  page.select 'test@test.com', from: 'need_user_id'
+  page.select 'test@test.com', from: 'need_assigned_to'
   @expected_assignee = 'test@test.com'
   page.find('.notice', text: 'Need was successfully updated.')
 end
@@ -13,7 +13,7 @@ end
 When('I assign the support action to another user') do
   @another_user = User.create!(email: 'other_user@email.com', invited: Date.today)
   visit "/needs/#{@need.id}"
-  page.select 'other_user@email.com', from: 'need_user_id'
+  page.select 'other_user@email.com', from: 'need_assigned_to'
   @expected_assignee = 'other_user@email.com'
   page.find('.notice', text: 'Need was successfully updated.')
 end
@@ -29,14 +29,14 @@ And("the support action has status 'to do'") do
 end
 
 Then("I see the support action in the 'assigned to me' page") do
-  visit "/?user_id=#{@user.id}"
+  visit "/?assigned_to=user-#{@user.id}"
   table_row = find('tbody tr')
   assignee_column = table_row.find('td:nth-child(8)')
   expect(assignee_column).to have_content 'test@test.com'
 end
 
 Then("I no longer see the support action in the 'assigned to me' page") do
-  visit "/?user_id=#{@user.id}"
+  visit "/?assigned_to=user-#{@user.id}"
   content_panel = find('p.no-results')
   expect(content_panel).to have_content 'No matches'
 end
@@ -59,7 +59,7 @@ When("I change someone else's support action status to 'complete'") do
 
   Capybara.using_session('Second_users_session') do
     visit "/needs/#{@need.id}"
-    page.select 'admin@test.com', from: 'need_user_id'
+    page.select 'admin@test.com', from: 'need_assigned_to'
     @expected_assignee = 'admin@test.com'
     page.find('.notice', text: 'Need was successfully updated.')
   end

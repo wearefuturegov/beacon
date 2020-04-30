@@ -18,7 +18,7 @@
         <span class="panel-header__badge"><%= @contact.needs.count %></span>
       <% end %>
       <% if policy(Need).create? %>
-        <%= link_to "Add Needs", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+        <%= link_to "Add support actions", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
       <% end %>
     </header>
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
