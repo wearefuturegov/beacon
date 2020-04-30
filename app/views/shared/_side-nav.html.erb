@@ -35,7 +35,7 @@
             <%= link_to_unless_current "Team in progress", root_path(:status => "in_progress", :team => current_role_id), class: "main-menu__submenu-link" do %>
               <span class="main-menu__submenu-current">Team in progress</span>
             <% end %>
-            <%= link_to_unless_current "Team Completed", root_path(:status => "complete", :team => current_role_id), class: "main-menu__submenu-link" do %>
+            <%= link_to_unless_current "Team completed", root_path(:status => "complete", :team => current_role_id), class: "main-menu__submenu-link" do %>
               <span class="main-menu__submenu-current">Team Completed</span>
             <% end %>
           <% end %>
