@@ -51,7 +51,7 @@ end
 And('I see the saved completed task details on the contact') do
   visit "/contacts/#{@contact.id}"
   completed_link = find('#toggle-visibility-completed-needs')
-  expect(completed_link).to have_content('1 completed need')
+  expect(completed_link).to have_content('1 x completed need')
 end
 
 When("I change someone else's support action status to 'complete'") do
