@@ -6,12 +6,13 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162367132-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '<%= ENV["GA_PROPERTY_ID"] %>');
-    </script>
+    <% if ENV['GA_PROPERTY_ID'] %>
+        <script>
+            window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+            ga('create', '<%= ENV['GA_PROPERTY_ID'] %>', 'auto');
+            ga('send', 'pageview');
+        </script>
+        <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <% end %>
 
 </head>
