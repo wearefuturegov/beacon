@@ -4,12 +4,14 @@ end
 
 When('I choose to schedule an assessment') do
   @assessment_type = 'schedule'
-  click_link 'Schedule an assessment'
+  page.find('#btnAssessmentDropdown').click
+  page.find('#schedule-assesment-btn').click
 end
 
 When('I choose to log an assessment') do
   @assessment_type = 'log'
-  click_link 'Log an assessment'
+  page.find('#btnAssessmentDropdown').click
+  page.find('#log-assesment-btn').click
 end
 
 Then('I see the schedule assessment form') do
