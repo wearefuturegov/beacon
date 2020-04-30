@@ -29,8 +29,9 @@ namespace :upgrade do
       admin_role = Role.find_by!(role: 'manager')
       agent_role = Role.find_by!(role: 'agent')
       ActiveRecord::Base.transaction do
-        User.all.find_each do |user|
-          user.roles << (user.admin? ? admin_role : agent_role)
+        User.all.includes(:roles).find_each do |user|
+          expected_role = user.admin? ? admin_role : agent_role
+          user.roles << expected_role unless user.roles.include?(expected_role)
           user.roles = user.roles.uniq
           user.save!
         end
