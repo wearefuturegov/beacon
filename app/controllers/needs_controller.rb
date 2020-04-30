@@ -8,13 +8,14 @@ class NeedsController < ApplicationController
   helper_method :get_param
 
   def index
-    @params = params.permit(:user_id, :role_id, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
+    @params = params.permit(:assigned_to, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
     @users = User.all
     @roles = Role.all
     @needs = policy_scope(Need)
              .started
-             .filter_and_sort(@params.slice(:category, :user_id, :role_id, :status, :is_urgent), @params.slice(:order, :order_dir))
+             .filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
+    @assigned_to_options = construct_assigned_to_options
     respond_to do |format|
       format.html
       format.csv { send_data @needs.to_csv, filename: "needs-#{Date.today}.csv" }
@@ -22,8 +23,7 @@ class NeedsController < ApplicationController
   end
 
   def show
-    @users = User.all
-    @roles = Role.all
+    @assigned_to_options = construct_assigned_to_options
     @need.notes.order(created_at: :desc)
   end
 
@@ -36,14 +36,12 @@ class NeedsController < ApplicationController
     if @need.update(need_params)
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else
-      @users = User.all
-      @roles = Role.all
+      @assigned_to_options = construct_assigned_to_options
       render :show
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
-    @users = User.all
-    @roles = Role.all
+    @assigned_to_options = construct_assigned_to_options
     render :show
   end
 
@@ -52,9 +50,8 @@ class NeedsController < ApplicationController
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
       authorize(need)
-      user_id = obj['user_id']
-      role_id = obj['role_id']
-      need.update!(user_id: user_id, role_id: role_id)
+      assigned_to = obj['assigned_to']
+      need.update!(assigned_to: assigned_to)
     end
     render json: { status: 'ok' }
   end
@@ -74,6 +71,16 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:name, :status, :user_id, :role_id, :category, :is_urgent, :lock_version)
+    params.require(:need).permit(:name, :status, :assigned_to, :category, :is_urgent, :lock_version)
+  end
+
+  def construct_assigned_to_options
+    roles = Role.all.order(:name)
+    users = User.all.order(:first_name, :last_name)
+
+    {
+      'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
+      'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
+    }
   end
 end
