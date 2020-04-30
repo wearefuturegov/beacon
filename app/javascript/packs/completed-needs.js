@@ -1,4 +1,10 @@
-document.querySelectorAll('.completed-need').forEach(e => e.style.display = 'none');
+const allCompletedNeeds = document.querySelectorAll('.completed-need')
+let showHideAllCompletedNeeds = (display) => {
+  for(let i = 0; i < allCompletedNeeds.length; i++) {
+    allCompletedNeeds[i].style.display = display
+  }  
+}
+showHideAllCompletedNeeds('none')
 
 let toShowCompletedNeeds = false;
 const toggleDisplayCompletedNeeds = (show) => show ? 'table-row' : 'none';
@@ -12,6 +18,6 @@ toggleVisibilityCompletedNeeds.addEventListener('click', (e) => {
   } else {
     table.classList.remove("table-nav-hide")
   }
-  document.querySelectorAll('.completed-need').forEach(e => e.style.display = toggleDisplayCompletedNeeds(toShowCompletedNeeds));
+  showHideAllCompletedNeeds(toggleDisplayCompletedNeeds(toShowCompletedNeeds))
   e.preventDefault()
 });

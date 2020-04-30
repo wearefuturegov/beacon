@@ -1,4 +1,10 @@
-Array.prototype.slice.call(document.querySelectorAll('.need--status_complete')).forEach((e, i) => e => e.style.display = 'none');
+const allNeedsStatusComplete = document.querySelectorAll('.need--status_complete')
+const showHideAllNeedsStatusComplete = (display) => {
+  for(let i = 0; i < allNeedsStatusComplete.length; i++) {
+    allNeedsStatusComplete[i].style.display = display
+  }  
+}
+showHideAllNeedsStatusComplete('none')
 
 let showCompletedNeeds = false;
 const toggleDisplay = (show) => show ? 'table-row' : 'none';
@@ -12,7 +18,7 @@ toggleVisibilityCompletedAssessments.addEventListener('click', (e) => {
     } else {
       table.classList.remove("table-nav-hide")
     }
-    document.querySelectorAll('.need--status_complete').forEach(e => e.style.display = toggleDisplay(showCompletedNeeds));
+    showHideAllNeedsStatusComplete(toggleDisplay(showCompletedNeeds))
     e.preventDefault()
 });
 
