@@ -1,11 +1,6 @@
-<% content_for :header do %>
-  <%= link_to "Triage", contact_triage_path(@contact), class: "button button--dark" %>
-<% end %>
-
 <%= render "shared/vulnerable-banner" %>
 
 <div class="with-left-sidebar">
-
   <aside class="with-left-sidebar__left">
     <header class="panel-header">
       <h2 class="panel-header__title">Profile</h2>
@@ -16,22 +11,28 @@
   </aside>
 
   <aside class="with-left-sidebar__right">
-    <header class="panel-header">
-      <h2 class="panel-header__title">Needs</h2>
+
+    <header class="panel-header" id="triage-panel">
+      <% if policy(Need).create? %>
+        <%= link_to "Add support actions", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+      <% end %>
+    </header>
+
+    <header class="panel-header" id="needs-panel">
+      <h2 class="panel-header__title">Support Actions</h2>
       <% if @open_needs.any? %>
         <span class="panel-header__badge"><%= @open_needs.count %></span>
       <% end %>
-      <%#= link_to "Add a need", new_contact_need_path(@contact), class: "panel-header__action" %>
     </header>
     <div class="panel panel--unpadded">  
       <%= render "needs-table" %>
     </div>
 
     <% if @completed_needs.any? %>
-      <header class="panel-header">
+      <header class="panel-header" id="completed-needs-panel">
         <h2 class="panel-header__title">Completed</h2>
       </header>
-      <div class="panel panel--unpadded">  
+      <div class="panel panel--unpadded">
         <table class="needs-table">
           <thead class="visually-hidden">
             <tr>
@@ -43,9 +44,9 @@
           </thead>
           <tbody>
             <% @completed_needs.each do |n| %>
-                <tr onclick="window.location='<%= need_path(n) %>'">
-                <td style="border-left: 10px solid <%= get_need_border(n.category) %>">
-                  <%= link_to n.category.humanize, n %>
+                <tr onclick="window.location='<%= need_path(n) %>'" class="need--<%= n.category.parameterize %>">
+                <td>
+                  <%= link_to n.category, n %>
                 </td>
                 <td>
                   <% if n.is_urgent %>
@@ -63,6 +64,33 @@
       </div>
     <% end %>
 
-  </aside>
+    <header class="panel-header" id="needs-panel">
+      <h2 class="panel-header__title">Assessments</h2>
 
+      <% if policy(Need).create? %>
+        <div style="flex:1; text-align:right">
+          <div class="assessment-dropdown">
+            <button id="btnAssessmentDropdown">Add new assessment +</button>
+            <div id="assessmentDropdownElements" class="assessment-dropdown-content">
+              <%= link_to('Schedule an assessment', new_contact_assessment_path(@contact.id, :type => 'schedule'), id: 'schedule-assesment-btn') %>
+              <%= link_to('Log an assessment', new_contact_assessment_path(@contact.id, :type => 'log'), id: 'log-assesment-btn') %>
+            </div>
+          </div>
+          <noscript>
+            <ul style="list-style-type: none" id="schedule_an_assessment">
+            <li><%= link_to('Schedule an assessment', new_contact_assessment_path(@contact.id, :type => 'schedule'), id: 'schedule-assesment-nojs-btn') %></li>
+            <li><%= link_to('Log an assessment', new_contact_assessment_path(@contact.id, :type => 'log'), id: 'log-assesment-nojs-btn') %></li>
+          </ul>
+          </noscript>
+
+
+        </div>
+      <% end %>
+    </header>
+    <div class="panel panel--unpadded">
+      <%= render "assessments" %>
+    </div>
+    <a id="toggle-visibility-completed-assessments" role="button" href="#"><%= @completed_assessments.count %> completed assessments</a>
+  </aside>
 </div>
+<%= javascript_pack_tag 'assessments' %>

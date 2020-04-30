@@ -1,5 +1,10 @@
 @import "variables";
 
+html {
+  display: flex;
+  flex-direction: column;
+}
+
 body{
     display: flex;
     flex-direction: row;
@@ -21,6 +26,10 @@ body{
     box-shadow: 2px 0px 10px transparentize($text, 0.95);
     &.panel--unpadded{
         padding: 0px;
+    }
+    &.panel--stroked {
+        border-left-width: 5px;
+        border-left-style: solid;
     }
     .panel__header{
         border: none;
@@ -91,7 +100,7 @@ body{
     }
 }
 
-.vulnerable-banner{
+.vulnerable-banner, .no-call-banner, .deceased-banner{
     padding: 25px;
     background: $red;
     color: $white;
@@ -101,7 +110,7 @@ body{
     justify-content: flex-start;
     align-items: center;
     font-size: 1.2rem;
-    .vulnerable-banner__icon{
+    .vulnerable-banner__icon, .no-call-banner__icon, .deceased-banner__icon{
         margin-right: 15px;
     }
 }

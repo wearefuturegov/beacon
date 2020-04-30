@@ -12,9 +12,9 @@
 
 ![Ruby Test Env](https://github.com/wearefuturegov/beacon/workflows/Ruby%20Test%20Env/badge.svg)
 
-🚨This is **BETA** software and may be buggy 🚨
+🚨**This is BETA software.** Please submit issues for any bugs you find.🚨
 
-This is a tool for local authorities and voluntary organisations to record and triage the needs of vulnerable people in their jurisdiction, and assign those needs to those who can meet them.
+This is a tool for local authorities and voluntary organisations to record and triage the needs of shielded people in their jurisdiction, and assign those needs to those who can meet them.
 
 It deals in:
 
@@ -47,9 +47,7 @@ It'll be on **localhost:3000**.
 You can log in using **admin@example.com**.
     
 ### How emails work
-When running in development mode, [emails](https://guides.rubyonrails.org/action_mailer_basics.html) are sent to [maildev](https://www.npmjs.com/package/maildev), running via `docker-compose`.
-
-Visit **localhost:1080** to view sent emails.
+Emails use GovUk notify.  You can view the email text sent in the log in development, including magic sign in links
 
 ### Git Hooks
 ```
@@ -80,12 +78,8 @@ Coming soon...
 
 | Name             | Description                         |
 |------------------|-------------------------------------|
-| SMTP_DOMAIN      | HELO domain                         |
-| SMTP_ADDRESS     | Address for SMTP server             |
-| SMTP_USERNAME    | Username for SMTP server            |
-| SMTP_PASSWORD    | Password for SMTP server            |
-| SMTP_PORT        | Port for SMTP server                |
 | COUNCIL          | Config key for `councils.yml`       |
-| SENDGRID_API_KEY | Sendgrid API key (production only   |
-| HOSTNAME         | Optional hostname used in outbound emails (e.g. `x.beacon.com`) |
+| NOTIFY_API_KEY   | Gov.uk Notify API key (production only)   |
+| HOSTNAME         | Hostname used in outbound emails (e.g. `x.beacon.com`). Defaults to heroku app name |
 | SEED_USER_EMAILS | Optional comma-separated list of emails to seed users table with |
+| GA_PROPERTY_ID   | Optional Google Analytics property ID |

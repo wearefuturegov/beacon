@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe Need, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:contact).counter_cache(true) }
     it { is_expected.to belong_to(:user).optional(true) }
     it { is_expected.to have_many(:notes).dependent(:destroy) }
   end
@@ -14,8 +13,8 @@ RSpec.describe Need, type: :model do
   end
 
   describe 'scopes' do
-    let!(:uncompleted_need) { create :need }
-    let!(:completed_need) { create :need, :completed }
+    let!(:uncompleted_need) { create :need, status: :to_do }
+    let!(:completed_need) { create :need, status: :complete }
 
     it '.uncompleted' do
       expect(described_class.uncompleted[0]).to eq uncompleted_need
@@ -29,16 +28,30 @@ RSpec.describe Need, type: :model do
   it { is_expected.to be_versioned }
 
   it '#status' do
-    need1 = build :need, name: 'medicines', completed_on: nil
-    expect(need1.status).to eq 'To do'
+    need1 = build :need, name: 'medicines', status: 'to_do'
+    expect(need1.completed_on).to be_nil
+    expect(need1.status_label).to eq 'To do'
 
-    need2 = build :need, name: 'food', completed_on: DateTime.now
-    expect(need2.status).to eq 'Complete'
+    need2 = create :need, name: 'medicines', status: 'complete'
+    expect(need2.completed_on.to_date).to eql(DateTime.now.to_date)
+    expect(need2.status_label).to eq 'Complete'
+
+    need3 = build :need, name: 'medicines', status: 'in_progress'
+    expect(need3.completed_on).to be_nil
+    expect(need3.status_label).to eq 'In progress'
+
+    need4 = build :need, name: 'medicines', status: 'blocked'
+    expect(need4.completed_on).to be_nil
+    expect(need4.status_label).to eq 'Blocked'
+
+    need5 = build :need, name: 'medicines', status: 'cancelled'
+    expect(need5.completed_on).to be_nil
+    expect(need5.status_label).to eq 'Cancelled'
   end
 
   describe 'sort_created_and_start_date' do
-    let!(:created_today_started) { build :need, name: 'created today, no start date', created_at: DateTime.now }
-    let!(:created_tomorrow_started) { build :need, name: 'created tomorrow, no start date', created_at: DateTime.now + 1.days }
+    let!(:created_today_started) { build :need, name: 'created today, no start date', created_at: DateTime.now, start_on: nil }
+    let!(:created_tomorrow_started) { build :need, name: 'created tomorrow, no start date', created_at: DateTime.now + 1.days, start_on: nil }
 
     let!(:created_today_start_tomorrow) { build :need, name: 'created today, start tomorrow', created_at: DateTime.now, start_on: DateTime.now + 1.days }
     let!(:created_today_start_today) { build :need, name: 'created today, start today', created_at: DateTime.now.beginning_of_day, start_on: DateTime.now.beginning_of_day }
@@ -64,6 +77,35 @@ RSpec.describe Need, type: :model do
 
       expect(needs[0].name).to eq 'created today, start today'
       expect(needs[1].name).to eq 'created tomorrow, no start date'
+    end
+  end
+
+  describe 'assing user or team at the same moment' do
+    let(:user) { create :user }
+    let(:role) { create :role }
+
+    it 'update need with user and role at the same time' do
+      need = create :need, name: 'medicines'
+      need.update user: user, role: role
+
+      expect(need.user).to be user
+      expect(need.role).to be_nil
+    end
+
+    it 'update need with role to have user' do
+      need = create :need, name: 'medicines', role: role
+      need.update user: user
+
+      expect(need.user).to be user
+      expect(need.role).to be_nil
+    end
+
+    it 'update need with user to have role' do
+      need = create :need, name: 'medicines', user: user
+      need.update role: role
+
+      expect(need.user).to be_nil
+      expect(need.role).to be_role
     end
   end
 end

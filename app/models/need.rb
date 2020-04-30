@@ -5,9 +5,12 @@ require 'csv'
 class Need < ApplicationRecord
   include Filterable
   self.ignored_columns = %w[due_by]
+  before_update :enforce_single_assignment
 
-  belongs_to :contact, counter_cache: true
+  enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
+  belongs_to :contact
   belongs_to :user, optional: true
+  belongs_to :role, optional: true
   has_many :notes, dependent: :destroy
 
   has_paper_trail
@@ -16,13 +19,32 @@ class Need < ApplicationRecord
                  food_priority: :string,
                  food_service_type: :string
 
+  enum category: { 'Phone triage': 'phone triage',
+                   'Check in': 'check in',
+                   'Groceries and cooked meals': 'groceries and cooked meals',
+                   'Physical and mental wellbeing': 'physical and mental wellbeing',
+                   'Financial support': 'financial support',
+                   'Staying social': 'staying social',
+                   'Prescription pickups': 'prescription pickups',
+                   'Book drops and entertainment': 'book drops and entertainment',
+                   'Dog walking': 'dog walking',
+                   'Initial review': 'initial review',
+                   'Other': 'other' }
+
+  validates :category, presence: true
+
+  ASSESSMENT_CATEGORIES = ['phone triage', 'check in'].freeze
+
   # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
   # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
 
-  scope :completed, -> { where.not(completed_on: nil) }
-  scope :uncompleted, -> { where(completed_on: nil) }
+  scope :completed, -> { where(status: :complete) }
+  scope :uncompleted, -> { where.not(status: :complete) }
   scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
+
+  scope :assessments, -> { where(category: ASSESSMENT_CATEGORIES) }
+  scope :not_assessments, -> { where.not(category: ASSESSMENT_CATEGORIES) }
 
   scope :filter_by_user_id, lambda { |user_id|
     if user_id == 'Unassigned'
@@ -32,14 +54,24 @@ class Need < ApplicationRecord
     end
   }
 
-  scope :filter_by_status, lambda { |status|
-    status = status.downcase
-    if status == 'to do'
-      where(completed_on: nil)
+  scope :filter_by_assigned_to, lambda { |assigned_to|
+    if assigned_to == 'Unassigned'
+      where('user_id IS NULL and role_id IS NULL')
     else
-      where.not(completed_on: nil)
+      (assoc, unsanitised_key) = assigned_to&.split('-')
+      if assoc == 'user'
+        where(user_id: unsanitised_key)
+      elsif assoc == 'role'
+        where(role_id: unsanitised_key)
+      end
     end
   }
+
+  scope :filter_by_team, lambda { |role_id|
+    where(assigned_to: User.with_role(role_id))
+  }
+
+  scope :filter_by_status, ->(status) { where(status: status) }
 
   scope :filter_by_is_urgent, lambda { |is_urgent|
     is_urgent = is_urgent.downcase
@@ -58,12 +90,9 @@ class Need < ApplicationRecord
     order("last_phoned_date #{direction}")
   }
 
-  counter_culture :contact,
-                  column_name: proc { |model| model.completed_on ? 'completed_needs_count' : 'uncompleted_needs_count' },
-                  column_names: {
-                    Need.uncompleted => :uncompleted_needs_count,
-                    Need.completed => :completed_needs_count
-                  }
+  scope :order_by_call_attempts, lambda { |direction|
+    order("call_attempts #{direction} NULLS LAST")
+  }
 
   validates :name, presence: true
 
@@ -102,9 +131,8 @@ class Need < ApplicationRecord
 
     CSV.generate(headers: true) do |csv|
       csv << attributes.values
-
       all.each do |record|
-        csv << attributes.keys.map { |attr| record.send(attr) }
+        csv << attributes.keys.map { |attr| attr == :status ? record.send(:status_label) : record.send(attr) }
       end
     end
   end
@@ -113,17 +141,44 @@ class Need < ApplicationRecord
     "need-pane--#{category.parameterize}"
   end
 
-  def status
-    completed_on.present? ? 'Complete' : 'To do'
+  def status_label
+    self[:status]&.humanize || Need.statuses[:to_do].humanize
   end
 
   def status=(state)
-    self.completed_on = if state == 'Complete'
+    self.completed_on = if state == 'complete'
                           DateTime.now
                         else
                           ''
                         end
-    save
+    self[:status] = state
+  end
+
+  def enforce_single_assignment
+    self.role_id = nil if !user.nil? && user_id_changed?
+    self.user_id = nil if !role_id.nil? && role_id_changed?
+  end
+
+  def assigned_to
+    if user_id
+      "user-#{user_id}"
+    elsif role_id
+      "role-#{role_id}"
+    end
+  end
+
+  def assigned_to=(assigned_to)
+    (assoc, unsanitised_key) = assigned_to&.split('-')
+    if assoc == 'user'
+      self.user_id = unsanitised_key.to_i
+      self.role_id = nil
+    elsif assoc == 'role'
+      self.user_id = nil
+      self.role_id = unsanitised_key.to_i
+    else
+      self.user_id = nil
+      self.role_id = nil
+    end
   end
 
   def self.base_query
@@ -133,7 +188,14 @@ class Need < ApplicationRecord
           group by c.id) as contact_aggregation
           on contact_aggregation.id = contacts.id"
 
-    Need.joins(:contact, sql).select('needs.*', 'contact_aggregation.max as last_phoned_date')
+    sql += " left join (
+          select n.id, count(nt.id) from notes nt
+          join needs n on n.id = nt.need_id and nt.category in ('phone_success', 'phone_message', 'phone_failure')
+          group by n.id
+        ) as notes_aggr on notes_aggr.id = needs.id"
+
+    Need.joins(:contact, sql).select('needs.*', 'contact_aggregation.max as last_phoned_date',
+                                     'notes_aggr.count as call_attempts ')
   end
 
   def self.default_sort(results)
@@ -141,12 +203,18 @@ class Need < ApplicationRecord
   end
 
   def self.dynamic_fields
-    %w[last_phoned_date]
+    %w[last_phoned_date call_attempts]
+  end
+
+  def self.categories_for_triage
+    categories.except('Other').reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
   end
 
   def assigned
     if user
       user.name_or_email
+    elsif role
+      role.name
     else
       'Unassigned'
     end
@@ -154,6 +222,10 @@ class Need < ApplicationRecord
 
   def last_phoned_date
     read_attribute('last_phoned_date')
+  end
+
+  def call_attempts
+    read_attribute('call_attempts')
   end
 
   # This sort method is to first sort future needs (where start_on > today) to the bottom of the list
@@ -167,4 +239,13 @@ class Need < ApplicationRecord
     first.created_at <=> second.created_at
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  def valid_start_on?
+    if start_on.nil?
+      errors.add(:start_on, 'must be set')
+      false
+    else
+      true
+    end
+  end
 end

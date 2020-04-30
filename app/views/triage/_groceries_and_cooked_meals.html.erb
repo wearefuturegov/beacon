@@ -2,16 +2,16 @@
   <legend><h3 class="field-section__title">Food requirements priority</h3></legend>
 
   <div class="radio">
-    <%= need_form.radio_button "needs_list[#{need_index}][food_priority]", '1', :id => "needs_food_priority_#{need_index}_1" %>
-    <label for="needs_food_priority_<%= need_index %>_1" class="radio__label">Priority 1</label>
+    <%= need_form.radio_button :food_priority, '1', checked: need['food_priority'] == '1' %>
+    <%= need_form.label :food_priority_1, 'Priority 1', class: 'radio__label' %>
   </div>
   <div class="radio">
-    <%= need_form.radio_button "needs_list[#{need_index}][food_priority]", '2', :id => "needs_food_priority_#{need_index}_2" %>
-    <label for="needs_food_priority_<%= need_index %>_2" class="radio__label">Priority 2</label>
+    <%= need_form.radio_button :food_priority, '2', checked: need['food_priority'] == '2' %>
+    <%= need_form.label :food_priority_2, 'Priority 2', class: 'radio__label' %>
   </div>
   <div class="radio">
-    <%= need_form.radio_button "needs_list[#{need_index}][food_priority]", '3', :id => "needs_food_priority_#{need_index}_3" %>
-    <label for="needs_food_priority_<%= need_index %>_3" class="radio__label">Priority 3</label>
+    <%= need_form.radio_button :food_priority, '3', checked: need['food_priority'] == '3' %>
+    <%= need_form.label :food_priority_3, 'Priority 3', class: 'radio__label' %>
   </div>
 
 </fieldset>
@@ -20,16 +20,16 @@
   <legend><h3 class="field-section__title">Which type of food service?</h3></legend>
 
   <div class="radio">
-    <%= need_form.radio_button "needs_list[#{need_index}][food_service_type]", 'Hot meal', :id => "needs_food_service_type_#{need_index}_hot_meal" %>
-    <label for="needs_food_service_type_<%= need_index %>_hot_meal" class="radio__label">Hot meal</label>
+    <%= need_form.radio_button :food_service_type, 'Hot meal', checked: need['food_service_type'] == 'Hot meal' %>
+    <%= need_form.label :food_service_type_hot_meal, 'Hot meal', class: 'radio__label' %>
   </div>
   <div class="radio">
-    <%= need_form.radio_button "needs_list[#{need_index}][food_service_type]", 'Heat up', :id => "needs_food_service_type_#{need_index}_heat_up" %>
-    <label for="needs_food_service_type_<%= need_index %>_heat_up" class="radio__label">Heat up</label>
+    <%= need_form.radio_button :food_service_type, 'Heat up', checked: need['food_service_type'] == 'Heat up' %>
+    <%= need_form.label :food_service_type_heat_up, 'Heat up', class: 'radio__label' %>
   </div>
   <div class="radio">
-    <%= need_form.radio_button "needs_list[#{need_index}][food_service_type]", 'Grocery delivery', :id => "needs_food_service_type_#{need_index}_grocery_delivery" %>
-    <label for="needs_food_service_type_<%= need_index %>_grocery_delivery" class="radio__label">Grocery delivery</label>
+    <%= need_form.radio_button :food_service_type, 'Grocery delivery', checked: need['food_service_type'] == 'Grocery delivery' %>
+    <%= need_form.label :food_service_type_grocery_delivery, 'Grocery delivery', class: 'radio__label' %>
   </div>
 
 </fieldset>

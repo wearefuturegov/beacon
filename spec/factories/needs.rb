@@ -1,22 +1,11 @@
 # frozen_string_literal: true
 
 FOOD_CATEGORY = 'groceries and cooked meals'
-need_categories = [
-  'phone triage',
-  'groceries and cooked meals',
-  'physical and mental wellbeing',
-  'financial support',
-  'staying social',
-  'prescription pickups',
-  'book drops and entertainment',
-  'dog walking',
-  'other'
-]
 
 FactoryBot.define do
   factory :need do
     contact
-    category { need_categories.sample }
+    category { Need.categories.values.sample }
     name { Faker::Lorem.sentence }
     start_on { [nil, Faker::Date.between(from: 2.days.ago, to: 6.days.from_now)].sample }
 

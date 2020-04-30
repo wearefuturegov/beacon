@@ -1,6 +1,16 @@
-<% if @contact.is_vulnerable %>
+<% if @contact.deceased_flag %>
+  <div class="deceased-banner">
+    <%= image_tag "vulnerable-icon-inverted.svg", alt: "", class: "deceased-banner__icon" %>
+    This person is deceased, do not call
+  </div>
+<% elsif @contact.no_calls_flag %>
+  <div class="no-call-banner">
+    <%= image_tag "vulnerable-icon-inverted.svg", alt: "", class: "no-call-banner__icon" %>
+    This person has required not to be called
+  </div>
+<% elsif @contact.is_vulnerable %>
   <div class="vulnerable-banner">
     <%= image_tag "vulnerable-icon-inverted.svg", alt: "", class: "vulnerable-banner__icon" %>
-    This is a vulnerable person
+    This is a shielded person
   </div>
 <% end %>

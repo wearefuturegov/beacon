@@ -25,6 +25,34 @@
         width: 100%;
         display: block;
     }
+
+    .nav-bottom {
+      position: fixed;
+      bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      .current-user {
+        color: $pale;
+        margin-bottom: 10px;
+        text-align: center;
+        word-wrap: break-word;
+      }
+      .button.button--small {
+        color: $pale;
+        border-color: $pale;
+      }
+      .button.button--small:hover {
+        background-color: inherit;
+      }
+
+      @media only screen and (max-width: 1100px) {
+        max-width: 130px;
+      }
+
+      @media only screen and (min-width: 1101px) {
+        max-width: 190px;
+      }
+  }
     @media screen and (max-width: $breakpoint-l){
         width: 170px;
         min-width: 170px;
@@ -65,7 +93,6 @@
         background: $blue;
         border-radius: 2px;
     }
-
     .main-menu__submenu{    
         padding-left: 0px;
         margin-left: 10px;

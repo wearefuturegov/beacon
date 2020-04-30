@@ -1,13 +1,20 @@
 # frozen_string_literal: true
 
+require 'errors'
+
 class ApplicationController < ActionController::Base
   before_action :require_user!
+  include Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Exceptions::NoValidRoleError, with: :redirect_to_logout
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'
-  helper_method :current_user, :copyright, :council_name, :council_key, :privacy_link, :logo_path, :support_email
+  helper_method :current_user, :current_user_role, :copyright, :council_name, :council_key, :privacy_link, :logo_path, :support_email
 
   before_action :set_paper_trail_whodunnit
+
+  STALE_ERROR_MESSAGE = 'Error. Somebody else has changed this record, please refresh.'
 
   def council_key
     ENV['COUNCIL'] || 'demo'
@@ -48,5 +55,15 @@ class ApplicationController < ActionController::Base
 
     save_passwordless_redirect_location!(User)
     redirect_to auth.sign_in_path
+  end
+
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to(request.referrer || root_path)
+  end
+
+  def redirect_to_logout
+    logger.error "Clearing user session for user with id:#{current_user.id} as no valid role could be found"
+    redirect_to auth.sign_out_path
   end
 end

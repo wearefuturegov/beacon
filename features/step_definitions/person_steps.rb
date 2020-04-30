@@ -2,6 +2,14 @@ Given(/^a resident$/) do
   @contact = Contact.create!(first_name: 'Test')
 end
 
+Given(/^a resident with a complete profile$/) do
+  @contact = Contact.create!(first_name: 'Forename',
+                             surname: 'Surname',
+                             date_of_birth: Date.new(1982, 7, 1),
+                             postcode: 'AB12 9YZ',
+                             nhs_number: 'NHS-999999')
+end
+
 Given(/^a unique resident$/) do
   @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
 end
@@ -17,7 +25,7 @@ end
 
 Given(/^I am conducting a triage of the residents needs$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Triage'
+  click_link 'Add support actions'
 end
 
 When('I edit the special delivery details {string}') do |details|
@@ -38,6 +46,39 @@ When(/^I edit the residents name$/) do
   fill_in('contact_first_name', with: 'TestFirstName')
   fill_in('contact_middle_names', with: 'TestMiddle Names')
   fill_in('contact_surname', with: 'TestSurname')
+end
+
+When("I change someone a resident's name concurrently") do
+  visit "contacts/#{@contact.id}"
+  click_link 'Edit'
+  fill_in('contact_first_name', with: 'TestFirstName1')
+
+  user_two_updates_residents_name
+  click_button('Save changes')
+end
+
+When("someone else updates the resident's name") do
+  user_two_updates_residents_name
+end
+
+Then('I see my resident change was unsuccessful') do
+  page.find('.alert', text: 'Error. Somebody else has changed this record, please refresh.')
+  visit "contacts/#{@contact.id}"
+  expect(page.find_by_id('contact_name')).to have_text('TestFirstName2')
+end
+
+def user_two_updates_residents_name
+  Capybara.using_session('Second_users_session') do
+    visit "contacts/#{@contact.id}"
+    click_link 'Edit'
+    fill_in('contact_first_name', with: 'TestFirstName2')
+    click_button('Save changes')
+  end
+end
+
+Then('I am informed another user has changed the record') do
+  # this is the javascript / web socket message
+  expect(page.find('#concurrent-users')).to have_text('This record is out of date')
 end
 
 When(/^I edit the residents address$/) do
@@ -69,9 +110,9 @@ end
 
 When('I choose {string} for any children under 15') do |option|
   if option == 'Yes'
-    choose 'any_children_below_15_true', allow_label_click: true
+    check 'contact_any_children_below_15'
   else
-    choose 'any_children_below_15_false', allow_label_click: true
+    uncheck 'contact_any_children_below_15'
   end
 end
 
@@ -101,13 +142,13 @@ When(/^I save the edit resident form$/) do
   click_button('Save changes')
 end
 
-Then('the residents list of needs contains {string}') do |need|
-  visit "/contacts/#{@contact.id}"
-  expect(page.find('.with-left-sidebar__right')).to have_text(need)
+Then('the residents list of support actions contains {string}') do |support_action|
+  visit "/contacts/#{@contact.id}" unless @contact.nil?
+  expect(page.first('.needs-table')).to have_text(support_action)
 end
 
 Then(/^I see a resident updated message$/) do
-  expect(page.find('.alert')).to have_text('Contact was successfully updated.')
+  expect(page.find('.notice')).to have_text('Contact was successfully updated.')
 end
 
 Then('the special delivery details are {string}') do |details|
@@ -150,7 +191,7 @@ Then(/^the residents contact details have been updated$/) do
 end
 
 Then(/^the residents vulnerability status has been updated$/) do
-  expect(page.find('.vulnerable-banner')).to have_text('This is a vulnerable person')
+  expect(page.find('.vulnerable-banner')).to have_text('This is a shielded person')
 end
 
 Then(/^the residents additional info has been updated$/) do
@@ -159,4 +200,27 @@ end
 
 Then(/^the residents covid-19 status has been updated$/) do
   expect(page.find_by_id('contact-has-covid')).to have_text('Yes')
+end
+
+When('I search for the resident by {string}') do |query|
+  visit 'contacts'
+  fill_in('search', with: query)
+  click_button('search-submit')
+end
+
+Then(/^I see the resident in the search results$/) do
+  expect(page.find_link('Forename Surname')).not_to be_nil
+  results_table = page.find('.table')
+  expect(results_table).to have_text('Forename Surname')
+  expect(results_table).to have_text('1982')
+  expect(results_table).to have_text('AB12 9YZ')
+  expect(results_table).to have_text('NHS-999999')
+end
+
+Then('I see an option to add a person') do
+  expect(page.find_link('Add a person')).not_to be_nil
+end
+
+Then('I see a {string} message') do |message|
+  expect(page.find('.no-results')).to have_text(message)
 end

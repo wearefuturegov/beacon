@@ -1,7 +1,9 @@
+
+<%= form.hidden_field :lock_version, :value => contact.lock_version %>
 <fieldset class="field-section field-section--two-cols">
   <div class="field">
     <%= form.label :first_name, class: "field__label" %>
-    <%= form.text_field :first_name %>
+    <%= form.text_field :first_name, id: "contact_first_name" %>
   </div>
   <div class="field">
     <%= form.label :middle_names, class: "field__label" %>
@@ -10,6 +12,14 @@
   <div class="field">
     <%= form.label :surname, class: "field__label" %>
     <%= form.text_field :surname %>
+  </div>
+  <div class="field">
+    <%= form.label :date_of_birth, class: "field__label" %>
+    <%= form.text_field :date_of_birth, placeholder: 'Eg: 01/11/1943'%>
+  </div>
+  <div class="field">
+    <%= form.label :nhs_number, class: "field__label" %>
+    <%= form.text_field :nhs_number %>
   </div>
 </fieldset>
 
@@ -60,11 +70,11 @@
 </fieldset>
 
 <fieldset class="field-section field-section--two-cols">
-  <legend><h2 class="field-section__title">Is this person particularly vulnerable or high priority?</h2></legend>
+  <legend><h2 class="field-section__title">Is this person Shielded?</h2></legend>
 
   <details class="field-section__hint details">
-    <summary class="details__summary">What does vulnerable mean?</summary>
-    <p>We consider someone vulnerable if they are:</p>
+    <summary class="details__summary">What does shielded mean?</summary>
+    <p>Someone is shielded if they are:</p>
     <ul>
       <li>Over 70 years old</li>
       <li>Under 70 years old and has an underlying health condition (i.e. normally asked by the NHS to get a flu jab)</li>
@@ -81,4 +91,36 @@
     <label for="is_vulnerable_false" class="radio__label">No</label>
   </div>
 
+</fieldset>
+
+<fieldset class="field-section field-section--two-cols">
+  <legend><h2 class="field-section__title">Consents</h2></legend>
+  <% if not request.path_info.include?('/triage') %>
+    <div class="checkbox">
+    <%= form.check_box :no_calls_flag, class: 'checkbox__input' %>
+    <%= form.label :no_calls_flag, 'Do not call', class: 'checkbox__label' %>
+    </div>
+    </fieldset>
+    
+    <fieldset class="field-section field-section--two-cols">
+
+      <div class="checkbox">
+      <%= form.check_box :deceased_flag, class: 'checkbox__input' %>
+      <%= form.label :deceased_flag, 'Deceased', class: 'checkbox__label' %>
+      </div>
+
+    </fieldset>
+  <% end %>
+  
+<fieldset class="field-section field-section--two-cols">
+  <div class="checkbox">
+    <%= form.check_box :share_data_flag, class: 'checkbox__input' %>
+    <%= form.label :share_data_flag, 'Consent to share data', class: 'checkbox__label' %>
+  </div>
+</fieldset>
+<fieldset class="field-section field-section--two-cols">
+  <div class="field">
+    <%= form.label :channel, class: "field__label" %>
+    <%= form.text_field :channel, placeholder: "Eg: phone, email, social media" %>
+  </div>
 </fieldset>

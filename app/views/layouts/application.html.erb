@@ -10,19 +10,36 @@
       <header class="panel content-header">
         <%= yield :header %>
         <nav class="content-header__actions-right">
-          <span class="content-header__current-user"><%= current_user.email %></span>
-          <%= link_to 'Log out', auth.sign_out_path, class: "button button--small" %>
+          <% if current_user.roles.count > 1 %>
+            <%# Switch role section %>
+            <%= form_tag(set_role_path, :method => :post, :class => 'role-switcher') do %>
+              <%= label_tag :id, 'Role:' %>
+              <%= select_tag :id, options_from_collection_for_select(current_user.roles.order(:id), :id, :name, current_user.role_id), class: "dropdown", id: "roleSwitcherDropdown" %>
+              <%= submit_tag 'Switch' %>
+            <% end %>
+          <% else %>
+            (<%= current_user.role.name %>)
+          <% end %>
+          <%= javascript_pack_tag 'role-switcher' %>
         </nav>
       </header>
+      
+      <!-- Concurrent Users modal -->
+      <div id="concurrent-users-modal">
+        <div id="concurrent-users"></div>
+        <div id="contactId" hidden="hidden"><%= @edit_contact_id %></div>
+        <div id="userEmail" hidden="hidden"><%= current_user.email %></div>
+      </div>
 
-      <%# is there a better catchall for this? %>
-      <% flash.each do |name, msg| %>
-        <div class="alert"><%= msg %></div>
+      <!-- Notifications -->
+      <% flash.each do |type, msg| %>
+        <div class="<%= type %>"><%= msg %></div>
       <% end %>
 
       <%= yield %>
 
     </div>
 
+    <%= render :partial =>  "shared/popup" %>
   </body>
 </html>

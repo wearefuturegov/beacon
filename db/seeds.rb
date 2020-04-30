@@ -14,17 +14,46 @@ ActiveRecord::Base.transaction do
 
   Faker::Config.locale = 'en-GB'
 
-  if ENV['COUNCIL'] == 'camden'
-    FactoryBot.create_list(:user, 5).each
-    contacts = FactoryBot.create_list :contact, 50
+  roles = {
+    'Contact Centre Manager' => 'manager',
+    'Contact Centre Agent' => 'agent',
+    'MDT' => 'mdt',
+    'Food Hub' => 'food_delivery_manager',
+    'Adult Social Care' => 'council_service_adult_social_care',
+    "Children's Social Care" => 'council_service_child_social_care',
+    'Housing' => 'council_service_housing',
+    'Early Help' => 'council_service_early_help',
+    'Welfare Rights' => 'council_service_welfare_rights',
+    'Public Health' => 'council_service_public_health',
+    'Mental Health Specialist (anxiety and bereavement)' => 'council_service_mental_health',
+    'Employment Team' => 'council_service_employment',
+    'Camden VCS Team' => 'council_service_vcs',
+    'Neighbourhood VCS Huddle' => 'council_service_neighbourhood_vcs',
+    'Simple Needs Team' => 'council_service_simple_needs',
+    'Social Prescribing' => 'council_service_social_prescribing'
+  }.map do |name, role|
+    created_role = Role.create(name: name, role: role)
+    [role, created_role]
+  end.to_h
 
-    contacts.each do |contact|
-      FactoryBot.create :imported_need_with_notes,
-                        notes_count: 1,
-                        contact: contact
+  if ENV['COUNCIL'] == 'camden'
+    FactoryBot.create_list(:user, 5).each do |user|
+      user.roles = [roles[%w[manager agent].sample]]
+      user.save
+
+      contacts = FactoryBot.create_list :contact, 50
+
+      contacts.each do |contact|
+        FactoryBot.create :imported_need_with_notes,
+                          notes_count: 1,
+                          contact: contact
+      end
     end
   else
     FactoryBot.create_list(:user, 5).each do |user|
+      user.roles = [roles[%w[manager agent].sample]]
+      user.save
+
       contacts = FactoryBot.create_list :contact, 50
 
       contacts.first(10).each do |contact|
@@ -34,7 +63,7 @@ ActiveRecord::Base.transaction do
                             contact: contact,
                             user: [user, nil].sample,
                             is_urgent: [true, false].sample,
-                            completed_on: [nil, [1,2,3].sample.days.ago].sample
+                            status: Need.statuses.map { |_k,v| v }.sample
         end
       end
     end
@@ -46,9 +75,12 @@ end
 # make an initial user for sake of the readme
 seed_user_emails = ENV['SEED_USER_EMAILS'] || 'admin@example.com'
 seed_user_emails.split(',').each do |email|
+  admin_role = Role.find_by(role: 'manager')
   User.find_or_initialize_by(email: email.strip)
       .update!(
         admin: true,
-        invited: DateTime.now
+        invited: DateTime.now,
+        roles: [admin_role],
+        role: admin_role
       )
 end

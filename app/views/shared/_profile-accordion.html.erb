@@ -5,10 +5,16 @@
     </button>
     <div class="accordion__content">  
         <dl class="details-list">
-            <dt class="details-list__caption">Name</dt>
-            <dd class="details-list__value" id="contact_name"><%= @contact.name %></dd>
+          <dt class="details-list__caption">Name</dt>
+          <dd class="details-list__value" id="contact_name"><%= @contact.name %></dd>
 
-            <dt class="details-list__caption">Address</dt>
+          <dt class="details-list__caption">Date of Birth</dt>
+          <dd class="details-list__value" id="contact_dob"><%= @contact.date_of_birth&.strftime("%-d %B %Y") %></dd>
+
+          <dt class="details-list__caption">NHS Number</dt>
+          <dd class="details-list__value" id="contact_nhs_number"><%= @contact.nhs_number %></dd>
+
+          <dt class="details-list__caption">Address</dt>
             <dd class="details-list__value" id="address_details">
                 <%= @contact.address %><br/>
                 <%= @contact.postcode %>
@@ -23,7 +29,9 @@
                 <%= @contact.mobile %>
             </dd>
         </dl>
+      <% if policy(@contact).edit? %>
         <%= link_to "Edit", edit_contact_path(@contact), class: "accordion__edit-link" %>
+      <% end %>
     </div>
 
     <button class="accordion__control" aria-expanded="true">
@@ -70,8 +78,10 @@
               <%= friendly_boolean @contact.eligible_for_free_prescriptions %>
             </dd>
 
+          <% if policy(@contact).see_sensitive_info? %>
             <dt class="details-list__caption">Any additional information</dt>
             <dd class="details-list__value" id="additional_info"><%= dash_if_empty @contact.additional_info %></dd>
+          <% end %>
 
 
             <dt class="details-list__caption">Anyone in their home showing symptoms of COVID-19</dt>

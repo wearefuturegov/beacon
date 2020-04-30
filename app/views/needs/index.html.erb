@@ -1,23 +1,17 @@
-<% content_for :header do %>
-  <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), class: "button button--dark" %>
-
-
-  <%= render "filters" %>
-
-
-<%= javascript_pack_tag 'filters', 'data-turbolinks-track': 'reload' %>
-
-<% end %>
-
 <header class="panel-header">
-  <h1 class="panel-header__title">All needs</h1>
+  <h1 class="panel-header__title">All support actions</h1>
 </header>
+
+<%= render "bulk-actions" %>
 
 <div class="panel">
   <% if @needs.any? %>
     <table class="table data-table">
       <thead>
       <tr>
+        <th>
+          
+        </th>
         <th>
           <div class="sortable">
               Category
@@ -28,7 +22,7 @@
             </div>
         </th>
         <th>Person</th>
-        <th>Vulnerable</th>
+        <th>Shielded</th>
         <th>Status</th>
         <th>
           <div class="sortable">
@@ -58,23 +52,35 @@
           </div>
           </div>
         </th>
+        <th>
+          <div class="sortable">
+          Call attempts
+          <div class="sortable__controls">
+            <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'call_attempts', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
+            <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'call_attempts', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
+          </div>
+          </div>
+        </th>
       </tr>
       </thead>
       <tbody>
       <% @needs.each do |n| %>
         <tr class="clickable" onclick="window.location='<%= need_path(n) %>'">
           <td>
-            <%= link_to humanize_text(n.category), n, class: "primary-link" %>
+            <%= check_box_tag("need[#{n.id}]", n.id, false, { class: "select-needs bulk-action-checkbox" }) %>
+          </td>
+          <td>
+            <%= link_to n.category, n, class: "primary-link" %>
           </td>
           <td><%= n.contact_name %></td>
           <td>
             <% if n.contact_is_vulnerable %>
-              <%= image_tag "red-tick.svg", alt: "vulnerable" %>
+              <%= image_tag "red-tick.svg", alt: "shielded" %>
             <% else %>
               —
             <% end %>
           </td>
-          <td><%= status(n.completed_on) %></td>
+          <td><%= n.status_label %></td>
           <td>
             <% if n.is_urgent %>
               <span class="urgent-tag">Urgent</span>
@@ -84,20 +90,20 @@
           </td>
           <td><%= n.created_at.strftime("%-d %B %Y") %></td>
           <td>
-            <% if n.user %>
-              <%= n.user.name_or_email %>
-            <% else %>
-              Unassigned
-            <% end %>
+            <%= n.user&.name_or_email || n.role&.name || 'Unassigned' %>
           </td>
           <td>
             <%= n.last_phoned_date&.strftime("%-d %B %Y") %>
+          </td>
+          <td>
+            <%= n.call_attempts %>
           </td>
         </tr>
       <% end %>
       </tbody>
     </table>
     <%= render "shared/pagination", model: @needs %>
+    <%= javascript_pack_tag 'bulk-actions', 'data-turbolinks-track': 'reload' %>
   <% else %>
     <p class="no-results">No matches</p>
   <% end %>

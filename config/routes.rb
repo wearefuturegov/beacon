@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   root 'needs#index'
 
-  resources :contacts, only: [:index, :show, :edit, :update, :new] do
+  resources :contacts, only: [:index, :show, :edit, :update, :new, :create] do
     resources :needs, only: [:new, :create]
+    resources :assessments, only: [:new, :create]
     # collection do
     #   get 'call-list'
     # end
@@ -15,6 +16,9 @@ Rails.application.routes.draw do
     resources :notes
   end
 
-  resources :users, only: [:index, :new, :create, :destroy]
+  resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+  post 'role', to: 'users#set_role', as: 'set_role'
   passwordless_for :users, at: '/', as: :auth
+
+  patch '/assign_multiple' => 'needs#assign_multiple'
 end

@@ -47,7 +47,6 @@ module Passwordless
       # Make it "slow" on purpose to make brute-force attacks more of a hassle
       BCrypt::Password.create(params[:token])
       sign_in passwordless_session
-
       redirect_to passwordless_success_redirect_path
     rescue Errors::TokenAlreadyClaimedError
       flash[:error] = I18n.t('.passwordless.sessions.create.token_claimed')

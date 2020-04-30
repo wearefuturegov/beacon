@@ -4,5 +4,12 @@
 </header>
 
 <div class="panel">
-  <%= render 'form', user: @user %>
+  <%= form_with(model: @user, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
+
+    <%= render 'form', user: @user, form: form %>
+
+    <div class="actions">
+      <%= form.button "Send invite", class: "button button--primary" %>
+    </div>
+  <% end %>
 </div>

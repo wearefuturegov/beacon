@@ -10,20 +10,25 @@
       People in need
     <% end %>
   </h1>
-  <%#= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
+  <% if policy(Contact).create? %>
+    <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
+  <% end %>
 </header>
+
 
 <div class="panel">
   <% if @contacts.any? %>
     <table class="table">
       <thead>
-        <tr>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Needs</th>
-          <th>Vulnerable</th>
-          <th>First added</th>
-        </tr>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Support Actions</th>
+        <th>Shielded</th>
+        <th>Year of Birth</th>
+        <th>NHS Number</th>
+        <th>Postcode</th>
+      </tr>
       </thead>
       <tbody>
       <% @contacts.each do |contact| %>
@@ -33,23 +38,25 @@
             <%= contact.telephone || contact.mobile %>
           </td>
           <td>
-            <% if contact.needs_count > 0 %>
-              <%= pluralize(contact.uncompleted_needs_count, 'need') %>
-              <% if contact.completed_needs_count > 0 %>
-                <small>(<%= contact.completed_needs_count %> completed)</small>
+            <% if contact.needs.count > 0 %>
+              <%= pluralize(contact.needs.uncompleted.count, 'need') %>
+              <% if contact.needs.completed.count > 0 %>
+                <small>(<%= contact.needs.completed.count %> completed)</small>
               <% end %>
             <% end %>
           </td>
           <td>
             <% if contact.is_vulnerable? %>
-              <%= image_tag "red-tick.svg", alt: "vulnerable" %>
+              <%= image_tag "red-tick.svg", alt: "shielded" %>
             <% else %>
               —
             <% end %>
           </td>
-          <td><%= contact.created_at.strftime("%-d %B %Y %k:%M%P") %></td>
+          <td><%= contact.date_of_birth&.strftime("%Y") %></td>
+          <td><%= contact.nhs_number %></td>
+          <td><%= contact.postcode %></td>
         </tr>
-      <% end%>
+      <% end %>
       </tbody>
     </table>
     <%= render "shared/pagination", model: @contacts %>

@@ -1,0 +1,15 @@
+<header class="panel-header">
+  <%= link_to image_tag("left.svg", alt: "Go back"), users_path, class: "go-back" %>
+  <h1 class="panel-header__title">Edit <%= @user.name_or_email %></h1>
+</header>
+
+<div class="panel">
+  <%= form_with(model: @user, local: true, class: "margin-bottom-70 two-thirds") do |form| %>
+
+    <%= render 'form', user: @user, form: form %>
+
+    <div class="actions">
+      <%= form.button "Update", class: "button button--primary" %>
+    </div>
+  <% end %>
+</div>
