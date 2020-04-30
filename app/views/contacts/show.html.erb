@@ -50,13 +50,21 @@
 
       <% if policy(Need).create? %>
         <div style="flex:1; text-align:right">
-          <%# Clicking this should display 'schedule_an_assessment as a pseudo-drop down' %>
-          Add new assessment+
-          <%# This is visible by default as a non-javascript fallback, but should be pulled into a toggleable drop down %>
-          <ul style="list-style-type: none" id="schedule_an_assessment">
-            <li><%= link_to('Schedule an assessment', new_contact_assessment_path(@contact.id, :type => 'schedule')) %></li>
-            <li><%= link_to('Log an assessment', new_contact_assessment_path(@contact.id, :type => 'log')) %></li>
-          </ul>
+          <div class="assessment-dropdown">
+            <button id="btnAssessmentDropdown">Add new assessment +</button>
+            <div id="assessmentDropdownElements" class="assessment-dropdown-content">
+              <%= link_to('Schedule an assessment', new_contact_assessment_path(@contact.id, :type => 'schedule'), id: 'schedule-assesment-btn') %>
+              <%= link_to('Log an assessment', new_contact_assessment_path(@contact.id, :type => 'log'), id: 'log-assesment-btn') %>
+            </div>
+          </div>
+          <noscript>
+            <ul style="list-style-type: none" id="schedule_an_assessment">
+            <li><%= link_to('Schedule an assessment', new_contact_assessment_path(@contact.id, :type => 'schedule'), id: 'schedule-assesment-nojs-btn') %></li>
+            <li><%= link_to('Log an assessment', new_contact_assessment_path(@contact.id, :type => 'log'), id: 'log-assesment-nojs-btn') %></li>
+          </ul>-->
+          </noscript>
+
+
         </div>
       <% end %>
     </header>
