@@ -26,7 +26,7 @@
               <span class="main-menu__submenu-current">Open Covid Triages</span>
             <% end %>
           <% else %>
-            <%= link_to_unless_current "Team referrals", root_path(:status => "to_do", :role_id => current_role_id), class: "main-menu__submenu-link" do %>
+            <%= link_to_unless_current "Team referrals", root_path(:status => "to_do", :assigned_to => "role-#{current_role_id}"), class: "main-menu__submenu-link" do %>
               <span class="main-menu__submenu-current">Team referrals</span>
             <% end %>
             <%= link_to_unless_current "Team to do", root_path(:status => "to_do", :team => current_role_id), class: "main-menu__submenu-link" do %>
