@@ -240,6 +240,7 @@ class Need < ApplicationRecord
 
   # This sort method is to first sort future needs (where start_on > today) to the bottom of the list
   # and then sort by created_at
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def self.sort_created_and_start_date(first, second)
     return first.start_on <=> second.start_on if first.start_on && second.start_on
     return -1 if first.start_on.nil? && !second.start_on.nil? && second.start_on > DateTime.now
@@ -247,5 +248,5 @@ class Need < ApplicationRecord
 
     first.created_at <=> second.created_at
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
