@@ -62,7 +62,7 @@ RSpec.describe AssessmentsController do
     end
 
     it 'tests the need has a start_on date when it is being scheduled' do
-      expect(@test_need).to receive(:valid_start_on?).and_return(true)
+      expect(@test_need).to receive(:valid?).and_return(true)
       post :create, params: { contact_id: 1, type: 'schedule', need: { category: 'phone triage' }, note: { body: 'test' } }
       expect(response).to redirect_to controller: :contacts, action: :show, id: 1
     end

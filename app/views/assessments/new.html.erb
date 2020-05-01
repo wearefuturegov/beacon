@@ -77,7 +77,7 @@
             <%= fields_for :note, @note do |notes_fields| %>
               <div class="field">
                 <%= notes_fields.text_area :body, placeholder: 'Call notes' %>
-              </div>
+              </div>              
             <% end %>
           <% elsif @type == 'schedule' %>
             <div class="field">
