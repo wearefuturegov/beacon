@@ -35,9 +35,9 @@ class Need < ApplicationRecord
 
   validates :category, presence: true
   validates :name, presence: true
-  validate :valid_start_on?
+  validate :start_required_for_assessment
 
-  def valid_start_on?
+  def start_required_for_assessment
     return unless start_on.nil? && ASSESSMENT_CATEGORIES.include?(category.to_s.downcase) ||
                   start_on.nil? && category.nil?
 
