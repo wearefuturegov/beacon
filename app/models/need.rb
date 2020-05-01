@@ -37,13 +37,12 @@ class Need < ApplicationRecord
   validates :name, presence: true
   validate :valid_start_on?
 
-  # rubocop:disable Style/GuardClause, Style/IfUnlessModifier
   def valid_start_on?
-    if start_on.nil? && ASSESSMENT_CATEGORIES.include?(category.to_s.downcase) || start_on.nil? && category.nil?
-      errors.add(:start_on, 'must be provided')
-    end
+    return unless start_on.nil? && ASSESSMENT_CATEGORIES.include?(category.to_s.downcase) ||
+                  start_on.nil? && category.nil?
+
+    errors.add(:start_on, 'must be provided')
   end
-  # rubocop:enable Style/GuardClause, Style/IfUnlessModifier
 
   scope :completed, -> { where(status: :complete) }
   scope :uncompleted, -> { where.not(status: :complete) }
