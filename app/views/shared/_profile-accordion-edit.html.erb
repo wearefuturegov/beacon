@@ -103,6 +103,9 @@
         <%= friendly_boolean @contact.eligible_for_free_prescriptions %>
       </dd>
 
+    </dl>
+    <br/>
+     <fieldset class="field-section field-section--two-cols">
       <div class="field field--span-two-cols">
         <%= form.label :additional_info, class: "field__label" %>
         <%= form.text_area :additional_info %>
@@ -112,7 +115,35 @@
         <%= form.check_box :has_covid_symptoms, class: 'checkbox__input', checked: @contact.has_covid_symptoms == '1' %>
         <%= form.label :has_covid_symptoms, 'Are you or anyone in your home showing any symptoms of COVID-19?', class: 'checkbox__label' %>
       </div>
+
+    </fieldset>
+    
+  </div>
+
+  <button class="accordion__control" aria-expanded="true" id="contact-additional-info-accordion">
+    <h2 class="accordion__title">Consents</h2>
+  </button>
+  <div class="accordion__content">
+    <dl class="details-list">
+      <dt class="details-list__caption">Do not call</dt>
+      <dd class="details-list__value" id="no_calls_flag">
+        <%= friendly_boolean @contact.no_calls_flag %>
+      </dd>
+
+      <dt class="details-list__caption">Deceased</dt>
+      <dd class="details-list__value">
+        <%= friendly_boolean @contact.deceased_flag %>
+      </dd>
+
     </dl>
+    <br/>
+    <fieldset class="field-section field-section--two-cols">
+       <div class="checkbox">
+        <%= form.check_box :share_data_flag, class: 'checkbox__input' %>
+        <%= form.label :share_data_flag, 'Consent to share data', class: 'checkbox__label' %>
+      </div>
+    </fieldset>
+
   </div>
 
 </section>

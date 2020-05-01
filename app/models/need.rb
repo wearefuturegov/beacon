@@ -32,6 +32,7 @@ class Need < ApplicationRecord
                    'Other': 'other' }
 
   validates :category, presence: true
+  validates_date :start_on, allow_nil: true, allow_blank: true
 
   ASSESSMENT_CATEGORIES = ['phone triage', 'check in'].freeze
 
@@ -239,13 +240,4 @@ class Need < ApplicationRecord
     first.created_at <=> second.created_at
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-  def valid_start_on?
-    if start_on.nil?
-      errors.add(:start_on, 'must be set')
-      false
-    else
-      true
-    end
-  end
 end

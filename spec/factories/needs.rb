@@ -7,7 +7,7 @@ FactoryBot.define do
     contact
     category { Need.categories.values.sample }
     name { Faker::Lorem.sentence }
-    start_on { [nil, Faker::Date.between(from: 2.days.ago, to: 6.days.from_now)].sample }
+    start_on { [nil, Faker::Date.between(from: 1.days.from_now, to: 6.days.from_now)].sample }
 
     food_priority do
       category == FOOD_CATEGORY ? [1, 2, 3, nil].sample : nil

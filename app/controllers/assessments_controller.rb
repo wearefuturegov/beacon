@@ -43,7 +43,7 @@ class AssessmentsController < ApplicationController
   def schedule_assessment
     @need = Need.new(assessment_params.merge(contact_id: @contact.id))
     @note = Note.new
-    unless @need.valid? && @need.valid_start_on?
+    unless @need.valid?
       @assigned_to_options = construct_assigned_to_options
       render :new
       return
