@@ -19,6 +19,8 @@ class Need < ApplicationRecord
                  food_priority: :string,
                  food_service_type: :string
 
+  ASSESSMENT_CATEGORIES = ['phone triage', 'check in'].freeze
+
   enum category: { 'Phone triage': 'phone triage',
                    'Check in': 'check in',
                    'Groceries and cooked meals': 'groceries and cooked meals',
@@ -32,9 +34,16 @@ class Need < ApplicationRecord
                    'Other': 'other' }
 
   validates :category, presence: true
-  validates_date :start_on, allow_nil: true, allow_blank: true
+  validate :valid_start_on?
 
-  ASSESSMENT_CATEGORIES = ['phone triage', 'check in'].freeze
+  def valid_start_on?
+    if start_on.nil? && ASSESSMENT_CATEGORIES.include?(category.to_s.downcase) || start_on.nil? && category.nil?
+      errors.add(:start_on, 'must be provided')
+      false
+    else
+      true
+    end
+  end
 
   # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
   # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
@@ -231,7 +240,6 @@ class Need < ApplicationRecord
 
   # This sort method is to first sort future needs (where start_on > today) to the bottom of the list
   # and then sort by created_at
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def self.sort_created_and_start_date(first, second)
     return first.start_on <=> second.start_on if first.start_on && second.start_on
     return -1 if first.start_on.nil? && !second.start_on.nil? && second.start_on > DateTime.now
@@ -239,5 +247,5 @@ class Need < ApplicationRecord
 
     first.created_at <=> second.created_at
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 end

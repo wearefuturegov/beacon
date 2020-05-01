@@ -44,12 +44,6 @@ en:
             date_of_birth:
               invalid_date: "must be a valid date"
 
-        need:
-          attributes:
-            start_on:
-              invalid_date: "must be a valid date in the future"
-              on_or_before: "must be a valid date in the future"
-
   passwordless:
     mailer:
       subject: "Finish logging in"
