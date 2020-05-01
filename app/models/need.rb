@@ -34,19 +34,16 @@ class Need < ApplicationRecord
                    'Other': 'other' }
 
   validates :category, presence: true
+  validates :name, presence: true
   validate :valid_start_on?
 
+  # rubocop:disable Style/GuardClause, Style/IfUnlessModifier
   def valid_start_on?
     if start_on.nil? && ASSESSMENT_CATEGORIES.include?(category.to_s.downcase) || start_on.nil? && category.nil?
       errors.add(:start_on, 'must be provided')
-      false
-    else
-      true
     end
   end
-
-  # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
-  # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
+  # rubocop:enable Style/GuardClause, Style/IfUnlessModifier
 
   scope :completed, -> { where(status: :complete) }
   scope :uncompleted, -> { where.not(status: :complete) }
@@ -103,8 +100,6 @@ class Need < ApplicationRecord
   scope :order_by_call_attempts, lambda { |direction|
     order("call_attempts #{direction} NULLS LAST")
   }
-
-  validates :name, presence: true
 
   delegate :name, :address, :postcode, :telephone, :mobile, :is_vulnerable,
            :count_people_in_house, :any_dietary_requirements, :dietary_details,

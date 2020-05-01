@@ -29,7 +29,7 @@ class AssessmentsController < ApplicationController
   end
 
   def log_assessment
-    @need = Need.new(assessment_params.merge(contact_id: @contact.id, name: 'Logged assessment'))
+    @need = Need.new(assessment_params.merge(contact_id: @contact.id, name: 'Logged assessment', start_on: Date.today))
     @note = Note.new(notes_params.merge(need: @need, category: 'phone_success', user_id: current_user.id))
     if @need.valid? && @note.valid? && @need.save && @note.save
       redirect_to contact_path(@contact)
