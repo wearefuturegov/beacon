@@ -11,7 +11,9 @@ class NeedsCreator
     end
 
     if other_need
-      contact.needs.build(category: 'other', name: other_need).save
+      contact.needs
+             .build(category: 'other', name: other_need, status: Need.statuses[:to_do])
+             .save
     end
   end
 
