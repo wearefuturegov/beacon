@@ -28,7 +28,7 @@ RSpec.describe Need, type: :model do
   it { is_expected.to be_versioned }
 
   it '#default status' do
-    need1 = create :need, name: 'medicines'
+    need1 = build :need, name: 'medicines'
     expect(need1.status).to eq 'to_do'
   end
 
