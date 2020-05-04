@@ -89,6 +89,10 @@ class Need < ApplicationRecord
     end
   }
 
+  scope :order_by_created_at, lambda { |direction|
+    order("needs.created_at #{direction}")
+  }
+
   scope :order_by_category, lambda { |direction|
     order("LOWER(category) #{direction}")
   }
@@ -187,20 +191,20 @@ class Need < ApplicationRecord
   end
 
   def self.base_query
-    sql = "LEFT JOIN (select c.id, max(nt.created_at) from contacts c
+    sql = "LEFT JOIN (select c.id, max(nt.created_at) as last_phoned_date from contacts c
           left join needs n on n.contact_id = c.id
           left join notes nt on nt.need_id = n.id where nt.category like 'phone_%'
           group by c.id) as contact_aggregation
           on contact_aggregation.id = contacts.id"
 
     sql += " left join (
-          select n.id, count(nt.id) from notes nt
+          select n.id, count(nt.id) as call_attempts from notes nt
           join needs n on n.id = nt.need_id and nt.category in ('phone_success', 'phone_message', 'phone_failure')
           group by n.id
         ) as notes_aggr on notes_aggr.id = needs.id"
 
-    Need.joins(:contact, sql).select('needs.*', 'contact_aggregation.max as last_phoned_date',
-                                     'notes_aggr.count as call_attempts ')
+    Need.joins(:contact, sql).select('needs.*', 'last_phoned_date',
+                                     'call_attempts')
   end
 
   def self.default_sort(results)
