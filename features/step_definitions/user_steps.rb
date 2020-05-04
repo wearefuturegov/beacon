@@ -2,8 +2,7 @@ Given('a user exists with the email {string}') do |email|
   User.create!(first_name: 'John',
                last_name: 'Doe',
                email: email,
-               invited: Date.today,
-               admin: false)
+               invited: Date.today)
 end
 
 Given('a users email address {string}') do |email|
