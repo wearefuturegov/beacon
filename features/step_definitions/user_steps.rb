@@ -1,5 +1,7 @@
 Given('a user exists with the email {string}') do |email|
-  User.create!(email: email,
+  User.create!(first_name: 'John',
+               last_name: 'Doe',
+               email: email,
                invited: Date.today,
                admin: false)
 end
@@ -37,4 +39,16 @@ end
 
 Then(/^I cannot access the user form$/) do
   expect(page).not_to have_link('Users')
+end
+
+When('I search for the user by {string}') do |query|
+  visit 'users'
+  fill_in('search', with: query)
+  click_button('search-submit')
+end
+
+Then(/^I see the user in the search results$/) do
+  results_table = page.find('.table')
+  expect(results_table).to have_text('John Doe')
+  expect(results_table).to have_text('user1@test.com')
 end
