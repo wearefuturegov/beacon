@@ -20,7 +20,6 @@ class NeedPolicy < ApplicationPolicy
       @scope.includes(:role)
             .where(roles: { tag: role_tag })
             .or(Need.includes(:role).where(user: @user))
-            .distinct
     end
 
     def needs_me_role_team(role_tag)
@@ -28,7 +27,6 @@ class NeedPolicy < ApplicationPolicy
             .where(roles: { tag: role_tag })
             .or(Need.includes(:role, user: [:roles]).where(user: @user))
             .or(Need.includes(:role, user: [:roles]).where("roles_users.role = '#{role_tag}'"))
-            .distinct
     end
   end
 
