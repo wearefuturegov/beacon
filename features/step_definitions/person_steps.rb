@@ -110,9 +110,9 @@ end
 
 When('I choose {string} for any children under 15') do |option|
   if option == 'Yes'
-    check 'contact_any_children_below_15'
+    check 'contact_any_children_under_age'
   else
-    uncheck 'contact_any_children_below_15'
+    uncheck 'contact_any_children_under_age'
   end
 end
 
@@ -160,7 +160,7 @@ Then('the dietary details is {string}') do |details|
 end
 
 Then('the children under 15 details are {string}') do |details|
-  expect(page.find_by_id('any_children_below_15')).to have_text(details)
+  expect(page.find_by_id('any_children_under_age')).to have_text(details)
 end
 
 Then('eligible for free prescriptions is {string}') do |details|

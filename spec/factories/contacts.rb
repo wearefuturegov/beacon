@@ -12,7 +12,7 @@ FactoryBot.define do
     is_vulnerable { Faker::Boolean.boolean(true_ratio: 0.3) }
     additional_info {}
     count_people_in_house { [Faker::Number.between(from: 0, to: 6), nil].sample }
-    any_children_below_15 { Faker::Boolean.boolean(true_ratio: 0.2) }
+    any_children_under_age { Faker::Boolean.boolean(true_ratio: 0.2) }
     delivery_details { Faker::Lorem.sentence }
     any_dietary_requirements { Faker::Boolean.boolean(true_ratio: 0.2) }
     dietary_details { Faker::Lorem.sentence }

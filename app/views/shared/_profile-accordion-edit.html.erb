@@ -65,8 +65,8 @@
     </dl>
 
     <div class="checkbox">
-      <%= form.check_box :any_children_below_15, class: 'checkbox__input', checked: @contact.any_children_below_15 == '1' %>
-      <%= form.label :any_children_below_15, 'Any children under 15?', class: 'checkbox__label' %>
+      <%= form.check_box :any_children_under_age, class: 'checkbox__input', checked: @contact.any_children_under_age == '1' %>
+      <%= form.label :any_children_under_age, 'Any children under 18?', class: 'checkbox__label' %>
     </div>
   </div>
 
