@@ -6,7 +6,9 @@ class UsersController < ApplicationController
   # GET /users
   def index
     authorize User
-    @users = User.name_order.page(params[:page])
+    @params = params.permit(:search, :page)
+    @users = @params[:search].present? ? User.search(@params[:search]) : User.all
+    @users = @users.name_order.page(@params[:page])
   end
 
   # GET /users/new
