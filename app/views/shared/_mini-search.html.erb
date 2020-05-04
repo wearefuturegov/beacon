@@ -1,13 +1,13 @@
-<%= form_with url: contacts_path, local: true, method: "get" do |f| %>
+<%= form_with url: url, local: true, method: "get" do |f| %>
     <div class="mini-search">
         <%= f.label :search, "Search query", class: "visually-hidden" %>
         <%= f.text_field :search,
             value: params[:search],
             class: "mini-search__input",
-            placeholder: "Search people"
+            placeholder: text_field_placeholder
         %>
         <% if params[:search].present? %>
-            <%= link_to image_tag("clear.svg", alt: "Clear search"), contacts_path, class: "mini-search__submit" %>
+            <%= link_to image_tag("clear.svg", alt: "Clear search"), url, class: "mini-search__submit" %>
         <% else %>
           <%= f.submit "search-submit", id: 'mini-search', class: 'mini-search__submit',
                        type: :image, src: image_path("search.svg"), alt: "Submit search" %>
