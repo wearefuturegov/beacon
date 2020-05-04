@@ -40,10 +40,6 @@ class User < ApplicationRecord
     name_value.blank? ? email : name_value
   end
 
-  def last_logged_in
-    passwordless_sessions.try(:last).try(:claimed_at)
-  end
-
   def role_type
     role&.role
   end

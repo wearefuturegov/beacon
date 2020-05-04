@@ -47,6 +47,7 @@ module Passwordless
       # Make it "slow" on purpose to make brute-force attacks more of a hassle
       BCrypt::Password.create(params[:token])
       sign_in passwordless_session
+      update_logged_in_timestamp
       redirect_to passwordless_success_redirect_path
     rescue Errors::TokenAlreadyClaimedError
       flash[:error] = I18n.t('.passwordless.sessions.create.token_claimed')
@@ -65,6 +66,11 @@ module Passwordless
     end
 
     protected
+
+    def update_logged_in_timestamp
+      current_user.last_logged_in = DateTime.now
+      current_user.save
+    end
 
     def passwordless_sign_out_redirect_path
       Passwordless.sign_out_redirect_path

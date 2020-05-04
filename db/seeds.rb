@@ -78,7 +78,6 @@ seed_user_emails.split(',').each do |email|
   admin_role = Role.find_by(role: 'manager')
   User.find_or_initialize_by(email: email.strip)
       .update!(
-        admin: true,
         invited: DateTime.now,
         roles: [admin_role],
         role: admin_role
