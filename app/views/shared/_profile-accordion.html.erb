@@ -89,6 +89,28 @@
         </dl>
     </div>
 
+  <button class="accordion__control" aria-expanded="true" id="contact-additional-info-accordion">
+    <h2 class="accordion__title">Consents</h2>
+  </button>
+  <div class="accordion__content">
+    <dl class="details-list">
+      <dt class="details-list__caption">Do not call</dt>
+      <dd class="details-list__value" id="no_calls_flag">
+        <%= friendly_boolean @contact.no_calls_flag %>
+      </dd>
+
+      <dt class="details-list__caption">Deceased</dt>
+      <dd class="details-list__value">
+        <%= friendly_boolean @contact.deceased_flag %>
+      </dd>
+
+      <dt class="details-list__caption">Consent to share data</dt>
+      <dd class="details-list__value" id="share_data_flag">
+      <%= friendly_boolean @contact.share_data_flag %>
+      </dd>
+    </dl>
+  </div>
+
 </section>
 
 <%= javascript_pack_tag 'accordion', 'data-turbolinks-track': 'reload' %>

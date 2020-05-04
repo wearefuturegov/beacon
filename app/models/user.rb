@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_paper_trail
 
   scope :with_role, ->(role_id) { joins(:user_roles).where(user_roles: { role_id: role_id }) }
+  scope :name_order, -> { order(:first_name, :last_name) }
 
   def role_names
     roles.map(&:name).join(', ')
@@ -29,10 +30,6 @@ class User < ApplicationRecord
   def name_or_email
     name_value = name
     name_value.blank? ? email : name_value
-  end
-
-  def last_logged_in
-    passwordless_sessions.try(:last).try(:claimed_at)
   end
 
   def role_type

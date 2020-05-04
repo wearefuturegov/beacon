@@ -1,30 +1,33 @@
 let needs = document.querySelectorAll(".select-needs");
-let showAssignAction = false;
+let allNeeds = document.querySelector("#select-all-needs");
+const assign = document.querySelector("#assign-selected-needs");
 
-/**
- * Checkbox clicked event
- */
-let checkboxClicked = (e) => {
+for (let i = 0; i < needs.length; i++) {
+  if (needs[i].checked && assign.hasAttribute("disabled")) {
+    assign.removeAttribute('disabled');
+  }
+  needs[i].addEventListener('click', checkboxClicked)
+}
+allNeeds.addEventListener('click', selectAllNeeds)
+
+function checkboxClicked(e) {
   e.stopPropagation()
-  showAssignAction = false;
+  let checkedCount = 0;
   for (let i = 0; i < needs.length; i++) {
     if (needs[i].checked) {
-      showAssignAction = true;
-      break;
+      checkedCount++;
     }
+  }
+
+  if (checkedCount > 0) {
+    assign.removeAttribute("disabled");
+  } else {
+    assign.setAttribute("disabled", "disabled");
+    allNeeds.checked = false;
   }
 }
 
-for (let i = 0; i < needs.length; i++) {
-  needs[i].addEventListener('click', checkboxClicked)
-}
-
-let allNeeds = document.querySelector("#select-all-needs")
-
-/**
- * Select all needs
- */
-let selectAllNeeds = () => {
+function selectAllNeeds() {
   let checked;
   if(allNeeds.checked) {
     checked = true;
@@ -33,6 +36,12 @@ let selectAllNeeds = () => {
   }
   for (let i = 0; i < needs.length; i++) {
     needs[i].checked = checked;
+  }
+
+  if (checked) {
+    assign.removeAttribute("disabled");
+  } else {
+    assign.setAttribute("disabled", "disabled");
   }
 }
 
@@ -57,7 +66,7 @@ applyPatchUpdate = (for_update) => {
   });
 }
 
-allNeeds.addEventListener('click', selectAllNeeds)
+
 
 // assign to users event listener
 document.querySelector("#assign-selected-needs").addEventListener("change", (e) => {

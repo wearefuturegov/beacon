@@ -6,6 +6,7 @@ class Need < ApplicationRecord
   include Filterable
   self.ignored_columns = %w[due_by]
   before_update :enforce_single_assignment
+  after_initialize :set_status
 
   enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
   belongs_to :contact
@@ -18,6 +19,8 @@ class Need < ApplicationRecord
   jsonb_accessor :supplemental_data,
                  food_priority: :string,
                  food_service_type: :string
+
+  ASSESSMENT_CATEGORIES = ['phone triage', 'check in'].freeze
 
   enum category: { 'Phone triage': 'phone triage',
                    'Check in': 'check in',
@@ -32,11 +35,15 @@ class Need < ApplicationRecord
                    'Other': 'other' }
 
   validates :category, presence: true
+  validates :name, presence: true
+  validate :start_required_for_assessment
 
-  ASSESSMENT_CATEGORIES = ['phone triage', 'check in'].freeze
+  def start_required_for_assessment
+    return unless start_on.nil? && ASSESSMENT_CATEGORIES.include?(category.to_s.downcase) ||
+                  start_on.nil? && category.nil?
 
-  # validates :food_priority, inclusion: { in: %w[1 2 3] }, allow_blank: true
-  # validates :food_service_type, inclusion: { in: ['Hot meal', 'Heat up', 'Grocery delivery'] }, allow_blank: true
+    errors.add(:start_on, 'must be provided')
+  end
 
   scope :completed, -> { where(status: :complete) }
   scope :uncompleted, -> { where.not(status: :complete) }
@@ -93,8 +100,6 @@ class Need < ApplicationRecord
   scope :order_by_call_attempts, lambda { |direction|
     order("call_attempts #{direction} NULLS LAST")
   }
-
-  validates :name, presence: true
 
   delegate :name, :address, :postcode, :telephone, :mobile, :is_vulnerable,
            :count_people_in_house, :any_dietary_requirements, :dietary_details,
@@ -240,12 +245,9 @@ class Need < ApplicationRecord
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  def valid_start_on?
-    if start_on.nil?
-      errors.add(:start_on, 'must be set')
-      false
-    else
-      true
-    end
+  private
+
+  def set_status
+    self.status ||= :to_do if new_record?
   end
 end
