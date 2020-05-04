@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2020_05_01_133906) do
     t.jsonb "supplemental_data"
     t.integer "lock_version", default: 0
     t.bigint "role_id"
-    t.string "status"
+    t.string "status", default: "to_do"
     t.index ["contact_id"], name: "index_needs_on_contact_id"
     t.index ["role_id"], name: "index_needs_on_role_id"
     t.index ["status"], name: "index_needs_on_status"
