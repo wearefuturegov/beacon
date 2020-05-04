@@ -27,4 +27,13 @@ RSpec.describe User, type: :model do
     user2 = build :user, first_name: '', last_name: '', email: 'jane@gmail.com'
     expect(user2.name_or_email).to eq 'jane@gmail.com'
   end
+
+  it 'scope name order' do
+    user1 = create :user, first_name: 'Aaron', last_name: 'Abbe'
+    user2 = create :user, first_name: 'Caden', last_name: 'Abbe'
+    user3 = create :user, first_name: 'Aaron', last_name: 'Baye'
+    user4 = create :user, first_name: 'Babs', last_name: 'Abbe'
+
+    expect(described_class.name_order).to eq [user1, user3, user4, user2]
+  end
 end

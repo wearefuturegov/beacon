@@ -29,7 +29,7 @@ class AssessmentsController < ApplicationController
   end
 
   def log_assessment
-    @need = Need.new(assessment_params.merge(contact_id: @contact.id, name: 'Logged assessment'))
+    @need = Need.new(assessment_params.merge(contact_id: @contact.id, name: 'Logged assessment', start_on: Date.today))
     @note = Note.new(notes_params.merge(need: @need, category: 'phone_success', user_id: current_user.id))
     if @need.valid? && @note.valid? && @need.save && @note.save
       redirect_to contact_path(@contact)
@@ -43,7 +43,7 @@ class AssessmentsController < ApplicationController
   def schedule_assessment
     @need = Need.new(assessment_params.merge(contact_id: @contact.id))
     @note = Note.new
-    unless @need.valid? && @need.valid_start_on?
+    unless @need.valid?
       @assigned_to_options = construct_assigned_to_options
       render :new
       return
