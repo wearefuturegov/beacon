@@ -6,6 +6,7 @@ class Need < ApplicationRecord
   include Filterable
   self.ignored_columns = %w[due_by]
   before_update :enforce_single_assignment
+  after_initialize :set_status
 
   enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
   belongs_to :contact
@@ -243,4 +244,10 @@ class Need < ApplicationRecord
     first.created_at <=> second.created_at
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  private
+
+  def set_status
+    self.status ||= :to_do if new_record?
+  end
 end
