@@ -17,18 +17,16 @@ class NeedPolicy < ApplicationPolicy
     end
 
     def needs_me_or_role(role_tag)
-      @scope.includes(:role)
+      @scope.where(id: Need.includes(:role)
             .where(roles: { tag: role_tag })
-            .or(Need.includes(:role).where(user: @user))
-            .distinct
+            .or(Need.includes(:role).where(user: @user)))
     end
 
     def needs_me_role_team(role_tag)
-      @scope.includes(:role, user: [:roles])
-            .where(roles: { tag: role_tag })
-            .or(Need.includes(:role, user: [:roles]).where(user: @user))
-            .or(Need.includes(:role, user: [:roles]).where("roles_users.role = '#{role_tag}'"))
-            .distinct
+      @scope.where(id: Need.includes(:role, user: [:roles])
+                           .where(roles: { tag: role_tag })
+                           .or(Need.includes(:role, user: [:roles]).where(user: @user))
+                           .or(Need.includes(:role, user: [:roles]).where("roles_users.role = '#{role_tag}'")))
     end
   end
 
