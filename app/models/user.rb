@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include PgSearch::Model
+
   has_many :notes, dependent: :destroy
   has_many :needs, dependent: :destroy
   has_many :assigned_contacts, through: :needs, source: :contact
@@ -18,6 +20,12 @@ class User < ApplicationRecord
 
   scope :with_role, ->(role_id) { joins(:user_roles).where(user_roles: { role_id: role_id }) }
   scope :name_order, -> { order(:first_name, :last_name) }
+
+  pg_search_scope :search,
+                  against: [:first_name, :last_name, :email],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 
   def role_names
     roles.map(&:name).join(', ')
