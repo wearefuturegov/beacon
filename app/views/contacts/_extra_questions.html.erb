@@ -13,14 +13,14 @@
 </fieldset>
 
 <fieldset class="field-section field-section--two-cols">
-  <legend><h2 class="field-section__title">Any children under 15?</h2></legend>
+  <legend><h2 class="field-section__title">Are there any children under 18 living in the household?</h2></legend>
   <div class="radio">
-    <%= form.radio_button :any_children_below_15, true, :id => "any_children_below_15_true" %>
-    <label for="any_children_below_15_true" class="radio__label">Yes</label>
+    <%= form.radio_button :any_children_under_age, true, :id => "any_children_under_age_true" %>
+    <label for="any_children_under_age_true" class="radio__label">Yes</label>
   </div>
   <div class="radio">
-    <%= form.radio_button :any_children_below_15, false, :id => "any_children_below_15_false" %>
-    <label for="any_children_below_15_false" class="radio__label">No</label>
+    <%= form.radio_button :any_children_under_age, false, :id => "any_children_under_age_false" %>
+    <label for="any_children_under_age_false" class="radio__label">No</label>
   </div>
 </fieldset>
 

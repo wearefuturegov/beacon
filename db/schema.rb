@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_05_04_131027) do
     t.text "email"
     t.string "additional_info"
     t.integer "count_people_in_house"
-    t.boolean "any_children_below_15"
+    t.boolean "any_children_under_age"
     t.text "delivery_details"
     t.boolean "any_dietary_requirements"
     t.text "dietary_details"

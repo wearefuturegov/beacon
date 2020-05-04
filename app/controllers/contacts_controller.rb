@@ -73,7 +73,7 @@ class ContactsController < ApplicationController
 
   def contact_params
     params.require(:contact).permit(:first_name, :middle_names, :surname, :address, :postcode, :email, :telephone,
-                                    :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_below_15,
+                                    :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_under_age,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
                                     :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version,
                                     :channel, :no_calls_flag, :deceased_flag, :share_data_flag, :date_of_birth, :nhs_number)
