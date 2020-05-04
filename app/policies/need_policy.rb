@@ -48,6 +48,12 @@ class NeedPolicy < ApplicationPolicy
     Pundit.policy_scope!(@user, Need).where(id: @record.id).exists?
   end
 
+  def destroy?
+    return true if permissive_roles?
+
+    Pundit.policy_scope!(@user, Need).where(id: @record.id).exists?
+  end
+
   def create?
     permissive_roles?
   end

@@ -1,0 +1,28 @@
+<table class="needs-table">
+  <thead class="visually-hidden">
+    <tr>
+      <th>Type</th>
+      <th>Priority</th>
+      <th>Assigned</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cancelled_needs.each do |n| %>
+        <tr onclick="window.location='<%= need_path(n) %>'" class="need--<%= n.category.parameterize %> cancelled-need">
+        <td>
+          <%= link_to n.category, n %>
+        </td>
+        <td>
+          <% if n.is_urgent %>
+            <span class="urgent-tag">Urgent</span>
+          <% else %>
+            —
+          <% end %>
+        </td>
+        <td><%= n.assigned %></td>
+        <td><%= n.created_at&.strftime("%-d %B %Y") %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

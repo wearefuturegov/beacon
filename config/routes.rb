@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
   # get '/contacts/:id/needs', to: 'contacts#needs'
 
-  resources :needs, only: [:index, :show, :edit, :update] do
+  resources :needs, only: [:index, :show, :edit, :update, :destroy] do
     resources :notes
   end
 

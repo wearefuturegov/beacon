@@ -22,6 +22,21 @@ class NeedsController < ApplicationController
     end
   end
 
+  def destroy
+    need = Need.find(params[:id])
+    need_name = need.category
+    if need.destroy
+      redirect_to contact_path(need.contact_id), notice: "Need #{need_name} was successfully deleted."
+    else
+      @assigned_to_options = construct_assigned_to_options
+      render :show
+    end
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = STALE_ERROR_MESSAGE
+    @assigned_to_options = construct_assigned_to_options
+    render :show
+  end
+
   def show
     @assigned_to_options = construct_assigned_to_options
     @need.notes.order(created_at: :desc)
@@ -71,7 +86,7 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:name, :status, :assigned_to, :category, :is_urgent, :lock_version)
+    params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
   end
 
   def construct_assigned_to_options

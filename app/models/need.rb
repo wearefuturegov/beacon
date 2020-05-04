@@ -4,6 +4,8 @@ require 'csv'
 
 class Need < ApplicationRecord
   include Filterable
+  acts_as_paranoid
+  
   self.ignored_columns = %w[due_by]
   before_update :enforce_single_assignment
   after_initialize :set_status
