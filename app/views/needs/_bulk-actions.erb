@@ -1,17 +1,19 @@
 <div id="assign-needs-to-users">
   <div class="panel bulk-actions">
-    <%= check_box_tag("select-all-needs", nil, false, { class: "select-all-needs bulk-action-checkbox" }) %>
+    <%= check_box_tag("select-all-needs", nil, false, {class: "select-all-needs bulk-action-checkbox"}) %>
 
     <%= label_tag :assigned_to, 'Assign to', class: 'visually-hidden' %>
     <%= select_tag :assigned_to,
-                   content_tag(:option,'Unassigned',:value => "Unassigned") + grouped_options_for_select(@assigned_to_options),
+                   content_tag(:option, 'Unassigned', :value => "Unassigned") + grouped_options_for_select(@assigned_to_options),
                    prompt: 'Assign to...', class: "assign__needs dropdown", id: 'assign-selected-needs', disabled: 'disabled' %>
-    <% if params[:user_id] || params[:status] || params[:category] || params[:is_urgent] %>
-      <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--dark", "data-open" => "true" %>
-    <% else %>
-      <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--dark" %>
-    <% end %>
 
+    <% if policy(Need).export? %>
+      <% if params[:user_id] || params[:status] || params[:category] || params[:is_urgent] %>
+        <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--dark", "data-open" => "true" %>
+      <% else %>
+        <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--dark" %>
+      <% end %>
+    <% end %>
     <%= render "filters" %>
   </div>
 </div>
