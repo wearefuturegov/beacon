@@ -18,7 +18,10 @@ class NeedsController < ApplicationController
     @assigned_to_options = construct_assigned_to_options
     respond_to do |format|
       format.html
-      format.csv { send_data @needs.to_csv, filename: "needs-#{Date.today}.csv" }
+      format.csv do
+        authorize(Need, :export?)
+        send_data @needs.to_csv, filename: "needs-#{Date.today}.csv"
+      end
     end
   end
 
