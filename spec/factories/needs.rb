@@ -12,7 +12,7 @@ FactoryBot.define do
     end
 
     food_priority do
-      category == FOOD_CATEGORY ? [1, 2, 3, nil].sample : nil
+      category == FOOD_CATEGORY ? [1, 2, nil].sample : nil
     end
 
     food_service_type do
