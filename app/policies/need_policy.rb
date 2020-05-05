@@ -49,7 +49,7 @@ class NeedPolicy < ApplicationPolicy
   def destroy?
     # return true if permissive_roles?
     need = Pundit.policy_scope!(@user, Need).where(id: @record.id)
-    need.exists? ? need.created_by(@user.id) : false
+    need.exists? ? need.created_by(@user.id).exists? : false
   end
 
   def create?

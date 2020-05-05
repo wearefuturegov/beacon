@@ -82,7 +82,7 @@ class Need < ApplicationRecord
 
   scope :filter_by_status, ->(status) { where(status: status) }
   
-  scope :created_by, ->(user_id) { joins(:versions).where('versions.whodunnit = ? on needs.id=versions.item_id', user_id)  }
+  scope :created_by, ->(user_id) { joins(:versions).where('whodunnit = ? and event = ?', user_id.to_s, 'create')  }
 
   scope :filter_by_is_urgent, lambda { |is_urgent|
     is_urgent = is_urgent.downcase
