@@ -8,7 +8,7 @@
                    prompt: 'Assign to...', class: "assign__needs dropdown", id: 'assign-selected-needs', disabled: 'disabled' %>
     <%= label_tag :category_selected_needs, 'Set category', class: 'visually-hidden' %>
     <%= select_tag :category_selected_needs, 
-                   options_for_select(Need.categories.select {|_k,v| !['phone triage', 'check in'].include?(v) }), 
+                   options_for_select(Need.not_assesment_categories), 
                    prompt: 'Set category', 
                    class: "dropdown", 
                    id: 'category-selected-needs',
