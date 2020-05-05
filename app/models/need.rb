@@ -4,7 +4,7 @@ require 'csv'
 
 class Need < ApplicationRecord
   include Filterable
-  acts_as_paranoid
+  acts_as_paranoid without_default_scope: true
   
   self.ignored_columns = %w[due_by]
   before_update :enforce_single_assignment
@@ -81,6 +81,8 @@ class Need < ApplicationRecord
   }
 
   scope :filter_by_status, ->(status) { where(status: status) }
+  
+  scope :created_by, ->(user_id) { joins(:versions).where('versions.whodunnit = ? on needs.id=versions.item_id', user_id)  }
 
   scope :filter_by_is_urgent, lambda { |is_urgent|
     is_urgent = is_urgent.downcase

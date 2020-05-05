@@ -29,34 +29,40 @@ class NeedsController < ApplicationController
       redirect_to contact_path(need.contact_id), notice: "Need #{need_name} was successfully deleted."
     else
       @assigned_to_options = construct_assigned_to_options
+      @delete_prompt = get_delete_prompt @need
       render :show
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
     @assigned_to_options = construct_assigned_to_options
+    @delete_prompt = get_delete_prompt @need
     render :show
   end
 
   def show
     @assigned_to_options = construct_assigned_to_options
     @need.notes.order(created_at: :desc)
+    @delete_prompt = get_delete_prompt @need
   end
 
   def edit
     @roles = Role.all
     @users = User.all
+    @delete_prompt = get_delete_prompt @need
   end
 
   def update
     if @need.update(need_params)
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else
+      @delete_prompt = get_delete_prompt @need
       @assigned_to_options = construct_assigned_to_options
       render :show
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
     @assigned_to_options = construct_assigned_to_options
+    @delete_prompt = get_delete_prompt @need
     render :show
   end
 
@@ -72,6 +78,10 @@ class NeedsController < ApplicationController
   end
 
   private
+
+  def get_delete_prompt(need)
+   "Only Delete this #{need.category} if you created it in error. If it is canceled, blocked or completed, please click Cancel and update the status instead.  Click OK to delete?"
+  end
 
   def set_need
     @need = Need.find(params[:id])
