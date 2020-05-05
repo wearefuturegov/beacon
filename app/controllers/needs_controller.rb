@@ -36,9 +36,8 @@ class NeedsController < ApplicationController
   end
 
   def show
-    @assigned_to_options = construct_assigned_to_options
     @need.notes.order(created_at: :desc)
-    @delete_prompt = get_delete_prompt @need
+    populate_page_data
   end
 
   def edit
@@ -51,14 +50,12 @@ class NeedsController < ApplicationController
     if @need.update(need_params)
       redirect_to need_path(@need), notice: 'Need was successfully updated.'
     else
-      @delete_prompt = get_delete_prompt @need
-      @assigned_to_options = construct_assigned_to_options
+      populate_page_data
       render :show
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
-    @assigned_to_options = construct_assigned_to_options
-    @delete_prompt = get_delete_prompt @need
+    populate_page_data
     render :show
   end
 
@@ -81,8 +78,7 @@ class NeedsController < ApplicationController
     note.destroy
 
     @need = Need.find(params[:need_id])
-    @assigned_to_options = construct_assigned_to_options
-    @delete_prompt = get_delete_prompt @need
+    populate_page_data
     
     redirect_to need_path(@need)
   end
@@ -90,13 +86,23 @@ class NeedsController < ApplicationController
   def delete_need(params)
     need = Need.find(params[:id])
     need_name = need.category
+
+    if need.notes.without_deleted.length > 0
+      flash[:alert] = "Unable to delete '#{need_name}''. Please delete the attached notes first."
+      redirect_to need_path(need) and return
+    end
+
     if need.destroy
-      redirect_to contact_path(need.contact_id), notice: "Need #{need_name} was successfully deleted."
+      redirect_to contact_path(need.contact_id), notice: "'#{need_name}' was successfully deleted."
     else
-      @assigned_to_options = construct_assigned_to_options
-      @delete_prompt = get_delete_prompt @need
+      populate_page_data
       render :show
     end
+  end
+
+  def populate_page_data
+    @assigned_to_options = construct_assigned_to_options
+    @delete_prompt = get_delete_prompt @need
   end
 
   def get_delete_prompt(need)

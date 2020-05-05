@@ -19,10 +19,9 @@
     <%= form.submit "Add update", class: "button notes__button" %>
   <% end %>
 
-  <% if @need.notes.without_deleted.length > 1 %>
+  <% if @need.notes.without_deleted.length > 0 %>
     <div class="notes__list">
       <% @need.notes.without_deleted.order(:id).reverse.each do |note| %>
-      <% next if note == @need.notes.without_deleted.last %>
         <article class="note">
           <header class="note__header">
             <strong><%= note.category %></strong>
