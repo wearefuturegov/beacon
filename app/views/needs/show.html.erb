@@ -26,7 +26,7 @@
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
       <%= link_to @need.category, @contact, class: "panel__header" %>
       
-      <% if policy(@need).destroy? %>
+      <% if policy(@need).destroy? && @need.has_no_notes_by_somebody_else(current_user.id) %>
         <%= link_to 'Delete',  { action: :destroy, id: @need.id }, class: "need-delete-link", method: :delete, data: { confirm: @delete_prompt } %>
       <% end %>
       

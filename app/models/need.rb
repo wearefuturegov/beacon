@@ -150,6 +150,14 @@ class Need < ApplicationRecord
     end
   end
 
+  def has_no_notes_by_somebody_else(user_id)
+    notes.without_deleted.select{|x| x.user_id != user_id}.empty?
+  end
+
+  def has_notes_by_somebody_else(user_id)
+    !has_no_notes_by_somebody_else(user_id)
+  end
+
   def css_class
     "need-pane--#{category.parameterize}"
   end
