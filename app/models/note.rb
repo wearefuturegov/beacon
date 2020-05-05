@@ -3,7 +3,7 @@
 class Note < ApplicationRecord
   acts_as_paranoid without_default_scope: true
   
-  belongs_to :need
+  belongs_to :need, -> { without_deleted }
   belongs_to :user, optional: true
 
   enum category: { 'Note': 'general',
@@ -17,5 +17,4 @@ class Note < ApplicationRecord
   def self.categories_without_phone_import
     categories.except('Imported Call Log'.to_sym)
   end
-
 end

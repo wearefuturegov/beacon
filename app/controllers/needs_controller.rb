@@ -23,14 +23,10 @@ class NeedsController < ApplicationController
   end
 
   def destroy
-    need = Need.find(params[:id])
-    need_name = need.category
-    if need.destroy
-      redirect_to contact_path(need.contact_id), notice: "Need #{need_name} was successfully deleted."
+    if params[:note_only] == 'true'
+      delete_note params
     else
-      @assigned_to_options = construct_assigned_to_options
-      @delete_prompt = get_delete_prompt @need
-      render :show
+      delete_need params
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
@@ -78,6 +74,30 @@ class NeedsController < ApplicationController
   end
 
   private
+
+  def delete_note(params)
+    note = Note.find(params[:id])
+    note_name = note.category
+    note.destroy
+
+    @need = Need.find(params[:need_id])
+    @assigned_to_options = construct_assigned_to_options
+    @delete_prompt = get_delete_prompt @need
+    
+    redirect_to need_path(@need)
+  end
+
+  def delete_need(params)
+    need = Need.find(params[:id])
+    need_name = need.category
+    if need.destroy
+      redirect_to contact_path(need.contact_id), notice: "Need #{need_name} was successfully deleted."
+    else
+      @assigned_to_options = construct_assigned_to_options
+      @delete_prompt = get_delete_prompt @need
+      render :show
+    end
+  end
 
   def get_delete_prompt(need)
    "Only Delete this #{need.category} if you created it in error. If it is canceled, blocked or completed, please click Cancel and update the status instead.  Click OK to delete?"
