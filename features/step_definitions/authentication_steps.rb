@@ -4,6 +4,14 @@ Given(/^I am logged into the system$/) do
   expect(page).to have_selector('#sign-out-link')
 end
 
+Given(/^they have logged into the system as an admin$/) do
+  step 'I am logged into the system as an admin'
+end
+
+Given("they have logged into the system as a {string} user") do |user|
+  step "I am logged into the system as a '#{user}' user"
+end
+
 Given(/^I am logged into the system as an admin$/) do
   visit generate_magic_link('manager')
   expect(page.status_code).to eq(200) if Capybara.current_driver == :rack_test
@@ -22,6 +30,10 @@ Given('I am logged into the system as a(n) {string} user') do |role|
   visit generate_magic_link(role.downcase)
   expect(page.status_code).to eq(200) if Capybara.current_driver == :rack_test
   expect(page).to have_selector(:link_or_button, 'Sign out')
+end
+
+Given('they have logged out') do
+  step 'I logged out'
 end
 
 Given('I logged out') do

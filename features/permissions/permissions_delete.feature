@@ -18,9 +18,9 @@ Feature: Restrict deletion of support actions and notes to a user based on their
       | agent   |
 
   Scenario Outline: Users cannot delete a support action they have not created
-    Given I am logged into the system as an admin
+    Given they have logged into the system as an admin
     And a support action for contact "Luka Edge" is assigned to role "<role>"
-    And I logged out
+    And they have logged out
     And I am logged into the system as a "<role>" user
     When I edit the support action
     Then I cannot delete the support action
@@ -31,9 +31,9 @@ Feature: Restrict deletion of support actions and notes to a user based on their
 
   @javascript
   Scenario: Managers can delete a support action they have not created
-    And I am logged into the system as a "food_delivery_manager" user
+    Given they have logged into the system as a "food_delivery_manager" user
     And a support action for contact "George Ball" is assigned to role "<role>"
-    And I logged out
+    And they have logged out
     And I am logged into the system as a "manager" user
     When I edit the support action
     Then I can delete the support action
@@ -53,8 +53,16 @@ Feature: Restrict deletion of support actions and notes to a user based on their
       | manager |
       | agent   |
 
-  Scenario Outline: Anyone can delete a support action they have created with own notes
   Scenario Outline: Users cannot delete a support action they have created with notes they have not created
-  Scenario Outline: Anyone can delete own notes
-  Scenario Outline: Users cannot delete notes they have not created
+    Given I am logged into the system as a "<role>" user
+    And a resident with 'Dog walking' support actions
+    And someone else added a "Note" note "asdfg"
+    When I edit the support action
+    Then I can delete the support action
+    And I can see a deletion confirmation message
+    Examples:
+      | role  |
+      | mdt   |
+      | agent |
+
   Scenario Outline: Managers can delete notes they have not created
