@@ -36,9 +36,14 @@ Given('they have logged out') do
   step 'I logged out'
 end
 
+When('I log out') do
+  step 'I logged out'
+end
+
 Given('I logged out') do
   page.find('#sign-out-link').click
 end
+
 
 def generate_magic_link(role_name = 'agent')
   role = Role.where(name: "#{role_name} role")

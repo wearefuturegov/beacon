@@ -21,3 +21,19 @@ Then('I cannot delete the support action') do
   request_delete_btn = page.find("#request-delete-need-#{@contact.needs.first.id}")
   expect(request_delete_btn).to be_visible
 end
+
+Given('someone else added a {string} note {string}') do |category, content|
+  step 'Someone else is logged into the system'
+
+  Capybara.using_session('Second_users_session') do
+    visit "/needs/#{@contact.needs.first.id}"
+    step "I add a '#{category}' note '#{content}'"
+    step 'I submit the form to create the note'
+    step 'I log out'
+  end
+
+  # check the notes by somebody else exists
+  visit "/needs/#{@contact.needs.first.id}"
+  top_entry = page.find('.notes__list > article.note:nth-child(1)')
+  expect(top_entry).to have_content(content)
+end
