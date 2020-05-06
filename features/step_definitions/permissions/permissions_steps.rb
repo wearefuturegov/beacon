@@ -11,6 +11,12 @@ And('a support action (for a contact )is assigned to that role') do
   step 'a support action for contact "Test" is assigned to that role'
 end
 
+And('a support action for contact {string} is assigned to role {string}') do |name, role|
+  @role = find_role(role)
+  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
+  @support_action = Need.create!(contact: @contact, name: 'Dog walking', category: 'Dog walking', role: @role)
+end
+
 And('a support action for contact {string} is assigned to me') do |name|
   @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
   @support_action = Need.create!(contact: @contact, name: 'Dog walking', category: 'Dog walking', user: @user)
@@ -54,4 +60,9 @@ end
 
 Then('I see a permissions error') do
   find('.alert', text: 'You are not authorized to perform this action.')
+end
+
+def find_role(role)
+  role = Role.where(name: "#{role} role")
+  role.exists? ? role.first : Role.create(name: "#{role} role", role: role)
 end

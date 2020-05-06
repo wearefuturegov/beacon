@@ -48,7 +48,7 @@ class NeedPolicy < ApplicationPolicy
 
   def destroy?
     # managers can always destroy
-    return true if permissive_roles?
+    return true if admin?
 
     # check ownership of need record
     need = Pundit.policy_scope!(@user, Need).where(id: @record.id)

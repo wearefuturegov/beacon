@@ -24,12 +24,17 @@ Given('I am logged into the system as a(n) {string} user') do |role|
   expect(page).to have_selector(:link_or_button, 'Sign out')
 end
 
-def generate_magic_link(role = 'agent')
-  @role = Role.create(name: "#{role} role", role: role)
-  email = role == 'agent' ? 'test@test.com' : 'admin@test.com'
-  tester = User.create!(email: email,
-                        invited: Date.today,
-                        roles: [@role])
+Given('I logged out') do
+  page.find('#sign-out-link').click
+end
+
+def generate_magic_link(role_name = 'agent')
+  role = Role.where(name: "#{role_name} role")
+  @role = role.exists? ? role.first : Role.create(name: "#{role_name} role", role: role_name)
+  email = "#{role_name.parameterize.underscore}@test.com"
+
+  user = User.where(email: email)
+  tester = user.exists? ? user.first : User.create!(email: email, invited: Date.today, roles: [@role])
   @user = tester
   session = Passwordless::Session.new({
                                         authenticatable: tester,
