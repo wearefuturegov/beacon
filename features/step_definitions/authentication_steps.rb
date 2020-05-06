@@ -8,7 +8,7 @@ Given(/^they have logged into the system as an admin$/) do
   step 'I am logged into the system as an admin'
 end
 
-Given("they have logged into the system as a {string} user") do |user|
+Given('they have logged into the system as a {string} user') do |user|
   step "I am logged into the system as a '#{user}' user"
 end
 
@@ -43,7 +43,6 @@ end
 Given('I logged out') do
   page.find('#sign-out-link').click
 end
-
 
 def generate_magic_link(role_name = 'agent')
   role = Role.where(name: "#{role_name} role")
