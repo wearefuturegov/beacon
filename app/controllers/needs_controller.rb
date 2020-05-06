@@ -103,11 +103,6 @@ class NeedsController < ApplicationController
     need = Need.find(params[:id])
     need_name = need.category
 
-    if need.notes_by_somebody_else?(current_user.id)
-      flash[:alert] = "Unable to delete '#{need_name}''. Please delete the attached notes first."
-      redirect_to need_path(need) && return
-    end
-
     if need.destroy
       redirect_to contact_path(need.contact_id), notice: "'#{need_name}' was successfully deleted."
     else
