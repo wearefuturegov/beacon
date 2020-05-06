@@ -70,6 +70,19 @@ class NeedsController < ApplicationController
     render json: { status: 'ok' }
   end
 
+  def request_destroy_need
+    # TODO: implement email to Admin functionality
+    need = Need.find(params[:id])
+    need_name = need.category
+    redirect_to need_path(need), notice: "You requested a manager to delete '#{need_name}'."
+  end
+
+  def request_destroy_note
+    # TODO: implement email to Admin functionality
+    note = Note.find(params[:id])
+    note_name = note.category
+    redirect_to need_path(note.need_id), notice: "You requested a manager to delete '#{note_name}'."
+  end
   private
 
   def delete_note(params)
@@ -106,7 +119,7 @@ class NeedsController < ApplicationController
   end
 
   def get_delete_prompt(need)
-   "Only Delete this #{need.category} if you created it in error. If it is canceled, blocked or completed, please click Cancel and update the status instead.  Click OK to delete?"
+   "Only Delete this #{need.category} if you created it by mistake. If it is cancelled, blocked or completed, please update the status instead.  Click OK to delete"
   end
 
   def set_need

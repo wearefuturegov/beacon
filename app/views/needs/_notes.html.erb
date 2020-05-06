@@ -34,6 +34,8 @@
 
             <% if policy(note).destroy? %>
               <%= link_to 'Delete',  { action: :destroy, id: note.id, note_only: true, need_id: @need.id}, class: "note-delete-link", method: :delete, data: { confirm: "Are you sure" } %>
+            <% else %>
+              <%= link_to 'Request deletion', { action: :request_destroy_note, id: note.id }, class: "note-delete-link", method: :post, data: { confirm: 'Are you sure you want to request a deletion of this record?' }  %>
             <% end %>
             
           </header>

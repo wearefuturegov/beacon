@@ -205,13 +205,14 @@ class Need < ApplicationRecord
   def self.base_query
     sql = "LEFT JOIN (select c.id, max(nt.created_at) as last_phoned_date from contacts c
           left join needs n on n.contact_id = c.id
-          left join notes nt on nt.need_id = n.id where nt.category like 'phone_%'
+          left join notes nt on nt.need_id = n.id where nt.category like 'phone_%' and nt.deleted_at IS NULL
           group by c.id) as contact_aggregation
           on contact_aggregation.id = contacts.id"
 
     sql += " left join (
           select n.id, count(nt.id) as call_attempts from notes nt
           join needs n on n.id = nt.need_id and nt.category in ('phone_success', 'phone_message', 'phone_failure')
+          where nt.deleted_at IS NULL
           group by n.id
         ) as notes_aggr on notes_aggr.id = needs.id"
 

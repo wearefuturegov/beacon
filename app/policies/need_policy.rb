@@ -47,9 +47,16 @@ class NeedPolicy < ApplicationPolicy
   end
 
   def destroy?
-    # return true if permissive_roles? disabled temporarely to test logic
+    # managers can always destroy
+    return true if permissive_roles?
+
+    # check ownership of need record
     need = Pundit.policy_scope!(@user, Need).where(id: @record.id)
-    need.exists? ? need.created_by(@user.id).exists? : false
+    if need.exists?
+      # check ownership of child notes records
+      return need.created_by(@user.id).exists? && need.first.has_no_notes_by_somebody_else(@user.id)
+    end
+    false
   end
 
   def create?
