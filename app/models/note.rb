@@ -2,7 +2,7 @@
 
 class Note < ApplicationRecord
   acts_as_paranoid without_default_scope: true
-  
+
   belongs_to :need
   belongs_to :user, optional: true
 
@@ -17,5 +17,4 @@ class Note < ApplicationRecord
   def self.categories_without_phone_import
     categories.except('Imported Call Log'.to_sym)
   end
-  
 end

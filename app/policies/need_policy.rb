@@ -54,8 +54,9 @@ class NeedPolicy < ApplicationPolicy
     need = Pundit.policy_scope!(@user, Need).where(id: @record.id)
     if need.exists?
       # check ownership of child notes records
-      return need.created_by(@user.id).exists? && need.first.has_no_notes_by_somebody_else(@user.id)
+      return need.created_by(@user.id).exists? && need.first.no_notes_by_somebody_else?(@user.id)
     end
+
     false
   end
 

@@ -83,16 +83,16 @@ class NeedsController < ApplicationController
     note_name = note.category
     redirect_to need_path(note.need_id), notice: "You requested a manager to delete '#{note_name}'."
   end
+
   private
 
   def delete_note(params)
     note = Note.find(params[:id])
-    note_name = note.category
     note.destroy
 
     @need = Need.find(params[:need_id])
     populate_page_data
-    
+
     redirect_to need_path(@need)
   end
 
@@ -100,11 +100,11 @@ class NeedsController < ApplicationController
     need = Need.find(params[:id])
     need_name = need.category
 
-    if need.has_notes_by_somebody_else(current_user.id)
+    if need.notes_by_somebody_else?(current_user.id)
       flash[:alert] = "Unable to delete '#{need_name}''. Please delete the attached notes first."
-      redirect_to need_path(need) and return
+      redirect_to need_path(need) && return
     end
-    
+
     if need.destroy
       redirect_to contact_path(need.contact_id), notice: "'#{need_name}' was successfully deleted."
     else
@@ -119,7 +119,7 @@ class NeedsController < ApplicationController
   end
 
   def get_delete_prompt(need)
-   "Only Delete this #{need.category} if you created it by mistake. If it is cancelled, blocked or completed, please update the status instead.  Click OK to delete"
+    "Only Delete this #{need.category} if you created it by mistake. If it is cancelled, blocked or completed, please update the status instead.  Click OK to delete"
   end
 
   def set_need

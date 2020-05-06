@@ -4,8 +4,9 @@ require 'csv'
 
 class Need < ApplicationRecord
   include Filterable
+  include NeedCsv
   acts_as_paranoid
-  
+
   self.ignored_columns = %w[due_by]
   before_update :enforce_single_assignment
   after_initialize :set_status
@@ -81,8 +82,8 @@ class Need < ApplicationRecord
   }
 
   scope :filter_by_status, ->(status) { where(status: status) }
-  
-  scope :created_by, ->(user_id) { joins(:versions).where('whodunnit = ? and event = ?', user_id.to_s, 'create')  }
+
+  scope :created_by, ->(user_id) { joins(:versions).where('whodunnit = ? and event = ?', user_id.to_s, 'create') }
 
   scope :filter_by_is_urgent, lambda { |is_urgent|
     is_urgent = is_urgent.downcase
@@ -115,47 +116,12 @@ class Need < ApplicationRecord
            to: :contact, prefix: true
   delegate :name, to: :user, prefix: true
 
-  def self.to_csv
-    attributes = {
-      id: 'need_id',
-      category: 'category',
-      status: 'status',
-      created_at: 'created_at',
-
-      contact_name: 'name',
-      contact_address: 'address',
-      contact_postcode: 'postcode',
-      contact_telephone: 'telephone',
-      contact_mobile: 'mobile',
-
-      name: 'description',
-      food_priority: 'food_priority',
-      food_service_type: 'food_service_type',
-      contact_count_people_in_house: 'count_people_in_house',
-      contact_any_dietary_requirements: 'any_dietary_requirements',
-      contact_dietary_details: 'dietary_details',
-      contact_cooking_facilities: 'cooking_facilities',
-      contact_delivery_details: 'delivery_details',
-      contact_has_covid_symptoms: 'has_covid_symptoms',
-
-      contact_is_vulnerable: 'is_vulnerable',
-      is_urgent: 'is_urgent'
-    }
-
-    CSV.generate(headers: true) do |csv|
-      csv << attributes.values
-      all.each do |record|
-        csv << attributes.keys.map { |attr| attr == :status ? record.send(:status_label) : record.send(attr) }
-      end
-    end
+  def no_notes_by_somebody_else?(user_id)
+    notes.without_deleted.reject { |x| x.user_id == user_id }.empty?
   end
 
-  def has_no_notes_by_somebody_else(user_id)
-    notes.without_deleted.select{|x| x.user_id != user_id}.empty?
-  end
-
-  def has_notes_by_somebody_else(user_id)
-    !has_no_notes_by_somebody_else(user_id)
+  def notes_by_somebody_else?(user_id)
+    !no_notes_by_somebody_else?(user_id)
   end
 
   def css_class

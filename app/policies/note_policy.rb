@@ -1,5 +1,4 @@
 class NotePolicy < ApplicationPolicy
- 
   def index?
     true
   end
@@ -13,12 +12,12 @@ class NotePolicy < ApplicationPolicy
   end
 
   def destroy?
-    # return true if permissive_roles? disabled temporarely to test logic
-    note = Pundit.policy_scope!(@user, Note).where(id: @record.id, user_id: @user.id).exists?
+    return true if permissive_roles?
+
+    Pundit.policy_scope!(@user, Note).where(id: @record.id, user_id: @user.id).exists?
   end
 
   def create?
     true
   end
-
 end
