@@ -67,4 +67,8 @@ class NeedPolicy < ApplicationPolicy
   def assign_multiple?
     update?
   end
+
+  def export?
+    admin? || food_manager?
+  end
 end

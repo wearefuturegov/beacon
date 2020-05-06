@@ -86,7 +86,7 @@ class ApplicationPolicy
   def mdt_council_or_food_role?
     council_service_roles.any? { |role| @user.in_role_name?(role.tag) } ||
       user_is_in_mdt_role? ||
-      user_is_in_food_role?
+      food_manager?
   end
 
   def council_service_roles
@@ -97,7 +97,7 @@ class ApplicationPolicy
     @user.in_role_name?('mdt')
   end
 
-  def user_is_in_food_role?
+  def food_manager?
     @user.in_role_name?('food_delivery_manager')
   end
 end
