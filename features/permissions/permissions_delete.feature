@@ -40,8 +40,19 @@ Feature: Restrict deletion of support actions and notes to a user based on their
     And I can see a deletion confirmation message
 
 
-  
-  Scenario Outline: Managers can delete a support action they have not created
+  @javascript
+  Scenario Outline: Anyone can delete a support action they have created without notes
+    Given I am logged into the system as a "<role>" user
+    And a resident with 'Dog walking' support actions
+    And I added a "Note" note "asdfg"
+    When I edit the support action
+    Then I can delete the support action
+    And I can see a deletion confirmation message
+    Examples:
+      | role    |
+      | manager |
+      | agent   |
+
   Scenario Outline: Anyone can delete a support action they have created with own notes
   Scenario Outline: Users cannot delete a support action they have created with notes they have not created
   Scenario Outline: Anyone can delete own notes

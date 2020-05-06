@@ -12,6 +12,11 @@ Given('a resident with {string} support actions') do |support_actions|
   end
 end
 
+Given('I added a {string} note {string}') do |category, content|
+  step "I add a '#{category}' note '#{content}'"
+  step 'I submit the form to create the note'
+end
+
 When('I add a {string} note {string}') do |category, content|
   visit "/needs/#{@contact.needs.first.id}"
   choose_note_type_from(category)
