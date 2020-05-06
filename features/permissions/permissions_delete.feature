@@ -29,6 +29,15 @@ Feature: Restrict deletion of support actions and notes to a user based on their
       | mdt   |
       | agent |
 
+  @javascript
+  Scenario: Managers can delete a support action they have not created
+    And I am logged into the system as a "food_delivery_manager" user
+    And a support action for contact "George Ball" is assigned to role "<role>"
+    And I logged out
+    And I am logged into the system as a "manager" user
+    When I edit the support action
+    Then I can delete the support action
+    And I can see a deletion confirmation message
 
 
   
