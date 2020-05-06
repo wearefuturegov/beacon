@@ -1,4 +1,4 @@
-@permissions @support_actions
+@permissions @support_actions @javascript
 Feature: Restrict deletion of support actions and notes to a user based on their role
   As a beacon owner
   I want to restrict what record people can delete in beacon
@@ -6,12 +6,13 @@ Feature: Restrict deletion of support actions and notes to a user based on their
 
   Scenario Outline: Anyone can delete a need they have created without notes
     Given I am logged into the system as a "<role>" user
-    And I have created a support action
+    And a resident with 'Dog walking' support actions
     And no notes exists on the support actions
     When I edit the support action
     Then I can delete the support action
+    And I can see a deletion confirmation message
     Examples:
-      | role                            |
-      | mdt                             |
-      | food_delivery_manager           |
-      | council_service_name_of_service |
+      | role    |
+      | manager |
+      | agent   |
+      | mdt     |
