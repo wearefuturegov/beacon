@@ -40,6 +40,11 @@
                 <span class="main-menu__submenu-current">Team Completed</span>
               <% end %>
             <% end %>
+            <% if policy(User).index? %>
+              <%= link_to_unless_current "Deleted", show_deleted_path(:order => "deleted_at", :order_dir => "DESC"), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">Deleted</span>
+              <% end %>
+            <% end %>
           </ul>
         </li>
         <li class="main-menu__item">
@@ -55,6 +60,7 @@
           <% end %>
         </li>
       <% end %>
+      
     </ul>
 
     <div class="nav-bottom">

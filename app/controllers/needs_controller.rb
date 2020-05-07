@@ -25,6 +25,24 @@ class NeedsController < ApplicationController
     end
   end
 
+  def show_deleted
+    @params = params.permit(:assigned_to, :status, :category, :page, :order_dir, :order, :commit, :deleted_at)
+    @users = User.all
+    @roles = Role.all
+    @needs = policy_scope(Need).deleted
+             .started
+             .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
+    @needs = @needs.page(params[:page]) unless request.format == 'csv'
+    @assigned_to_options = construct_assigned_to_options
+    respond_to do |format|
+      format.html
+      format.csv do
+        authorize(Need, :export?)
+        send_data @needs.to_csv, filename: "needs-#{Date.today}.csv"
+      end
+    end
+  end
+
   def destroy
     if params[:note_only] == 'true'
       delete_note params
@@ -85,6 +103,18 @@ class NeedsController < ApplicationController
     note = Note.find(params[:id])
     note_name = note.category
     redirect_to need_path(note.need_id), notice: "You requested a manager to delete '#{note_name}'."
+  end
+
+  def restore_need
+    need = policy_scope(Need).deleted.where(id: params[:id])
+    if need.exists?
+      need_name = need.first.category
+      Rails.logger.info("Restored need '#{params[:id]}'")
+      need.first.undelete
+      redirect_to show_deleted_path(order: "deleted_at", order_dir: "DESC"), notice: "Restored '#{need_name}'."
+    else
+      redirect_to show_deleted_path(order: "deleted_at", order_dir: "DESC"), alert: "Could not restore record."
+    end
   end
 
   private

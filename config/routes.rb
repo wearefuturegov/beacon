@@ -24,4 +24,7 @@ Rails.application.routes.draw do
 
   post '/needs/request_destroy_need' => 'needs#request_destroy_need'
   post '/needs/request_destroy_note' => 'needs#request_destroy_note'
+  post '/needs/restore_need' => 'needs#restore_need'
+  get '/show_deleted' => 'needs#show_deleted', as: 'show_deleted'
+
 end

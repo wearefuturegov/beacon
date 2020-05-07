@@ -25,6 +25,14 @@
             position: relative;
             border-bottom: 1px solid transparentize($text, 0.8);
             &.clickable{
+                @extend .selectable;
+                td:last-of-type{
+                    &:after{
+                        background-image: url(asset_path('right.svg'));
+                    }
+                }
+            }
+            &.selectable{
                 cursor: pointer;
                 &:hover{
                     background: transparentize($blue, 0.9);
@@ -46,7 +54,6 @@
                         width: 30px;
                         background-position: center;
                         background-repeat: no-repeat;
-                        background-image: url(asset_path('right.svg'));
                     }
                 }
             }

@@ -17,4 +17,9 @@ class Note < ApplicationRecord
   def self.categories_without_phone_import
     categories.except('Imported Call Log'.to_sym)
   end
+
+  def undelete
+    self.deleted_at = nil
+    self.save
+  end
 end
