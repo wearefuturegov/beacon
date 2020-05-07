@@ -228,12 +228,6 @@ class Need < ApplicationRecord
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  def undelete
-    self.deleted_at = nil
-    self.save
-    self.notes.each{|note| note.undelete}
-  end
-  
   private
 
   def set_status

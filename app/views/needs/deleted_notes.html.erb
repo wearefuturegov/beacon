@@ -1,13 +1,13 @@
 <header class="panel-header">
-  <h1 class="panel-header__title">Deleted support actions</h1>
+  <h1 class="panel-header__title">Deleted notes</h1>
 </header>
 
 <div class="panel">
-  <% if @needs.any? %>
+  <% if @notes.any? %>
     <table class="table data-table">
       <thead>
       <tr>
-        <th>
+        <th width="15%">
           <div class="sortable">
               Category
               <div class="sortable__controls">
@@ -16,9 +16,7 @@
               </div>
             </div>
         </th>
-        <th>Person</th>
-        <th>Status</th>
-        <th>Assigned to</th>
+        <th width="60%">Body</th>
         <th>
         <div class="sortable">
             Deleted
@@ -32,27 +30,23 @@
       </tr>
       </thead>
       <tbody>
-      <% @needs.each do |n| %>
+      <% @notes.each do |n| %>
         <tr class="selectable">
           <td>
             <%= n.category %>
           </td>
-          <td><%= n.contact_name %></td>
-          <td><%= n.status_label %></td>
-          <td>
-            <%= n.user&.name_or_email || n.role&.name || 'Unassigned' %>
-          </td>
+          <td><%= n.body %></td>
           <td><%= n.deleted_at.strftime("%-d %B %Y, %H:%M:%S") %></td>
           <td>
-            <%= link_to 'Restore', { controller: :needs, action: :restore_need, id: n.id }, 
-            class: "button", id: "restore-need-#{n.id}", method: :post, 
+            <%= link_to 'Restore', { controller: :needs, action: :restore_note, id: n.id }, 
+            class: "button", id: "restore-note-#{n.id}", method: :post, 
             data: { confirm: 'Are you sure you want to restore this record?' }  %>            
           </td>
         </tr>
       <% end %>
       </tbody>
     </table>
-    <%= render "shared/pagination", model: @needs %>
+    <%= render "shared/pagination", model: @notes %>
     
   <% else %>
     <p class="no-results">No matches</p>

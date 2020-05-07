@@ -41,8 +41,13 @@
               <% end %>
             <% end %>
             <% if policy(User).index? %>
-              <%= link_to_unless_current "Deleted", show_deleted_path(:order => "deleted_at", :order_dir => "DESC"), class: "main-menu__submenu-link" do %>
-                <span class="main-menu__submenu-current">Deleted</span>
+              <%= link_to_unless_current "Deleted support actions", deleted_needs_path(:order => "deleted_at", :order_dir => "DESC"), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">Deleted support actions</span>
+              <% end %>
+            <% end %>
+            <% if policy(User).index? %>
+              <%= link_to_unless_current "Deleted notes", deleted_notes_path(:order => "deleted_at", :order_dir => "DESC"), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">Deleted notes</span>
               <% end %>
             <% end %>
           </ul>
