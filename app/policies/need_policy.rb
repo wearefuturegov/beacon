@@ -53,4 +53,12 @@ class NeedPolicy < ApplicationPolicy
   def assign_multiple?
     update?
   end
+
+  def export?
+    admin? || food_manager?
+  end
+
+  def dashboard_change_multiple?
+    return true if permissive_roles?
+  end
 end

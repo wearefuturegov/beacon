@@ -39,7 +39,7 @@ class TriageController < ApplicationController
                                     :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_under_age,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
                                     :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version,
-                                    :share_data_flag, :channel)
+                                    :no_calls_flag, :deceased_flag, :share_data_flag, :channel)
   end
 
   def contact_needs_params

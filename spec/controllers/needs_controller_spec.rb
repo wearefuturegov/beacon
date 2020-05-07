@@ -6,6 +6,7 @@ RSpec.describe NeedsController, type: :controller do
   before :each do
     controller.class.skip_before_action :require_user!, raise: false
     controller.instance_variable_set(:@current_user, {})
+    allow_any_instance_of(controller.class).to receive(:authorize).and_return(nil)
   end
 
   let(:need) do
