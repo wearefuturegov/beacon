@@ -40,7 +40,7 @@
         <% @contact_needs.needs_list.each do |need_entry| %>
           <% need = need_entry[1] %>
           <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>
-            <div class="triage-grid__need need--<%= need[:name] %>">
+            <div class="triage-grid__need <%= "need--#{need[:name].parameterize}" %>">
               <div class="triage-grid__inner">
                 <div class="checkbox">
                   <h3 class="triage-grid__title">
