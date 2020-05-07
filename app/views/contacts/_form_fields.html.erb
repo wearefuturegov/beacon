@@ -95,22 +95,18 @@
 
 <fieldset class="field-section field-section--two-cols">
   <legend><h2 class="field-section__title">Consents</h2></legend>
-  <% if not request.path_info.include?('/triage') %>
     <div class="checkbox">
     <%= form.check_box :no_calls_flag, class: 'checkbox__input' %>
     <%= form.label :no_calls_flag, 'Do not call', class: 'checkbox__label' %>
     </div>
-    </fieldset>
+</fieldset>
     
-    <fieldset class="field-section field-section--two-cols">
-
+<fieldset class="field-section field-section--two-cols">
       <div class="checkbox">
       <%= form.check_box :deceased_flag, class: 'checkbox__input' %>
       <%= form.label :deceased_flag, 'Deceased', class: 'checkbox__label' %>
       </div>
-
-    </fieldset>
-  <% end %>
+</fieldset>
   
 <fieldset class="field-section field-section--two-cols">
   <div class="checkbox">

@@ -23,10 +23,10 @@
       <%= form.text_field :date_of_birth, :value => "#{@contact.date_of_birth&.strftime('%-d/%-m/%Y')}" %>
     </div>
 
-    <dl class="details-list">
-      <dt class="details-list__caption">NHS Number</dt>
-      <dd class="details-list__value" id="contact_nhs_number"><%= dash_if_empty @contact.nhs_number %></dd>
-    </dl>
+    <div class="field">
+      <%= form.label :nhs_number, 'NHS Number', class: "field__label" %>
+      <%= form.text_field :nhs_number %>
+    </div>
 
     <div class="field field--span-two-cols">
       <%= form.label :address, class: "field__label" %>
@@ -65,7 +65,7 @@
     </dl>
 
     <div class="checkbox">
-      <%= form.check_box :any_children_under_age, class: 'checkbox__input', checked: @contact.any_children_under_age == '1' %>
+      <%= form.check_box :any_children_under_age, class: 'checkbox__input', checked: @contact.any_children_under_age %>
       <%= form.label :any_children_under_age, 'Any children under 18?', class: 'checkbox__label' %>
     </div>
   </div>
@@ -86,25 +86,6 @@
     <h2 class="accordion__title">Additional information</h2>
   </button>
   <div class="accordion__content">
-    <dl class="details-list">
-      <dt class="details-list__caption">Dietary requirements</dt>
-      <dd class="details-list__value" id="any_dietary_requirements">
-        <%= friendly_boolean @contact.any_dietary_requirements %>
-      </dd>
-      <dd class="details-list__value" id="dietary_details">
-        <%= dash_if_empty @contact.dietary_details %>
-      </dd>
-
-      <dt class="details-list__caption">Cooking facilities</dt>
-      <dd class="details-list__value"><%= dash_if_empty @contact.cooking_facilities %></dd>
-
-      <dt class="details-list__caption">Eligible for free prescriptions</dt>
-      <dd class="details-list__value" id="eligible_for_free_prescriptions">
-        <%= friendly_boolean @contact.eligible_for_free_prescriptions %>
-      </dd>
-
-    </dl>
-    <br/>
      <fieldset class="field-section field-section--two-cols">
       <div class="field field--span-two-cols">
         <%= form.label :additional_info, class: "field__label" %>
@@ -112,8 +93,8 @@
       </div>
 
       <div class="checkbox">
-        <%= form.check_box :has_covid_symptoms, class: 'checkbox__input', checked: @contact.has_covid_symptoms == '1' %>
-        <%= form.label :has_covid_symptoms, 'Are you or anyone in your home showing any symptoms of COVID-19?', class: 'checkbox__label' %>
+        <%= form.check_box :has_covid_symptoms, class: 'checkbox__input', checked: @contact.has_covid_symptoms %>
+        <%= form.label :has_covid_symptoms, 'Showing any symptoms of COVID-19?', class: 'checkbox__label' %>
       </div>
 
     </fieldset>
@@ -125,24 +106,29 @@
   </button>
   <div class="accordion__content">
     <dl class="details-list">
-      <dt class="details-list__caption">Do not call</dt>
+
       <dd class="details-list__value" id="no_calls_flag">
-        <%= friendly_boolean @contact.no_calls_flag %>
+        <div class="checkbox">
+          <%= form.check_box :no_calls_flag, class: 'checkbox__input' %>
+          <%= form.label :no_calls_flag, 'Do not call', class: 'checkbox__label' %>
+        </div>
       </dd>
 
-      <dt class="details-list__caption">Deceased</dt>
       <dd class="details-list__value">
-        <%= friendly_boolean @contact.deceased_flag %>
+        <div class="checkbox">
+          <%= form.check_box :deceased_flag, class: 'checkbox__input' %>
+          <%= form.label :deceased_flag, 'Deceased', class: 'checkbox__label' %>
+        </div>
+      </dd>
+
+      <dd class="details-list__value">
+        <div class="checkbox">
+          <%= form.check_box :share_data_flag, class: 'checkbox__input' %>
+          <%= form.label :share_data_flag, 'Consent to share data', class: 'checkbox__label' %>
+        </div>
       </dd>
 
     </dl>
-    <br/>
-    <fieldset class="field-section field-section--two-cols">
-       <div class="checkbox">
-        <%= form.check_box :share_data_flag, class: 'checkbox__input' %>
-        <%= form.label :share_data_flag, 'Consent to share data', class: 'checkbox__label' %>
-      </div>
-    </fieldset>
 
   </div>
 
