@@ -1,48 +1,23 @@
 let needs = document.querySelectorAll(".select-needs");
 let allNeeds = document.querySelector("#select-all-needs");
 const assign = document.querySelector("#assign-selected-needs");
+const category = document.querySelector("#category-selected-needs");
+const bulkActionsElems = [assign, category]
 
-for (let i = 0; i < needs.length; i++) {
-  if (needs[i].checked && assign.hasAttribute("disabled")) {
-    assign.removeAttribute('disabled');
-  }
-  needs[i].addEventListener('click', checkboxClicked)
-}
+for (let i = 0; i < needs.length; i++) needs[i].addEventListener('click', checkboxClicked)
 allNeeds.addEventListener('click', selectAllNeeds)
 
 function checkboxClicked(e) {
   e.stopPropagation()
   let checkedCount = 0;
-  for (let i = 0; i < needs.length; i++) {
-    if (needs[i].checked) {
-      checkedCount++;
-    }
-  }
-
-  if (checkedCount > 0) {
-    assign.removeAttribute("disabled");
-  } else {
-    assign.setAttribute("disabled", "disabled");
-    allNeeds.checked = false;
-  }
+  for (let i = 0; i < needs.length; i++) if (needs[i].checked) { checkedCount++ }
+  (checkedCount > 0) ? enableBulkActions() : disableBulkActions()
 }
 
 function selectAllNeeds() {
-  let checked;
-  if(allNeeds.checked) {
-    checked = true;
-  } else {
-    checked = false;
-  }
-  for (let i = 0; i < needs.length; i++) {
-    needs[i].checked = checked;
-  }
-
-  if (checked) {
-    assign.removeAttribute("disabled");
-  } else {
-    assign.setAttribute("disabled", "disabled");
-  }
+  let checked = (allNeeds.checked) ? true : false
+  for (let i = 0; i < needs.length; i++) needs[i].checked = checked;
+  (checked) ? enableBulkActions() : disableBulkActions()
 }
 
 /**
@@ -69,25 +44,34 @@ applyPatchUpdate = (for_update) => {
 
 
 // assign to users event listener
-document.querySelector("#assign-selected-needs").addEventListener("change", (e) => {
+assign.addEventListener("change", (e) => {
   let assigned_to = e.target.value
-  if(e.target.value) {
-    if (assigned_to === 'Unassigned') {
-      assigned_to = null;
-    }
-    let for_update = []
-    for (let i = 0; i < needs.length; i++) {
-      if (needs[i].checked) {
-        for_update.push({ need_id: needs[i].value, assigned_to: assigned_to });
-      }
-    }    
-    if (for_update.length > 0) {
-      applyPatchUpdate(for_update);
-    }
-  }
+  if(!assigned_to) return;
+  if (assigned_to === 'Unassigned') assigned_to = null
+  let for_update = []
+  for (let i = 0; i < needs.length; i++) 
+    if (needs[i].checked) for_update.push({ need_id: needs[i].value, assigned_to: assigned_to })  
+  if (for_update.length > 0) applyPatchUpdate(for_update)
+});
+
+category.addEventListener("change", (e) => {
+  let category = e.target.value
+  if(!category) return;
+  let for_update = []
+  for (let i = 0; i < needs.length; i++)
+    if (needs[i].checked) for_update.push({ need_id: needs[i].value, category: category })
+  if (for_update.length > 0) applyPatchUpdate(for_update)
 });
 
 
 function getMetaValue(name) {
   return document.head.querySelector(`meta[name="${name}"]`).getAttribute("content");
+}
+
+function disableBulkActions() {
+  for(let i = 0; i < bulkActionsElems.length; i++) bulkActionsElems[i].setAttribute("disabled", "disabled")
+}
+
+function enableBulkActions() {
+  for(let i = 0; i < bulkActionsElems.length; i++) bulkActionsElems[i].removeAttribute("disabled")
 }
