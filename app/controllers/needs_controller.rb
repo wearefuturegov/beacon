@@ -111,7 +111,8 @@ class NeedsController < ApplicationController
       need_name = need.first.category
       Rails.logger.info("Restored need '#{params[:id]}'")
       need.first.undelete
-      redirect_to show_deleted_path(order: "deleted_at", order_dir: "DESC"), notice: "Restored '#{need_name}'."
+      redirect_to show_deleted_path(order: "deleted_at", order_dir: "DESC"), 
+        notice: "Restored '#{need_name}' see <a href='/needs/#{need.first.id}'>here</a>"
     else
       redirect_to show_deleted_path(order: "deleted_at", order_dir: "DESC"), alert: "Could not restore record."
     end
@@ -151,9 +152,11 @@ class NeedsController < ApplicationController
   end
 
   def set_need
-    @need = Need.find(params[:id])
-    @contact = @need.contact
+    # handle browsing back to a need that has been deleted
+    @need = Need.with_deleted.where(id: params[:id]).first
+    redirect_to contact_path(@need.contact_id) if @need.deleted_at
 
+    @contact = @need.contact
     authorize(@need)
     authorize(@contact, :show?)
   end
