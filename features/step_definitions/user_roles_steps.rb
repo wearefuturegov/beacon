@@ -17,7 +17,7 @@ And('another role {string} exists') do |role|
 end
 
 Then('I can see the edit users page') do
-  expect(page).to have_content('Edit admin@test.com')
+  expect(page).to have_content("Edit #{@user.email}")
 end
 
 And('I am editing my user profile') do
