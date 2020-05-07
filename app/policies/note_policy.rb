@@ -12,7 +12,7 @@ class NotePolicy < ApplicationPolicy
   end
 
   def destroy?
-    return true if permissive_roles?
+    return true if admin?
 
     Pundit.policy_scope!(@user, Note).where(id: @record.id, user_id: @user.id).exists?
   end
