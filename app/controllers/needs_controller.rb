@@ -51,7 +51,7 @@ class NeedsController < ApplicationController
 
   def update
     if @need.update(need_params)
-      redirect_to need_path(@need), notice: 'Need was successfully updated.'
+      redirect_to need_path(@need), notice: 'Record successfully updated.'
     else
       populate_page_data
       render :show
