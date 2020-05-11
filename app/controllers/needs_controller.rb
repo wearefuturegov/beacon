@@ -8,14 +8,20 @@ class NeedsController < ApplicationController
   helper_method :get_param
 
   def index
-    @params = params.permit(:assigned_to, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
+    @params = params.permit(:assigned_to, :status, :category, :page, :order_dir, :order, :commit, :is_urgent, :created_by_me)
     @users = User.all
     @roles = Role.all
-    @needs = policy_scope(Need)
-             .started
-             .filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
+
+    @needs = if @params[:created_by_me] == 'true'
+               @assigned_to_options = {}
+               Need.created_by(current_user.id).filter_by_assigned_to('Unassigned')
+             else
+               @assigned_to_options = construct_assigned_to_options
+               policy_scope(Need).started
+    end
+
+    @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
-    @assigned_to_options = construct_assigned_to_options
     respond_to do |format|
       format.html
       format.csv do

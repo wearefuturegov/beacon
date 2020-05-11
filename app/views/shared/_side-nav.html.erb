@@ -40,6 +40,10 @@
                 <span class="main-menu__submenu-current">Team Completed</span>
               <% end %>
             <% end %>
+
+            <%= link_to_unless_current "Created & Unassigned", root_path(:created_by_me => 'true'), class: "main-menu__submenu-link" do %>
+              <span class="main-menu__submenu-current">Created & Unassigned</span>
+            <% end %>
           </ul>
         </li>
 
