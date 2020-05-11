@@ -25,6 +25,7 @@ end
 
 And('I submit the add support actions form') do
   click_button('Save changes')
+  @need = Need.order(:created_at).last
 end
 
 Then('I see an error message {string}') do |error|

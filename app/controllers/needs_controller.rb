@@ -18,7 +18,7 @@ class NeedsController < ApplicationController
              else
                @assigned_to_options = construct_assigned_to_options
                policy_scope(Need).started
-    end
+             end
 
     @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
