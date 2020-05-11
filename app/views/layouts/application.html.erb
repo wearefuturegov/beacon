@@ -33,7 +33,7 @@
 
       <!-- Notifications -->
       <% flash.each do |type, msg| %>
-        <div class="<%= type %>"><%= msg %></div>
+        <div class="<%= type %>"><%= sanitize msg %></div>
       <% end %>
 
       <%= yield %>

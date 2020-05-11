@@ -25,6 +25,26 @@ class NeedsController < ApplicationController
     end
   end
 
+  def deleted_needs
+    @params = params.permit(:category, :page, :order_dir, :order, :commit, :deleted_at)
+    @users = User.all
+    @roles = Role.all
+    @needs = policy_scope(Need).deleted
+                               .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
+    @needs = @needs.page(params[:page])
+  end
+
+  def deleted_notes
+    @params = params.permit(:category, :page, :order_dir, :order, :commit, :deleted_at)
+    @users = User.all
+    @roles = Role.all
+    @notes = policy_scope(Note).deleted
+                               .filter_need_not_destroyed
+                               .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
+
+    @notes = @notes.page(params[:page])
+  end
+
   def destroy
     if params[:note_only] == 'true'
       delete_note params
@@ -75,6 +95,32 @@ class NeedsController < ApplicationController
     render json: { status: 'ok' }
   end
 
+  def restore_need
+    need = policy_scope(Need).deleted.where(id: params[:id])
+    if need.exists?
+      need_name = need.first.category
+      Rails.logger.info("Restored need '#{params[:id]}'")
+      need.first.restore(recursive: true)
+      redirect_to deleted_needs_path(order: 'deleted_at', order_dir: 'DESC'),
+                  notice: "Restored '#{need_name}' see <a href='#{need_path(need.first.id)}'>here</a>"
+    else
+      redirect_to deleted_needs_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
+    end
+  end
+
+  def restore_note
+    note = policy_scope(Note).deleted.where(id: params[:id])
+    if note.exists?
+      note_name = note.first.category
+      Rails.logger.info("Restored note '#{params[:id]}'")
+      note.first.restore
+      redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'),
+                  notice: "Restored '#{note_name}' see <a href='#{need_path(note.first.need_id)}'>here</a>"
+    else
+      redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
+    end
+  end
+
   private
 
   def delete_note(params)
@@ -109,9 +155,11 @@ class NeedsController < ApplicationController
   end
 
   def set_need
-    @need = Need.find(params[:id])
-    @contact = @need.contact
+    # handle browsing back to a need that has been deleted
+    @need = Need.with_deleted.where(id: params[:id]).first
+    redirect_to contact_path(@need.contact_id) if @need.deleted_at
 
+    @contact = @need.contact
     authorize(@need)
     authorize(@contact, :show?)
   end
