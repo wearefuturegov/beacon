@@ -1,6 +1,25 @@
+require("select2");
+
 let needs = document.querySelectorAll(".select-needs");
 let allNeeds = document.querySelector("#select-all-needs");
 const assign = document.querySelector("#assign-selected-needs");
+
+const assignNeedsDropdown = $("#assign-selected-needs.dropdown");
+assignNeedsDropdown.select2();
+assignNeedsDropdown.on("select2:select", (e) => {
+  let assigned_to = e.currentTarget.value === "Unassigned"
+      ? null
+      : e.currentTarget.value;
+  const for_update = []
+  for (let i = 0; i < needs.length; i++) {
+    if (needs[i].checked) {
+      for_update.push({ need_id: needs[i].value, assigned_to: assigned_to });
+    }
+  }
+  if (for_update.length > 0) {
+    applyPatchUpdate(for_update);
+  }
+});
 
 for (let i = 0; i < needs.length; i++) {
   if (needs[i].checked && assign.hasAttribute("disabled")) {
@@ -64,29 +83,7 @@ applyPatchUpdate = (for_update) => {
       }
     }
   });
-}
-
-
-
-// assign to users event listener
-document.querySelector("#assign-selected-needs").addEventListener("change", (e) => {
-  let assigned_to = e.target.value
-  if(e.target.value) {
-    if (assigned_to === 'Unassigned') {
-      assigned_to = null;
-    }
-    let for_update = []
-    for (let i = 0; i < needs.length; i++) {
-      if (needs[i].checked) {
-        for_update.push({ need_id: needs[i].value, assigned_to: assigned_to });
-      }
-    }    
-    if (for_update.length > 0) {
-      applyPatchUpdate(for_update);
-    }
-  }
-});
-
+};
 
 function getMetaValue(name) {
   return document.head.querySelector(`meta[name="${name}"]`).getAttribute("content");

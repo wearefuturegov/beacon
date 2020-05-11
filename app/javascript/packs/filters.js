@@ -1,5 +1,14 @@
+require("select2");
+
 const filters = document.querySelector(".filters");
 const exportButton = document.querySelector("#btnExport");
+
+const filtersForm = $(".filters__form");
+const filterFormBoxes = filtersForm.find(".dropdown");
+filterFormBoxes.select2();
+filterFormBoxes.on("select2:select", () => {
+   filtersForm.submit();
+});
 
 let control = filters.querySelector(".filters__controls");
 let contents = filters.querySelector(".filters__content");
@@ -18,10 +27,4 @@ control && control.addEventListener("click", e  => {
         filters.removeAttribute("data-open");
         exportButton.removeAttribute("data-open");
     }
-})
-
-let form = filters.querySelector("form")
-
-form.addEventListener("change", () => {
-    form.submit()
-})
+});
