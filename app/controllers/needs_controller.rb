@@ -96,20 +96,6 @@ class NeedsController < ApplicationController
     render json: { status: 'ok' }
   end
 
-  def request_destroy_need
-    # TODO: implement email to Admin functionality
-    need = Need.find(params[:id])
-    need_name = need.category
-    redirect_to need_path(need), notice: "You requested a manager to delete '#{need_name}'."
-  end
-
-  def request_destroy_note
-    # TODO: implement email to Admin functionality
-    note = Note.find(params[:id])
-    note_name = note.category
-    redirect_to need_path(note.need_id), notice: "You requested a manager to delete '#{note_name}'."
-  end
-
   def restore_need
     need = policy_scope(Need).deleted.where(id: params[:id])
     if need.exists?
@@ -135,6 +121,7 @@ class NeedsController < ApplicationController
       redirect_to deleted_notes_path(order: "deleted_at", order_dir: "DESC"), alert: "Could not restore record."
     end
   end
+  
   private
 
   def delete_note(params)

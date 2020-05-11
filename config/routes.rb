@@ -21,9 +21,6 @@ Rails.application.routes.draw do
   passwordless_for :users, at: '/', as: :auth
 
   patch '/assign_multiple' => 'needs#assign_multiple'
-
-  post '/needs/request_destroy_need' => 'needs#request_destroy_need'
-  post '/needs/request_destroy_note' => 'needs#request_destroy_note'
   post '/needs/restore_need' => 'needs#restore_need'
   post '/needs/restore_note' => 'needs#restore_note'
   get '/deleted_needs' => 'needs#deleted_needs', as: 'deleted_needs'

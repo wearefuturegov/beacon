@@ -72,3 +72,15 @@ Feature: Restrict deletion of support actions and notes to a user based on their
     When I edit the support action
     Then I can delete the support action
     And I can see a deletion confirmation message
+
+  @javascript
+  Scenario: Managers can restore deleted support actions
+    Given I have deleted a support action
+    When I choose to restore the support action
+    Then I can see the restored support action details
+
+  @javascript
+  Scenario: Managers can restore deleted notes
+    Given I have deleted a note
+    When I choose to restore the note
+    Then I can see the restored note details
