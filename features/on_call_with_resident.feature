@@ -43,6 +43,7 @@ Feature: On call with resident
     Then I see a resident updated message
     And the children under 15 details are "No"
 
+  @javascript
   Scenario: Answer yes to free prescriptions
     Given I am on a call with a resident
     And I am conducting a triage of the residents needs
@@ -50,7 +51,8 @@ Feature: On call with resident
     And I save the edit resident form
     Then I see a resident updated message
     And eligible for free prescriptions is "Yes"
-
+  
+  @javascript
   Scenario: Answer no to free prescriptions
     Given I am on a call with a resident
     And I am conducting a triage of the residents needs
@@ -59,6 +61,7 @@ Feature: On call with resident
     Then I see a resident updated message
     And eligible for free prescriptions is "No"
 
+  @javascript
   Scenario: Special dietary requirements no cooking facilities
     Given I am on a call with a resident
     And I am conducting a triage of the residents needs
