@@ -88,8 +88,10 @@ class NeedsController < ApplicationController
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
       authorize(need)
-      assigned_to = obj['assigned_to']
-      need.update!(assigned_to: assigned_to)
+      to_update = {}
+      to_update[:assigned_to] = obj['assigned_to'] if obj.key?('assigned_to')
+      to_update[:category] = obj['category'] if obj.key?('category')
+      need.update! to_update
     end
     render json: { status: 'ok' }
   end

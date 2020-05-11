@@ -51,11 +51,8 @@ class NeedPolicy < ApplicationPolicy
     return true if admin?
 
     # check ownership of need record
-    need = Pundit.policy_scope!(@user, Need).where(id: @record.id)
-    if need.exists?
-      # check ownership of child notes records
-      return need.created_by(@user.id).exists? && need.first.no_notes_by_somebody_else?(@user.id)
-    end
+    need = Need.where(id: @record.id).created_by(@user.id)
+    return need.first.no_notes_by_somebody_else?(@user.id) if need.exists?
 
     false
   end
@@ -70,5 +67,9 @@ class NeedPolicy < ApplicationPolicy
 
   def export?
     admin? || food_manager?
+  end
+
+  def dashboard_change_multiple?
+    return true if permissive_roles?
   end
 end
