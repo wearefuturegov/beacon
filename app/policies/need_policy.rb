@@ -52,9 +52,7 @@ class NeedPolicy < ApplicationPolicy
 
     # check ownership of need record
     need = Need.where(id: @record.id).created_by(@user.id)
-    if need.exists?
-      return need.first.no_notes_by_somebody_else?(@user.id)
-    end
+    return need.first.no_notes_by_somebody_else?(@user.id) if need.exists?
 
     false
   end
