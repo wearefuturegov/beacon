@@ -15,10 +15,9 @@ class Note < ApplicationRecord
 
   validates :body, presence: true
 
-  scope :filter_need_not_destroyed, ->() { joins(:need).where('needs.deleted_at IS NULL') }
+  scope :filter_need_not_destroyed, -> { joins(:need).where('needs.deleted_at IS NULL') }
 
   def self.categories_without_phone_import
     categories.except('Imported Call Log'.to_sym)
   end
-
 end

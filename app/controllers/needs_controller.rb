@@ -30,8 +30,8 @@ class NeedsController < ApplicationController
     @users = User.all
     @roles = Role.all
     @needs = policy_scope(Need).deleted
-             .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
-    @needs = @needs.page(params[:page])  
+                               .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
+    @needs = @needs.page(params[:page])
   end
 
   def deleted_notes
@@ -39,11 +39,10 @@ class NeedsController < ApplicationController
     @users = User.all
     @roles = Role.all
     @notes = policy_scope(Note).deleted
-             .filter_need_not_destroyed
-             .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
-             
+                               .filter_need_not_destroyed
+                               .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
 
-    @notes = @notes.page(params[:page])   
+    @notes = @notes.page(params[:page])
   end
 
   def destroy
@@ -101,11 +100,11 @@ class NeedsController < ApplicationController
     if need.exists?
       need_name = need.first.category
       Rails.logger.info("Restored need '#{params[:id]}'")
-      need.first.restore(:recursive => true)
-      redirect_to deleted_needs_path(order: "deleted_at", order_dir: "DESC"), 
-        notice: "Restored '#{need_name}' see <a href='/needs/#{need.first.id}'>here</a>"
+      need.first.restore(recursive: true)
+      redirect_to deleted_needs_path(order: 'deleted_at', order_dir: 'DESC'),
+                  notice: "Restored '#{need_name}' see <a href='/needs/#{need.first.id}'>here</a>"
     else
-      redirect_to deleted_needs_path(order: "deleted_at", order_dir: "DESC"), alert: "Could not restore record."
+      redirect_to deleted_needs_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
     end
   end
 
@@ -115,13 +114,13 @@ class NeedsController < ApplicationController
       note_name = note.first.category
       Rails.logger.info("Restored note '#{params[:id]}'")
       note.first.restore
-      redirect_to deleted_notes_path(order: "deleted_at", order_dir: "DESC"), 
-        notice: "Restored '#{note_name}' see <a href='/needs/#{note.first.need_id}'>here</a>"
+      redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'),
+                  notice: "Restored '#{note_name}' see <a href='/needs/#{note.first.need_id}'>here</a>"
     else
-      redirect_to deleted_notes_path(order: "deleted_at", order_dir: "DESC"), alert: "Could not restore record."
+      redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
     end
   end
-  
+
   private
 
   def delete_note(params)

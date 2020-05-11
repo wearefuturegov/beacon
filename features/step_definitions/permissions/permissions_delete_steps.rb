@@ -8,7 +8,7 @@ end
 
 Then('I can delete the support action') do
   @deleted_support_action = @contact.needs.first.id
-  delete_btn = page.find("#delete-need-#{@deleted_support_action}")  
+  delete_btn = page.find("#delete-need-#{@deleted_support_action}")
   expect(delete_btn).to be_visible
   delete_btn.click
   page.accept_alert
@@ -38,7 +38,6 @@ Given('someone else added a {string} note {string}') do |category, content|
   expect(top_entry).to have_content(content)
 end
 
-
 Given('I have deleted a support action') do
   step "they have logged into the system as a 'food_delivery_manager' user"
   step "a support action for contact 'Freddie Stone' is assigned to role 'manager'"
@@ -55,7 +54,7 @@ When('I choose to restore the support action') do
 end
 
 Then('I can see the restored support action details') do
-  page.find('.notice', text: "Restored")
+  page.find('.notice', text: 'Restored')
   visit "/needs/#{@deleted_support_action}"
   need_title = page.find("#need-#{@deleted_support_action}-title")
   expect(need_title).to be_visible
@@ -65,7 +64,7 @@ Then('I can delete the note') do
   @last_note_parent = @contact.needs.first.id
   top_entry = page.find('.notes__list > article.note:nth-child(1)')
   expect(top_entry).to have_content(@last_note)
-  delete_btn = page.find('.note-delete-link') 
+  delete_btn = page.find('.note-delete-link')
   expect(delete_btn).to be_visible
   delete_btn.click
   page.accept_alert
@@ -83,7 +82,7 @@ When('I choose to restore the note') do
   visit '/deleted_notes?order=deleted_at&order_dir=DESC'
   top_entry = page.find('table > tbody > tr:nth-child(1) > td:nth-child(2)')
   expect(top_entry).to have_content(@last_note)
-  
+
   top_entry_btn = page.find('table > tbody > tr:nth-child(1) > td:nth-child(4) > a')
   expect(top_entry_btn).to have_content('Restore')
 
@@ -92,7 +91,7 @@ When('I choose to restore the note') do
 end
 
 Then('I can see the restored note details') do
-  page.find('.notice', text: "Restored")
+  page.find('.notice', text: 'Restored')
   visit "/needs/#{@last_note_parent}"
   need_title = page.find("#need-#{@last_note_parent}-title")
   expect(need_title).to be_visible
