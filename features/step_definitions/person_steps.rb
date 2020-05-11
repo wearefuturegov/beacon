@@ -110,14 +110,15 @@ end
 
 When('I choose {string} for any children under 15') do |option|
   if option == 'Yes'
-    check 'contact_any_children_under_age'
+    check 'contact_any_children_under_age', allow_label_click: true
   else
-    uncheck 'contact_any_children_under_age'
+    uncheck 'contact_any_children_under_age', allow_label_click: true
   end
 end
 
 When('I choose {string} to eligible for free prescriptions') do |option|
   page.find('label', text: 'Prescription pickups').click
+  expect(page.find('h3', text: 'Are they eligible for free prescriptions?')).to be_visible
   if option == 'Yes'
     choose 'eligible_for_free_prescriptions_true', allow_label_click: true
   else
@@ -126,6 +127,8 @@ When('I choose {string} to eligible for free prescriptions') do |option|
 end
 
 When('I choose {string} to any dietary requirements') do |option|
+  page.find('label', text: 'Groceries and cooked meals').click
+  expect(page.find('h3', text: 'Any dietary requirements?')).to be_visible
   if option == 'Yes'
     choose 'any_dietary_requirements_true', allow_label_click: true
   else
