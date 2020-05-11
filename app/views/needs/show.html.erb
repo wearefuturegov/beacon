@@ -30,10 +30,6 @@
         <%= link_to 'Delete',  { action: :destroy, id: @need.id }, 
           class: "need-delete-link", id: "delete-need-#{@need.id}", method: :delete, 
           data: { confirm: @delete_prompt } %>
-      <% else %>
-        <%= link_to 'Request deletion', { action: :request_destroy_need, id: @need.id }, 
-          class: "need-delete-link", id: "request-delete-need-#{@need.id}", method: :post, 
-          data: { confirm: 'Are you sure you want to request a deletion of this record?' }  %>
       <% end %>
       
       <div class="panel__body">
