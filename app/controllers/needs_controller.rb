@@ -102,7 +102,7 @@ class NeedsController < ApplicationController
       Rails.logger.info("Restored need '#{params[:id]}'")
       need.first.restore(recursive: true)
       redirect_to deleted_needs_path(order: 'deleted_at', order_dir: 'DESC'),
-                  notice: "Restored '#{need_name}' see <a href='/needs/#{need.first.id}'>here</a>"
+                  notice: "Restored '#{need_name}' see <a href='#{need_path(need.first.id)}'>here</a>"
     else
       redirect_to deleted_needs_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
     end
@@ -115,7 +115,7 @@ class NeedsController < ApplicationController
       Rails.logger.info("Restored note '#{params[:id]}'")
       note.first.restore
       redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'),
-                  notice: "Restored '#{note_name}' see <a href='/needs/#{note.first.need_id}'>here</a>"
+                  notice: "Restored '#{note_name}' see <a href='#{need_path(note.first.need_id)}'>here</a>"
     else
       redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
     end
