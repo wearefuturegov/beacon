@@ -21,8 +21,17 @@
         <%= link_to "Add support actions", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
       <% end %>
     </header>
+
+
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
-      <%= link_to @need.category, @contact, class: "panel__header" %>
+      <%= link_to @need.category, @contact, class: "panel__header", id: "need-#{@need.id}-title" %>
+      
+      <% if policy(@need).destroy? %>
+        <%= link_to 'Delete',  { action: :destroy, id: @need.id }, 
+          class: "need-delete-link", id: "delete-need-#{@need.id}", method: :delete, 
+          data: { confirm: @delete_prompt } %>
+      <% end %>
+      
       <div class="panel__body">
 
         <%= render "need-actions" %>

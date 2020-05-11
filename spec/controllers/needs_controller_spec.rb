@@ -18,6 +18,25 @@ RSpec.describe NeedsController, type: :controller do
     need
   end
 
+  let(:deleted_need) do
+    need = class_double('Need').as_stubbed_const
+    allow(need).to receive(:filter_and_sort).and_return(need)
+    allow(need).to receive(:page).and_return(need)
+    allow(need).to receive(:deleted).and_return(need)
+    allow(controller).to receive(:policy_scope).with(Need).and_return(need)
+    need
+  end
+
+  let(:deleted_note) do
+    note = class_double('Note').as_stubbed_const
+    allow(note).to receive(:filter_and_sort).and_return(note)
+    allow(note).to receive(:filter_need_not_destroyed).and_return(note)
+    allow(note).to receive(:page).and_return(note)
+    allow(note).to receive(:deleted).and_return(note)
+    allow(controller).to receive(:policy_scope).with(Note).and_return(note)
+    note
+  end
+
   describe 'GET #index' do
     it 'filters on page number passed in params' do
       expect(need).to receive(:page).with('5').and_return(need)
@@ -53,6 +72,22 @@ RSpec.describe NeedsController, type: :controller do
       allow(need).to receive(:to_csv)
       expect(need).not_to receive(:page)
       get :index, format: :csv
+      expect(response).to be_successful
+    end
+  end
+
+  describe 'GET #deleted_needs' do
+    it 'filters deleted needs on page number passed in params' do
+      expect(deleted_need).to receive(:page).with('1').and_return(deleted_need)
+      get :deleted_needs, params: { page: 1 }
+      expect(response).to be_successful
+    end
+  end
+
+  describe 'GET #deleted_notes' do
+    it 'filters deleted notes on page number passed in params' do
+      expect(deleted_note).to receive(:page).with('1').and_return(deleted_note)
+      get :deleted_notes, params: { page: 1 }
       expect(response).to be_successful
     end
   end

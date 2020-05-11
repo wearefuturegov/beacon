@@ -79,7 +79,7 @@ end
 
 Capybara.register_driver :selenium do |app|
   browser_options = Selenium::WebDriver::Firefox::Options.new
-  browser_options.args << '--headless'
+  browser_options.args << '--headless' unless ENV['HEADLESS'] == 'no'
   Capybara::Selenium::Driver.new(
     app,
     browser: :firefox,

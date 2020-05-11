@@ -5,12 +5,12 @@ Feature: Edit records concurrently
   So that the information I key-in can be stored correctly
 
   Background:
-    * I am logged into the system
+    * I am logged into the system as an 'mdt' user
     * Someone else is logged into the system
 
   Scenario: Update support action record concurrently
     Given a resident with a support action exists
-    And I have assigned the support action to me
+    And I have assigned the support action to me as 'mdt' user
     And the support action has status 'to do'
     When I change someone else's support action status to 'complete'
     Then I see my support action change was unsuccessful

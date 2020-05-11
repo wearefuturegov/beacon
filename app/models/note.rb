@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Note < ApplicationRecord
+  include Filterable
+  acts_as_paranoid without_default_scope: true
+
   belongs_to :need
   belongs_to :user, optional: true
 
@@ -11,6 +14,8 @@ class Note < ApplicationRecord
                    'Imported Call Log': 'phone_import' }
 
   validates :body, presence: true
+
+  scope :filter_need_not_destroyed, -> { joins(:need).where('needs.deleted_at IS NULL') }
 
   def self.categories_without_phone_import
     categories.except('Imported Call Log'.to_sym)
