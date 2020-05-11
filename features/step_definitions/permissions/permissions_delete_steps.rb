@@ -18,7 +18,7 @@ Then('I can see a deletion confirmation message') do
 end
 
 Then('I cannot delete the support action') do
-  expect(page.should have_no_selector("#delete-need-#{@contact.needs.first.id}"))
+  expect(page.should(have_no_selector("#delete-need-#{@contact.needs.first.id}")))
 end
 
 Given('someone else added a {string} note {string}') do |category, content|
