@@ -41,8 +41,10 @@
               <% end %>
             <% end %>
 
-            <%= link_to_unless_current "Created & Unassigned", root_path(:created_by_me => 'true'), class: "main-menu__submenu-link" do %>
-              <span class="main-menu__submenu-current">Created & Unassigned</span>
+            <% if policy(Need).create? %>
+              <%= link_to_unless_current "Created & Unassigned", root_path(:created_by_me => 'true'), class: "main-menu__submenu-link" do %>
+                <span class="main-menu__submenu-current">Created & Unassigned</span>
+              <% end %>
             <% end %>
           </ul>
         </li>
