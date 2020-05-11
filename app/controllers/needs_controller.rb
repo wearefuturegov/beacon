@@ -25,26 +25,40 @@ class NeedsController < ApplicationController
     end
   end
 
-  def show
+  def destroy
+    if params[:note_only] == 'true'
+      delete_note params
+    else
+      delete_need params
+    end
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = STALE_ERROR_MESSAGE
     @assigned_to_options = construct_assigned_to_options
+    @delete_prompt = get_delete_prompt @need
+    render :show
+  end
+
+  def show
     @need.notes.order(created_at: :desc)
+    populate_page_data
   end
 
   def edit
     @roles = Role.all
     @users = User.all
+    @delete_prompt = get_delete_prompt @need
   end
 
   def update
     if @need.update(need_params)
-      redirect_to need_path(@need), notice: 'Need was successfully updated.'
+      redirect_to need_path(@need), notice: 'Record successfully updated.'
     else
-      @assigned_to_options = construct_assigned_to_options
+      populate_page_data
       render :show
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
-    @assigned_to_options = construct_assigned_to_options
+    populate_page_data
     render :show
   end
 
@@ -63,6 +77,37 @@ class NeedsController < ApplicationController
 
   private
 
+  def delete_note(params)
+    note = Note.find(params[:id])
+    note.destroy
+
+    @need = Need.find(params[:need_id])
+    populate_page_data
+
+    redirect_to need_path(@need)
+  end
+
+  def delete_need(params)
+    need = Need.find(params[:id])
+    need_name = need.category
+
+    if need.destroy
+      redirect_to contact_path(need.contact_id), notice: "'#{need_name}' was successfully deleted."
+    else
+      populate_page_data
+      render :show
+    end
+  end
+
+  def populate_page_data
+    @assigned_to_options = construct_assigned_to_options
+    @delete_prompt = get_delete_prompt @need
+  end
+
+  def get_delete_prompt(need)
+    "Only Delete this #{need.category} if you created it by mistake. If it is cancelled, blocked or completed, please update the status instead.  Click OK to delete"
+  end
+
   def set_need
     @need = Need.find(params[:id])
     @contact = @need.contact
@@ -76,7 +121,7 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:name, :status, :assigned_to, :category, :is_urgent, :lock_version)
+    params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
   end
 
   def construct_assigned_to_options

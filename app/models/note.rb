@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Note < ApplicationRecord
+  acts_as_paranoid without_default_scope: true
+
   belongs_to :need
   belongs_to :user, optional: true
 
