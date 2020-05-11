@@ -3,10 +3,12 @@ require("select2");
 let needs = document.querySelectorAll(".select-needs");
 let allNeeds = document.querySelector("#select-all-needs");
 const assign = document.querySelector("#assign-selected-needs");
+const category = document.querySelector("#category-selected-needs");
+const bulkActionsElems = [assign, category]
 
-const assignNeedsDropdown = $("#assign-selected-needs.dropdown");
-assignNeedsDropdown.select2();
-assignNeedsDropdown.on("select2:select", (e) => {
+const assignJQueryWrapper = $(assign);
+assignJQueryWrapper.select2();
+assignJQueryWrapper.on("select2:select", (e) => {
   let assigned_to = e.currentTarget.value === "Unassigned"
       ? null
       : e.currentTarget.value;
@@ -21,47 +23,40 @@ assignNeedsDropdown.on("select2:select", (e) => {
   }
 });
 
-for (let i = 0; i < needs.length; i++) {
-  if (needs[i].checked && assign.hasAttribute("disabled")) {
-    assign.removeAttribute('disabled');
+const categoryJQueryWrapper = $(category);
+categoryJQueryWrapper.select2();
+categoryJQueryWrapper.on("select2:select", (e) => {
+  let category = e.currentTarget.value;
+  if (!category) {
+    return;
   }
-  needs[i].addEventListener('click', checkboxClicked)
-}
+
+  const for_update = [];
+  for (let i = 0; i < needs.length; i++) {
+    if (needs[i].checked) {
+      for_update.push({ need_id: needs[i].value, category: category })
+    }
+  }
+
+  if (for_update.length > 0) {
+    applyPatchUpdate(for_update)
+  }
+});
+
+for (let i = 0; i < needs.length; i++) needs[i].addEventListener('click', checkboxClicked)
 allNeeds.addEventListener('click', selectAllNeeds)
 
 function checkboxClicked(e) {
   e.stopPropagation()
   let checkedCount = 0;
-  for (let i = 0; i < needs.length; i++) {
-    if (needs[i].checked) {
-      checkedCount++;
-    }
-  }
-
-  if (checkedCount > 0) {
-    assign.removeAttribute("disabled");
-  } else {
-    assign.setAttribute("disabled", "disabled");
-    allNeeds.checked = false;
-  }
+  for (let i = 0; i < needs.length; i++) if (needs[i].checked) { checkedCount++ }
+  (checkedCount > 0) ? enableBulkActions() : disableBulkActions()
 }
 
 function selectAllNeeds() {
-  let checked;
-  if(allNeeds.checked) {
-    checked = true;
-  } else {
-    checked = false;
-  }
-  for (let i = 0; i < needs.length; i++) {
-    needs[i].checked = checked;
-  }
-
-  if (checked) {
-    assign.removeAttribute("disabled");
-  } else {
-    assign.setAttribute("disabled", "disabled");
-  }
+  let checked = (allNeeds.checked) ? true : false
+  for (let i = 0; i < needs.length; i++) needs[i].checked = checked;
+  (checked) ? enableBulkActions() : disableBulkActions()
 }
 
 /**
@@ -87,4 +82,12 @@ applyPatchUpdate = (for_update) => {
 
 function getMetaValue(name) {
   return document.head.querySelector(`meta[name="${name}"]`).getAttribute("content");
+}
+
+function disableBulkActions() {
+  for(let i = 0; i < bulkActionsElems.length; i++) bulkActionsElems[i].setAttribute("disabled", "disabled")
+}
+
+function enableBulkActions() {
+  for(let i = 0; i < bulkActionsElems.length; i++) bulkActionsElems[i].removeAttribute("disabled")
 }

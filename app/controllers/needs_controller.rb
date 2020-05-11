@@ -18,30 +18,67 @@ class NeedsController < ApplicationController
     @assigned_to_options = construct_assigned_to_options
     respond_to do |format|
       format.html
-      format.csv { send_data @needs.to_csv, filename: "needs-#{Date.today}.csv" }
+      format.csv do
+        authorize(Need, :export?)
+        send_data @needs.to_csv, filename: "needs-#{Date.today}.csv"
+      end
     end
   end
 
-  def show
+  def deleted_needs
+    @params = params.permit(:category, :page, :order_dir, :order, :commit, :deleted_at)
+    @users = User.all
+    @roles = Role.all
+    @needs = policy_scope(Need).deleted
+                               .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
+    @needs = @needs.page(params[:page])
+  end
+
+  def deleted_notes
+    @params = params.permit(:category, :page, :order_dir, :order, :commit, :deleted_at)
+    @users = User.all
+    @roles = Role.all
+    @notes = policy_scope(Note).deleted
+                               .filter_need_not_destroyed
+                               .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
+
+    @notes = @notes.page(params[:page])
+  end
+
+  def destroy
+    if params[:note_only] == 'true'
+      delete_note params
+    else
+      delete_need params
+    end
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = STALE_ERROR_MESSAGE
     @assigned_to_options = construct_assigned_to_options
+    @delete_prompt = get_delete_prompt @need
+    render :show
+  end
+
+  def show
     @need.notes.order(created_at: :desc)
+    populate_page_data
   end
 
   def edit
     @roles = Role.all
     @users = User.all
+    @delete_prompt = get_delete_prompt @need
   end
 
   def update
     if @need.update(need_params)
-      redirect_to need_path(@need), notice: 'Need was successfully updated.'
+      redirect_to need_path(@need), notice: 'Record successfully updated.'
     else
-      @assigned_to_options = construct_assigned_to_options
+      populate_page_data
       render :show
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
-    @assigned_to_options = construct_assigned_to_options
+    populate_page_data
     render :show
   end
 
@@ -50,18 +87,79 @@ class NeedsController < ApplicationController
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
       authorize(need)
-      assigned_to = obj['assigned_to']
-      need.update!(assigned_to: assigned_to)
+      to_update = {}
+      to_update[:assigned_to] = obj['assigned_to'] if obj.key?('assigned_to')
+      to_update[:category] = obj['category'] if obj.key?('category')
+      need.update! to_update
     end
     render json: { status: 'ok' }
   end
 
+  def restore_need
+    need = policy_scope(Need).deleted.where(id: params[:id])
+    if need.exists?
+      need_name = need.first.category
+      Rails.logger.info("Restored need '#{params[:id]}'")
+      need.first.restore(recursive: true)
+      redirect_to deleted_needs_path(order: 'deleted_at', order_dir: 'DESC'),
+                  notice: "Restored '#{need_name}' see <a href='#{need_path(need.first.id)}'>here</a>"
+    else
+      redirect_to deleted_needs_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
+    end
+  end
+
+  def restore_note
+    note = policy_scope(Note).deleted.where(id: params[:id])
+    if note.exists?
+      note_name = note.first.category
+      Rails.logger.info("Restored note '#{params[:id]}'")
+      note.first.restore
+      redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'),
+                  notice: "Restored '#{note_name}' see <a href='#{need_path(note.first.need_id)}'>here</a>"
+    else
+      redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
+    end
+  end
+
   private
 
-  def set_need
-    @need = Need.find(params[:id])
-    @contact = @need.contact
+  def delete_note(params)
+    note = Note.find(params[:id])
+    note.destroy
 
+    @need = Need.find(params[:need_id])
+    populate_page_data
+
+    redirect_to need_path(@need)
+  end
+
+  def delete_need(params)
+    need = Need.find(params[:id])
+    need_name = need.category
+
+    if need.destroy
+      redirect_to contact_path(need.contact_id), notice: "'#{need_name}' was successfully deleted."
+    else
+      populate_page_data
+      render :show
+    end
+  end
+
+  def populate_page_data
+    @assigned_to_options = construct_assigned_to_options
+    @delete_prompt = get_delete_prompt @need
+  end
+
+  def get_delete_prompt(need)
+    "Only Delete this #{need.category} if you created it by mistake. If it is cancelled, blocked or completed, please update the status instead.  Click OK to delete"
+  end
+
+  def set_need
+    # handle browsing back to a need that has been deleted
+    @need = Need.with_deleted.where(id: params[:id]).first
+    redirect_to contact_path(@need.contact_id) if @need.deleted_at
+
+    @contact = @need.contact
     authorize(@need)
     authorize(@contact, :show?)
   end
@@ -71,7 +169,7 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:name, :status, :assigned_to, :category, :is_urgent, :lock_version)
+    params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
   end
 
   def construct_assigned_to_options

@@ -46,11 +46,30 @@ class NeedPolicy < ApplicationPolicy
     Pundit.policy_scope!(@user, Need).where(id: @record.id).exists?
   end
 
+  def destroy?
+    # managers can always destroy
+    return true if admin?
+
+    # check ownership of need record
+    need = Need.where(id: @record.id).created_by(@user.id)
+    return need.first.no_notes_by_somebody_else?(@user.id) if need.exists?
+
+    false
+  end
+
   def create?
     permissive_roles?
   end
 
   def assign_multiple?
     update?
+  end
+
+  def export?
+    admin? || food_manager?
+  end
+
+  def dashboard_change_multiple?
+    return true if permissive_roles?
   end
 end

@@ -4,6 +4,14 @@ Given(/^I am logged into the system$/) do
   expect(page).to have_selector('#sign-out-link')
 end
 
+Given(/^they have logged into the system as an admin$/) do
+  step 'I am logged into the system as an admin'
+end
+
+Given('they have logged into the system as a {string} user') do |user|
+  step "I am logged into the system as a '#{user}' user"
+end
+
 Given(/^I am logged into the system as an admin$/) do
   visit generate_magic_link('manager')
   expect(page.status_code).to eq(200) if Capybara.current_driver == :rack_test
@@ -24,12 +32,25 @@ Given('I am logged into the system as a(n) {string} user') do |role|
   expect(page).to have_selector(:link_or_button, 'Sign out')
 end
 
-def generate_magic_link(role = 'agent')
-  @role = Role.create(name: "#{role} role", role: role)
-  email = role == 'agent' ? 'test@test.com' : 'admin@test.com'
-  tester = User.create!(email: email,
-                        invited: Date.today,
-                        roles: [@role])
+Given('they have logged out') do
+  step 'I logged out'
+end
+
+When('I log out') do
+  step 'I logged out'
+end
+
+Given('I logged out') do
+  page.find('#sign-out-link').click
+end
+
+def generate_magic_link(role_name = 'agent')
+  role = Role.where(name: "#{role_name} role")
+  @role = role.exists? ? role.first : Role.create(name: "#{role_name} role", role: role_name)
+  email = "#{role_name.parameterize.underscore}@test.com"
+
+  user = User.where(email: email)
+  tester = user.exists? ? user.first : User.create!(email: email, invited: Date.today, roles: [@role])
   @user = tester
   session = Passwordless::Session.new({
                                         authenticatable: tester,
