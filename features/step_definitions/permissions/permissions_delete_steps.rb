@@ -18,8 +18,7 @@ Then('I can see a deletion confirmation message') do
 end
 
 Then('I cannot delete the support action') do
-  request_delete_btn = page.find("#request-delete-need-#{@contact.needs.first.id}")
-  expect(request_delete_btn).to be_visible
+  expect(page.should have_no_selector("#delete-need-#{@contact.needs.first.id}"))
 end
 
 Given('someone else added a {string} note {string}') do |category, content|
