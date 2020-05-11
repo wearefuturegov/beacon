@@ -76,6 +76,9 @@ span.selection {
       outline: 2px solid $yellow;
     }
   }
+  span.select2-selection.select2-selection--single[aria-expanded=true] {
+    outline: 2px solid $yellow;
+  }
 }
 
 .visually-hidden{
