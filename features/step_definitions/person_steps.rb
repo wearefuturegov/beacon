@@ -117,6 +117,7 @@ When('I choose {string} for any children under 15') do |option|
 end
 
 When('I choose {string} to eligible for free prescriptions') do |option|
+  page.find('label', text: 'Prescription pickups').click
   if option == 'Yes'
     choose 'eligible_for_free_prescriptions_true', allow_label_click: true
   else
