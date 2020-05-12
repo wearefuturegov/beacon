@@ -3,7 +3,10 @@
 
     <div class="need-actions__field" id="assigned-actions__field">
     <%= f.label :assigned_to, 'Assigned to', class: 'need-actions__label' %>
-    <%= f.select :assigned_to, grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: 'Unassigned'), {}, { class: "need-actions__select dropdown" } %>
+    <%= f.select :assigned_to,
+      options_for_select([['Assigned to me','assigned-to-me'], ['Unassigned', '']], (@need.assigned_to.nil?) ? '' : nil) +
+        grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: nil),
+      {}, { class: "need-actions__select dropdown" } %>
     </div>
 
     <div class="need-actions__field" id="priority-actions__field">

@@ -8,14 +8,17 @@ class NeedsController < ApplicationController
   helper_method :get_param
 
   def index
-    @params = params.permit(:assigned_to, :status, :category, :page, :order_dir, :order, :commit, :is_urgent)
-    @users = User.all
-    @roles = Role.all
-    @needs = policy_scope(Need)
-             .started
-             .filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
+    @params = params.permit(:assigned_to, :status, :category, :page, :order_dir, :order, :commit, :is_urgent, :created_by_me)
+    @needs = if @params[:created_by_me] == 'true'
+               @assigned_to_options = {}
+               Need.created_by(current_user.id).filter_by_assigned_to('Unassigned')
+             else
+               @assigned_to_options = construct_assigned_to_options
+               policy_scope(Need).started
+             end
+
+    @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
-    @assigned_to_options = construct_assigned_to_options
     respond_to do |format|
       format.html
       format.csv do
@@ -27,8 +30,6 @@ class NeedsController < ApplicationController
 
   def deleted_needs
     @params = params.permit(:category, :page, :order_dir, :order, :commit, :deleted_at)
-    @users = User.all
-    @roles = Role.all
     @needs = policy_scope(Need).deleted
                                .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page])
@@ -36,8 +37,6 @@ class NeedsController < ApplicationController
 
   def deleted_notes
     @params = params.permit(:category, :page, :order_dir, :order, :commit, :deleted_at)
-    @users = User.all
-    @roles = Role.all
     @notes = policy_scope(Note).deleted
                                .filter_need_not_destroyed
                                .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
@@ -64,8 +63,6 @@ class NeedsController < ApplicationController
   end
 
   def edit
-    @roles = Role.all
-    @users = User.all
     @delete_prompt = get_delete_prompt @need
   end
 
@@ -88,7 +85,7 @@ class NeedsController < ApplicationController
       need = Need.find(obj['need_id'])
       authorize(need)
       to_update = {}
-      to_update[:assigned_to] = obj['assigned_to'] if obj.key?('assigned_to')
+      to_update[:assigned_to] = assigned_to_me(obj['assigned_to']) if obj.key?('assigned_to')
       to_update[:category] = obj['category'] if obj.key?('category')
       need.update! to_update
     end
@@ -169,7 +166,14 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
+    permit_need_params = params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
+    permit_need_params[:assigned_to] = assigned_to_me(permit_need_params[:assigned_to])
+    permit_need_params
+  end
+
+  def assigned_to_me(assigned_to)
+    assigned_to = "user-#{current_user.id}" if assigned_to == 'assigned-to-me'
+    assigned_to
   end
 
   def construct_assigned_to_options

@@ -6,7 +6,8 @@
 
       <%= label_tag :assigned_to, 'Assign to', class: 'visually-hidden' %>
       <%= select_tag :assigned_to,
-                    content_tag(:option, 'Unassigned', :value => "Unassigned") + grouped_options_for_select(@assigned_to_options),
+                    options_for_select([['Assigned to me','assigned-to-me'], ['Unassigned', 'Unassigned']]) + 
+                    grouped_options_for_select(@assigned_to_options),
                     prompt: 'Assign to...', class: "assign__needs dropdown", id: 'assign-selected-needs', disabled: 'disabled' %>
       <%= label_tag :category_selected_needs, 'Set category', class: 'visually-hidden' %>
       <%= select_tag :category_selected_needs, 
