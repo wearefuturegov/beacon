@@ -61,7 +61,7 @@ class NeedPolicy < ApplicationPolicy
     permissive_roles?
   end
 
-  def assign_multiple?
+  def bulk_action?
     update?
   end
 

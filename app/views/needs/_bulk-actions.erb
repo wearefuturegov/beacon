@@ -9,12 +9,12 @@
                     options_for_select([['Assigned to me','assigned-to-me'], ['Unassigned', 'Unassigned']]) + 
                     grouped_options_for_select(@assigned_to_options),
                     prompt: 'Assign to...', class: "assign__needs dropdown", id: 'assign-selected-needs', disabled: 'disabled' %>
-      <%= label_tag :category_selected_needs, 'Set category', class: 'visually-hidden' %>
-      <%= select_tag :category_selected_needs, 
-                    options_for_select(Need.not_assesment_categories), 
-                    prompt: 'Set category', 
+      <%= label_tag :status_selected_needs, 'Set status', class: 'visually-hidden' %>
+      <%= select_tag :status_selected_needs, 
+                    options_for_select(need_statuses), 
+                    prompt: 'Set status', 
                     class: "dropdown", 
-                    id: 'category-selected-needs',
+                    id: 'status-selected-needs',
                     disabled: 'disabled' %>
     <% end %>             
     

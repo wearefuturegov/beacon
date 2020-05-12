@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   post 'role', to: 'users#set_role', as: 'set_role'
   passwordless_for :users, at: '/', as: :auth
 
-  patch '/assign_multiple' => 'needs#assign_multiple'
+  patch '/needs_bulk_action' => 'needs#bulk_action'
   post '/needs/restore_need' => 'needs#restore_need'
   post '/needs/restore_note' => 'needs#restore_note'
   get '/deleted_needs' => 'needs#deleted_needs', as: 'deleted_needs'

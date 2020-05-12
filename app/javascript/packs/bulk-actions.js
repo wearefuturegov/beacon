@@ -1,8 +1,8 @@
 let needs = document.querySelectorAll(".select-needs");
 let allNeeds = document.querySelector("#select-all-needs");
 const assign = document.querySelector("#assign-selected-needs");
-const category = document.querySelector("#category-selected-needs");
-const bulkActionsElems = [assign, category]
+const status = document.querySelector("#status-selected-needs");
+const bulkActionsElems = [assign, status]
 
 for (let i = 0; i < needs.length; i++) needs[i].addEventListener('click', checkboxClicked)
 allNeeds.addEventListener('click', selectAllNeeds)
@@ -25,7 +25,7 @@ function selectAllNeeds() {
  */
 applyPatchUpdate = (for_update) => {
   $.ajax({
-    url: '/assign_multiple',
+    url: '/needs_bulk_action',
     type: 'PATCH',
     data: `for_update=${JSON.stringify(for_update)}`,
     headers:  { 
@@ -54,12 +54,12 @@ assign.addEventListener("change", (e) => {
   if (for_update.length > 0) applyPatchUpdate(for_update)
 });
 
-category.addEventListener("change", (e) => {
-  let category = e.target.value
-  if(!category) return;
+status.addEventListener("change", (e) => {
+  let status = e.target.value
+  if(!status) return;
   let for_update = []
   for (let i = 0; i < needs.length; i++)
-    if (needs[i].checked) for_update.push({ need_id: needs[i].value, category: category })
+    if (needs[i].checked) for_update.push({ need_id: needs[i].value, status: status })
   if (for_update.length > 0) applyPatchUpdate(for_update)
 });
 
