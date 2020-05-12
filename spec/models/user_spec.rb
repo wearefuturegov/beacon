@@ -34,6 +34,14 @@ RSpec.describe User, type: :model do
     expect(user2.name_or_email).to eq 'jane@gmail.com'
   end
 
+  it '#name_or_email when deleted' do
+    user1 = build :user, first_name: 'Rob', last_name: 'Jones', deleted_at: DateTime.now
+    expect(user1.name_or_email).to eq 'Rob Jones [X]'
+    user2 = build :user, first_name: '', last_name: '', email: 'jane@gmail.com'
+    expect(user2.name_or_email).to eq 'jane@gmail.com'
+  end
+
+
   it 'scope name order' do
     user1 = create :user, first_name: 'Aaron', last_name: 'Abbe'
     user2 = create :user, first_name: 'Caden', last_name: 'Abbe'
