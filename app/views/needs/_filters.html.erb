@@ -14,7 +14,7 @@
       <%= form_with(url: root_path, method: :get, local: true, class: "filters__form") do %>
         <label for="assigned_to" class="visually-hidden">By assigned user or team</label>
         <%= select_tag("assigned_to",
-            content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["assigned_to"] == "Unassigned") + grouped_options_for_select(@assigned_to_options, params['assigned_to']), prompt: 'All users/teams', class: "filters__select dropdown") %>
+            content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["assigned_to"] == "Unassigned") + grouped_options_for_select(@assigned_to_options_with_deleted, params['assigned_to']), prompt: 'All users/teams', class: "filters__select dropdown") %>
 
         <label for="category" class="visually-hidden">By category</label>
         <%= select_tag("category", options_for_select(Need.categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select dropdown") %>

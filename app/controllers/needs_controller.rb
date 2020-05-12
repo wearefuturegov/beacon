@@ -16,6 +16,7 @@ class NeedsController < ApplicationController
              .filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
     @assigned_to_options = construct_assigned_to_options
+    @assigned_to_options_with_deleted = construct_assigned_to_options(true)
     respond_to do |format|
       format.html
       format.csv do
@@ -172,9 +173,10 @@ class NeedsController < ApplicationController
     params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
   end
 
-  def construct_assigned_to_options
+  def construct_assigned_to_options(with_deleted=false)
+
     roles = Role.all.order(:name)
-    users = User.all.order(:first_name, :last_name)
+    users = with_deleted ? User.all.with_deleted.order(:first_name, :last_name) : User.all.order(:first_name, :last_name)
 
     {
       'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },

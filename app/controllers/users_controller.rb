@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def index
     authorize User
     @params = params.permit(:search, :page)
-    @users = @params[:search].present? ? User.search(@params[:search]) : User.all
+    @users = @params[:search].present? ? User.search(@params[:search]) : User.all.with_deleted
     @users = @users.name_order.page(@params[:page])
   end
 
@@ -54,9 +54,10 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    authorize @user
-    @user.destroy
-    redirect_to users_url, notice: 'User was successfully destroyed.'
+    user = User.find(params[:id])
+    user.roles = []
+    user.destroy
+    redirect_to users_url, notice: 'User was successfully deleted.'
   end
 
   def set_role
