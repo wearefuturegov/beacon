@@ -88,7 +88,7 @@ class NeedsController < ApplicationController
       need = Need.find(obj['need_id'])
       authorize(need)
       to_update = {}
-      to_update[:assigned_to] = obj['assigned_to'] if obj.key?('assigned_to')
+      to_update[:assigned_to] = assigned_to_me(obj['assigned_to']) if obj.key?('assigned_to')
       to_update[:category] = obj['category'] if obj.key?('category')
       need.update! to_update
     end
@@ -169,7 +169,14 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
+    permit_need_params = params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
+    permit_need_params[:assigned_to] = assigned_to_me(permit_need_params[:assigned_to])
+    permit_need_params
+  end
+
+  def assigned_to_me(assigned_to)
+    assigned_to = "user-#{current_user.id}" if assigned_to == 'assigned-to-me'
+    assigned_to
   end
 
   def construct_assigned_to_options
