@@ -35,6 +35,13 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
 
+  # monkey patch govuk notify to use test delivery method
+  module GovukNotifyRails
+    class Mailer < ActionMailer::Base
+      default delivery_method: :test
+    end
+  end
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
