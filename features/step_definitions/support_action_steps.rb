@@ -1,3 +1,9 @@
+Given('I have created a support action {string}') do |support_action|
+  step 'a unique resident'
+  step "I add support actions \"#{support_action}\""
+  step 'I submit the add support actions form'
+end
+
 When('I add support actions {string}') do |support_action|
   visit "/contacts/#{@contact.id}"
   click_link 'Add support actions'
