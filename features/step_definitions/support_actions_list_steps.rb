@@ -38,6 +38,10 @@ When('I sort support actions by category in {string} order') do |order|
   visit "/?order=category&order_dir=#{order}&page=1"
 end
 
+When('I go the the created and unassigned support action list') do
+  visit '/?created_by_me=true'
+end
+
 Then('I see the support action for category {string} first in the results') do |category|
   first_row = page.find('table > tbody > tr:nth-child(1)')
   category_column = first_row.find('td:nth-child(2)')
