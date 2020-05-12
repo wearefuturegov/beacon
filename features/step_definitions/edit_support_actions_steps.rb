@@ -69,7 +69,7 @@ When("I change someone else's support action status to 'complete'") do
     @expected_assignee = 'manager@test.com'
     page.find('.notice', text: 'Record successfully updated.')
   end
-  page.select 'Complete', from: 'need_status'
+  select2 'need_status', 'Complete'
 end
 
 Then('I see my support action change was unsuccessful') do
