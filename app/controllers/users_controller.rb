@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def index
     authorize User
     @params = params.permit(:search, :page)
-    @users = @params[:search].present? ? User.search(@params[:search]) : User.all.with_deleted
+    @users = @params[:search].present? ? User.search(@params[:search]).with_deleted : User.all.with_deleted
     @users = @users.name_order.page(@params[:page])
   end
 

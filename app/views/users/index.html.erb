@@ -42,16 +42,16 @@
           <% if user.deleted? %>
             Deleted
           <% else %>
-            <%= link_to 'Delete', { controller: :users, action: :destroy, id: user.id }, 
-            class: "button", id: "delete-user-#{user.id}", method: :delete, 
-            data: { confirm: 'Are you sure you want to delete this record?' }  %>
+            <% if policy(User).destroy? %>
+              <%= link_to 'Delete', { controller: :users, action: :destroy, id: user.id }, 
+              class: "button", id: "delete-user-#{user.id}", method: :delete, 
+              data: { confirm: 'Are you sure you want to delete this record?' }  %>
+            <% end %>
           <% end %>
           
         </td>
         <td>
-        <% if user.deleted? %>
-          <%= user.deleted_at.strftime("%-d %B %Y, %H:%M:%S") %>
-        <% else %>
+        <% if !user.deleted? %>
           <%= link_to 'View', edit_user_path(user), class: "button", id: "view-user-#{user.id}" %>
         <% end %>
         </td>
