@@ -9,9 +9,6 @@ class NeedsController < ApplicationController
 
   def index
     @params = params.permit(:assigned_to, :status, :category, :page, :order_dir, :order, :commit, :is_urgent, :created_by_me)
-    @users = User.all
-    @roles = Role.all
-
     @needs = if @params[:created_by_me] == 'true'
                @assigned_to_options = {}
                Need.created_by(current_user.id).filter_by_assigned_to('Unassigned')
@@ -33,8 +30,6 @@ class NeedsController < ApplicationController
 
   def deleted_needs
     @params = params.permit(:category, :page, :order_dir, :order, :commit, :deleted_at)
-    @users = User.all
-    @roles = Role.all
     @needs = policy_scope(Need).deleted
                                .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page])
@@ -42,8 +37,6 @@ class NeedsController < ApplicationController
 
   def deleted_notes
     @params = params.permit(:category, :page, :order_dir, :order, :commit, :deleted_at)
-    @users = User.all
-    @roles = Role.all
     @notes = policy_scope(Note).deleted
                                .filter_need_not_destroyed
                                .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
@@ -70,8 +63,6 @@ class NeedsController < ApplicationController
   end
 
   def edit
-    @roles = Role.all
-    @users = User.all
     @delete_prompt = get_delete_prompt @need
   end
 
