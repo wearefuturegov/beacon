@@ -17,7 +17,6 @@ end
 
 When('I filter support actions by category {string}') do |category|
   page.find('#needs-filters').click
-  byebug
   select2 category, from: '2'
 end
 

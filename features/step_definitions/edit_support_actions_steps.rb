@@ -26,7 +26,6 @@ end
 
 When("I change the support action status to 'complete'") do
   visit "/needs/#{@need.id}"
-  byebug
   page.select 'Complete', from: 'need_status'
   page.find('.notice', text: 'Record successfully updated.')
 end
