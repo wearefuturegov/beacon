@@ -47,3 +47,15 @@ Feature: List support actions
     Given a resident with "Book drops and entertainment, Dog walking, Groceries and cooked meals" support actions
     When I sort support actions by category in "DESC" order
     Then I see the support action for category "Groceries and cooked meals" first in the results
+
+  Scenario: See unassigned needs I have created in the created and unassigned list
+    Given I have created a support action "Dog walking"
+    When I go the the created and unassigned support action list
+    Then I see the support action for category "Dog walking" in the results
+
+  @javascript
+  Scenario: Do not see assigned needs I have created in the created and unassigned list
+    Given I have created a support action "Dog walking"
+    And I assign the support action to another user
+    When I go the the created and unassigned support action list
+    Then I can not see that support action in the list
