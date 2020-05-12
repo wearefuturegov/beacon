@@ -8,7 +8,6 @@ And('I am viewing the users list') do
 end
 
 When('I select a user') do
-  user_row = first('tr.selectable')
   page.find('.selectable > td:nth-child(7) > a').click
 end
 
