@@ -68,6 +68,7 @@ class NeedsController < ApplicationController
 
   def update
     if @need.update(need_params)
+      notify_new_assignee(@need)
       redirect_to need_path(@need), notice: 'Record successfully updated.'
     else
       populate_page_data
@@ -184,5 +185,19 @@ class NeedsController < ApplicationController
       'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
       'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
     }
+  end
+
+  def notify_new_assignee(need)
+    if need.saved_change_to_user_id? || need.saved_change_to_role_id?
+      if need.user_id?
+        user = User.find(need.user_id)
+        NeedAssigneeMailer.send_user_assigned_need_email(user.email, need_url(need)).deliver
+      elsif need.role_id?
+        role_user_emails = User.where(roles: { id: need.role_id }).select(:email)
+        role_user_emails.each do |role_member_email|
+          NeedAssigneeMailer.send_role_assigned_need_email(role_member_email, role.name, need_url(need)).deliver
+        end
+      end
+    end
   end
 end
