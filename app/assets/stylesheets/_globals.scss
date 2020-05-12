@@ -58,6 +58,10 @@ span.select2.select2-container {
   margin-left: 5px;
 }
 
+span.select2-container--disabled {
+  opacity: 0.5;
+}
+
 span.selection {
   span.select2-selection.select2-selection--single {
     border: none;
@@ -66,7 +70,7 @@ span.selection {
     background: $pale no-repeat 90% center url(asset_path('select-dark.svg'));
     background-size: 13px;
     height: 30px;
-    span#select2-status-container {
+    span.select2-selection__rendered {
       line-height: 30px;
     }
     .select2-selection__arrow {

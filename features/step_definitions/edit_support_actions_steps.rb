@@ -6,7 +6,10 @@ end
 When('I (assign)/(have assigned) the support action to me') do
   visit "/needs/#{@need.id}"
   @user_email = @user_email.present? ? @user_email : @user.email
-  page.select @user_email, from: 'need_assigned_to'
+  @dropdown = page.find('#need_assigned_to + .select2.select2-container.select2-container--default')
+  @dropdown.click
+  @list_results = page.find('#select2-need_assigned_to-results')
+  @list_results.first('li:last-child').click
   @expected_assignee = @user_email
   page.find('.notice', text: 'Record successfully updated.')
 end
