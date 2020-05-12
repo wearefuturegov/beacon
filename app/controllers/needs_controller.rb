@@ -193,9 +193,9 @@ class NeedsController < ApplicationController
         user = User.find(need.user_id)
         NeedAssigneeMailer.send_user_assigned_need_email(user.email, need_url(need)).deliver
       elsif need.role_id?
-        role_user_emails = User.where(roles: { id: need.role_id }).select(:email)
+        role_user_emails = User.joins(:roles).where(roles: { id: need.role_id }).select(:email)
         role_user_emails.each do |role_member_email|
-          NeedAssigneeMailer.send_role_assigned_need_email(role_member_email, role.name, need_url(need)).deliver
+          NeedAssigneeMailer.send_role_assigned_need_email(role_member_email, need.role.name, need_url(need)).deliver
         end
       end
     end
