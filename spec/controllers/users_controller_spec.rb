@@ -27,19 +27,18 @@ RSpec.describe UsersController, type: :controller do
 
     it 'searches for a user' do
       expect(user_class).to receive(:search).with('bob').and_return(user_class)
-      get :index, params: { search: 'bob'}
+      get :index, params: { search: 'bob' }
       expect(response).to be_successful
     end
   end
 
-
   describe 'DELETE #destroy' do
     it 'destroys a user' do
-        @test_user = User.new(id: 1, roles: [])
-        allow(user_class).to receive(:find).and_return(@test_user)
-        delete :destroy, params: { id: 1 }
-        expect(response).to redirect_to controller: :users, action: :index
-        expect(controller).to set_flash[:notice].to('User was successfully deleted.')
+      @test_user = User.new(id: 1, roles: [])
+      allow(user_class).to receive(:find).and_return(@test_user)
+      delete :destroy, params: { id: 1 }
+      expect(response).to redirect_to controller: :users, action: :index
+      expect(controller).to set_flash[:notice].to('User was successfully deleted.')
     end
   end
 end

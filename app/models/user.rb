@@ -33,7 +33,7 @@ class User < ApplicationRecord
   end
 
   def name
-    self.deleted? ? [first_name, last_name, '[X]'].join(' '): [first_name, last_name].join(' ')
+    deleted? ? [first_name, last_name, '[X]'].join(' ') : [first_name, last_name].join(' ')
   end
 
   def name_or_email

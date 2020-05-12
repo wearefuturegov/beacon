@@ -41,7 +41,6 @@ RSpec.describe User, type: :model do
     expect(user2.name_or_email).to eq 'jane@gmail.com'
   end
 
-
   it 'scope name order' do
     user1 = create :user, first_name: 'Aaron', last_name: 'Abbe'
     user2 = create :user, first_name: 'Caden', last_name: 'Abbe'

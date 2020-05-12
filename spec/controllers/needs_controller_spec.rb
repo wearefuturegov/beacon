@@ -38,8 +38,7 @@ RSpec.describe NeedsController, type: :controller do
   end
 
   describe 'GET #index' do
-
-    before :each do 
+    before :each do
       # roles
       roles = [Role.new(id: 1, name: 'mdt')]
       role_class = class_double(Role).as_stubbed_const
@@ -95,8 +94,8 @@ RSpec.describe NeedsController, type: :controller do
       options = subject.construct_assigned_to_options
 
       expect(user_class).not_to receive(:with_deleted)
-      expect(options).to eq("Teams" => [["mdt", "role-1"]],
-      +"Users" => [["User Test", "user-1"]])
+      expect(options).to eq('Teams' => [['mdt', 'role-1']],
+                            +'Users' => [['User Test', 'user-1']])
     end
 
     it 'populates filterable users options' do
@@ -110,10 +109,9 @@ RSpec.describe NeedsController, type: :controller do
       # populates the users list including deleted users
       options = subject.construct_assigned_to_options true
 
-      expect(options).to eq("Teams" => [["mdt", "role-1"]],
-      +"Users" => [["User Test [X]", "user-1"]])
+      expect(options).to eq('Teams' => [['mdt', 'role-1']],
+                            +'Users' => [['User Test [X]', 'user-1']])
     end
-
   end
 
   describe 'GET #deleted_needs' do

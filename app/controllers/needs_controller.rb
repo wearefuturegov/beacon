@@ -119,8 +119,7 @@ class NeedsController < ApplicationController
     end
   end
 
-  def construct_assigned_to_options(with_deleted=false)
-
+  def construct_assigned_to_options(with_deleted = false)
     roles = Role.all.order(:name)
     users = with_deleted ? User.all.with_deleted.order(:first_name, :last_name) : User.all.order(:first_name, :last_name)
 
