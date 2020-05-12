@@ -188,15 +188,15 @@ class NeedsController < ApplicationController
   end
 
   def notify_new_assignee(need)
-    if need.saved_change_to_user_id? || need.saved_change_to_role_id?
-      if need.user_id?
-        user = User.find(need.user_id)
-        NeedAssigneeMailer.send_user_assigned_need_email(user.email, need_url(need)).deliver
-      elsif need.role_id?
-        role_members = User.joins(:roles).where(roles: { id: need.role_id }).select(:email)
-        role_members.each do |role_member|
-          NeedAssigneeMailer.send_role_assigned_need_email(role_member.email, need.role.name, need_url(need)).deliver
-        end
+    return unless need.saved_change_to_user_id? || need.saved_change_to_role_id?
+
+    if need.user_id?
+      user = User.find(need.user_id)
+      NeedAssigneeMailer.send_user_assigned_need_email(user.email, need_url(need)).deliver
+    elsif need.role_id?
+      role_members = User.joins(:roles).where(roles: { id: need.role_id }).select(:email)
+      role_members.each do |role_member|
+        NeedAssigneeMailer.send_role_assigned_need_email(role_member.email, need.role.name, need_url(need)).deliver
       end
     end
   end
