@@ -19,13 +19,14 @@ end
 When('I assign the support action to another user') do
   @another_user = User.create!(email: 'other_user@email.com', invited: Date.today)
   visit "/needs/#{@need.id}"
-  page.select 'other_user@email.com', from: 'need_assigned_to'
+  select2 'other_user@email.com', from: '1'
   @expected_assignee = 'other_user@email.com'
   page.find('.notice', text: 'Record successfully updated.')
 end
 
 When("I change the support action status to 'complete'") do
   visit "/needs/#{@need.id}"
+  byebug
   page.select 'Complete', from: 'need_status'
   page.find('.notice', text: 'Record successfully updated.')
 end

@@ -17,9 +17,8 @@ end
 
 When('I filter support actions by category {string}') do |category|
   page.find('#needs-filters').click
-  find('#category + .select2.select2-container.select2-container--default').click
-  find('#select2-category-results')
-  find("li[id$='#{category.downcase}']", visible: :all).click
+  byebug
+  select2 category, from: '2'
 end
 
 Then('I see the support action for category {string} in the results') do |category|

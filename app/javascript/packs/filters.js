@@ -4,7 +4,7 @@ const filters = document.querySelector(".filters");
 const exportButton = document.querySelector("#btnExport");
 
 const filtersForm = $(".filters__form");
-const filterFormBoxes = filtersForm.find(".dropdown");
+const filterFormBoxes = filtersForm.find(".dropdown-autocomplete");
 filterFormBoxes.select2();
 filterFormBoxes.on("select2:select", () => {
    filtersForm.submit();
