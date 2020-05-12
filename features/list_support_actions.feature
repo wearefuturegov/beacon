@@ -55,6 +55,7 @@ Feature: List support actions
     When I go the the created and unassigned support action list
     Then I see the support action for category "Dog walking" in the results
 
+  @javascript
   Scenario: Do not see assigned needs I have created in the created and unassigned list
     Given a unique resident
     And I add support actions "Dog walking"
