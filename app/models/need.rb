@@ -110,8 +110,6 @@ class Need < ApplicationRecord
     order("call_attempts #{direction} NULLS LAST")
   }
 
-  scope :not_assesment_categories, -> { Need.categories.reject { |_k, v| ASSESSMENT_CATEGORIES.include?(v) } }
-
   delegate :name, :address, :postcode, :telephone, :mobile, :is_vulnerable,
            :count_people_in_house, :any_dietary_requirements, :dietary_details,
            :cooking_facilities, :delivery_details, :has_covid_symptoms,

@@ -82,14 +82,14 @@ class NeedsController < ApplicationController
     render :show
   end
 
-  def assign_multiple
+  def bulk_action
     for_update = JSON.parse(params[:for_update])
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
       authorize(need)
       to_update = {}
       to_update[:assigned_to] = assigned_to_me(obj['assigned_to']) if obj.key?('assigned_to')
-      to_update[:category] = obj['category'] if obj.key?('category')
+      to_update[:status] = obj['status'] if obj.key?('status')
       need.update! to_update
     end
     render json: { status: 'ok' }
