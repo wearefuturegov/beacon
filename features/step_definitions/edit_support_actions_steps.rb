@@ -65,7 +65,7 @@ When("I change someone else's support action status to 'complete'") do
 
   Capybara.using_session('Second_users_session') do
     visit "/needs/#{@need.id}"
-    page.select 'manager@test.com', from: 'need_assigned_to'
+    select2 'manager@test.com', from: '1'
     @expected_assignee = 'manager@test.com'
     page.find('.notice', text: 'Record successfully updated.')
   end
