@@ -103,8 +103,8 @@
       </tbody>
     </table>
     <%= render "shared/pagination", model: @needs %>
-    <%= javascript_pack_tag 'bulk-actions', 'data-turbolinks-track': 'reload' %>
   <% else %>
     <p class="no-results">No matches</p>
   <% end %>
+  <%= javascript_pack_tag 'bulk-actions', 'data-turbolinks-track': 'reload' %>
 </div>

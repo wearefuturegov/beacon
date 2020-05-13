@@ -1,8 +1,47 @@
+require("select2");
+
 let needs = document.querySelectorAll(".select-needs");
 let allNeeds = document.querySelector("#select-all-needs");
 const assign = document.querySelector("#assign-selected-needs");
 const status = document.querySelector("#status-selected-needs");
 const bulkActionsElems = [assign, status]
+
+const assignJQueryWrapper = $(assign);
+assignJQueryWrapper.select2();
+assignJQueryWrapper.on("select2:select", (e) => {
+  let assigned_to = e.currentTarget.value === "Unassigned"
+      ? null
+      : e.currentTarget.value;
+  const for_update = []
+  for (let i = 0; i < needs.length; i++) {
+    if (needs[i].checked) {
+      for_update.push({ need_id: needs[i].value, assigned_to: assigned_to });
+    }
+  }
+  if (for_update.length > 0) {
+    applyPatchUpdate(for_update);
+  }
+});
+
+const statusJQueryWrapper = $(status);
+statusJQueryWrapper.select2();
+statusJQueryWrapper.on("select2:select", (e) => {
+  let status = e.currentTarget.value;
+  if (!status) {
+    return;
+  }
+
+  const for_update = [];
+  for (let i = 0; i < needs.length; i++) {
+    if (needs[i].checked) {
+      for_update.push({ need_id: needs[i].value, status: status })
+    }
+  }
+
+  if (for_update.length > 0) {
+    applyPatchUpdate(for_update)
+  }
+});
 
 for (let i = 0; i < needs.length; i++) needs[i].addEventListener('click', checkboxClicked)
 allNeeds.addEventListener('click', selectAllNeeds)
@@ -39,30 +78,7 @@ applyPatchUpdate = (for_update) => {
       }
     }
   });
-}
-
-
-
-// assign to users event listener
-assign.addEventListener("change", (e) => {
-  let assigned_to = e.target.value
-  if(!assigned_to) return;
-  if (assigned_to === 'Unassigned') assigned_to = null
-  let for_update = []
-  for (let i = 0; i < needs.length; i++) 
-    if (needs[i].checked) for_update.push({ need_id: needs[i].value, assigned_to: assigned_to })  
-  if (for_update.length > 0) applyPatchUpdate(for_update)
-});
-
-status.addEventListener("change", (e) => {
-  let status = e.target.value
-  if(!status) return;
-  let for_update = []
-  for (let i = 0; i < needs.length; i++)
-    if (needs[i].checked) for_update.push({ need_id: needs[i].value, status: status })
-  if (for_update.length > 0) applyPatchUpdate(for_update)
-});
-
+};
 
 function getMetaValue(name) {
   return document.head.querySelector(`meta[name="${name}"]`).getAttribute("content");

@@ -1,5 +1,8 @@
-const form = document.querySelector(".need-actions")
+require("select2");
 
-form.addEventListener("change", () => {
-    form.submit()
-})
+const form = $("form.need-actions");
+const formDropdowns = form.find(".dropdown");
+formDropdowns.select2();
+formDropdowns.on("select2:select", () => {
+   form.submit();
+});
