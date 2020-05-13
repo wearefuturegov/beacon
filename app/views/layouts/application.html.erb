@@ -14,8 +14,7 @@
             <%# Switch role section %>
             <%= form_tag(set_role_path, :method => :post, :class => 'role-switcher') do %>
               <%= label_tag :id, 'Role:' %>
-              <%= select_tag :id, options_from_collection_for_select(current_user.roles.order(:id), :id, :name, current_user.role_id), class: "dropdown", id: "roleSwitcherDropdown" %>
-              <%= submit_tag 'Switch' %>
+              <%= select_tag :id, options_from_collection_for_select(current_user.roles.order(:id), :id, :name, current_user.role_id), class: "dropdown dropdown-autocomplete", id: "roleSwitcherDropdown", "data-minimum-results-for-search" => "Infinity"%>
             <% end %>
           <% else %>
             (<%= current_user.role.name %>)

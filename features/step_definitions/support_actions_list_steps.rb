@@ -17,7 +17,7 @@ end
 
 When('I filter support actions by category {string}') do |category|
   page.find('#needs-filters').click
-  find('#category').select(category)
+  select2 'category', category
 end
 
 Then('I see the support action for category {string} in the results') do |category|
