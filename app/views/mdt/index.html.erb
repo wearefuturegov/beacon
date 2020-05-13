@@ -1,5 +1,5 @@
 <header class="panel-header">
-  <h1 class="panel-header__title">MDT support actions</h1>
+  <h1 class="panel-header__title">All MDT reviews</h1>
 </header>
 
 <%= render "shared/table/bulk-actions" %>
@@ -25,14 +25,11 @@
             </div>
         </th>
         <th>
-          <div class="sortable">
-              Created
-              <div class="sortable__controls">
-                <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'created_at', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
-                <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'created_at', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
-              </div>
-            </div>
+          Support Actions
         </th>
+        <th>
+          Categories
+      </th>
         <th>Assigned to</th>
         <th>
           <div class="sortable">
@@ -40,15 +37,6 @@
           <div class="sortable__controls">
             <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'last_phoned_date', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
             <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'last_phoned_date', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
-          </div>
-          </div>
-        </th>
-        <th>
-          <div class="sortable">
-          Call attempts
-          <div class="sortable__controls">
-            <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'call_attempts', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
-            <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'call_attempts', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
           </div>
           </div>
         </th>
@@ -78,15 +66,13 @@
               —
             <% end %>
           </td>
-          <td><%= n.created_at.strftime("%-d %B %Y") %></td>
+          <td><%= n.contact.support_actions_count %></td>
+          <td><%= n.contact.support_actions_names %></td>
           <td>
             <%= n.user&.name_or_email || n.role&.name || 'Unassigned' %>
           </td>
           <td>
             <%= n.last_phoned_date&.strftime("%-d %B %Y") %>
-          </td>
-          <td>
-            <%= n.call_attempts %>
           </td>
           <td>
             <%= link_to 'Action', need_path(n), class: "button", id: "action-mdt-#{n.id}", method: :get  %>          

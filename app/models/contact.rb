@@ -21,4 +21,11 @@ class Contact < ApplicationRecord
   def name
     [first_name, middle_names, surname].join(' ')
   end
+
+  def support_actions_count
+    self.needs.not_assessments.size
+  end
+  def support_actions_names
+    self.needs.not_assessments.map{|n| n.category}.join(", ")
+  end
 end
