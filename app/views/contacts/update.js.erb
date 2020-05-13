@@ -1,6 +1,6 @@
 
 document.getElementById("lead-service-panel").innerHTML = "<%= j(render partial: 'shared/lead_service_panel', locals: { contact: @contact, teams_options: @teams_options } ) %>";
-document.getElementById("ajax-notifications").innerHTML = "<div class='notice'>Contact was successfully updated.</div>";
+document.getElementById("flash-messages").innerHTML = "<div class='notice'>Contact was successfully updated.</div>";
 setTimeout(function() {
-    document.getElementById("ajax-notifications").innerHTML = '';
+    document.getElementById("flash-messages").innerHTML = '';
 }, 5000);

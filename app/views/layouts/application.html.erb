@@ -31,10 +31,11 @@
       </div>
 
       <!-- Notifications -->
-      <% flash.each do |type, msg| %>
-        <div class="<%= type %>"><%= sanitize msg %></div>
-      <% end %>
-
+      <div id="flash-messages">
+        <% flash.each do |type, msg| %>
+          <div class="<%= type %>"><%= sanitize msg %></div>
+        <% end %>
+      </div>
       <%= yield %>
 
     </div>
