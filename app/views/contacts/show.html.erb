@@ -3,7 +3,7 @@
 <%= render "shared/vulnerable-banner" %>
 
 <div id="lead-service-panel" >
-  <%= render partial: 'lead_service_panel', locals: { contact: @contact, assigned_to_options: @assigned_to_options} %>
+  <%= render partial: 'shared/lead_service_panel', locals: { contact: @contact, teams_options: @teams_options} %>
 </div>
 
 <div class="with-left-sidebar">

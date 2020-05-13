@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ContactsController < ApplicationController
-  before_action :set_contact, :set_assign_options, only: %i[edit update show needs add_needs]
+  before_action :set_contact, :set_teams_options, only: %i[edit update show needs add_needs]
 
   def index
     @params = params.permit(:search, :page)
@@ -69,7 +69,7 @@ class ContactsController < ApplicationController
 
   private
 
-  def construct_assigned_to_options
+  def construct_teams_options
     roles = Role.all.order(:name)
     {
       'Teams' => roles.map { |role| [role.name, role.id.to_s] }
@@ -81,8 +81,8 @@ class ContactsController < ApplicationController
     authorize(@contact)
   end
 
-  def set_assign_options
-    @assigned_to_options = construct_assigned_to_options
+  def set_teams_options
+    @teams_options = construct_teams_options
   end
 
   def contact_params

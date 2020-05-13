@@ -13,7 +13,7 @@
           
             <div class="field-small">
               <%= form.label :lead_service_id, "Lead service", class: "" %>
-              <%= form.select :lead_service_id, grouped_options_for_select(@assigned_to_options, @contact.lead_service_id, prompt: 'Unassigned'), {}, { class: "need-actions__select" } %>
+              <%= form.select :lead_service_id, grouped_options_for_select(@teams_options, @contact.lead_service_id, prompt: 'Unassigned'), {}, { class: "need-actions__select" } %>
             </div>         
 
             <div class="field-small field--span-two-cols">
