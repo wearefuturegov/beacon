@@ -3,6 +3,8 @@
 class NeedsTableController < ApplicationController
   include ParamsConcern
 
+  helper_method :get_filters_path, :get_categories
+
   def construct_assigned_to_options(with_deleted = false)
     roles = Role.all.order(:name)
     users = with_deleted ? User.all.with_deleted.order(:first_name, :last_name) : User.all.order(:first_name, :last_name)
@@ -13,6 +15,34 @@ class NeedsTableController < ApplicationController
     }
   end
   
+  def handle_response_formats
+    respond_to do |format|
+      format.html
+      format.csv do
+        authorize(Need, :export?)
+        send_data @needs.to_csv, filename: "needs-#{Date.today}.csv"
+      end
+    end
+  end
+
+  def get_needs
+    if @params[:created_by_me] == 'true'
+      @assigned_to_options = {}
+      Need.created_by(current_user.id).filter_by_assigned_to('Unassigned')
+    else
+      @assigned_to_options = construct_assigned_to_options
+      policy_scope(Need).started
+    end
+  end
+
+  def get_filters_path
+    root_path
+  end
+
+  def get_categories
+    Need.categories
+  end
+
   protected
 
   def need_params
