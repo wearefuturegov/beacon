@@ -1,5 +1,4 @@
 class NeedsAssigneeNotifier
-
   def self.notify_new_assignee(need)
     return unless need.saved_change_to_user_id? || need.saved_change_to_role_id?
 
@@ -15,7 +14,7 @@ class NeedsAssigneeNotifier
   end
 
   def self.bulk_notify_new_assignee(needs)
-    changed_needs = needs.select { |need| need.saved_change_to_user_id?  || need.saved_change_to_role_id? }
+    changed_needs = needs.select { |need| need.saved_change_to_user_id? || need.saved_change_to_role_id? }
     return unless changed_needs.any?
 
     change_links = changed_needs.map { |need| "* #{Rails.application.routes.url_helpers.need_url(need)}" }.join("\n")
