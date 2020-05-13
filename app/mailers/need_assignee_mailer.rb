@@ -2,9 +2,9 @@ class NeedAssigneeMailer < GovukNotifyRails::Mailer
   default from: Rails.configuration.councils[ENV['COUNCIL'] || :demo][:default_from_address]
 
   def send_user_assigned_need_email(email, url)
-    set_template(Rails.configuration.councils[ENV['COUNCIL'] || :demo][:need_assigned_user_template])
+    set_template(Rails.configuration.councils[ENV['COUNCIL'] || :demo][:need_assigned_template])
     set_personalisation(
-      beacon_url: url
+      beacon_url: url,
     )
     mail(to: email)
   end
