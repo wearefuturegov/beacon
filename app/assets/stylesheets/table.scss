@@ -32,6 +32,16 @@
                     }
                 }
             }
+            &.deleted-row{
+                background: transparentize($grey, 0.9);
+                &:hover{
+                    background: transparentize($grey, 0.8) !important;
+                }
+                &:focus-within{
+                    background: transparentize($grey, 0.8) !important;
+                    border-color: $grey !important;
+                }
+            }
             &.selectable{
                 cursor: pointer;
                 &:hover{

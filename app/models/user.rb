@@ -2,9 +2,10 @@
 
 class User < ApplicationRecord
   include PgSearch::Model
+  acts_as_paranoid
 
-  has_many :notes, dependent: :destroy
-  has_many :needs, dependent: :destroy
+  has_many :notes
+  has_many :needs
   has_many :assigned_contacts, through: :needs, source: :contact
   has_many :completed_needs, -> { completed }, class_name: 'Need'
   has_many :uncompleted_needs, -> { uncompleted }, class_name: 'Need'
@@ -32,7 +33,7 @@ class User < ApplicationRecord
   end
 
   def name
-    [first_name, last_name].join(' ')
+    deleted? ? [first_name, last_name, '[X]'].join(' ') : [first_name, last_name].join(' ')
   end
 
   def name_or_email
