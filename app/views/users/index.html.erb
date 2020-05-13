@@ -28,7 +28,7 @@
 
     <tbody>
     <% @users.each do |user| %>
-      <tr class="clickable" onclick="window.location='<%= edit_user_path(user) %>'">
+      <tr class="selectable <%= 'deleted-row' if user.deleted? %>">
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= time_ago_in_words(user.invited).humanize %> ago</td>
@@ -38,6 +38,23 @@
           <td> Never</td>
         <% end %>
         <td><%= user.role_names %></td>
+        <td>
+          <% if user.deleted? %>
+            Deleted
+          <% else %>
+            <% if policy(User).destroy? %>
+              <%= link_to 'Delete', { controller: :users, action: :destroy, id: user.id }, 
+              class: "button", id: "delete-user-#{user.id}", method: :delete, 
+              data: { confirm: 'Are you sure you want to delete this record?' }  %>
+            <% end %>
+          <% end %>
+          
+        </td>
+        <td>
+        <% if !user.deleted? %>
+          <%= link_to 'View', edit_user_path(user), class: "button", id: "view-user-#{user.id}" %>
+        <% end %>
+        </td>
       </tr>
     <% end %>
     </tbody>

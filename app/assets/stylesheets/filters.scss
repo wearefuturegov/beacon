@@ -6,10 +6,15 @@
   }
 }
 
+#assigned_to {
+  width: 300px;
+}
+
 .filters{
     display: flex;
     flex-direction: row;
     flex: 1 0 auto;
+    margin-left: 20px;
     // .filters__controls{}
     .filters__content{
         margin-left: 0px;

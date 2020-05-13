@@ -19,6 +19,7 @@ class NeedsController < ApplicationController
 
     @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
+    @assigned_to_options_with_deleted = construct_assigned_to_options(true)
     respond_to do |format|
       format.html
       format.csv do
@@ -68,6 +69,7 @@ class NeedsController < ApplicationController
 
   def update
     if @need.update(need_params)
+      NeedsAssigneeNotifier.notify_new_assignee(@need)
       redirect_to need_path(@need), notice: 'Record successfully updated.'
     else
       populate_page_data
@@ -81,6 +83,8 @@ class NeedsController < ApplicationController
 
   def bulk_action
     for_update = JSON.parse(params[:for_update])
+
+    updated_needs = []
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
       authorize(need)
@@ -88,7 +92,10 @@ class NeedsController < ApplicationController
       to_update[:assigned_to] = assigned_to_me(obj['assigned_to']) if obj.key?('assigned_to')
       to_update[:status] = obj['status'] if obj.key?('status')
       need.update! to_update
+      updated_needs.append(need)
     end
+
+    NeedsAssigneeNotifier.bulk_notify_new_assignee(updated_needs)
     render json: { status: 'ok' }
   end
 
@@ -116,6 +123,16 @@ class NeedsController < ApplicationController
     else
       redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
     end
+  end
+
+  def construct_assigned_to_options(with_deleted = false)
+    roles = Role.all.order(:name)
+    users = with_deleted ? User.all.with_deleted.order(:first_name, :last_name) : User.all.order(:first_name, :last_name)
+
+    {
+      'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
+      'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
+    }
   end
 
   private

@@ -10,6 +10,7 @@
     "datatables.net-dt": "^1.10.20",
     "flatpickr": "^4.6.3",
     "jquery": "^3.5.0",
+    "select2": "^4.0.13",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",

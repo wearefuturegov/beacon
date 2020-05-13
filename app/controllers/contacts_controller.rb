@@ -27,7 +27,7 @@ class ContactsController < ApplicationController
   def call_list; end
 
   def needs
-    @users = User.all
+    @users = User.all.with_deleted
     @need = Need.new
     render :show_needs
   end
