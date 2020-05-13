@@ -1,7 +1,7 @@
 When('I (assign)/(have assigned) the support action to the role {string}') do |role|
   visit "/needs/#{@need.id}"
   @user_email = @user_email.present? ? @user_email : @user.email
-  page.select role, from: 'need_assigned_to'
+  select2 'need_assigned_to', role
   @expected_assignee = role
   page.find('.notice', text: 'Record successfully updated.')
 end
