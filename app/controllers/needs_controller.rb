@@ -19,6 +19,7 @@ class NeedsController < ApplicationController
 
     @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
+    @assigned_to_options_with_deleted = construct_assigned_to_options(true)
     respond_to do |format|
       format.html
       format.csv do
@@ -118,6 +119,16 @@ class NeedsController < ApplicationController
     end
   end
 
+  def construct_assigned_to_options(with_deleted = false)
+    roles = Role.all.order(:name)
+    users = with_deleted ? User.all.with_deleted.order(:first_name, :last_name) : User.all.order(:first_name, :last_name)
+
+    {
+      'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
+      'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
+    }
+  end
+
   private
 
   def delete_note(params)
@@ -174,15 +185,5 @@ class NeedsController < ApplicationController
   def assigned_to_me(assigned_to)
     assigned_to = "user-#{current_user.id}" if assigned_to == 'assigned-to-me'
     assigned_to
-  end
-
-  def construct_assigned_to_options
-    roles = Role.all.order(:name)
-    users = User.all.order(:first_name, :last_name)
-
-    {
-      'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
-      'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
-    }
   end
 end
