@@ -1,0 +1,10 @@
+<div class="panel">
+    <dl class="details-list">
+      <dt class="details-list__caption">Lead Service</dt>
+      <dd class="details-list__value"><%= @contact.role&.name || 'Unassigned' %></dd>
+  <% if @contact.lead_service_note.present? %>
+      <dt class="details-list__caption">Note</dt>
+      <dd class="details-list__value"><%= @contact.lead_service_note %></dd>
+    </dl>
+  <% end %>
+</div>

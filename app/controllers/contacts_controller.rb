@@ -64,6 +64,18 @@ class ContactsController < ApplicationController
     render :edit
   end
 
+  def update_lead_service
+    for_update = JSON.parse(params[:for_update])
+    contact = Contact.find(for_update['contact_id'])
+
+    to_update = {}
+    to_update[:lead_service_id] = extract_role_id(for_update['lead_service_id']) if for_update.key?('lead_service_id')
+    to_update[:lead_service_note] = for_update['lead_service_note'] if for_update.key?('lead_service_note')
+
+    contact.update! to_update
+    render json: { status: 'ok' }
+  end
+
   private
 
   def set_contact
@@ -77,5 +89,9 @@ class ContactsController < ApplicationController
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
                                     :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version,
                                     :channel, :no_calls_flag, :deceased_flag, :share_data_flag, :date_of_birth, :nhs_number)
+  end
+
+  def extract_role_id(role_id)
+    role_id.split('-').second
   end
 end

@@ -1,0 +1,22 @@
+<div class="panel">
+    <dl class="details-list">
+      <dt class="details-list__caption">
+        Lead Service
+      </dt>
+      <dd class="details-list__value">
+        <%= select_tag :lead_service_id,
+          options_for_select([['Unassigned', 'Unassigned']], (@contact.role.nil?) ? 'Unassigned' : nil) + 
+          grouped_options_for_select({ 'Teams' => Role.construct_assigned_to_options }, @contact.assigned_to, prompt: nil), 
+          { class: 'dropdown' } %>
+      </dd>
+      <dd class="details-list__value">
+        <%= text_field :contact, :lead_service_note, placeholder: 'Add a note' %>
+      </dd>
+      <dd class="details-list__value">    
+        <%= button_tag 'Cancel', { type: 'button', id: 'contact-service-panel-cancel', class: 'button button--dark' } %>
+        <%= button_tag 'Save', { type: 'button', id: 'contact-service-panel-save', class: 'button button--blue' } %>
+      </dd>
+    </dl>
+  <%= hidden_field :contact, :id %>
+</div>
+<%= javascript_pack_tag 'load-service-panel', 'data-tneed surbolinks-track': 'reload' %>
