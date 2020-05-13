@@ -23,18 +23,18 @@ assignJQueryWrapper.on("select2:select", (e) => {
   }
 });
 
-const categoryJQueryWrapper = $(status);
-categoryJQueryWrapper.select2();
-categoryJQueryWrapper.on("select2:select", (e) => {
-  let category = e.currentTarget.value;
-  if (!category) {
+const statusJQueryWrapper = $(status);
+statusJQueryWrapper.select2();
+statusJQueryWrapper.on("select2:select", (e) => {
+  let status = e.currentTarget.value;
+  if (!status) {
     return;
   }
 
   const for_update = [];
   for (let i = 0; i < needs.length; i++) {
     if (needs[i].checked) {
-      for_update.push({ need_id: needs[i].value, category: category })
+      for_update.push({ need_id: needs[i].value, status: status })
     }
   }
 
@@ -64,7 +64,7 @@ function selectAllNeeds() {
  */
 applyPatchUpdate = (for_update) => {
   $.ajax({
-    url: '/assign_multiple',
+    url: '/needs_bulk_action',
     type: 'PATCH',
     data: `for_update=${JSON.stringify(for_update)}`,
     headers:  { 
