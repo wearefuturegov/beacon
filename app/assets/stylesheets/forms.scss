@@ -32,6 +32,15 @@
     }
 }
 
+.field-section-small{
+  @extend .field-section;
+  margin-bottom: 0;
+    &.field-section--two-cols{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 15px;
+  }
+}
 
 .field{
     margin-bottom: 35px;
