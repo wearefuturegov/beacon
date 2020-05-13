@@ -3,8 +3,8 @@ require("select2");
 let needs = document.querySelectorAll(".select-needs");
 let allNeeds = document.querySelector("#select-all-needs");
 const assign = document.querySelector("#assign-selected-needs");
-const category = document.querySelector("#category-selected-needs");
-const bulkActionsElems = [assign, category]
+const status = document.querySelector("#status-selected-needs");
+const bulkActionsElems = [assign, status]
 
 const assignJQueryWrapper = $(assign);
 assignJQueryWrapper.select2();
@@ -23,7 +23,7 @@ assignJQueryWrapper.on("select2:select", (e) => {
   }
 });
 
-const categoryJQueryWrapper = $(category);
+const categoryJQueryWrapper = $(status);
 categoryJQueryWrapper.select2();
 categoryJQueryWrapper.on("select2:select", (e) => {
   let category = e.currentTarget.value;
