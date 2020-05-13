@@ -13,7 +13,7 @@ class NeedsController < NeedsTableController
     @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
     @assigned_to_options_with_deleted = construct_assigned_to_options(true)
-    
+
     handle_response_formats
   end
 
@@ -159,5 +159,4 @@ class NeedsController < NeedsTableController
   def set_contact
     @contact = Contact.find(params[:contact_id])
   end
-
 end

@@ -14,7 +14,7 @@ class NeedsTableController < ApplicationController
       'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
     }
   end
-  
+
   def handle_response_formats
     respond_to do |format|
       format.html
