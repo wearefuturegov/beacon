@@ -33,8 +33,12 @@ class Need < ApplicationRecord
                    'Staying social': 'staying social',
                    'Prescription pickups': 'prescription pickups',
                    'Book drops and entertainment': 'book drops and entertainment',
-                   'Dog walking': 'dog walking',
                    'Initial review': 'initial review',
+                   'Medical transport': 'medical transport',
+                   'Waste removal': 'waste removal',
+                   'Repairs': 'repairs',
+                   'Household tasks': 'household tasks',
+                   'Dog walking': 'dog walking',
                    'Other': 'other' }
 
   validates :category, presence: true
