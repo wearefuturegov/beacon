@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_131027) do
+ActiveRecord::Schema.define(version: 2020_05_13_124411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2020_05_04_131027) do
     t.boolean "no_calls_flag", default: false
     t.boolean "deceased_flag", default: false
     t.boolean "share_data_flag"
+    t.bigint "lead_service_id"
+    t.string "lead_service_note"
   end
 
   create_table "needs", force: :cascade do |t|
@@ -122,6 +124,8 @@ ActiveRecord::Schema.define(version: 2020_05_04_131027) do
     t.datetime "invited", null: false
     t.datetime "last_logged_in"
     t.bigint "role_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
@@ -137,6 +141,7 @@ ActiveRecord::Schema.define(version: 2020_05_04_131027) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "contacts", "roles", column: "lead_service_id"
   add_foreign_key "needs", "contacts"
   add_foreign_key "needs", "roles"
   add_foreign_key "needs", "users"

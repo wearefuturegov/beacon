@@ -1,4 +1,5 @@
 <%= render "shared/vulnerable-banner" %>
+<%= render "load-service-panel" %>
 
 <div class="with-left-sidebar">
 
@@ -42,12 +43,12 @@
 
           <% if @need.food_priority %>
             <dt class="details-list__caption">Food requirements priority</dt>
-            <dd class="details-list__value">Priority <%= @need.food_priority %></dt>
+            <dd class="details-list__value">Priority <%= @need.food_priority %></dd>
           <% end %>
 
           <% if @need.food_service_type %>
             <dt class="details-list__caption">Food service type</dt>
-            <dd class="details-list__value"><%= @need.food_service_type %></dt>
+            <dd class="details-list__value"><%= @need.food_service_type %></dd>
           <% end %>
 
           <dt class="details-list__caption">Created</dt>
