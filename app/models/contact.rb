@@ -23,9 +23,10 @@ class Contact < ApplicationRecord
   end
 
   def support_actions_count
-    self.needs.not_assessments.size
+    needs.not_assessments.size
   end
+
   def support_actions_names
-    self.needs.not_assessments.map{|n| n.category}.join(", ")
+    needs.not_assessments.map(&:category).join(', ')
   end
 end
