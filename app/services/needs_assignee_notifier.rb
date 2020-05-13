@@ -1,6 +1,7 @@
 class NeedsAssigneeNotifier
   def self.notify_new_assignee(need)
     return unless need.saved_change_to_user_id? || need.saved_change_to_role_id?
+
     need_url = Rails.application.routes.url_helpers.need_url(need)
     send_need_email(need, need_url)
   end
