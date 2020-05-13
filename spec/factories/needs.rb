@@ -8,7 +8,7 @@ FactoryBot.define do
     category { Need.categories.values.sample }
     name { Faker::Lorem.sentence }
     start_on do
-      Faker::Date.between(from: 2.days.ago, to: 6.days.from_now) if category.in?(['check in', 'phone triage'])
+      Faker::Date.between(from: 2.days.ago, to: 6.days.from_now) if category.in?(['check in', 'phone triage', 'mdt review'])
     end
 
     food_priority do

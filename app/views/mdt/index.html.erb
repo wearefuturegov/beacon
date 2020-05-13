@@ -1,5 +1,5 @@
 <header class="panel-header">
-  <h1 class="panel-header__title">All support actions</h1>
+  <h1 class="panel-header__title">MDT support actions</h1>
 </header>
 
 <%= render "shared/table/bulk-actions" %>
@@ -11,15 +11,6 @@
       <tr>
         <th>
           
-        </th>
-        <th>
-          <div class="sortable">
-              Category
-              <div class="sortable__controls">
-                <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'category', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
-                <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'category', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
-              </div>
-            </div>
         </th>
         <th>Person</th>
         <th>Shielded</th>
@@ -61,16 +52,15 @@
           </div>
           </div>
         </th>
+        <th>
+        </th>
       </tr>
       </thead>
       <tbody>
       <% @needs.each do |n| %>
-        <tr class="clickable" onclick="window.location='<%= need_path(n) %>'">
+        <tr class="selectable">
           <td>
             <%= check_box_tag("need[#{n.id}]", n.id, false, { class: "select-needs bulk-action-checkbox" }) %>
-          </td>
-          <td>
-            <%= link_to n.category, n, class: "primary-link" %>
           </td>
           <td><%= n.contact_name %></td>
           <td>
@@ -97,6 +87,9 @@
           </td>
           <td>
             <%= n.call_attempts %>
+          </td>
+          <td>
+            <%= link_to 'Action', need_path(n), class: "button", id: "action-mdt-#{n.id}", method: :get  %>          
           </td>
         </tr>
       <% end %>
