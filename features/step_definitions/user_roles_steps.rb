@@ -8,8 +8,7 @@ And('I am viewing the users list') do
 end
 
 When('I select a user') do
-  user_row = first('tr.clickable')
-  user_row.click
+  page.find('.selectable > td:nth-child(7) > a').click
 end
 
 And('another role {string} exists') do |role|
@@ -33,7 +32,7 @@ When('I save my changes') do
 end
 
 Then('I see that my roles have been updated') do
-  user_row = first('tr.clickable')
+  user_row = first('tr.selectable')
   expect(user_row).to have_content('other role')
   expect(user_row).to have_content('manager role')
 end
