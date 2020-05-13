@@ -177,11 +177,10 @@ class NeedsController < ApplicationController
   end
 
   def construct_assigned_to_options
-    roles = Role.all.order(:name)
     users = User.all.order(:first_name, :last_name)
 
     {
-      'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
+      'Teams' => Role.construct_assigned_to_options,
       'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
     }
   end

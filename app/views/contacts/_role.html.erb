@@ -1,0 +1,5 @@
+<div class="panel">
+  <%= select_tag :lead_service_id,
+    options_for_select([['Unassigned', 'Unassigned']]) + 
+    grouped_options_for_select({ 'Teams' => Role.construct_assigned_to_options }) %>
+</div>
