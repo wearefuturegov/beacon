@@ -10,7 +10,7 @@ let toShowCompletedNeeds = false;
 const toggleDisplayCompletedNeeds = (show) => show ? 'table-row' : 'none';
 
 const toggleVisibilityCompletedNeeds = document.getElementById('toggle-visibility-completed-needs')
-toggleVisibilityCompletedNeeds.addEventListener('click', (e) => {
+toggleVisibilityCompletedNeeds && toggleVisibilityCompletedNeeds.addEventListener('click', (e) => {
   toShowCompletedNeeds = !toShowCompletedNeeds;
   const table = toggleVisibilityCompletedNeeds.parentNode.parentNode
   if(toShowCompletedNeeds) {
