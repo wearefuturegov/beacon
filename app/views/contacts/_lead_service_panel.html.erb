@@ -1,0 +1,18 @@
+<%= form_for(@contact,:html=>{:id=>"update_lead_service",:multipart => true,:remote=>true}) do |form|%>
+
+  <div class="panel">
+        <div class="panel-buttons-right">    
+          <%= link_to 'Cancel', contact_path(@contact), class: "button button--dark", id: "contact-service-panel-cancel" %>
+          <%= form.button 'Save', { type: 'submit', id: 'contact-service-panel-save', class: 'button button--blue' } %>
+        </div>
+  
+        <div class="field-small">
+          <%= form.label :lead_service_id, "Lead service", class: "field__label-top" %>
+          <%= form.select :lead_service_id, grouped_options_for_select(@assigned_to_options, @contact.lead_service_id, prompt: 'Unassigned'), {}, { class: "need-actions__select" } %>
+        </div>       
+
+        <div class="field-small">
+          <%= form.text_field :lead_service_note, placeholder: 'Add a note' %>
+        </div>
+  </div>
+<% end %>
