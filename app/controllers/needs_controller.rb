@@ -192,13 +192,4 @@ class NeedsController < ApplicationController
     assigned_to = "user-#{current_user.id}" if assigned_to == 'assigned-to-me'
     assigned_to
   end
-
-  def construct_assigned_to_options
-    users = User.all.order(:first_name, :last_name)
-
-    {
-      'Teams' => Role.construct_assigned_to_options,
-      'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
-    }
-  end
 end
