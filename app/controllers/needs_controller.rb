@@ -68,7 +68,7 @@ class NeedsController < NeedsTableController
 
   def update
     if @need.update(need_params)
-      notify_new_assignee(@need)
+      NeedsAssigneeNotifier.notify_new_assignee(@need)
       redirect_to need_path(@need), notice: 'Record successfully updated.'
     else
       populate_page_data
@@ -82,6 +82,8 @@ class NeedsController < NeedsTableController
 
   def bulk_action
     for_update = JSON.parse(params[:for_update])
+
+    updated_needs = []
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
       authorize(need)
@@ -89,7 +91,10 @@ class NeedsController < NeedsTableController
       to_update[:assigned_to] = assigned_to_me(obj['assigned_to']) if obj.key?('assigned_to')
       to_update[:status] = obj['status'] if obj.key?('status')
       need.update! to_update
+      updated_needs.append(need)
     end
+
+    NeedsAssigneeNotifier.bulk_notify_new_assignee(updated_needs)
     render json: { status: 'ok' }
   end
 
@@ -185,19 +190,5 @@ class NeedsController < NeedsTableController
   def assigned_to_me(assigned_to)
     assigned_to = "user-#{current_user.id}" if assigned_to == 'assigned-to-me'
     assigned_to
-  end
-
-  def notify_new_assignee(need)
-    return unless need.saved_change_to_user_id? || need.saved_change_to_role_id?
-
-    if need.user_id?
-      user = User.find(need.user_id)
-      NeedAssigneeMailer.send_user_assigned_need_email(user.email, need_url(need)).deliver
-    elsif need.role_id?
-      role_members = User.joins(:roles).where(roles: { id: need.role_id }).select(:email)
-      role_members.each do |role_member|
-        NeedAssigneeMailer.send_role_assigned_need_email(role_member.email, need.role.name, need_url(need)).deliver
-      end
-    end
   end
 end
