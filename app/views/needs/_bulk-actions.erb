@@ -10,10 +10,10 @@
                     grouped_options_for_select(@assigned_to_options),
                     prompt: 'Assign to...', class: "assign__needs dropdown", id: 'assign-selected-needs', disabled: 'disabled' %>
       <%= label_tag :status_selected_needs, 'Set status', class: 'visually-hidden' %>
-      <%= select_tag :status_selected_needs, 
-                    options_for_select(need_statuses), 
-                    prompt: 'Set status', 
-                    class: "dropdown", 
+      <%= select_tag :status_selected_needs,
+                    options_for_select(need_statuses),
+                    prompt: 'Set status',
+                    class: "dropdown",
                     id: 'status-selected-needs',
                     disabled: 'disabled' %>
     <% end %>             
