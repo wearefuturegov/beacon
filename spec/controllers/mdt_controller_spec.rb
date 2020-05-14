@@ -38,6 +38,7 @@ RSpec.describe MdtController, type: :controller do
       get :index
       expect(subject.can_bulk_action?).to eq(false)
       expect(subject.categories).to eq([])
+      expect(subject.filters_path).to eq(mdt_index_path)
     end
 
     it 'passes filterable fields to model but category is overridden' do
