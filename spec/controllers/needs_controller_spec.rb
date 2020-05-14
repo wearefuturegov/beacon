@@ -113,12 +113,12 @@ RSpec.describe NeedsController, type: :controller do
                             +'Users' => [['User Test [X]', 'user-1']])
     end
 
-    it 'inherits parents methods' do  
+    it 'inherits parents methods' do
       expect(need).to receive(:page)
-      expect(need).to receive(:categories).and_return(['a','b','c'])
+      expect(need).to receive(:categories).and_return(['a', 'b', 'c'])
       get :index
       expect(subject.can_bulk_action?).to eq(true)
-      expect(subject.categories).to eq(['a','b','c'])
+      expect(subject.categories).to eq(['a', 'b', 'c'])
       expect(subject.filters_path).to eq(root_path)
     end
   end
@@ -138,5 +138,4 @@ RSpec.describe NeedsController, type: :controller do
       expect(response).to be_successful
     end
   end
-
 end

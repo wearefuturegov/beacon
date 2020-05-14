@@ -16,7 +16,6 @@ RSpec.describe MdtController, type: :controller do
     need
   end
 
-
   describe 'GET #index' do
     before :each do
       # roles
@@ -59,5 +58,4 @@ RSpec.describe MdtController, type: :controller do
       expect(response).to be_successful
     end
   end
-
 end
