@@ -1,3 +1,5 @@
+<%= form_for(@contact,:html=>{:id=>"update",:multipart => true,:remote=>true}) do |form|%>
+
 <section class="accordion">
 
   <button class="accordion__control" aria-expanded="true">
@@ -131,7 +133,11 @@
     </dl>
 
   </div>
+  <div class="accordion-buttons-right">    
+    <%= link_to 'Cancel', contact_path(@contact), class: "button button--dark", id: "contact-edit-cancel", remote: true %>
+    <%= form.button 'Save', { type: 'submit', id: 'contact-edit-save', class: 'button button--blue' } %>
+  </div>  
 
 </section>
-
+<% end %>
 <%= javascript_pack_tag 'accordion', 'data-turbolinks-track': 'reload' %>

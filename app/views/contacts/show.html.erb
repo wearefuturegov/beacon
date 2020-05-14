@@ -8,8 +8,11 @@
   <aside class="with-left-sidebar__left">
     <header class="panel-header">
       <h2 class="panel-header__title">Profile</h2>
+      <% if policy(@contact).edit? %>
+        <%= link_to "Edit", edit_contact_path(@contact), class: "contact-edit-link", id:"edit-contact-link", remote: true %>
+      <% end %>
     </header>
-    <div class="panel panel--unpadded">  
+    <div id="contact-side-container" class="panel panel--unpadded">
       <%= render "shared/profile-accordion" %>
     </div>
   </aside>

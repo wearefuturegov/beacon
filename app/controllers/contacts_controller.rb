@@ -50,6 +50,10 @@ class ContactsController < ApplicationController
 
   def edit
     @edit_contact_id = @contact.id
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def update

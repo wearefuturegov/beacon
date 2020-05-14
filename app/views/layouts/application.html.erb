@@ -7,7 +7,7 @@
 
     <div class="content-pane">
 
-      <header class="panel content-header">
+      <header class="panel content-header" id="panel-content-header">
         <%= yield :header %>
         <nav class="content-header__actions-right">
           <% if current_user.roles.count > 1 %>
