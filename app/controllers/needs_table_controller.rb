@@ -53,7 +53,7 @@ class NeedsTableController < ApplicationController
     permit_need_params = params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
     permit_need_params[:assigned_to] = assigned_to_me(permit_need_params[:assigned_to])
     permit_need_params
-    end
+  end
 
   def assigned_to_me(assigned_to)
     assigned_to = "user-#{current_user.id}" if assigned_to == 'assigned-to-me'
