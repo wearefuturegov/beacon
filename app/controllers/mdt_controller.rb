@@ -3,7 +3,8 @@
 class MdtController < NeedsTableController
   def index
     @params = params.permit(:assigned_to, :status, :page, :order_dir, :order, :commit, :is_urgent, :created_by_me)
-    @needs = get_needs
+    @assigned_to_options = construct_assigned_to_options
+    @needs =  Need.started
 
     @params[:category] = 'mdt review'
     @needs = @needs.uncompleted.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
