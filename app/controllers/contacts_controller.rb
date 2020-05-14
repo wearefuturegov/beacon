@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ContactsController < ApplicationController
-  before_action :set_contact, only: %i[edit update show needs add_needs]
+  before_action :set_contact, :set_teams_options, only: %i[edit update show needs add_needs]
 
   def index
     @params = params.permit(:search, :page)
@@ -55,7 +55,10 @@ class ContactsController < ApplicationController
   def update
     if @contact.update(contact_params)
       ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
-      redirect_to contact_path(@contact), notice: 'Contact was successfully updated.'
+      respond_to do |format|
+        format.html { redirect_to contact_path(@contact), notice: 'Contact was successfully updated.' }
+        format.js
+      end
     else
       render :edit
     end
@@ -64,23 +67,22 @@ class ContactsController < ApplicationController
     render :edit
   end
 
-  def update_lead_service
-    for_update = JSON.parse(params[:for_update])
-    contact = Contact.find(for_update['contact_id'])
-
-    to_update = {}
-    to_update[:lead_service_id] = extract_role_id(for_update['lead_service_id']) if for_update.key?('lead_service_id')
-    to_update[:lead_service_note] = for_update['lead_service_note'] if for_update.key?('lead_service_note')
-
-    contact.update! to_update
-    render json: { status: 'ok' }
-  end
-
   private
+
+  def construct_teams_options
+    roles = Role.all.order(:name)
+    {
+      'Teams' => roles.map { |role| [role.name, role.id.to_s] }
+    }
+  end
 
   def set_contact
     @contact = Contact.find(params[:id])
     authorize(@contact)
+  end
+
+  def set_teams_options
+    @teams_options = construct_teams_options
   end
 
   def contact_params
@@ -88,7 +90,8 @@ class ContactsController < ApplicationController
                                     :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_under_age,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
                                     :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version,
-                                    :channel, :no_calls_flag, :deceased_flag, :share_data_flag, :date_of_birth, :nhs_number)
+                                    :channel, :no_calls_flag, :deceased_flag, :share_data_flag, :date_of_birth, :nhs_number,
+                                    :lead_service_id, :lead_service_note)
   end
 
   def extract_role_id(role_id)
