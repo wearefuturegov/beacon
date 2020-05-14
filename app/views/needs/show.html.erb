@@ -30,6 +30,14 @@
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
       <%= link_to @need.category, @contact, class: "panel__header", id: "need-#{@need.id}-title" %>
       
+      <% if policy(Need).update? %>
+        <div class="edit-need-actions">
+          <%= button_tag 'Edit', { type: 'button', id: 'edit-need-btn', class: 'button button--blue' } %>
+          <%= link_to 'Cancel', need_path(@need), { class: "button button--dark edit-need-cancel", id: "cancel-edit-need" } %>
+          <%= button_tag 'Save', { type: 'button', id: 'save-edit-need', class: 'button button--blue edit-need-save' } %>
+        </div>
+      <% end %>
+      
       <% if policy(@need).destroy? %>
         <%= link_to 'Delete',  { action: :destroy, id: @need.id }, 
           class: "need-delete-link", id: "delete-need-#{@need.id}", method: :delete, 
@@ -42,16 +50,16 @@
 
         <dl class="details-list">
           <dt class="details-list__caption">Description</dt>
-          <dd class="details-list__value"><%= simple_format @need.name %></dd>
+          <dd class="details-list__value" id="show-need-description"><%= simple_format @need.name %></dd>
 
           <% if @need.food_priority %>
             <dt class="details-list__caption">Food requirements priority</dt>
-            <dd class="details-list__value">Priority <%= @need.food_priority %></dd>
+            <dd class="details-list__value" id="show-need-food-priority">Priority <%= @need.food_priority %></dd>
           <% end %>
 
           <% if @need.food_service_type %>
             <dt class="details-list__caption">Food service type</dt>
-            <dd class="details-list__value"><%= @need.food_service_type %></dd>
+            <dd class="details-list__value" id="show-need-food-service-type"><%= @need.food_service_type %></dd>
           <% end %>
 
           <dt class="details-list__caption">Created</dt>
@@ -59,7 +67,8 @@
 
           <% if @need.start_on %>
             <dt class="details-list__caption">Starts on</dt>
-            <dd class="details-list__value"><%= @need.start_on&.strftime("%-d %B %Y") %></dd>
+            <dd class="details-list__value" id="show-need-start-on"><%= @need.start_on&.strftime("%-d %B %Y") %></dd>
+            <%= hidden_field 'show-need-start-on-flatpicker', 'format', :value => @need.start_on&.strftime("%d/%m/%Y") %>
           <% end %>
         </dl>
 
@@ -72,3 +81,4 @@
 
 
 <%= javascript_pack_tag 'users_viewing_page.js' %>
+<%= javascript_pack_tag 'edit-need', 'data-tneed surbolinks-track': 'reload' %>
