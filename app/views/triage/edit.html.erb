@@ -14,22 +14,24 @@
     </ul>
   </div>
 <% end %>
-<%= form_with(model: @contact_needs, url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
+
 
   <div class="with-left-sidebar">
     <aside class="with-left-sidebar__left">
       <header class="panel-header">
         <h2 class="panel-header__title">Profile</h2>
-      </header>
-      <div class="panel panel--unpadded">
-        <%= fields_for :contact, @contact do |contact_fields| %>
-          <%= render partial: 'shared/profile-accordion-edit', locals: {contact: @contact, form: contact_fields} %>
+        <% if policy(@contact).edit? %>
+          <%= link_to "Edit", edit_contact_path(@contact), class: "contact-edit-link", id:"edit-contact-link", remote: true %>
         <% end %>
+      </header>
+      <div id="contact-side-container" class="panel panel--unpadded">
+        <%= render "shared/profile-accordion" %>
       </div>
     </aside>
 
 
     <aside class="with-left-sidebar__right">
+      <%= form_with(model: @contact_needs, url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
 
       <header class="panel-header">
         <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
@@ -87,8 +89,10 @@
           <%= form.button "Save changes", class: "button button--primary", id: "triage-submit-btn" %>
         </div>
       </div>
+
+    <% end %>
     </aside>
+    
   </div>
   <%= javascript_pack_tag 'users_viewing_page.js' %>
   <%= javascript_pack_tag 'needs-accordion.js', 'data-turbolinks-track': 'reload' %>
-<% end %>
