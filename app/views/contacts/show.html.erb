@@ -46,12 +46,18 @@
     <% end %>
 
     <header class="panel-header" id="needs-panel">
-      <h2 class="panel-header__title">Assessments</h2>
-
       <% if policy(Need).create? %>
-        <div style="flex:1; text-align:right">
+        <div class="assessment-operations left">
+          <% Need::ASSESSMENT_CATEGORIES.each do |category| %>
+            <div class="checkbox">
+              <%= check_box_tag("#{category}", nil, false, { class: "checkbox__input"}) %>
+              <%= label_tag "#{category}", "#{category.titleize}", class: 'checkbox__label' %>
+            </div>
+          <% end %>
+        </div>
+        <div class="assessment-operations right">
           <div class="assessment-dropdown">
-            <button id="btnAssessmentDropdown">Add new assessment +</button>
+            <button id="btnAssessmentDropdown">Add check-in call +</button>
             <div id="assessmentDropdownElements" class="assessment-dropdown-content">
               <%= link_to('Schedule an assessment', new_contact_assessment_path(@contact.id, :type => 'schedule'), id: 'schedule-assesment-btn') %>
               <%= link_to('Log an assessment', new_contact_assessment_path(@contact.id, :type => 'log'), id: 'log-assesment-btn') %>
