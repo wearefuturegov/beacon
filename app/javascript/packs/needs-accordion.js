@@ -1,9 +1,12 @@
 $( document ).ready(function() {
-  $(".need-checkbox").click(function() {
-    let className = ".need-accordion-" + $(this).attr("data")
-    if ($(this).prop("checked")) showAllElmsByClass(className)
+  const set_need_section_visibility = (e) => {
+    let className = ".need-accordion-" + $(e).attr("data")
+    if ($(e).prop("checked")) showAllElmsByClass(className)
     else hideAllElmsByClass(className)
-  })
+  };
+
+  $(".need-checkbox").click(function() { set_need_section_visibility(this) })
+  $(".need-checkbox").each(function() { set_need_section_visibility(this) })
 });
 
 function showAllElmsByClass(className) {

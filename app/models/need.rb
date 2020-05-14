@@ -11,7 +11,7 @@ class Need < ApplicationRecord
   before_update :enforce_single_assignment
   after_initialize :set_status
 
-  enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
+  enum status: { pending: 'pending', to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
   belongs_to :contact
   belongs_to :user, optional: true
   belongs_to :role, optional: true
@@ -103,6 +103,8 @@ class Need < ApplicationRecord
     order("needs.created_at #{direction}")
   }
 
+  scope :not_pending, -> { where.not(status: 'pending')}
+
   scope :order_by_category, lambda { |direction|
     order("LOWER(category) #{direction}")
   }
@@ -187,7 +189,9 @@ class Need < ApplicationRecord
           group by n.id
         ) as notes_aggr on notes_aggr.id = needs.id"
 
-    Need.joins(:contact, sql).select('needs.*', 'last_phoned_date',
+    Need.joins(:contact, sql)
+        .where.not(status: 'pending')
+        .select('needs.*', 'last_phoned_date',
                                      'call_attempts')
   end
 

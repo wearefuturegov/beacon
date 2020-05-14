@@ -1,5 +1,5 @@
 class AssessmentsController < ApplicationController
-  before_action :set_contact, only: %i[new create edit]
+  before_action :set_contact, only: %i[new create edit update]
 
   def new
     @assigned_to_options = construct_assigned_to_options
@@ -30,6 +30,15 @@ class AssessmentsController < ApplicationController
       render 'failed_assessment'
     elsif @stage == 'complete'
       render 'complete_assessment'
+    end
+  end
+
+  def update
+    assessment = Need.find(params[:id])
+    if params['stage'] == 'complete'
+      Need.where(status: 'pending', assessment_id: params[:id]).update_all(status: 'to_do')
+      assessment.update(status: 'complete')
+      redirect_to contact_path(@contact)
     end
   end
 

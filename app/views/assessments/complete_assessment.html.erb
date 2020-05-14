@@ -1,4 +1,3 @@
-
 <div class="with-left-sidebar">
   <aside class="with-left-sidebar__left">
     <header class="panel-header">
@@ -16,19 +15,22 @@
       <% end %>
     </header>
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
-      <%= link_to "Complete #{@need.category}", @need, class: "panel__header", id: "need-#{@need.id}-title" %>
+      <%= link_to "Complete #{@need.category}", contact_triage_path(@contact, :assessment_id => @need.id), class: "panel__header", id: "need-#{@need.id}-title" %>
 
       <div class="panel__body">
         <p>How did you complete the assessment</p>
 
-        <input type="radio" name="call_type" value="Voicemail" id="voicemail"/>
-        <label for="voicemail">Successful call</label>
+        <%= form_with url: contact_assessment_path(@contact, @need), method: 'PUT', local: true do |form| %>
+          <%= hidden_field_tag 'stage', 'complete' %>
+          <input type="radio" name="call_type" value="Voicemail" id="voicemail"/>
+          <label for="voicemail">Successful call</label>
 
-        <input type="radio" name="call_type" value="Voicemail" id="failed_call"/>
-        <label for="failed_call">No call</label>
+          <input type="radio" name="call_type" value="Voicemail" id="failed_call"/>
+          <label for="failed_call">No call</label>
 
-        <br/>
-        <%= link_to "Complete check-in call", contact_triage_path(@contact, :assessment_id => @need.id), class: "button button--blue" %>
+          <br/>
+          <%= form.submit 'Complete call', class: 'button button-blue' %>
+        <% end %>
       </div>
     </div>
   </aside>

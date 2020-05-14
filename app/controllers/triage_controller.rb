@@ -19,7 +19,7 @@ class TriageController < ApplicationController
     render(:edit) && return if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
 
     ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
-    NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
+    NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'], params[:assessment_id])
     session[:triage] = nil
 
     if params[:assessment_id]
@@ -52,16 +52,23 @@ class TriageController < ApplicationController
   end
 
   def create_contact_needs
+    existing_needs = if params[:assessment_id]
+                        Need.where(assessment_id: params[:assessment_id]).to_a
+                      else
+                        []
+                      end
+
     contact_model = ContactNeeds.new
     contact_model.needs_list = Need.categories_for_triage.each_with_index.map do |(label, _slug), index|
+      existing_need = existing_needs.find {|n|n.category == label}
       need = {
-        name: label,
-        active: false
+          id: existing_need&.id,
+          name: label,
+          description: existing_need&.name,
+          food_priority: existing_need&.food_priority,
+          food_service_type: existing_need&.food_service_type,
+          active: existing_need != nil ? 'true' : 'false',
       }
-      if label == 'Phone triage'
-        need[:active] =
-          need[:start_on] = (Date.today + 6.days).strftime('%d/%m/%y')
-      end
       [index.to_s, need]
     end.to_h
     contact_model
