@@ -135,9 +135,8 @@
   </div>
   <div class="accordion-buttons-right">    
     <%= link_to 'Cancel', contact_path(@contact), class: "button button--dark", id: "contact-edit-cancel", remote: true %>
-    <%= form.button 'Save', { type: 'submit', id: 'contact-edit-save', class: 'button button--blue' } %>
+    <%= form.button 'Save changes', { type: 'submit', id: 'contact-edit-save', class: 'button button--blue' } %>
   </div>  
 
 </section>
 <% end %>
-<%= javascript_pack_tag 'accordion', 'data-turbolinks-track': 'reload' %>
