@@ -31,9 +31,8 @@ class Contact < ApplicationRecord
   def support_actions_names
     needs.not_assessments.map(&:category).join(', ')
   end
-  
-  def assigned_to
-      role.id.to_s if role
-  end
 
+  def assigned_to
+    role.id.to_s if role
+  end
 end

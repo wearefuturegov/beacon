@@ -3,7 +3,7 @@
 class NeedsTableController < ApplicationController
   include ParamsConcern
 
-  helper_method :get_filters_path, :get_categories
+  helper_method :get_filters_path, :get_categories, :can_bulk_action?
 
   def construct_assigned_to_options(with_deleted = false)
     roles = Role.all.order(:name)
@@ -41,6 +41,10 @@ class NeedsTableController < ApplicationController
 
   def get_categories
     Need.categories
+  end
+
+  def can_bulk_action?
+    true
   end
 
   protected

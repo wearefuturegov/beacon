@@ -9,9 +9,6 @@
     <table class="table data-table">
       <thead>
       <tr>
-        <th>
-          
-        </th>
         <th>Person</th>
         <th>Shielded</th>
         <th>Status</th>
@@ -47,9 +44,6 @@
       <tbody>
       <% @needs.each do |n| %>
         <tr class="selectable">
-          <td>
-            <%= check_box_tag("need[#{n.id}]", n.id, false, { class: "select-needs bulk-action-checkbox" }) %>
-          </td>
           <td><%= n.contact_name %></td>
           <td>
             <% if n.contact_is_vulnerable %>
