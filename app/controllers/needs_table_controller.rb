@@ -3,7 +3,7 @@
 class NeedsTableController < ApplicationController
   include ParamsConcern
 
-  helper_method :get_filters_path, :get_categories, :can_bulk_action?
+  helper_method :filters_path, :categories, :can_bulk_action?
 
   def construct_assigned_to_options(with_deleted = false)
     roles = Role.all.order(:name)
@@ -25,7 +25,7 @@ class NeedsTableController < ApplicationController
     end
   end
 
-  def get_needs
+  def needs
     if @params[:created_by_me] == 'true'
       @assigned_to_options = {}
       Need.created_by(current_user.id).filter_by_assigned_to('Unassigned')
@@ -35,11 +35,11 @@ class NeedsTableController < ApplicationController
     end
   end
 
-  def get_filters_path
+  def filters_path
     root_path
   end
 
-  def get_categories
+  def categories
     Need.categories
   end
 

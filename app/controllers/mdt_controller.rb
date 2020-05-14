@@ -15,12 +15,12 @@ class MdtController < NeedsTableController
   end
 
   # override
-  def get_filters_path
+  def filters_path
     mdt_index_path
   end
 
   # override
-  def get_categories
+  def categories
     []
   end
 
