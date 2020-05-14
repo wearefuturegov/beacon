@@ -2,6 +2,7 @@
 
 class NeedsController < NeedsTableController
   before_action :set_need, only: %i[show edit update]
+  before_action :set_teams_options, only: %i[show edit update]
   before_action :set_contact, only: %i[new create]
 
   helper_method :get_param
@@ -113,7 +114,18 @@ class NeedsController < NeedsTableController
     end
   end
 
+  def set_teams_options
+    @teams_options = construct_teams_options
+  end
+
   private
+
+  def construct_teams_options
+    roles = Role.all.order(:name)
+    {
+      'Teams' => roles.map { |role| [role.name, role.id.to_s] }
+    }
+  end
 
   def delete_note(params)
     note = Note.find(params[:id])

@@ -32,6 +32,15 @@
     }
 }
 
+.field-section-small{
+  @extend .field-section;
+  margin-bottom: 0;
+    &.field-section--two-cols{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 15px;
+  }
+}
 
 .field{
     margin-bottom: 35px;
@@ -41,13 +50,31 @@
         font-size: 0.9rem;
         margin-bottom: 7px;
     }
+    .field__label-top{
+      @extend .field__label;
+      display: block !important;
+    }
     &.field--span-two-cols{
         grid-column: 1 / 3;
     }
 }
 
+
+.field-small{
+  @extend .field;
+  margin-bottom: 10px;
+}
+
 :disabled {
   color: darkgray;
+}
+
+select{
+  font-size: 1rem;
+  padding: 10px;
+  display: block;
+  background: $pale;
+  border: none;
 }
 
 input[type=text],
@@ -199,4 +226,11 @@ textarea{
       margin-bottom: 0px;
     }
   }
+}
+
+.panel-buttons-right{
+  position: relative;
+  float: right;
+  font-size: 0.9rem;
+  margin: -10px -10px 10px 20px;
 }

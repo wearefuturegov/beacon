@@ -69,6 +69,10 @@
             <div class="radio">
               <%= form.radio_button :category, 'check in', {:checked => @need[:category] == 'Check in'} %>
               <%= form.label :category_check_in, "Check in", class: "radio__label" %>
+            </div> 
+            <div class="radio">
+              <%= form.radio_button :category, 'mdt review', {:checked => @need[:category] == 'MDT review'} %>
+              <%= form.label :category_mdt_review, "MDT review", class: "radio__label" %>
             </div>
             <div class="radio">
               <%= form.radio_button :category, 'mdt review', {:checked => @need[:category] == 'MDT review'} %>
