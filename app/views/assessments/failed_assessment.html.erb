@@ -1,0 +1,46 @@
+
+<div class="with-left-sidebar">
+  <aside class="with-left-sidebar__left">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Profile</h2>
+    </header>
+    <div class="panel panel--unpadded">
+      <%= render "shared/profile-accordion" %>
+    </div>
+  </aside>
+  <aside class="with-left-sidebar__right">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Support Actions</h2>
+      <% if @contact.needs.any? %>
+        <span class="panel-header__badge"><%= @contact.needs.count %></span>
+      <% end %>
+    </header>
+    <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
+      <%= link_to "Unsuccessful #{@need.category}", edit_contact_assessment_path(@contact, @need), class: "panel__header", id: "need-#{@need.id}-title" %>
+
+      <% if policy(@need).destroy? %>
+        <%= link_to 'Delete',  { action: :destroy, id: @need.id },
+                    class: "need-delete-link", id: "delete-need-#{@need.id}", method: :delete,
+                    data: { confirm: @delete_prompt } %>
+      <% end %>
+
+      <div class="panel__body">
+        <h3>Update failed <%= @need.category.titleize %></h3>
+        <p>If the call was unsuccessful, or if you want to leave a note, please update the following questions</p>
+
+        <input type="radio" name="call_type" value="Voicemail" id="voicemail"/>
+        <label for="voicemail">Voicemail</label>
+
+        <input type="radio" name="call_type" value="Voicemail" id="failed_call"/>
+        <label for="failed_call">Failed call</label>
+
+        <input type="radio" name="call_type" value="Voicemail" id="internal_note"/>
+        <label for="internal_note">Internal note/action</label>
+
+        <h2>Other fields here</h2>
+
+        <%= button_tag 'Save update', class: 'button button--blue' %>
+      </div>
+    </div>
+  </aside>
+</div>

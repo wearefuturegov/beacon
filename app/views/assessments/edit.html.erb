@@ -1,0 +1,29 @@
+
+<div class="with-left-sidebar">
+  <aside class="with-left-sidebar__left">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Profile</h2>
+    </header>
+    <div class="panel panel--unpadded">
+      <%= render "shared/profile-accordion" %>
+    </div>
+  </aside>
+  <aside class="with-left-sidebar__right">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Support Actions</h2>
+      <% if @contact.needs.any? %>
+        <span class="panel-header__badge"><%= @contact.needs.count %></span>
+      <% end %>
+    </header>
+    <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
+      <%= link_to "Begin #{@need.category}", @need, class: "panel__header", id: "need-#{@need.id}-title" %>
+
+      <div class="panel__body">
+        <h2>Is the resident able to complete the call?</h2>
+        <p>Did they pick up the call?</p>
+        <%= link_to "No, update assessment", edit_contact_assessment_path(@contact, @need, :stage => 'failed'), class: "button button--dark" %>
+        <%= link_to "Yes, continue to assessment", contact_triage_path(@contact, :assessment_id => @need.id), class: "button button--blue" %>
+      </div>
+    </div>
+  </aside>
+</div>

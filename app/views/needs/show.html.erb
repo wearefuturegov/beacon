@@ -5,7 +5,6 @@
 </div>
 
 <div class="with-left-sidebar">
-
   <aside class="with-left-sidebar__left">
     <header class="panel-header">
       <h2 class="panel-header__title">Profile</h2>
@@ -14,19 +13,13 @@
       <%= render "shared/profile-accordion" %>
     </div>
   </aside>
-
   <aside class="with-left-sidebar__right">
     <header class="panel-header">
       <h2 class="panel-header__title">Support Actions</h2>
       <% if @contact.needs.any? %>
         <span class="panel-header__badge"><%= @contact.needs.count %></span>
       <% end %>
-      <% if policy(Need).create? %>
-        <%= link_to "Add support actions", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
-      <% end %>
     </header>
-
-
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
       <%= link_to @need.category, @contact, class: "panel__header", id: "need-#{@need.id}-title" %>
       
@@ -37,7 +30,6 @@
       <% end %>
       
       <div class="panel__body">
-
         <%= render "need-actions" %>
 
         <dl class="details-list">
@@ -63,6 +55,11 @@
           <% end %>
         </dl>
 
+        <% if @need.category.downcase == 'phone triage' || @need.category.downcase == 'check in' %>
+          <div class="panel__body__assessment-flow-section--stage-1">
+            <%= link_to "Begin #{@need.category.titleize}", edit_contact_assessment_path(@contact, @need), class: "button button--blue" %>
+          </div>
+        <% end %>
       </div>
       <%= render "notes" %>
     </div>

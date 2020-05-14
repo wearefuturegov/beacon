@@ -15,7 +15,7 @@
   </div>
 <% end %>
 <%= form_with(model: @contact_needs, url: contact_triage_path(@contact.id), method: :put, local: true) do |form| %>
-
+  <%= hidden_field_tag 'assessment_id', params[:assessment_id] %>
   <div class="with-left-sidebar">
     <aside class="with-left-sidebar__left">
       <header class="panel-header">

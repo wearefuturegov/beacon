@@ -21,7 +21,12 @@ class TriageController < ApplicationController
     ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
     NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
     session[:triage] = nil
-    redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
+
+    if params[:assessment_id]
+      redirect_to edit_contact_assessment_path(@contact.id, params[:assessment_id], :stage => 'complete')
+      else
+      redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
+    end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
     render :edit

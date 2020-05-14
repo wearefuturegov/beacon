@@ -41,3 +41,17 @@
 .assessment-dropdown-show {
   display: block;
 }
+
+.panel__body__assessment-flow-section {
+
+  &--stage-1 {
+    display: flex;
+    justify-content: flex-end;
+  }
+  margin-top: 12px;
+  background: $pale;
+  padding: 16px;
+
+  & .button {
+  }
+}

@@ -1,5 +1,5 @@
 class AssessmentsController < ApplicationController
-  before_action :set_contact, only: %i[new create]
+  before_action :set_contact, only: %i[new create edit]
 
   def new
     @assigned_to_options = construct_assigned_to_options
@@ -19,6 +19,17 @@ class AssessmentsController < ApplicationController
       log_assessment
     else
       schedule_assessment
+    end
+  end
+
+  def edit
+    @need = Need.find(params[:id])
+    @stage = params[:stage] || 'initial'
+
+    if @stage == 'failed'
+      render 'failed_assessment'
+    elsif @stage == 'complete'
+      render 'complete_assessment'
     end
   end
 

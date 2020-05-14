@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :contacts, only: [:index, :show, :edit, :update, :new, :create] do
     resources :needs, only: [:new, :create]
-    resources :assessments, only: [:new, :create]
+    resources :assessments, only: [:new, :create, :edit]
     # collection do
     #   get 'call-list'
     # end
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     put 'triage', to: 'triage#update', as: 'triage'
   end
   # get '/contacts/:id/needs', to: 'contacts#needs'
+  #
 
   resources :needs, only: [:index, :show, :edit, :update, :destroy] do
     resources :notes
