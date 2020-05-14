@@ -64,7 +64,11 @@ class ContactsController < ApplicationController
         format.js
       end
     else
-      render :edit
+      respond_to do |format|
+        format.html { render :edit }
+        format.js
+        format.json { render json: @contact.errors, status: :unprocessable_entity }
+      end
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE

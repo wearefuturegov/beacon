@@ -1,6 +1,16 @@
 
 document.getElementById("lead-service-panel").innerHTML = "<%= j(render partial: 'shared/lead_service_panel', locals: { contact: @contact, teams_options: @teams_options } ) %>";
+
+
+
 document.getElementById("flash-messages").innerHTML = "<div class='notice'>Contact was successfully updated.</div>";
 setTimeout(function() {
     document.getElementById("flash-messages").innerHTML = '';
 }, 5000);
+
+<% if @contact.errors.any? %>
+  alert("ERROR(S): <%= j @contact.errors.full_messages.join('; ') %>")
+<% else %>
+    document.getElementById("contact-side-container").innerHTML = "<%= j(render 'shared/profile-accordion' ) %>";
+    document.getElementById("edit-contact-link").style.display="block"
+<% end %>
