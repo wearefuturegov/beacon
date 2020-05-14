@@ -20,6 +20,6 @@ class MdtController < NeedsTableController
 
   # override
   def get_categories
-    ['mdt review']
+    []
   end
 end

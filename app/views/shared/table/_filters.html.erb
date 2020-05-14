@@ -19,9 +19,11 @@
         <%= select_tag("assigned_to",
             content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["assigned_to"] == "Unassigned") + grouped_options_for_select(@assigned_to_options_with_deleted, params['assigned_to']), prompt: 'All users/teams', class: "filters__select dropdown") %>
 
-        <label for="category" class="visually-hidden">By category</label>
-        <%= select_tag("category", options_for_select(get_categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select dropdown") %>
-
+        <% if get_categories.size > 0 %>
+          <label for="category" class="visually-hidden">By category</label>
+          <%= select_tag("category", options_for_select(get_categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select dropdown") %>
+        <% end %>
+        
         <label for="status" class="visually-hidden">By status</label>
         <%= select_tag("status", options_for_select(need_statuses, :selected => params["status"]), prompt: 'All statuses', class: "filters__select dropdown", "data-minimum-results-for-search" => "Infinity") %>
 
