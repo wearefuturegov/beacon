@@ -56,7 +56,7 @@ When("I change someone a resident's name concurrently") do
   fill_in('contact_first_name', with: 'TestFirstName1')
 
   user_two_updates_residents_name
-  click_button('Save changes')
+  page.find('#contact-edit-save').click
 end
 
 When("someone else updates the resident's name") do
@@ -75,13 +75,13 @@ def user_two_updates_residents_name
     visit "contacts/#{@contact.id}"
     click_and_wait('#edit-contact-link', '#contact_first_name')
     fill_in('contact_first_name', with: 'TestFirstName2')
-    click_button('Save changes')
+    page.find('#contact-edit-save').click
   end
 end
 
 Then('I am informed another user has changed the record') do
   # this is the javascript / web socket message
-  expect(page.find('#concurrent-users')).to have_text('This record is out of date')
+  expect(page.find('#concurrent-users')).to have_text('This record has been changed')
 end
 
 When(/^I edit the residents address$/) do
