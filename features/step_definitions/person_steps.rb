@@ -27,6 +27,7 @@ Given(/^I am conducting a triage of the residents needs$/) do
   visit "contacts/#{@contact.id}"
   click_link 'Add support actions'
   # opens the contact in edit mode
+  expect(page.find('#edit-triage-header')).to be_visible
   click_and_wait('#edit-contact-link', '#contact_first_name')
 end
 
@@ -147,6 +148,10 @@ end
 
 When(/^I save the edit resident form$/) do
   page.find('#contact-edit-save').click
+end
+
+When(/^I save the assessment form$/) do
+  page.find('#triage-submit-btn').click
 end
 
 Then('the residents list of support actions contains {string}') do |support_action|
