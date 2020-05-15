@@ -1,0 +1,28 @@
+<%= form_for(@need,:html=>{:id=>"update",:remote=>true}) do |form|%>
+    <div class="field">
+      <%= form.label :name, 'Describe how we can help', class: 'field__label' %>
+      <%= form.text_area :name, value: @need.name %>
+    </div>
+    <dl class="details-list">
+      <% if @need.food_priority %>
+        <dt class="details-list__caption">Food requirements priority</dt>
+        <dd class="details-list__value">Priority <%= @need.food_priority %></dd>
+      <% end %>
+
+      <% if @need.food_service_type %>
+        <dt class="details-list__caption">Food service type</dt>
+        <dd class="details-list__value"><%= @need.food_service_type %></dd>
+      <% end %>
+
+      <dt class="details-list__caption">Created</dt>
+      <dd class="details-list__value"><%= @need.created_at&.strftime("%-d %B %Y") %></dd>
+
+      <% if @need.start_on %>
+        <dt class="details-list__caption">Starts on</dt>
+        <dd class="details-list__value"><%= @need.start_on&.strftime("%-d %B %Y") %></dd>
+      <% end %>
+    </dl>
+  
+  <%= link_to 'Cancel', need_path(@need), class: "button button--dark", id: "edit-need-cancel", remote: true %>
+  <%= form.button 'Save', { type: 'submit', id: 'edit-need-save', class: 'button button--blue' } %>
+<% end %>
