@@ -6,7 +6,7 @@
     <h2 class="accordion__title">Personal details</h2>
   </button>
   <div class="accordion__content">
-    <%= form.hidden_field :lock_version, :value => contact.lock_version %>
+    <%= form.hidden_field :lock_version, :value => @contact.lock_version %>
     <div class="field">
       <%= form.label :first_name, class: "field__label" %>
       <%= form.text_field :first_name, id: "contact_first_name" %>

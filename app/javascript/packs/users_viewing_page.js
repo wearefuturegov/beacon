@@ -32,10 +32,9 @@ document.contactSubscription = {
         currentPeople = currentPeople.filter(p => p.lastSeen > Date.now() - 4000);
         let otherPeople = currentPeople.filter(p => p.name !== userEmail);
         const div = document.getElementById("concurrent-users");
-
+        div.innerHTML = '';
         // add warning title
         if (otherPeople.length > 0) {
-            div.innerHTML = '';
             const ul = document.createElement("ul");
 
             div.appendChild(ul);
@@ -45,10 +44,7 @@ document.contactSubscription = {
                 const li = document.createElement("li");
                 li.appendChild(document.createTextNode(p.name));
                 ul.appendChild(li);
-            })
-
-        } else {
-            div.innerHTML = '';
+            });
         }
     },
 
@@ -92,7 +88,8 @@ document.contactSubscription = {
 
     stop: function () {
         clearInterval(document.intervalId);
-        this.subscription.unsubscribe();
+        this.subscription.unsubscribe();        
+        document.getElementById("concurrent-users").innerHTML = '';
     }
 
 };
