@@ -199,7 +199,7 @@ class Need < ApplicationRecord
   end
 
   def self.categories_for_triage
-    categories.except('Other').reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
+    categories.except('Other', 'Initial review').reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
   end
 
   def assigned
