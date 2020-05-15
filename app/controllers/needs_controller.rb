@@ -76,8 +76,13 @@ class NeedsController < ApplicationController
         format.js
       end
     else
-      populate_page_data
-      render :show
+      respond_to do |format|
+        format.html do
+          populate_page_data
+          render :show
+        end
+        format.js
+      end
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
@@ -198,7 +203,9 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    permit_need_params = params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
+    permit_need_params = params
+                         .require(:need)
+                         .permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version, :food_priority, :food_service_type, :start_on)
     permit_need_params[:assigned_to] = assigned_to_me(permit_need_params[:assigned_to])
     permit_need_params
   end

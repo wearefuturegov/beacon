@@ -3,26 +3,55 @@
       <%= form.label :name, 'Describe how we can help', class: 'field__label' %>
       <%= form.text_area :name, value: @need.name %>
     </div>
-    <dl class="details-list">
-      <% if @need.food_priority %>
-        <dt class="details-list__caption">Food requirements priority</dt>
-        <dd class="details-list__value">Priority <%= @need.food_priority %></dd>
-      <% end %>
+    <% if @need.food_priority %>
+      <fieldset class="field-section">
+        <legend><h3 class="field-section__title">Food requirements priority</h3></legend>
 
-      <% if @need.food_service_type %>
-        <dt class="details-list__caption">Food service type</dt>
-        <dd class="details-list__value"><%= @need.food_service_type %></dd>
-      <% end %>
+        <div class="radio">
+          <%= form.radio_button :food_priority, '1', checked: @need.food_priority == '1' %>
+          <%= form.label :food_priority_1, 'Priority 1', class: 'radio__label' %>
+        </div>
+        <div class="radio">
+          <%= form.radio_button :food_priority, '2', checked: @need.food_priority == '2' %>
+          <%= form.label :food_priority_2, 'Priority 2', class: 'radio__label' %>
+        </div>
+        
+      </fieldset>
+    <% end %>
+    <% if @need.food_service_type %>
+      <fieldset class="field-section">
+        <legend><h3 class="field-section__title">Which type of food service?</h3></legend>
 
-      <dt class="details-list__caption">Created</dt>
-      <dd class="details-list__value"><%= @need.created_at&.strftime("%-d %B %Y") %></dd>
+        <div class="radio">
+          <%= form.radio_button :food_service_type, 'Hot meal', checked: @need.food_service_type == 'Hot meal' %>
+          <%= form.label :food_service_type_hot_meal, 'Hot meal', class: 'radio__label' %>
+        </div>
+        <div class="radio">
+          <%= form.radio_button :food_service_type, 'Heat up', checked: @need.food_service_type == 'Heat up' %>
+          <%= form.label :food_service_type_heat_up, 'Heat up', class: 'radio__label' %>
+        </div>
+        <div class="radio">
+          <%= form.radio_button :food_service_type, 'Grocery delivery', checked: @need.food_service_type == 'Grocery delivery' %>
+          <%= form.label :food_service_type_grocery_delivery, 'Grocery delivery', class: 'radio__label' %>
+        </div>
 
-      <% if @need.start_on %>
-        <dt class="details-list__caption">Starts on</dt>
-        <dd class="details-list__value"><%= @need.start_on&.strftime("%-d %B %Y") %></dd>
-      <% end %>
-    </dl>
-  
-  <%= link_to 'Cancel', need_path(@need), class: "button button--dark", id: "edit-need-cancel", remote: true %>
-  <%= form.button 'Save', { type: 'submit', id: 'edit-need-save', class: 'button button--blue' } %>
+      </fieldset>
+    <% end %>
+    <div class="field">
+      <dl class="details-list">
+        <dt class="details-list__caption">Created</dt>
+        <dd class="details-list__value"><%= @need.created_at&.strftime("%-d %B %Y") %></dd>
+      </dl>
+    </div>
+    <% if @need.start_on %>
+      <div class="field">
+        <%= form.label :start_on, "When should the call be scheduled for?", class: "field__label" %>
+        <%= form.text_field :start_on, { autocomplete: 'off' } %>
+        <%= hidden_field 'show-need-start-on-flatpicker', 'format', :value => @need.start_on&.strftime("%d/%m/%Y") %>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= link_to 'Cancel', need_path(@need), class: "button button--dark", id: "edit-need-cancel", remote: true %>
+      <%= form.button 'Save', { type: 'submit', id: 'edit-need-save', class: 'button button--blue' } %>
+    </div>
 <% end %>

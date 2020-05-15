@@ -41,6 +41,7 @@
       <% end %>
       
       <div class="panel__body">
+        <div id="need-error-container"></div>
 
         <%= render "need-actions" %>
         
@@ -54,6 +55,5 @@
   </aside>
 
 </div>
-
-
+<%= javascript_pack_tag 'require-datepicker' %>
 <%= javascript_pack_tag 'users_viewing_page.js' %>
