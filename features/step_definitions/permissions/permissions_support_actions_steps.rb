@@ -7,7 +7,7 @@ And('another user exists in that role') do
 end
 
 Then('I should be able to add support actions to that contact') do
-  expect(page).to have_selector(:link_or_button, 'Add support actions')
+  expect(page).to have_selector(:link_or_button, 'Add support action +')
 end
 
 Then('I should not be able to add support actions to that contact') do

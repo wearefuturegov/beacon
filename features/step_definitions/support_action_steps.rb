@@ -6,13 +6,13 @@ end
 
 When('I add support actions {string}') do |support_action|
   visit "/contacts/#{@contact.id}"
-  click_link 'Add support actions'
+  click_link 'Add support action +'
   choose_yes_on_support_action(page, support_action)
 end
 
 When('I add support actions') do
   visit "/contacts/#{@contact.id}"
-  click_link 'Add support actions'
+  click_link 'Add support action +'
 end
 
 Then('I should not be able to add {string}') do |assessment_type|
