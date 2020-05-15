@@ -200,7 +200,7 @@
             }
         }
     }
-    &.completed {
+    &.completed, &.assessments-table {
       tbody {
         td {
           div.additional-column.microsoft {
