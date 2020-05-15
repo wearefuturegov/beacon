@@ -16,14 +16,15 @@ class NeedsAssigneeNotifier
   end
 
   def self.send_need_email(need, email_links)
-    if need.user_id?
-      user = User.find(need.user_id)
-      NeedAssigneeMailer.send_user_assigned_need_email(user.email, email_links).deliver
-    elsif need.role_id?
-      role_members = User.joins(:roles).where(roles: { id: need.role_id }).select(:email)
-      role_members.each do |role_member|
-        NeedAssigneeMailer.send_role_assigned_need_email(role_member.email, need.role.name, email_links).deliver
-      end
-    end
+    # temporarily disable this functionality for 2.2.0 release
+    # if need.user_id?
+    #   user = User.find(need.user_id)
+    #   NeedAssigneeMailer.send_user_assigned_need_email(user.email, email_links).deliver
+    # elsif need.role_id?
+    #   role_members = User.joins(:roles).where(roles: { id: need.role_id }).select(:email)
+    #   role_members.each do |role_member|
+    #     NeedAssigneeMailer.send_role_assigned_need_email(role_member.email, need.role.name, email_links).deliver
+    #   end
+    # end
   end
 end
