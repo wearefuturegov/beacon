@@ -11,18 +11,12 @@
   </aside>
 
   <aside class="with-left-sidebar__right">
-
-    <header class="panel-header" id="triage-panel">
-      <% if policy(Need).create? %>
-        <%= link_to "Add support actions", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
-      <% end %>
-    </header>
-
     <header class="panel-header" id="needs-panel">
       <h2 class="panel-header__title">Support Actions</h2>
       <% if @open_needs.any? %>
         <span class="panel-header__badge"><%= @open_needs.count %></span>
       <% end %>
+      <%= link_to "Add support action +", contact_triage_path(@contact), class: "btn-triage" %>
     </header>
     <div class="panel panel--unpadded">  
       <%= render "needs-table" %>

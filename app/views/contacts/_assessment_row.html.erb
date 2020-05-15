@@ -10,8 +10,11 @@
     <% end %>
   </td>
   <td><%= n.assigned %></td>
-  <td><%= n.created_at&.strftime("%-d %B %Y") %></td>
-  <td>
+  <% if @browser.ie? %>
+  <td class="last-column ie">
+  <% else %>
+  <td class="last-column">
+  <% end %>
     <%= n.start_on&.strftime("%-d %B %Y") %>
 
     <%# is this a 'future' need %>
@@ -19,4 +22,5 @@
       <span>(Future)</span>
     <% end %>
   </td>
+  <%= render partial: "additional-column", locals: { description: n.name } %>
 </tr>

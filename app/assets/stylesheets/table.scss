@@ -58,8 +58,8 @@
                         position: absolute;
                         content: "";
                         display: block;
-                        top: 0px;
-                        right: 0px;
+                        top: 0;
+                        right: 0;
                         height: 100%;
                         width: 30px;
                         background-position: center;
@@ -99,14 +99,14 @@
     text-align: center;
     color: $grey;
     padding: 40px;
-    margin: 0px auto;
+    margin: 0 auto;
     max-width: 320px;
 }
 
 .needs-table{
     width: 100%;
     border-collapse: collapse;
-
+    table-layout: fixed;
     thead{
         border-bottom: 1px solid transparentize($text, 0.8);
         th{
@@ -120,13 +120,15 @@
             }
         }
     }
-
     tbody{
         tr{
+            position: relative;
             border-top: 1px solid transparentize($text, 0.8);
             border-left-width: 10px;
             border-left-style: solid;
             cursor: pointer;
+            transform: scale(1);
+            -ms-transform: scale(1);
             &:hover{
                 background: transparentize($blue, 0.9);
             }
@@ -139,7 +141,9 @@
             }
         }
         td{
-            height: 70px;
+            height: 140px;
+            vertical-align: top;
+            padding-top: 25px;
             width: 10%;
             a{
                 color: $text;
@@ -152,24 +156,64 @@
             &:first-of-type{
                 padding-left: 25px;
             }
-            &:last-of-type{
-                padding-right: 50px;
-                position: relative;
-                &:after{
-                    position: absolute;
-                    content: "";
-                    display: block;
-                    top: 0px;
-                    right: 0px;
-                    height: 100%;
-                    width: 50px;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    background-image: url(asset_path('right.svg'));
-                }
+            &.last-column {
+              padding-right: 50px;
+              position: relative;
+              &:after{
+                position: absolute;
+                content: "";
+                display: block;
+                top: 0;
+                right: -90%;
+                height: 100%;
+                width: 50px;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url(asset_path('right.svg'));
+              }
+            }
+            &.last-column.ie {
+              &:after {
+                top: 230%;
+              }
+            }
+            &.additional-column {
+              position: absolute;
+              left: 25px;
+              width: 90%;
+              top: 75px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+            div.td-microsoft-container {
+              position: relative;
+            }
+            div.additional-column.microsoft {
+              position: absolute;
+              left: -490%;
+              width: 520%;
+              top: 75px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
             }
         }
     }
+    &.completed {
+      tbody {
+        td {
+          div.additional-column.microsoft {
+          left: -390%;
+        }
+        &.last-column.ie {
+          &:after {
+            top: 120%;
+          }
+        }
+      }
+    }
+  }
 }
 
 .completed-needs-table-nav-show{
@@ -231,7 +275,7 @@
                   content: "show";
                   display: block;
                   top: 9px;
-                  right: 0px;
+                  right: 0;
                   height: 100%;
                   width: 50px;
                   color: #3a6cb5;
