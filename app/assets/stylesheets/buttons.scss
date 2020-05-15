@@ -35,6 +35,18 @@
             color: $white;
         }
     }
+    &.button--blue{
+      color: $white;
+      background: $blue;
+      margin-right: 10px;
+      &:focus{
+          outline: 2px solid $yellow;
+      }
+      &:hover{
+          background: darken($blue, 10);
+          color: $white;
+      }
+    }
 
     &.button--primary{
         padding: 12px;

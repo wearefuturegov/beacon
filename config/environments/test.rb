@@ -6,6 +6,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  routes.default_url_options = { host: ENV['HOSTNAME'] || 'localhost:3000' }
   config.action_mailer.default_url_options = { host: ENV['HOSTNAME'] || 'localhost:3000' }
 
   config.cache_classes = false
@@ -34,6 +35,13 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
+
+  # monkey patch govuk notify to use test delivery method
+  module GovukNotifyRails
+    class Mailer < ActionMailer::Base
+      default delivery_method: :test
+    end
+  end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

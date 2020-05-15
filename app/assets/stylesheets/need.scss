@@ -57,20 +57,3 @@
     font-size: 0.9rem;
     margin: 10px 20px 10px 20px;
 }
-
-.need-category-contents {
-  height: inherit;
-  position: relative;
-  a {
-    position: absolute;
-    top: 40%;
-  }
-  span {
-    position: absolute;
-    top: 80%;
-    width: 600px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-}

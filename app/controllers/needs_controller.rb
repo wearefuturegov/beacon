@@ -3,6 +3,7 @@
 class NeedsController < ApplicationController
   include ParamsConcern
   before_action :set_need, only: %i[show edit update]
+  before_action :set_teams_options, only: %i[show edit update]
   before_action :set_contact, only: %i[new create]
 
   helper_method :get_param
@@ -69,6 +70,7 @@ class NeedsController < ApplicationController
 
   def update
     if @need.update(need_params)
+      NeedsAssigneeNotifier.notify_new_assignee(@need)
       redirect_to need_path(@need), notice: 'Record successfully updated.'
     else
       populate_page_data
@@ -82,6 +84,8 @@ class NeedsController < ApplicationController
 
   def bulk_action
     for_update = JSON.parse(params[:for_update])
+
+    updated_needs = []
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
       authorize(need)
@@ -89,7 +93,10 @@ class NeedsController < ApplicationController
       to_update[:assigned_to] = assigned_to_me(obj['assigned_to']) if obj.key?('assigned_to')
       to_update[:status] = obj['status'] if obj.key?('status')
       need.update! to_update
+      updated_needs.append(need)
     end
+
+    NeedsAssigneeNotifier.bulk_notify_new_assignee(updated_needs)
     render json: { status: 'ok' }
   end
 
@@ -129,7 +136,18 @@ class NeedsController < ApplicationController
     }
   end
 
+  def set_teams_options
+    @teams_options = construct_teams_options
+  end
+
   private
+
+  def construct_teams_options
+    roles = Role.all.order(:name)
+    {
+      'Teams' => roles.map { |role| [role.name, role.id.to_s] }
+    }
+  end
 
   def delete_note(params)
     note = Note.find(params[:id])

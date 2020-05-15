@@ -1,5 +1,9 @@
 <%= render "shared/vulnerable-banner" %>
 
+<div id="lead-service-panel" >
+  <%= render partial: 'shared/lead_service_panel', locals: { contact: @contact, teams_options: @teams_options} %>
+</div>
+
 <div class="with-left-sidebar">
 
   <aside class="with-left-sidebar__left">
@@ -42,12 +46,12 @@
 
           <% if @need.food_priority %>
             <dt class="details-list__caption">Food requirements priority</dt>
-            <dd class="details-list__value">Priority <%= @need.food_priority %></dt>
+            <dd class="details-list__value">Priority <%= @need.food_priority %></dd>
           <% end %>
 
           <% if @need.food_service_type %>
             <dt class="details-list__caption">Food service type</dt>
-            <dd class="details-list__value"><%= @need.food_service_type %></dt>
+            <dd class="details-list__value"><%= @need.food_service_type %></dd>
           <% end %>
 
           <dt class="details-list__caption">Created</dt>

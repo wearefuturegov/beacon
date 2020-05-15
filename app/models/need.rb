@@ -23,9 +23,10 @@ class Need < ApplicationRecord
                  food_priority: :string,
                  food_service_type: :string
 
-  ASSESSMENT_CATEGORIES = ['phone triage', 'check in'].freeze
+  ASSESSMENT_CATEGORIES = ['phone triage', 'check in', 'mdt review'].freeze
 
   enum category: { 'Phone triage': 'phone triage',
+                   'MDT review': 'mdt review',
                    'Check in': 'check in',
                    'Groceries and cooked meals': 'groceries and cooked meals',
                    'Physical and mental wellbeing': 'physical and mental wellbeing',
@@ -33,8 +34,12 @@ class Need < ApplicationRecord
                    'Staying social': 'staying social',
                    'Prescription pickups': 'prescription pickups',
                    'Book drops and entertainment': 'book drops and entertainment',
-                   'Dog walking': 'dog walking',
                    'Initial review': 'initial review',
+                   'Medical transport': 'medical transport',
+                   'Waste removal': 'waste removal',
+                   'Repairs': 'repairs',
+                   'Household tasks': 'household tasks',
+                   'Dog walking': 'dog walking',
                    'Other': 'other' }
 
   validates :category, presence: true
@@ -49,7 +54,7 @@ class Need < ApplicationRecord
   end
 
   scope :completed, -> { where(status: :complete) }
-  scope :uncompleted, -> { where.not(status: :complete) }
+  scope :uncompleted, -> { where.not(status: [:complete, :cancelled]) }
   scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
