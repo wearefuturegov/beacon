@@ -1,5 +1,4 @@
 document.startAccordions = function(){
-    console.log("accordion started");
     const accordion = document.querySelector(".accordion")
 
     let controls = Array.prototype.slice.call(accordion.querySelectorAll(".accordion__control"), 0)

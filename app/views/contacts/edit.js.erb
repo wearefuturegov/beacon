@@ -2,3 +2,4 @@ document.getElementById("contact-side-container").innerHTML = "<%= j(render part
 document.getElementById("edit-contact-link").style.display="none";
 document.startAccordions();
 
+document.contactSubscription.start("<%= @contact.id %>");
