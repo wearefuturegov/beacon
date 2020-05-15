@@ -1,16 +1,20 @@
-
-document.getElementById("lead-service-panel").innerHTML = "<%= j(render partial: 'shared/lead_service_panel', locals: { contact: @contact, teams_options: @teams_options } ) %>";
+if (document.getElementById("lead-service-panel")) {
+  document.getElementById("lead-service-panel").innerHTML = "<%= j(render partial: 'shared/lead_service_panel', locals: { contact: @contact, teams_options: @teams_options } ) %>";
+}
 
 <% if @contact.errors.any? %>
-  alert("ERROR(s): <%= sanitize @contact.errors.full_messages.join('; ') %>")
+ document.getElementById("contact-side-errors").innerHTML = "<%= j(render 'shared/profile-errors' ) %>";
+ setTimeout(function() {
+    document.getElementById("contact-side-errors").innerHTML = '';
+  }, 5000);
 <% else %>
+    document.getElementById("contact-side-errors").innerHTML = '';
     document.getElementById("contact-side-container").innerHTML = "<%= j(render 'shared/profile-accordion' ) %>";
     document.getElementById("edit-contact-link").style.display="block"
-
     document.getElementById("flash-messages").innerHTML = "<div class='notice'>Contact was successfully updated.</div>";
     setTimeout(function() {
         document.getElementById("flash-messages").innerHTML = '';
     }, 5000);
+    document.startAccordions();
 <% end %>
-
-document.unsubscribeContact();
+window.scrollTo(0, 0);

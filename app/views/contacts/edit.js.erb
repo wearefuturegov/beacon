@@ -1,4 +1,4 @@
 document.getElementById("contact-side-container").innerHTML = "<%= j(render partial: 'shared/profile-accordion-edit', locals: {contact: @contact} ) %>";
 document.getElementById("edit-contact-link").style.display="none";
 document.startAccordions();
-document.contactSubscription(<%= @contact.id %>);
+

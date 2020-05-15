@@ -4,18 +4,7 @@
   <%= render partial: 'shared/lead_service_panel', locals: { contact: @contact, teams_options: @teams_options} %>
 </div>
 
-<div class="with-left-sidebar">
-  <aside class="with-left-sidebar__left">
-    <header class="panel-header">
-      <h2 class="panel-header__title">Profile</h2>
-      <% if policy(@contact).edit? %>
-        <%= link_to "Edit", edit_contact_path(@contact), class: "contact-edit-link button button--dark", id:"edit-contact-link", remote: true %>
-      <% end %>
-    </header>
-    <div id="contact-side-container" class="panel panel--unpadded">
-      <%= render "shared/profile-accordion" %>
-    </div>
-  </aside>
+<%= render 'shared/side-contact-profile' %>
 
   <aside class="with-left-sidebar__right">
     <header class="panel-header" id="needs-panel">
@@ -89,4 +78,3 @@
 </div>
 <%= javascript_pack_tag 'assessments' %>
 <%= javascript_pack_tag 'completed-needs' %>
-<%= javascript_pack_tag 'users_viewing_page.js' %>
