@@ -33,8 +33,6 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @edit_contact_id = @contact.id
-    ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'VIEW' })
     @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
                   .uncompleted.not_assessments
                   .sort { |a, b| Need.sort_created_and_start_date(a, b) }
@@ -52,11 +50,6 @@ class ContactsController < ApplicationController
 
   def edit
     @edit_contact_id = @contact.id
-    ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'EDIT' })
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
   def update

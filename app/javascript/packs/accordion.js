@@ -1,4 +1,4 @@
-function startAccordions(){
+document.startAccordions = function(){
     console.log("accordion started");
     const accordion = document.querySelector(".accordion")
 
@@ -15,10 +15,8 @@ function startAccordions(){
         }
         e.preventDefault()
     }));
-}
+};
 
 $( document ).ready(() => {
-    startAccordions();
+    document.startAccordions();
 });
-
-$('#contact-side-container').change(() => startAccordions());
