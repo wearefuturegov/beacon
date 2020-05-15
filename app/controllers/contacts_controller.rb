@@ -49,7 +49,6 @@ class ContactsController < ApplicationController
   end
 
   def edit
-    @edit_contact_id = @contact.id
   end
 
   def update
