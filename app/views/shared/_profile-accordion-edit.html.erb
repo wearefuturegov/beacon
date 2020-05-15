@@ -99,7 +99,26 @@
         <%= form.label :has_covid_symptoms, 'Showing any symptoms of COVID-19?', class: 'checkbox__label' %>
       </div>
 
+      <br/>
+
+      <div class="checkbox">
+        <%= form.check_box :is_vulnerable, class: 'checkbox__input', checked: @contact.is_vulnerable %>
+        <%= form.label :is_vulnerable, 'Is this person Shielded?', class: 'checkbox__label' %>
+      </div>
+
+      <details class="field-section__hint details">
+        <summary class="details__summary">What does shielded mean?</summary>
+        <p>Someone is shielded if they are:</p>
+        <ul>
+          <li>Over 70 years old</li>
+          <li>Under 70 years old and has an underlying health condition (i.e. normally asked by the NHS to get a flu jab)</li>
+          <li>Pregnant</li>
+        </ul>
+      </details>
+      
     </fieldset>
+
+
     
   </div>
 

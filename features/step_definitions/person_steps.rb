@@ -103,13 +103,13 @@ end
 When(/^I edit the residents vulnerability status$/) do
   visit "contacts/#{@contact.id}"
   click_and_wait('#edit-contact-link', '#contact_first_name')
-  find('label[for=is_vulnerable_true]').click
+  find('label[for=contact_is_vulnerable]').click
 end
 
 When(/^I edit the residents covid-19 status$/) do
   visit "contacts/#{@contact.id}"
   click_and_wait('#edit-contact-link', '#contact_first_name')
-  find('label[for=has_covid_symptoms_true]').click
+  find('label[for=contact_has_covid_symptoms]').click
 end
 
 When('I choose {string} for any children under 15') do |option|
@@ -203,6 +203,7 @@ Then(/^the residents contact details have been updated$/) do
 end
 
 Then(/^the residents vulnerability status has been updated$/) do
+  page.refresh
   expect(page.find('.vulnerable-banner')).to have_text('This is a shielded person')
 end
 
