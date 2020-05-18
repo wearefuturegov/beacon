@@ -1,10 +1,10 @@
-<table class="needs-table">
+<table class="needs-table completed">
   <thead class="visually-hidden">
     <tr>
       <th>Type</th>
       <th>Priority</th>
       <th>Assigned</th>
-      <th>Created</th>
+      <th>Starts on</th>
     </tr>
   </thead>
   <tbody>
@@ -21,7 +21,14 @@
           <% end %>
         </td>
         <td><%= n.assigned %></td>
-        <td><%= n.created_at&.strftime("%-d %B %Y") %></td>
+        <% if @browser.ie? %>
+        <td class="last-column ie">
+        <% else %>
+        <td class="last-column">
+        <% end %>
+          <%= n.created_at&.strftime("%-d %B %Y") %>
+        </td>
+        <%= render partial: "additional-column", locals: { description: n.name} %>
         </tr>
     <% end %>
   </tbody>
