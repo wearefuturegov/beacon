@@ -1,6 +1,4 @@
 <%= form_for(@contact,:html=>{:id=>"update_lead_service",:remote=>true}) do |form|%>
-
-<%= form_for(@contact,:html=>{:id=>"update_lead_service",:multipart => true,:remote=>true}) do |form|%>
   <div class="panel-small">
         <div class="panel-buttons-right">    
           <%= link_to 'Cancel', contact_path(@contact), class: "button button--dark", id: "contact-service-panel-cancel" %>
@@ -24,4 +22,4 @@
   </div>
 <% end %>
 
-<%= javascript_pack_tag "lead-service" %>
+<%= javascript_pack_tag 'lead-service' %>
