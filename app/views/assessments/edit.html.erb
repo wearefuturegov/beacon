@@ -1,7 +1,7 @@
 
     <% if @contact_needs.errors.any? || @contact.errors.any? %>
       <div class="error" id="error_explanation">
-        <h2><%= pluralize(@contact_needs.errors.count + @contact.errors.count, "error") %> prohibited this triage form from
+        <h2><%= pluralize(@contact_needs.errors.count + @contact.errors.count, "error") %> prohibited this assessment form from
           being saved:</h2>
 
         <ul>
@@ -24,21 +24,21 @@
 
       <header class="panel-header">
         <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
-        <h1 class="panel-header__title" id="edit-triage-header"><%= @need.category %></h1>
+        <h1 class="panel-header__title" id="edit-assessment-header"><%= @need.category %></h1>
       
       </header>
 
       <div id="assessment-container" class="panel panel--unpadded">
         <h2 class="panel__banner">Support actions</h2>
         <div>
-        <section class="triage-grid">
+        <section class="assessment-grid">
           <% @contact_needs.needs_list.each do |need_entry| %>
             <% need = need_entry[1] %>
             <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>
-              <div class="triage-grid__need <%= "need--#{need[:name].parameterize}" %>">
-                <div class="triage-grid__inner">
+              <div class="assessment-grid__need <%= "need--#{need[:name].parameterize}" %>">
+                <div class="assessment-grid__inner">
                   <div class="checkbox">
-                    <h3 class="triage-grid__title">
+                    <h3 class="assessment-grid__title">
                       <%= need_form.check_box :active, {
                         class: 'checkbox__input need-checkbox', 
                         checked: need['active'] == 'true', 
@@ -62,7 +62,7 @@
                 <%= fields_for :contact, @contact do |contact_form| %>
                   <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need[:name].parameterize.underscore}.html.erb")) %>
                     <%# form will save to the need, contact_form will save to the contact %>
-                    <div class="triage-grid__inner triage-grid__inner--grey <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
+                    <div class="assessment-grid__inner assessment-grid__inner--grey <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
                       <%= render :partial => "#{need[:name].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need} %>
                     </div>
                   <% end %>
@@ -77,7 +77,7 @@
 
       <div class="panel-buttons-right assessment-buttons-right">
         <%= link_to 'Failed call', need_path(@need), class: "button--larger button--dark", id: "assessment-cancel" %>
-        <%= form.button "Continue and assign", class: "button--larger button--blue", id: "triage-submit-btn" %>
+        <%= form.button "Continue and assign", class: "button--larger button--blue", id: "assessment-submit-btn" %>
       </div>
 
     <% end %>

@@ -41,3 +41,35 @@
 .assessment-dropdown-show {
   display: block;
 }
+
+
+#assessment-container{
+  margin-bottom: 20px;
+}
+.assessment-grid{
+  @media screen and (min-width: $breakpoint-m){
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-column-gap: 10px;
+  }
+  .assessment-grid__need{
+      margin: none;
+      background: $white;
+      box-shadow: 2px 0px 10px transparentize($text, 0.95);
+      margin-bottom: 0px;
+      border-left-width: 5px;
+      border-left-style: solid;
+      border-bottom: 1px solid transparentize($text, 0.8);
+  }
+  .assessment-grid__inner{
+      padding: 35px;
+  }
+  .assessment-grid__inner--grey{
+      background: transparentize($pale, 0.5);
+      padding-bottom: 1px;
+  }
+  .assessment-grid__title{
+      margin-top: 0px;
+      margin-bottom: 35px;
+  }
+}
