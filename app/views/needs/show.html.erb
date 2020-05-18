@@ -30,7 +30,7 @@
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
       <%= link_to @need.category, @contact, class: "panel__header", id: "need-#{@need.id}-title" %>
       
-      <% if policy(Need).edit? %>
+      <% if policy(@need).edit? %>
         <%= link_to "Edit", edit_need_path(@need), class: "button button--blue", id:"edit-need-btn", remote: true %>
       <% end %>
       
