@@ -4,9 +4,6 @@ Rails.application.routes.draw do
   resources :contacts, only: [:index, :show, :edit, :update, :new, :create] do
     resources :needs, only: [:new, :create]
     resources :assessments, only: [:new, :create]
-    resources :assessments do
-      get 'fail', on: :member
-    end
     # collection do
     #   get 'call-list'
     # end
@@ -17,6 +14,10 @@ Rails.application.routes.draw do
 
   resources :needs, only: [:index, :show, :edit, :update, :destroy] do
     resources :notes
+  end
+
+  resources :assessments do
+    get 'fail', on: :member
   end
 
   resources :mdt, only: [:index]

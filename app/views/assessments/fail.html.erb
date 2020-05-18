@@ -13,41 +13,36 @@
         <h3>Update</h3>
         <p>If the call was unsuccessful, or you want to leave a note, please update the following questions.</p>
 
+        <%= form_with url: fail_assessment_path, :method => :put, :html => { :name => 'assessment_failure_form' } do |form| %>
         <div class="field">
           <h3>Why wasn't the check in call successful?</h3>
-          <div class="radio">
-            <input type="radio" value="phone triage" name="need[category]" id="need_category_phone_triage">
-            <label class="radio__label" for="need_category_phone_triage">Contact details were incorrect or missing</label>
-          </div>
-          <div class="radio">
-            <input type="radio" value="phone triage" name="need[category]" id="need_category_phone_triage">
-            <label class="radio__label" for="need_category_phone_triage">The call was not answered</label>
-          </div>
-          <div class="radio">
-            <input type="radio" value="phone triage" name="need[category]" id="need_category_phone_triage">
-            <label class="radio__label" for="need_category_phone_triage">Other</label>
-          </div>
+          <% assessment_failure_reasons.each do |failure_reason, description| %>
+            <div class="radio">
+              <%= form.radio_button :failure_reason, failure_reason %>
+              <%= label_tag "failure_reason_#{failure_reason}", description, :class => 'radio__label' %>
+            </div>
+          <% end %>
         </div>
 
-        <div class="field">
+        <div id="left_message_question_section" class="field" hidden="hidden">
           <h3>Did you leave a message?</h3>
-          <div class="radio">
-            <input type="radio" value="phone triage" name="need[category]" id="need_category_phone_triage">
-            <label class="radio__label" for="need_category_phone_triage">Yes</label>
-          </div>
-          <div class="radio">
-            <input type="radio" value="phone triage" name="need[category]" id="need_category_phone_triage">
-            <label class="radio__label" for="need_category_phone_triage">No</label>
-          </div>
+          <% %w(Yes No).each do |message_choice| %>
+            <div class="radio">
+              <%= radio_button_tag :left_message, message_choice %>
+              <%= label_tag :"left_message_#{message_choice}", message_choice, :class => 'radio__label' %>
+            </div>
+          <% end %>
         </div>
 
-        <div class="field">
+        <div id="note_description_section" class="field" hidden="hidden">
           <%= label_tag 'note_description', 'Why didn\'t you leave a message?', :class => 'field__label' %>
           <%= text_area_tag 'note_description' %>
         </div>
 
         <input type="submit" value="Update assessment" class="button button--primary"/>
+        <% end %>
       </div>
     </div>
   </aside>
 </div>
+<%= javascript_pack_tag 'assessment_failure' %>

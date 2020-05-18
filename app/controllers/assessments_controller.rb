@@ -1,5 +1,5 @@
 class AssessmentsController < ApplicationController
-  before_action :set_contact, only: %i[new create fail]
+  before_action :set_contact, only: %i[new create]
   before_action :set_assessment, only: %i[fail]
 
   def new
@@ -31,6 +31,7 @@ class AssessmentsController < ApplicationController
 
   def set_assessment
     @assessment = Need.find(params[:id])
+    @contact = Contact.find(@assessment.contact_id)
   end
 
   def log_assessment
