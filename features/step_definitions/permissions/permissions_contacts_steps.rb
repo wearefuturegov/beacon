@@ -3,15 +3,11 @@ When('I go to the contact list') do
 end
 
 Then('I can see the option to edit the contact') do
-  profile_h2 = find('h2', text: 'Personal details')
-  profile_section = profile_h2.find(:xpath, 'ancestor::div[@class="panel panel--unpadded"]')
-  expect(profile_section).to have_selector(:link_or_button, 'Edit')
+  expect(page.find('#edit-contact-link')).to be_visible
 end
 
 Then('I cannot see the option to edit the contact') do
-  profile_h2 = find('h2', text: 'Personal details')
-  profile_section = profile_h2.find(:xpath, 'ancestor::div[@class="panel panel--unpadded"]')
-  expect(profile_section).not_to have_selector(:link_or_button, 'Edit')
+  expect(page).not_to have_selector('#edit-contact-link')
 end
 
 Then('I cannot see the option to create a contact') do
