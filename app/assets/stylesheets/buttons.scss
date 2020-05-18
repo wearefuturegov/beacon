@@ -81,6 +81,15 @@
             margin-left: 15px;
         }
     }
+
+   
+}
+
+
+.button--larger {
+    @extend .button;
+    padding: 12px;
+    font-size: 1.2rem;
 }
 
 a {

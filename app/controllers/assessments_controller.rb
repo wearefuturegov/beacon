@@ -1,5 +1,24 @@
 class AssessmentsController < ApplicationController
-  before_action :set_contact, only: %i[new create]
+  before_action :set_contact, only: %i[new create, edit]
+
+  # Do Assessment
+  def edit
+    @need
+    if !@need.category.downcase.in? Need::ASSESSMENT_CATEGORIES
+      redirect_to contact_path(@contact)
+    end
+    @contact_needs = contact_needs(@need.id)
+  end
+
+  # Assign
+  def assign
+
+  end
+
+  # Complete
+  def complete
+
+  end
 
   def new
     @assigned_to_options = construct_assigned_to_options
@@ -24,10 +43,36 @@ class AssessmentsController < ApplicationController
 
   private
 
-  def set_contact
-    @contact = Contact.find(params[:contact_id])
+  def contact_needs(need_id)
+    needs = Need.where(assessment_id: need_id)
+    create_contact_needs unless needs.size > 0
   end
 
+  def create_contact_needs
+    contact_model = ContactNeeds.new
+    contact_model.needs_list = Need.categories_for_assessment.each_with_index.map do |(label, _slug), index|
+      need = {
+        name: label,
+        active: false
+      }
+      if label == 'Phone triage'
+        need[:active] =
+          need[:start_on] = (Date.today + 6.days).strftime('%d/%m/%y')
+      end
+      [index.to_s, need]
+    end.to_h
+    contact_model
+  end
+  
+  def set_contact
+    contact_id = params[:contact_id].present? ? params[:contact_id] : find_contact_id
+    @contact = Contact.find(contact_id)
+  end
+
+  def find_contact_id
+    @need = Need.find(params[:id])
+    @need.present? ? @need.contact_id : nil
+  end
   def log_assessment
     @need = Need.new(assessment_params.merge(contact_id: @contact.id, name: 'Logged assessment', start_on: Date.today))
     @note = Note.new(notes_params.merge(need: @need, category: 'phone_success', user_id: current_user.id))

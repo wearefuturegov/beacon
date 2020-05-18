@@ -203,6 +203,11 @@ class Need < ApplicationRecord
     categories.except('Other').reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
   end
 
+  # superseed the method aboves once triage gets removed
+  def self.categories_for_assessment
+    categories.reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
+  end
+
   def assigned
     if user
       user.name_or_email
