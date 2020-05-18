@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   resources :notes, only: [:show, :edit, :update]
+  resources :mdt, only: [:index]
 
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
   post 'role', to: 'users#set_role', as: 'set_role'

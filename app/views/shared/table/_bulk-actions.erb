@@ -1,7 +1,7 @@
 <div id="assign-needs-to-users">
   <div class="panel bulk-actions">
 
-    <% if policy(Need).dashboard_change_multiple? %>
+    <% if policy(Need).dashboard_change_multiple? && can_bulk_action? %>
       <%= check_box_tag("select-all-needs", nil, false, {class: "select-all-needs bulk-action-checkbox"}) %>
 
       <%= label_tag :assigned_to, 'Assign to', class: 'visually-hidden' %>
@@ -27,7 +27,7 @@
     <% end %>
 
 
-    <%= render "filters" %>
+    <%= render "shared/table/filters" %>
   </div>
 </div>
 

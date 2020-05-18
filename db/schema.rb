@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_124411) do
+ActiveRecord::Schema.define(version: 2020_05_18_120013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_124411) do
     t.bigint "role_id"
     t.string "status", default: "to_do"
     t.datetime "deleted_at"
+    t.bigint "assessment_id"
     t.index ["contact_id"], name: "index_needs_on_contact_id"
     t.index ["deleted_at"], name: "index_needs_on_deleted_at"
     t.index ["role_id"], name: "index_needs_on_role_id"
@@ -143,6 +144,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_124411) do
 
   add_foreign_key "contacts", "roles", column: "lead_service_id"
   add_foreign_key "needs", "contacts"
+  add_foreign_key "needs", "needs", column: "assessment_id"
   add_foreign_key "needs", "roles"
   add_foreign_key "needs", "users"
   add_foreign_key "notes", "needs"

@@ -33,6 +33,8 @@ class ContactsController < ApplicationController
   end
 
   def show
+    @browser = Browser.new(request.env['HTTP_USER_AGENT'])
+
     @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
                   .uncompleted.not_assessments
                   .sort { |a, b| Need.sort_created_and_start_date(a, b) }

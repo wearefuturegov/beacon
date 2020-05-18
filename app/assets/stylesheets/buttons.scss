@@ -82,3 +82,18 @@
         }
     }
 }
+
+a {
+  &.btn-triage {
+    color: $blue;
+    margin-left: auto;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    padding: 0;
+    text-decoration: none;
+    &:focus {
+      background: none;
+    }
+  }
+}
