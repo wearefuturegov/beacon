@@ -1,10 +1,12 @@
+<%= form_for(@contact,:html=>{:id=>"update",:remote=>true}) do |form|%>
+
 <section class="accordion">
 
-  <button class="accordion__control" aria-expanded="true">
+  <button type="button" type="button" type="button" class="accordion__control" aria-expanded="true">
     <h2 class="accordion__title">Personal details</h2>
   </button>
   <div class="accordion__content">
-    <%= form.hidden_field :lock_version, :value => contact.lock_version %>
+    <%= form.hidden_field :lock_version, :value => @contact.lock_version %>
     <div class="field">
       <%= form.label :first_name, class: "field__label" %>
       <%= form.text_field :first_name, id: "contact_first_name" %>
@@ -53,7 +55,7 @@
     </div>
   </div>
 
-  <button class="accordion__control" aria-expanded="true">
+  <button type="button" type="button" type="button" type="button" class="accordion__control" aria-expanded="true">
     <h2 class="accordion__title">Household</h2>
   </button>
   <div class="accordion__content">
@@ -70,7 +72,7 @@
     </div>
   </div>
 
-  <button class="accordion__control" aria-expanded="true">
+  <button type="button" type="button" type="button" class="accordion__control" aria-expanded="true">
     <h2 class="accordion__title">Delivery requirements</h2>
   </button>
   <div class="accordion__content">
@@ -82,7 +84,7 @@
     </dl>
   </div>
 
-  <button class="accordion__control" aria-expanded="true" id="contact-additional-info-accordion">
+  <button type="button" type="button" type="button" class="accordion__control" aria-expanded="true" id="contact-additional-info-accordion">
     <h2 class="accordion__title">Additional information</h2>
   </button>
   <div class="accordion__content">
@@ -97,11 +99,30 @@
         <%= form.label :has_covid_symptoms, 'Showing any symptoms of COVID-19?', class: 'checkbox__label' %>
       </div>
 
+      <br/>
+
+      <div class="checkbox">
+        <%= form.check_box :is_vulnerable, class: 'checkbox__input', checked: @contact.is_vulnerable %>
+        <%= form.label :is_vulnerable, 'Is this person Shielded?', class: 'checkbox__label' %>
+      </div>
+
+      <details class="field-section__hint details">
+        <summary class="details__summary">What does shielded mean?</summary>
+        <p>Someone is shielded if they are:</p>
+        <ul>
+          <li>Over 70 years old</li>
+          <li>Under 70 years old and has an underlying health condition (i.e. normally asked by the NHS to get a flu jab)</li>
+          <li>Pregnant</li>
+        </ul>
+      </details>
+      
     </fieldset>
+
+
     
   </div>
 
-  <button class="accordion__control" aria-expanded="true" id="contact-additional-info-accordion">
+  <button type="button" type="button" type="button" class="accordion__control" aria-expanded="true" id="contact-additional-info-accordion">
     <h2 class="accordion__title">Consents</h2>
   </button>
   <div class="accordion__content">
@@ -131,7 +152,16 @@
     </dl>
 
   </div>
+  <div class="accordion-buttons-right">    
+    <%= link_to 'Cancel', contact_path(@contact), class: "button button--dark", id: "contact-edit-cancel", remote: true %>
+    <%= form.button 'Save changes', { type: 'submit', id: 'contact-edit-save', class: 'button button--blue' } %>
+  </div>  
 
 </section>
+<% end %>
 
-<%= javascript_pack_tag 'accordion', 'data-turbolinks-track': 'reload' %>
+<script>  
+console.log("started");
+
+  document.contactSubscription(<%= @contact.id %>);
+</scrip>

@@ -4,15 +4,7 @@
   <%= render partial: 'shared/lead_service_panel', locals: { contact: @contact, teams_options: @teams_options} %>
 </div>
 
-<div class="with-left-sidebar">
-  <aside class="with-left-sidebar__left">
-    <header class="panel-header">
-      <h2 class="panel-header__title">Profile</h2>
-    </header>
-    <div class="panel panel--unpadded">  
-      <%= render "shared/profile-accordion" %>
-    </div>
-  </aside>
+<%= render 'shared/side-contact-profile' %>
 
   <aside class="with-left-sidebar__right">
     <header class="panel-header" id="needs-panel">
@@ -20,7 +12,9 @@
       <% if @open_needs.any? %>
         <span class="panel-header__badge"><%= @open_needs.count %></span>
       <% end %>
-      <%= link_to "Add support action +", contact_triage_path(@contact), class: "btn-triage" %>
+      <% if policy(Need).create? %>
+        <%= link_to "Add support actions +", contact_triage_path(@contact), class: "btn-triage" %>
+      <% end %>
     </header>
     <div class="panel panel--unpadded">  
       <%= render "needs-table" %>

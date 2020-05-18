@@ -49,22 +49,23 @@
           </ul>
         </li>
 
+        <% if policy(User).index? %>
         <li class="main-menu__item">
 
         <span class="main-menu__link">Deleted Items</span>
           <ul class="main-menu__submenu">
-            <% if policy(User).index? %>
+            
               <%= link_to_unless_current "Deleted support actions", deleted_needs_path(:order => "deleted_at", :order_dir => "DESC"), class: "main-menu__submenu-link" do %>
                 <span class="main-menu__submenu-current">Deleted support actions</span>
               <% end %>
-            <% end %>
-            <% if policy(User).index? %>
+
               <%= link_to_unless_current "Deleted notes", deleted_notes_path(:order => "deleted_at", :order_dir => "DESC"), class: "main-menu__submenu-link" do %>
                 <span class="main-menu__submenu-current">Deleted notes</span>
               <% end %>
-            <% end %>
+            
           </ul>
         </li>
+        <% end %>
 
         <li class="main-menu__item">
             <%= link_to_unless_current "People", contacts_path, class: "main-menu__link" do %>
