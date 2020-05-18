@@ -24,7 +24,15 @@ class Contact < ApplicationRecord
     [first_name, middle_names, surname].join(' ')
   end
 
+  def support_actions_count
+    needs.not_assessments.size
+  end
+
+  def support_actions_names
+    needs.not_assessments.map(&:category).join(', ')
+  end
+
   def assigned_to
-    "role-#{role.id}" if role
+    role.id.to_s if role
   end
 end
