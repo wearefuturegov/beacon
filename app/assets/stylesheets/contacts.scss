@@ -1,0 +1,12 @@
+.assessment-operations {
+  flex: 1;
+  margin-bottom: 15px;
+  &.left {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+  }
+  &.right {
+    text-align: right;
+  }
+}

@@ -1,0 +1,13 @@
+<% if @browser.ie? or @browser.edge? %>
+  <td>
+    <div class="td-microsoft-container">
+      <div class="additional-column microsoft">
+        <strong>Description </strong><%= description %>
+      </div>
+    </div>
+  </td>
+<% else %>
+  <td class="additional-column">
+    <strong>Description </strong><%= description %>
+  </td>
+<% end %>
