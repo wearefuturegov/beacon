@@ -3,7 +3,6 @@ class AssessmentsController < ApplicationController
 
   # Do Assessment
   def edit
-    @need
     redirect_to contact_path(@contact) unless @need.category.downcase.in? Need::ASSESSMENT_CATEGORIES
     @contact_needs = contact_needs(@need.id)
   end
