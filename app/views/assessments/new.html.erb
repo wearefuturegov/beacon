@@ -11,20 +11,7 @@
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
       <%= link_to "#{@type.humanize} an assessment", contact_path(@contact.id), class: "panel__header" %>
       <div class="panel__body">
-        <% if @need.errors.any? || @note.errors.any? %>
-          <div class="error" id="error_explanation">
-            <h2><%= pluralize(@need.errors.count + @note.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-            <ul>
-              <% @need.errors.full_messages.each do |message| %>
-                <li>Assessment <%= message.downcase %></li>
-              <% end %>
-              <% @note.errors.full_messages.each do |message| %>
-                <li>Note <%= message.downcase %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
+        <%= render "shared/create-need-errors" %>
 
         <%= form_with(model: @need, url: contact_assessments_path, local: true) do |form| %>
           <input type="hidden" value="<%= @type %>" name="type" hidden="hidden">

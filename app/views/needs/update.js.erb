@@ -1,0 +1,7 @@
+<% if @need && @need.errors.any? %>
+  document.getElementById("need-error-container").innerHTML = "<%= j(render 'shared/create-need-errors' ) %>";
+<% else %>
+  document.getElementById("need-error-container").innerHTML = ""
+  document.getElementById("need-fields-container").innerHTML = "<%= j(render 'shared/need-fields' ) %>";
+  document.getElementById("edit-need-btn").style.display="block"
+<% end %>

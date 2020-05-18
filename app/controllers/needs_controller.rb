@@ -59,10 +59,18 @@ class NeedsController < NeedsTableController
   def update
     if @need.update(need_params)
       NeedsAssigneeNotifier.notify_new_assignee(@need)
-      redirect_to need_path(@need), notice: 'Record successfully updated.'
+      respond_to do |format|
+        format.html { redirect_to need_path(@need), notice: 'Record successfully updated.' }
+        format.js
+      end
     else
-      populate_page_data
-      render :show
+      respond_to do |format|
+        format.html do
+          populate_page_data
+          render :show
+        end
+        format.js
+      end
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE

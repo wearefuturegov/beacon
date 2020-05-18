@@ -50,7 +50,9 @@ class NeedsTableController < ApplicationController
   protected
 
   def need_params
-    permit_need_params = params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
+    permit_need_params = params
+                         .require(:need)
+                         .permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version, :food_priority, :food_service_type, :start_on)
     permit_need_params[:assigned_to] = assigned_to_me(permit_need_params[:assigned_to])
     permit_need_params
   end

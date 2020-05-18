@@ -1,4 +1,4 @@
-<%= render "shared/vulnerable-banner" %>
+  <%= render "shared/vulnerable-banner" %>
 
 <div id="lead-service-panel" >
   <%= render partial: 'shared/lead_service_panel', locals: { contact: @contact, teams_options: @teams_options} %>
@@ -23,6 +23,10 @@
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
       <%= link_to @need.category, @contact, class: "panel__header", id: "need-#{@need.id}-title" %>
       
+      <% if policy(@need).edit? %>
+        <%= link_to "Edit", edit_need_path(@need), class: "button button--blue", id:"edit-need-btn", remote: true %>
+      <% end %>
+      
       <% if policy(@need).destroy? %>
         <%= link_to 'Delete',  { action: :destroy, id: @need.id }, 
           class: "need-delete-link", id: "delete-need-#{@need.id}", method: :delete, 
@@ -30,31 +34,13 @@
       <% end %>
       
       <div class="panel__body">
+        <div id="need-error-container"></div>
 
         <%= render "need-actions" %>
-
-        <dl class="details-list">
-          <dt class="details-list__caption">Description</dt>
-          <dd class="details-list__value"><%= simple_format @need.name %></dd>
-
-          <% if @need.food_priority %>
-            <dt class="details-list__caption">Food requirements priority</dt>
-            <dd class="details-list__value">Priority <%= @need.food_priority %></dd>
-          <% end %>
-
-          <% if @need.food_service_type %>
-            <dt class="details-list__caption">Food service type</dt>
-            <dd class="details-list__value"><%= @need.food_service_type %></dd>
-          <% end %>
-
-          <dt class="details-list__caption">Created</dt>
-          <dd class="details-list__value"><%= @need.created_at&.strftime("%-d %B %Y") %></dd>
-
-          <% if @need.start_on %>
-            <dt class="details-list__caption">Starts on</dt>
-            <dd class="details-list__value"><%= @need.start_on&.strftime("%-d %B %Y") %></dd>
-          <% end %>
-        </dl>
+        
+        <div id="need-fields-container">
+          <%= render "shared/need-fields" %>
+        </div>
 
       </div>
       <%= render "notes" %>
@@ -63,3 +49,4 @@
 
 </div>
 
+<%= javascript_pack_tag 'require-datepicker' %>
