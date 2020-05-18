@@ -1,0 +1,2 @@
+document.getElementById("note-<%= @note.id %>-container").innerHTML = "<%= j(render 'shared/note-edit' ) %>";
+document.getElementById("edit-note-<%= @note.id %>-btn").style.display="none"

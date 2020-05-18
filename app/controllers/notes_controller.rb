@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class NotesController < ApplicationController
+  before_action :load_note, only: %i[show edit update]
+
   def create
     @need = Need.find(params[:need_id])
     authorize @need, :update?
@@ -11,9 +13,18 @@ class NotesController < ApplicationController
     redirect_to need_path(@need)
   end
 
+  def update
+    authorize @note
+    @note.update(note_params)
+  end
+
   private
 
   def note_params
     params.require(:note).permit(:body, :category)
+  end
+
+  def load_note
+    @note = Note.find params[:id]
   end
 end
