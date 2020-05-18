@@ -11,7 +11,7 @@ Then('I should be able to add support actions to that contact') do
 end
 
 Then('I should not be able to add support actions to that contact') do
-  expect(page).not_to have_selector(:link_or_button, 'Add support actions')
+  expect(page).not_to have_selector(:link_or_button, 'Add support actions +')
 end
 
 And('the contact has other support actions that I cannot see in the list') do

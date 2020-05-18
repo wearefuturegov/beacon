@@ -13,7 +13,7 @@
         <span class="panel-header__badge"><%= @open_needs.count %></span>
       <% end %>
       <% if policy(Need).create? %>
-        <%= link_to "Add support actions +", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+        <%= link_to "Add support actions +", contact_triage_path(@contact), class: "btn-triage" %>
       <% end %>
     </header>
     <div class="panel panel--unpadded">  
