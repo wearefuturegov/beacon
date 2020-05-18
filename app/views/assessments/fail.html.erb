@@ -1,0 +1,53 @@
+<%= render "shared/vulnerable-banner" %>
+
+<div class="with-left-sidebar">
+
+  <%= render 'shared/side-contact-profile' %>
+  <aside class="with-left-sidebar__right">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Assessments</h2>
+    </header>
+    <div class="panel panel--unpadded panel--stroked need--phone-triage">
+      <%= link_to "Failed #{@assessment.category.humanize}", contact_path(@contact.id), class: "panel__header" %>
+      <div class="panel__body">
+        <h3>Update</h3>
+        <p>If the call was unsuccessful, or you want to leave a note, please update the following questions.</p>
+
+        <div class="field">
+          <h3>Why wasn't the check in call successful?</h3>
+          <div class="radio">
+            <input type="radio" value="phone triage" name="need[category]" id="need_category_phone_triage">
+            <label class="radio__label" for="need_category_phone_triage">Contact details were incorrect or missing</label>
+          </div>
+          <div class="radio">
+            <input type="radio" value="phone triage" name="need[category]" id="need_category_phone_triage">
+            <label class="radio__label" for="need_category_phone_triage">The call was not answered</label>
+          </div>
+          <div class="radio">
+            <input type="radio" value="phone triage" name="need[category]" id="need_category_phone_triage">
+            <label class="radio__label" for="need_category_phone_triage">Other</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <h3>Did you leave a message?</h3>
+          <div class="radio">
+            <input type="radio" value="phone triage" name="need[category]" id="need_category_phone_triage">
+            <label class="radio__label" for="need_category_phone_triage">Yes</label>
+          </div>
+          <div class="radio">
+            <input type="radio" value="phone triage" name="need[category]" id="need_category_phone_triage">
+            <label class="radio__label" for="need_category_phone_triage">No</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= label_tag 'note_description', 'Why didn\'t you leave a message?', :class => 'field__label' %>
+          <%= text_area_tag 'note_description' %>
+        </div>
+
+        <input type="submit" value="Update assessment" class="button button--primary"/>
+      </div>
+    </div>
+  </aside>
+</div>

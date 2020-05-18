@@ -1,5 +1,6 @@
 class AssessmentsController < ApplicationController
-  before_action :set_contact, only: %i[new create]
+  before_action :set_contact, only: %i[new create fail]
+  before_action :set_assessment, only: %i[fail]
 
   def new
     @assigned_to_options = construct_assigned_to_options
@@ -28,6 +29,10 @@ class AssessmentsController < ApplicationController
     @contact = Contact.find(params[:contact_id])
   end
 
+  def set_assessment
+    @assessment = Need.find(params[:id])
+  end
+
   def log_assessment
     @need = Need.new(assessment_params.merge(contact_id: @contact.id, name: 'Logged assessment', start_on: Date.today))
     @note = Note.new(notes_params.merge(need: @need, category: 'phone_success', user_id: current_user.id))
@@ -51,6 +56,10 @@ class AssessmentsController < ApplicationController
 
     @need.save
     redirect_to contact_path(@contact)
+  end
+
+  def fail
+
   end
 
   def type_param
