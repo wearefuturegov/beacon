@@ -79,7 +79,7 @@ Feature: Restrict deletion of support actions and notes to a user based on their
     When I choose to restore the support action
     Then I can see the restored support action details
 
-  @javascript
+  @wip
   Scenario: Managers can restore deleted notes
     Given I have deleted a note
     When I choose to restore the note

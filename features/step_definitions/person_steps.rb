@@ -20,12 +20,15 @@ end
 
 Given(/^I am editing the residents profile$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit'
+  click_and_wait('#edit-contact-link', '#contact_first_name')
 end
 
 Given(/^I am conducting a triage of the residents needs$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Add support actions'
+  click_link 'Add support actions +'
+  # opens the contact in edit mode
+  expect(page.find('#edit-triage-header')).to be_visible
+  click_and_wait('#edit-contact-link', '#contact_first_name')
 end
 
 When('I edit the special delivery details {string}') do |details|
@@ -42,7 +45,7 @@ end
 
 When(/^I edit the residents name$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit'
+  click_and_wait('#edit-contact-link', '#contact_first_name')
   fill_in('contact_first_name', with: 'TestFirstName')
   fill_in('contact_middle_names', with: 'TestMiddle Names')
   fill_in('contact_surname', with: 'TestSurname')
@@ -50,11 +53,11 @@ end
 
 When("I change someone a resident's name concurrently") do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit'
+  click_and_wait('#edit-contact-link', '#contact_first_name')
   fill_in('contact_first_name', with: 'TestFirstName1')
 
   user_two_updates_residents_name
-  click_button('Save changes')
+  page.find('#contact-edit-save').click
 end
 
 When("someone else updates the resident's name") do
@@ -62,7 +65,8 @@ When("someone else updates the resident's name") do
 end
 
 Then('I see my resident change was unsuccessful') do
-  page.find('.alert', text: 'Error. Somebody else has changed this record, please refresh.')
+  errors = find('#error_explanation')
+  expect(errors).to have_content('Error. Somebody else has changed this record, please refresh')
   visit "contacts/#{@contact.id}"
   expect(page.find_by_id('contact_name')).to have_text('TestFirstName2')
 end
@@ -70,27 +74,27 @@ end
 def user_two_updates_residents_name
   Capybara.using_session('Second_users_session') do
     visit "contacts/#{@contact.id}"
-    click_link 'Edit'
+    click_and_wait('#edit-contact-link', '#contact_first_name')
     fill_in('contact_first_name', with: 'TestFirstName2')
-    click_button('Save changes')
+    page.find('#contact-edit-save').click
   end
 end
 
 Then('I am informed another user has changed the record') do
   # this is the javascript / web socket message
-  expect(page.find('#concurrent-users')).to have_text('This record is out of date')
+  expect(page.find('#concurrent-users')).to have_text('This record has been changed')
 end
 
 When(/^I edit the residents address$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit'
+  click_and_wait('#edit-contact-link', '#contact_first_name')
   fill_in('contact_address', with: 'Test Address')
   fill_in('contact_postcode', with: 'TE5 7PC')
 end
 
 When(/^I edit the residents contact details$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit'
+  click_and_wait('#edit-contact-link', '#contact_first_name')
   fill_in('contact_email', with: 'test@test.com')
   fill_in('contact_telephone', with: '01 811 8055')
   fill_in('contact_mobile', with: '0770 123 456')
@@ -98,14 +102,14 @@ end
 
 When(/^I edit the residents vulnerability status$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit'
-  find('label[for=is_vulnerable_true]').click
+  click_and_wait('#edit-contact-link', '#contact_first_name')
+  find('label[for=contact_is_vulnerable]').click
 end
 
 When(/^I edit the residents covid-19 status$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit'
-  find('label[for=has_covid_symptoms_true]').click
+  click_and_wait('#edit-contact-link', '#contact_first_name')
+  find('label[for=contact_has_covid_symptoms]').click
 end
 
 When('I choose {string} for any children under 15') do |option|
@@ -138,12 +142,16 @@ end
 
 When(/^I edit the residents additional info$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Edit'
+  click_and_wait('#edit-contact-link', '#contact_first_name')
   fill_in('contact_additional_info', with: 'Test additional info')
 end
 
 When(/^I save the edit resident form$/) do
-  click_button('Save changes')
+  page.find('#contact-edit-save').click
+end
+
+When(/^I save the assessment form$/) do
+  page.find('#triage-submit-btn').click
 end
 
 Then('the residents list of support actions contains {string}') do |support_action|
@@ -195,6 +203,7 @@ Then(/^the residents contact details have been updated$/) do
 end
 
 Then(/^the residents vulnerability status has been updated$/) do
+  page.refresh
   expect(page.find('.vulnerable-banner')).to have_text('This is a shielded person')
 end
 

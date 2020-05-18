@@ -33,6 +33,8 @@ class ContactsController < ApplicationController
   end
 
   def show
+    @browser = Browser.new(request.env['HTTP_USER_AGENT'])
+
     @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
                   .uncompleted.not_assessments
                   .sort { |a, b| Need.sort_created_and_start_date(a, b) }
@@ -48,9 +50,7 @@ class ContactsController < ApplicationController
                              .completed.assessments
   end
 
-  def edit
-    @edit_contact_id = @contact.id
-  end
+  def edit; end
 
   def update
     if @contact.update(contact_params)
@@ -60,14 +60,22 @@ class ContactsController < ApplicationController
         format.js
       end
     else
-      render :edit
+      invalid_update
     end
   rescue ActiveRecord::StaleObjectError
-    flash[:alert] = STALE_ERROR_MESSAGE
-    render :edit
+    @contact.errors.add(:lock_version, :blank, message: STALE_ERROR_MESSAGE)
+    invalid_update
   end
 
   private
+
+  def invalid_update
+    respond_to do |format|
+      format.html { render :edit }
+      format.js
+      format.json { render json: @contact.errors, status: :unprocessable_entity }
+    end
+  end
 
   def construct_teams_options
     roles = Role.all.order(:name)

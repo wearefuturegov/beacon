@@ -6,11 +6,21 @@
     %>
 
     <ul class="main-menu">
-        <li class="main-menu__item">
-          <%= link_to_unless_current "My dashboard", root_path(:assigned_to => "user-#{current_user.id}"), class: "main-menu__link" do %>
-            <span class="main-menu__current">My dashboard</span>
-          <% end %>
-        </li>
+        <% if policy(User).mdt? %>
+            <li class="main-menu__item">
+              <%= link_to_unless_current "MDT", mdt_index_path, class: "main-menu__link" do %>
+                <span class="main-menu__current">MDT dashboard</span>
+              <% end %>
+            </li>
+          <% else %>
+        
+          <li class="main-menu__item">
+            <%= link_to_unless_current "My dashboard", root_path(:assigned_to => "user-#{current_user.id}"), class: "main-menu__link" do %>
+              <span class="main-menu__current">My dashboard</span>
+            <% end %>
+          </li>
+        <% end %>
+
         <li class="main-menu__item">
           <%= link_to_unless_current "Support Actions", root_path(:status => "to_do"), class: "main-menu__link" do %>
             <span class="main-menu__current">Support Actions</span>
@@ -49,22 +59,23 @@
           </ul>
         </li>
 
+        <% if policy(User).index? %>
         <li class="main-menu__item">
 
         <span class="main-menu__link">Deleted Items</span>
           <ul class="main-menu__submenu">
-            <% if policy(User).index? %>
+            
               <%= link_to_unless_current "Deleted support actions", deleted_needs_path(:order => "deleted_at", :order_dir => "DESC"), class: "main-menu__submenu-link" do %>
                 <span class="main-menu__submenu-current">Deleted support actions</span>
               <% end %>
-            <% end %>
-            <% if policy(User).index? %>
+
               <%= link_to_unless_current "Deleted notes", deleted_notes_path(:order => "deleted_at", :order_dir => "DESC"), class: "main-menu__submenu-link" do %>
                 <span class="main-menu__submenu-current">Deleted notes</span>
               <% end %>
-            <% end %>
+            
           </ul>
         </li>
+        <% end %>
 
         <li class="main-menu__item">
             <%= link_to_unless_current "People", contacts_path, class: "main-menu__link" do %>

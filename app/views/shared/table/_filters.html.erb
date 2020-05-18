@@ -5,13 +5,13 @@
 <% end %>
 
   <% if params[:user_id] || params[:status] || params[:category] || params[:is_urgent] %>
-      <%= link_to "Clear filters", root_path, class: "button button--dark", id: "btnClearFilters"%>
+      <%= link_to "Clear filters", filters_path, class: "button button--dark", id: "btnClearFilters"%>
     <div class="filters__content">
   <% else %>
       <button id="needs-filters" class="button button--dark filters__controls" aria-expanded="false">Filters</button>
       <div class="filters__content" hidden>
   <% end %>
-      <%= form_with(url: root_path, method: :get, local: true, class: "filters__form") do %>
+      <%= form_with(url: filters_path, method: :get, local: true, class: "filters__form") do %>
         <label for="assigned_to" class="visually-hidden">By assigned user or team</label>
         <% if params[:created_by_me] == 'true' %>
           <%= hidden_field_tag('created_by_me', 'true') %>
@@ -19,8 +19,10 @@
         <%= select_tag("assigned_to",
             content_tag(:option,'Unassigned',:value => "Unassigned", :selected => params["assigned_to"] == "Unassigned") + grouped_options_for_select(@assigned_to_options_with_deleted, params['assigned_to']), prompt: 'All users/teams', class: "filters__select dropdown") %>
 
-        <label for="category" class="visually-hidden">By category</label>
-        <%= select_tag("category", options_for_select(Need.categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select dropdown") %>
+        <% if categories.size > 0 %>
+          <label for="category" class="visually-hidden">By category</label>
+          <%= select_tag("category", options_for_select(categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select dropdown") %>
+        <% end %>
 
         <label for="status" class="visually-hidden">By status</label>
         <%= select_tag("status", options_for_select(need_statuses, :selected => params["status"]), prompt: 'All statuses', class: "filters__select dropdown", "data-minimum-results-for-search" => "Infinity") %>

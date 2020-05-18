@@ -2,14 +2,7 @@
 
 <div class="with-left-sidebar">
 
-  <aside class="with-left-sidebar__left">
-    <header class="panel-header">
-      <h2 class="panel-header__title">Profile</h2>
-    </header>
-    <div class="panel panel--unpadded">
-      <%= render "shared/profile-accordion" %>
-    </div>
-  </aside>
+<%= render 'shared/side-contact-profile' %>
 
   <aside class="with-left-sidebar__right">
     <header class="panel-header">
@@ -18,20 +11,7 @@
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
       <%= link_to "#{@type.humanize} an assessment", contact_path(@contact.id), class: "panel__header" %>
       <div class="panel__body">
-        <% if @need.errors.any? || @note.errors.any? %>
-          <div class="error" id="error_explanation">
-            <h2><%= pluralize(@need.errors.count + @note.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-            <ul>
-              <% @need.errors.full_messages.each do |message| %>
-                <li>Assessment <%= message.downcase %></li>
-              <% end %>
-              <% @note.errors.full_messages.each do |message| %>
-                <li>Note <%= message.downcase %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
+        <%= render "shared/create-need-errors" %>
 
         <%= form_with(model: @need, url: contact_assessments_path, local: true, id: "formAssessment") do |form| %>
           <input type="hidden" value="<%= @type %>" name="type" hidden="hidden">
@@ -50,7 +30,7 @@
             </div>
 
             <div class="need-actions__field" id="status-actions__field">
-              <%= form.label :status, 'Status', class: 'need-actions__label form-label' %>
+              <%= form.label :status, 'Status', class: 'need-actions__label' %>
 
               <% if @type == 'log' %>
                 <%= form.select :status, [%w(Complete complete)], {}, {class: "need-actions__select", readonly: true, "data-minimum-results-for-search" => "Infinity"} %>
