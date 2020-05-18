@@ -10,6 +10,7 @@
     <% end %>
   </td>
   <td><%= n.assigned %></td>
+  <td><%= n.created_at&.strftime("%-d %B %Y") %></td>
   <% if @browser.ie? %>
   <td class="last-column ie">
   <% else %>
