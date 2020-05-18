@@ -37,25 +37,25 @@
           <input type="hidden" value="<%= @type %>" name="type" hidden="hidden">
           <div class="need-actions">
             <div class="need-actions__field" id="teams-actions__field">
-              <%= form.label :user_id, 'Assigned to', class: 'need-actions__label' %>
-              <%= form.select :assigned_to, grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: 'Unassigned'), {}, { class: "need-actions__select" } %>
+              <%= form.label :user_id, 'Assigned to', class: 'need-actions__label dropdown-label' %>
+              <%= form.select :assigned_to, grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: 'Unassigned'), {}, { class: "need-actions__select dropdown" } %>
             </div>
 
             <div class="need-actions__field" id="priority-actions__field">
-              <%= form.label :is_urgent, 'Priority', class: 'need-actions__label' %>
+              <%= form.label :is_urgent, 'Priority', class: 'need-actions__label dropdown-label' %>
               <%= form.select :is_urgent, {
                   "Urgent" => true,
                   "Normal" => false
-              }, {}, {class: @need.is_urgent ? "need-actions__select need-actions__select--red" : "need-actions__select"} %>
+              }, {}, {class: @need.is_urgent ? "need-actions__select need-actions__select--red" : "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity"} %>
             </div>
 
             <div class="need-actions__field" id="status-actions__field">
-              <%= form.label :status, 'Status', class: 'need-actions__label' %>
+              <%= form.label :status, 'Status', class: 'need-actions__label form-label' %>
 
               <% if @type == 'log' %>
-                <%= form.select :status, [%w(Complete complete)], {}, {class: "need-actions__select", readonly: true} %>
+                <%= form.select :status, [%w(Complete complete)], {}, {class: "need-actions__select", readonly: true, "data-minimum-results-for-search" => "Infinity"} %>
               <% else %>
-                <%= form.select :status, need_statuses, {}, {class: "need-actions__select"} %>
+                <%= form.select :status, need_statuses, {}, {class: "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity"} %>
               <% end %>
             </div>
           </div>
@@ -103,5 +103,6 @@
 
 </div>
 
+<%= javascript_pack_tag 'assessments' %>
 <%= javascript_pack_tag 'assessment_datepicker' %>
 <%= javascript_pack_tag 'users_viewing_page.js' %>
