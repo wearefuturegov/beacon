@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :assessments, only: [:index, :show, :edit, :update, :destroy] do
     resources :notes
   end
-  
+
   resources :needs, only: [:index, :show, :edit, :update, :destroy] do
     resources :notes
   end
@@ -31,6 +31,4 @@ Rails.application.routes.draw do
   post '/needs/restore_note' => 'needs#restore_note'
   get '/deleted_needs' => 'needs#deleted_needs', as: 'deleted_needs'
   get '/deleted_notes' => 'needs#deleted_notes', as: 'deleted_notes'
-
-  
 end

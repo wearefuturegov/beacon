@@ -1,24 +1,18 @@
 class AssessmentsController < ApplicationController
-  before_action :set_contact, only: %i[new create, edit]
+  before_action :set_contact, only: %i[new create edit]
 
   # Do Assessment
   def edit
     @need
-    if !@need.category.downcase.in? Need::ASSESSMENT_CATEGORIES
-      redirect_to contact_path(@contact)
-    end
+    redirect_to contact_path(@contact) unless @need.category.downcase.in? Need::ASSESSMENT_CATEGORIES
     @contact_needs = contact_needs(@need.id)
   end
 
   # Assign
-  def assign
-
-  end
+  def assign; end
 
   # Complete
-  def complete
-
-  end
+  def complete; end
 
   def new
     @assigned_to_options = construct_assigned_to_options
@@ -45,7 +39,7 @@ class AssessmentsController < ApplicationController
 
   def contact_needs(need_id)
     needs = Need.where(assessment_id: need_id)
-    create_contact_needs unless needs.size > 0
+    create_contact_needs if needs.empty?
   end
 
   def create_contact_needs
@@ -63,7 +57,7 @@ class AssessmentsController < ApplicationController
     end.to_h
     contact_model
   end
-  
+
   def set_contact
     contact_id = params[:contact_id].present? ? params[:contact_id] : find_contact_id
     @contact = Contact.find(contact_id)
@@ -73,6 +67,7 @@ class AssessmentsController < ApplicationController
     @need = Need.find(params[:id])
     @need.present? ? @need.contact_id : nil
   end
+
   def log_assessment
     @need = Need.new(assessment_params.merge(contact_id: @contact.id, name: 'Logged assessment', start_on: Date.today))
     @note = Note.new(notes_params.merge(need: @need, category: 'phone_success', user_id: current_user.id))
