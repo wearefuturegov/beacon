@@ -33,7 +33,7 @@
           </div>
         <% end %>
 
-        <%= form_with(model: @need, url: contact_assessments_path, local: true) do |form| %>
+        <%= form_with(model: @need, url: contact_assessments_path, local: true, id: "formAssessment") do |form| %>
           <input type="hidden" value="<%= @type %>" name="type" hidden="hidden">
           <div class="need-actions">
             <div class="need-actions__field" id="teams-actions__field">

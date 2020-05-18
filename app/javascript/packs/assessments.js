@@ -1,6 +1,6 @@
 require("select2");
 
-const dropdowns = $(".dropdown");
+const dropdowns = $("#formAssessment .dropdown");
 dropdowns.select2();
 
 const allNeedsStatusComplete = document.querySelectorAll('.need--status_complete')
