@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :contacts, only: [:index, :show, :edit, :update, :new, :create] do
     resources :needs, only: [:new, :create]
-    resources :assessments, only: [:new, :create]
+    resources :assessments, only: [:new, :create, :edit, :update]
     # collection do
     #   get 'call-list'
     # end
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
   # get '/contacts/:id/needs', to: 'contacts#needs'
 
-  resources :assessments, only: [:index, :show, :edit, :update, :destroy] do
+  resources :assessments, only: [:index, :show, :destroy] do
     resources :notes
   end
 
