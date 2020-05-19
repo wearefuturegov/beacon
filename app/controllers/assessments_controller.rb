@@ -88,7 +88,7 @@ class AssessmentsController < ApplicationController
 
   def set_contact
     contact_id = params[:contact_id].present? ? params[:contact_id] : @need.contact_id
-    @contact = Contact.find(params[:contact_id])
+    @contact = Contact.find(contact_id)
   end
 
   def find_contact_id; end

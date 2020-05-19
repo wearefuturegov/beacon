@@ -30,19 +30,11 @@ class NeedsCreator
 
   def self.create_need(contact, need_values)
     need_hash = {}
-    if need_values['id']
-      need_hash[:id] = need_values['id']
-    end
-    if need_values['assessment_id']
-      need_hash[:assessment_id] = need_values['assessment_id']
-    end
+    need_hash[:id] = need_values['id']
+    need_hash[:assessment_id] = need_values['assessment_id']
     need_hash[:contact_id] = contact.id
     need_hash[:category] = need_values['name'].humanize.downcase
-    need_hash[:name] = if need_values['description'].blank?
-                         "#{contact.name} needs #{need_hash[:category]}"
-                       else
-                         need_values['description']
-                       end
+    need_hash[:name] = need_name(contact, need_values)
     need_hash[:is_urgent] = need_values['is_urgent']
     need_hash[:food_priority] = need_values['food_priority'] if need_values['food_priority'].present?
     need_hash[:food_service_type] = need_values['food_service_type'] if need_values['food_service_type'].present?
@@ -56,5 +48,13 @@ class NeedsCreator
       end
     end
     need_hash
+  end
+
+  def self.need_name(contact, need_values)
+    if need_values['description'].blank?
+      "#{contact.name} needs #{need_hash[:category]}"
+    else
+      need_values['description']
+    end
   end
 end
