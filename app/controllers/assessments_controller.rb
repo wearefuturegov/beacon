@@ -65,12 +65,13 @@ class AssessmentsController < ApplicationController
 
   def create_contact_needs(existing_needs)
     contact_model = ContactNeeds.new
-    contact_model.needs_list = Need.categories_for_triage.each_with_index.map do |(label, _slug), index|
+    contact_model.needs_list = Need.categories_for_assessment.each_with_index.map do |(label, _slug), index|
       existing_need = existing_needs.find { |n| n.category == label }
       need = {
         id: existing_need&.id,
         name: label,
         description: existing_need&.name,
+        is_urgent: existing_need&.is_urgent? ? '1' : '0',
         food_priority: existing_need&.food_priority,
         food_service_type: existing_need&.food_service_type,
         active: !existing_need.nil? ? 'true' : 'false'
@@ -145,7 +146,7 @@ class AssessmentsController < ApplicationController
                                     :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_under_age,
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
                                     :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version,
-                                    :no_calls_flag, :deceased_flag, :share_data_flag, :channel, :assessment_id)
+                                    :no_calls_flag, :deceased_flag, :share_data_flag, :channel)
   end
 
   def contact_needs_params

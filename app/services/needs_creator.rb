@@ -52,7 +52,7 @@ class NeedsCreator
 
   def self.need_name(contact, need_values)
     if need_values['description'].blank?
-      "#{contact.name} needs #{need_hash[:category]}"
+      "#{contact.name} needs #{need_values['name'].humanize.downcase}"
     else
       need_values['description']
     end

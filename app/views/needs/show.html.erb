@@ -22,11 +22,11 @@
 
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
       <%= link_to @need.category, @contact, class: "panel__header", id: "need-#{@need.id}-title" %>
-      
+    
       <% if policy(@need).edit? %>
         <%= link_to "Edit", edit_need_path(@need), class: "button button--blue", id:"edit-need-btn", remote: true %>
       <% end %>
-      
+        
       <% if policy(@need).destroy? %>
         <%= link_to 'Delete',  { action: :destroy, id: @need.id }, 
           class: "need-delete-link", id: "delete-need-#{@need.id}", method: :delete, 
@@ -41,6 +41,11 @@
         <div id="need-fields-container">
           <%= render "shared/need-fields" %>
         </div>
+
+
+      <!-- Temporary button sort as you wish-->
+      <%= link_to "Start assessment", edit_contact_assessment_path(contact_id: @need.contact_id, id: @need), class: "button button--primary", id:"edit-assessment-btn" %>
+      <br>
 
       </div>
       <%= render "notes" %>
