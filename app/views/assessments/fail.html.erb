@@ -1,0 +1,61 @@
+<%= render "shared/vulnerable-banner" %>
+
+<div class="with-left-sidebar">
+
+  <%= render 'shared/side-contact-profile' %>
+  <aside class="with-left-sidebar__right">
+    <header class="panel-header">
+      <h2 class="panel-header__title">Assessments</h2>
+    </header>
+    <div class="panel panel--unpadded panel--stroked need--phone-triage">
+      <%= link_to "Failed #{@assessment.category.humanize}", contact_path(@contact.id), class: "panel__header" %>
+      <div class="panel__body">
+        <% if @failure_form.errors.any? %>
+          <div class="error" id="error_explanation">
+            <h2><%= pluralize(@failure_form.errors.count, "error") %> prohibited from being saved:</h2>
+
+            <ul>
+              <% @failure_form.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <h3>Update</h3>
+        <p>If the call was unsuccessful, or you want to leave a note, please update the following questions.</p>
+
+        <%= form_with model: @failure_form, url: update_failure_assessment_path, :method => :put,
+                      :local => true, :html => { :name => 'assessment_failure_form', :autocomplete => 'off' } do |form| %>
+        <div class="field">
+          <h3>Why wasn't the check in call successful?</h3>
+          <% assessment_failure_reasons.each do |failure_reason, description| %>
+            <div class="radio">
+              <%= form.radio_button :failure_reason, failure_reason %>
+              <%= form.label "failure_reason_#{failure_reason.downcase}", description, :class => 'radio__label' %>
+            </div>
+          <% end %>
+        </div>
+
+        <div id="left_message_question_section" class="field" hidden="hidden">
+          <h3>Did you leave a message?</h3>
+          <% %w(Yes No).each do |message_choice| %>
+            <div class="radio">
+              <%= form.radio_button :left_message, message_choice %>
+              <%= form.label :"left_message_#{message_choice.downcase}", message_choice, :class => 'radio__label' %>
+            </div>
+          <% end %>
+        </div>
+
+        <div id="note_description_section" class="field" hidden="hidden">
+          <%= form.label :note_description, 'Why didn\'t you leave a message?', :class => 'field__label' %>
+          <%= form.text_area :note_description, :placeholder => 'Enter note description' %>
+        </div>
+
+        <input type="submit" value="Update assessment" class="button button--primary"/>
+        <% end %>
+      </div>
+    </div>
+  </aside>
+</div>
+<%= javascript_pack_tag 'assessment_failure' %>

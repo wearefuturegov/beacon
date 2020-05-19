@@ -1,5 +1,6 @@
 class AssessmentsController < ApplicationController
   before_action :set_contact, only: %i[new create]
+  before_action :set_assessment, only: %i[fail update_failure]
 
   def new
     @assigned_to_options = construct_assigned_to_options
@@ -22,10 +23,28 @@ class AssessmentsController < ApplicationController
     end
   end
 
+  def fail
+    @failure_form = AssessmentFailureForm.new
+  end
+
+  def update_failure
+    @failure_form = AssessmentFailureForm.new(assessment_failure_params.merge(id: params[:id]))
+    if @failure_form.valid? && @failure_form.save(current_user)
+      redirect_to need_path(@assessment), notice: 'Record successfully updated.'
+      return
+    end
+    render :fail
+  end
+
   private
 
   def set_contact
     @contact = Contact.find(params[:contact_id])
+  end
+
+  def set_assessment
+    @assessment = Need.find(params[:id])
+    @contact = Contact.find(@assessment.contact_id)
   end
 
   def log_assessment
@@ -59,6 +78,10 @@ class AssessmentsController < ApplicationController
 
   def assessment_params
     params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on)
+  end
+
+  def assessment_failure_params
+    params.require(:assessment_failure_form).permit(:failure_reason, :left_message, :note_description)
   end
 
   def notes_params
