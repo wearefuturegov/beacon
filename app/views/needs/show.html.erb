@@ -57,7 +57,7 @@
           <div><%= @need.name %></div>
           <h4>Were you able to get through this person?</h4>
           <div>
-            <%= link_to 'No, describe why', {}, class: "button button--dark" %>
+            <%= link_to 'No, describe why', fail_assessment_path(@need), class: "button button--dark" %>
             <%= link_to 'Yes, continue to triage', contact_triage_path(@contact), class: "button button--blue" %>
           </div>
         </div>

@@ -65,7 +65,7 @@
       </thead>
       <tbody>
       <% @needs.each do |n| %>
-        <tr class="clickable" onclick="window.location='<%= need_path(n) %>'">
+        <tr class="clickable" data-navigate-to="<%= need_path(n) %>">
           <td>
             <%= check_box_tag("need[#{n.id}]", n.id, false, { class: "select-needs bulk-action-checkbox" }) %>
           </td>
