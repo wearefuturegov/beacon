@@ -66,14 +66,14 @@ class AssessmentsController < ApplicationController
   def create_contact_needs(existing_needs)
     contact_model = ContactNeeds.new
     contact_model.needs_list = Need.categories_for_triage.each_with_index.map do |(label, _slug), index|
-      existing_need = existing_needs.find {|n|n.category == label}
+      existing_need = existing_needs.find { |n| n.category == label }
       need = {
-          id: existing_need&.id,
-          name: label,
-          description: existing_need&.name,
-          food_priority: existing_need&.food_priority,
-          food_service_type: existing_need&.food_service_type,
-          active: existing_need != nil ? 'true' : 'false',
+        id: existing_need&.id,
+        name: label,
+        description: existing_need&.name,
+        food_priority: existing_need&.food_priority,
+        food_service_type: existing_need&.food_service_type,
+        active: !existing_need.nil? ? 'true' : 'false'
       }
       [index.to_s, need]
     end.to_h
@@ -87,12 +87,11 @@ class AssessmentsController < ApplicationController
   end
 
   def set_contact
-    contact_id = params[:contact_id].present? ? params[:contact_id] : @need.contact_id    
+    contact_id = params[:contact_id].present? ? params[:contact_id] : @need.contact_id
     @contact = Contact.find(params[:contact_id])
   end
 
-  def find_contact_id
-  end
+  def find_contact_id; end
 
   def log_assessment
     @need = Need.new(assessment_params.merge(contact_id: @contact.id, name: 'Logged assessment', start_on: Date.today))
@@ -152,5 +151,4 @@ class AssessmentsController < ApplicationController
   def contact_needs_params
     params.require(:contact_needs).permit!
   end
-
 end

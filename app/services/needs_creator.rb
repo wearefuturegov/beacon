@@ -4,12 +4,11 @@
 class NeedsCreator
   def self.create_needs(contact, needs_form, other_need)
     needs_form.each do |_, value|
-      
       if inactive?(value)
         existing = Need.where(id: value['id'])
-        existing.first.really_destroy! if existing.exists? 
+        existing.first.really_destroy! if existing.exists?
       else
-        need_hash = create_need(contact, value)      
+        need_hash = create_need(contact, value)
         Need.find_or_initialize_by(id: value[:id]).update(need_hash)
       end
     end

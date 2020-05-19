@@ -61,7 +61,7 @@ class Need < ApplicationRecord
   scope :assessments, -> { where(category: ASSESSMENT_CATEGORIES) }
   scope :not_assessments, -> { where.not(category: ASSESSMENT_CATEGORIES) }
 
-  scope :not_pending, -> { where(assessment_id: nil)}
+  scope :not_pending, -> { where(assessment_id: nil) }
 
   scope :filter_by_user_id, lambda { |user_id|
     if user_id == 'Unassigned'
@@ -190,9 +190,9 @@ class Need < ApplicationRecord
         ) as notes_aggr on notes_aggr.id = needs.id"
 
     Need.joins(:contact, sql)
-      .where(assessment_id: nil)
-      .select('needs.*', 'last_phoned_date',
-                                     'call_attempts')
+        .where(assessment_id: nil)
+        .select('needs.*', 'last_phoned_date',
+                'call_attempts')
   end
 
   def self.default_sort(results)
