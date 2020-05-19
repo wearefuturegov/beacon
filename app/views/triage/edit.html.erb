@@ -56,10 +56,10 @@
               </div>
 
               <%= fields_for :contact, @contact do |contact_form| %>
-                <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need[:name].parameterize.underscore}.html.erb")) %>
+                <% if File.exists?(Rails.root.join("app", "views", "shared", "_#{need[:name].parameterize.underscore}.html.erb")) %>
                   <%# form will save to the need, contact_form will save to the contact %>
                   <div class="triage-grid__inner triage-grid__inner--grey <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
-                    <%= render :partial => "#{need[:name].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need} %>
+                    <%= render :partial => "shared/#{need[:name].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need} %>
                   </div>
                 <% end %>
               <% end %>
