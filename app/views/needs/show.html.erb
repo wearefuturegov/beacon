@@ -21,12 +21,20 @@
 
 
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
-      <%= link_to @need.category, @contact, class: "panel__header", id: "need-#{@need.id}-title" %>
-      
-      <% if policy(@need).edit? %>
-        <%= link_to "Edit", edit_need_path(@need), class: "button button--blue", id:"edit-need-btn", remote: true %>
-      <% end %>
-      
+      <div class="panel__header">
+        <%= link_to @need.category, @contact, class: "panel__header-link", id: "need-#{@need.id}-title" %>
+        <div class="buttons-container">
+          <% if policy(@need).edit? %>
+            <%= link_to "Edit", edit_need_path(@need), class: "button button--blue", id:"edit-need-btn", remote: true %>
+          <% end %>
+          <% if @need.category == 'Check in' and policy(Need).start_assessment? %>
+            <button class="button button--blue button-link" type="button" >Start Check in</button>
+          <% elsif @need.category == 'Phone triage' and policy(Need).start_assessment? %>
+            <button class="button button--blue button-link" type="button">Start Triage</button>
+          <% end %>
+        </div>
+      </div>
+
       <% if policy(@need).destroy? %>
         <%= link_to 'Delete',  { action: :destroy, id: @need.id }, 
           class: "need-delete-link", id: "delete-need-#{@need.id}", method: :delete, 
@@ -34,19 +42,33 @@
       <% end %>
       
       <div class="panel__body">
-        <div id="need-error-container"></div>
-
-        <%= render "need-actions" %>
-        
-        <div id="need-fields-container">
-          <%= render "shared/need-fields" %>
+        <div class="needs-container">
+          <div id="need-error-container"></div>
+          <%= render "need-actions" %>
+          <div id="need-fields-container">
+            <%= render "shared/need-fields" %>
+          </div>
         </div>
-
+        <div class="make-call-container invisible">
+          <div>
+            <strong>Description </strong><%= time_ago_in_words(@need.created_at) %> ago created by
+          </div>
+          <br />
+          <div><%= @need.name %></div>
+          <h4>Were you able to get through this person?</h4>
+          <div>
+            <%= link_to 'No, describe why', {}, class: "button button--dark" %>
+            <%= link_to 'Yes, continue to triage', contact_triage_path(@contact), class: "button button--blue" %>
+          </div>
+        </div>
       </div>
-      <%= render "notes" %>
+      <div class="notes-container">
+        <%= render "notes" %>
+      </div>
     </div>
   </aside>
 
 </div>
 
 <%= javascript_pack_tag 'require-datepicker' %>
+<%= javascript_pack_tag 'needs-show' %>

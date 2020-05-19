@@ -72,4 +72,8 @@ class NeedPolicy < ApplicationPolicy
   def dashboard_change_multiple?
     return true if permissive_roles?
   end
+
+  def start_assessment?
+    @user.in_role_name?('agent')
+  end
 end

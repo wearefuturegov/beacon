@@ -98,6 +98,15 @@
           <td>
             <%= n.call_attempts %>
           </td>
+          <td>
+            <% if n.category == 'Phone triage' and policy(Need).start_assessment? %>
+              <a href="javascript:;" class="button button--blue button-grid">Start Triage</a>
+            <% elsif n.category == 'Check in' and policy(Need).start_assessment? %>
+              <a href="javascript:;" class="button button--blue button-grid">Start Check in</a>
+            <% else %>
+              —
+            <% end %>
+          </td>
         </tr>
       <% end %>
       </tbody>
@@ -107,4 +116,7 @@
     <p class="no-results">No matches</p>
   <% end %>
   <%= javascript_pack_tag 'bulk-actions', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'needs-index' %>
 </div>
+
+

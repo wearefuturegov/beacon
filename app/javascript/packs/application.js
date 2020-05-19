@@ -11,6 +11,8 @@ require("jquery")
 require("select2/dist/css/select2");
 require("select2");
 
+global.$ = jQuery;
+
 import Popup from "../packs/popup"
 window.Popup = Popup;
 
