@@ -35,15 +35,14 @@
           <% @contact_needs.needs_list.each do |need_entry| %>
             <% need = need_entry[1] %>
             <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>
-              <div class="assessment-grid__need <%= "need--#{need[:name].parameterize}" %>">
+              <div class="selectable assessment-grid__need <%= "need--#{need[:name].parameterize}" %>">
                 <div class="assessment-grid__inner">
-                  <div class="checkbox">
+                  <div class="assessment-checkbox">
                     <h3 class="assessment-grid__title">
                       <%= need_form.check_box :active, {
                         class: 'checkbox__input need-checkbox', 
                         checked: need['active'] == 'true', 
-                        data: "#{need[:name].parameterize}" }, 
-                        'true', 'false' %>
+                        data: "#{need[:name].parameterize}" } %>
                       <%= need_form.label :active, need[:name], class: 'checkbox__label' %>
                     </h3>
                   </div>

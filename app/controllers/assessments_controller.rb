@@ -1,10 +1,28 @@
 class AssessmentsController < ApplicationController
-  before_action :set_contact, only: %i[new create edit]
+  before_action :set_globals, only: %i[new create edit]
 
   # Do Assessment
   def edit
     redirect_to contact_path(@contact) unless @need.category.downcase.in? Need::ASSESSMENT_CATEGORIES
     @contact_needs = contact_needs(@need.id)
+  end
+
+  # Save the assessment with an assessment_id
+  def update
+    @contact.assign_attributes(contact_params)
+    @contact_needs = ContactNeeds.new(contact_needs_params)
+    @contact_needs.valid?
+    @contact.valid?
+
+    render(:edit) && return if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
+
+    ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
+    NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
+    session[:triage] = nil
+    redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
+  rescue ActiveRecord::StaleObjectError
+    flash[:alert] = STALE_ERROR_MESSAGE
+    render :edit
   end
 
   # Assign
@@ -37,8 +55,8 @@ class AssessmentsController < ApplicationController
   private
 
   def contact_needs(need_id)
-    needs = Need.where(assessment_id: need_id)
-    create_contact_needs if needs.empty?
+    needs = Need.all.where(assessment_id: need_id)
+    needs.empty? ? create_contact_needs : needs
   end
 
   def create_contact_needs
@@ -57,14 +75,14 @@ class AssessmentsController < ApplicationController
     contact_model
   end
 
-  def set_contact
-    contact_id = params[:contact_id].present? ? params[:contact_id] : find_contact_id
+  def set_globals
+    @need = Need.find(params[:id])
+    @assessment_id = @need.id
+    contact_id = params[:contact_id].present? ? params[:contact_id] : @need.contact_id
     @contact = Contact.find(contact_id)
   end
 
   def find_contact_id
-    @need = Need.find(params[:id])
-    @need.present? ? @need.contact_id : nil
   end
 
   def log_assessment
@@ -97,7 +115,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_params
-    params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on)
+    params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on, :assessment_id)
   end
 
   def notes_params
