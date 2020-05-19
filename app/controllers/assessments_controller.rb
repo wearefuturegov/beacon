@@ -28,9 +28,10 @@ class AssessmentsController < ApplicationController
   end
 
   def update_failure
-    @failure_form = AssessmentFailureForm.new(assessment_failure_params)
-    if @failure_form.valid? && @failure_form.save
+    @failure_form = AssessmentFailureForm.new(assessment_failure_params.merge(id: params[:id]))
+    if @failure_form.valid? && @failure_form.save(current_user)
       redirect_to need_path(@assessment), notice: 'Record successfully updated.'
+      return
     end
     render :fail
   end
