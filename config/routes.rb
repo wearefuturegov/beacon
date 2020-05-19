@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :assessments do
     get 'fail', on: :member
+    put 'update_failure', on: :member
   end
 
   resources :mdt, only: [:index]

@@ -1,6 +1,6 @@
 class AssessmentsController < ApplicationController
   before_action :set_contact, only: %i[new create]
-  before_action :set_assessment, only: %i[fail]
+  before_action :set_assessment, only: %i[fail update_failure]
 
   def new
     @assigned_to_options = construct_assigned_to_options
@@ -21,6 +21,18 @@ class AssessmentsController < ApplicationController
     else
       schedule_assessment
     end
+  end
+
+  def fail
+    @failure_form = AssessmentFailureForm.new
+  end
+
+  def update_failure
+    @failure_form = AssessmentFailureForm.new(assessment_failure_params)
+    if @failure_form.valid? && @failure_form.save
+      redirect_to need_path(@assessment), notice: 'Record successfully updated.'
+    end
+    render :fail
   end
 
   private
@@ -59,16 +71,16 @@ class AssessmentsController < ApplicationController
     redirect_to contact_path(@contact)
   end
 
-  def fail
-
-  end
-
   def type_param
     params.require(:type)
   end
 
   def assessment_params
     params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on)
+  end
+
+  def assessment_failure_params
+    params.require(:assessment_failure_form).permit(:failure_reason, :left_message, :note_description)
   end
 
   def notes_params
