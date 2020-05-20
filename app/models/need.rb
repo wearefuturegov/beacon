@@ -191,6 +191,14 @@ class Need < ApplicationRecord
                                      'call_attempts')
   end
 
+  def created_by_name
+    user_id = versions.where('event = ?', 'create').first.whodunnit
+    return 'No user' if user_id.nil?
+
+    user = User.find(user_id)
+    user.name_or_email
+  end
+
   def self.default_sort(results)
     results.order(created_at: :asc)
   end

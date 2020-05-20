@@ -65,7 +65,7 @@
       </thead>
       <tbody>
       <% @needs.each do |n| %>
-        <tr class="clickable" onclick="window.location='<%= need_path(n) %>'">
+        <tr class="clickable" data-navigate-to="<%= need_path(n) %>">
           <td>
             <%= check_box_tag("need[#{n.id}]", n.id, false, { class: "select-needs bulk-action-checkbox" }) %>
           </td>
@@ -95,8 +95,17 @@
           <td>
             <%= n.last_phoned_date&.strftime("%-d %B %Y") %>
           </td>
-          <td>
+          <td class="column-call-attempts">
             <%= n.call_attempts %>
+          </td>
+          <td>
+            <% if n.category == 'Phone triage' and policy(Need).start_assessment? %>
+              <button class="button button--blue button-grid">Start Triage</button>
+            <% elsif n.category == 'Check in' and policy(Need).start_assessment? %>
+              <button class="button button--blue button-grid">Start Check in</button>
+            <% else %>
+              —
+            <% end %>
           </td>
         </tr>
       <% end %>
@@ -107,4 +116,7 @@
     <p class="no-results">No matches</p>
   <% end %>
   <%= javascript_pack_tag 'bulk-actions', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'needs-index' %>
 </div>
+
+

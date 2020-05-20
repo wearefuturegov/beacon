@@ -21,6 +21,11 @@ Rails.application.routes.draw do
     put 'update_failure', on: :member
   end
 
+  resources :assessments do
+    get 'fail', on: :member
+    put 'update_failure', on: :member
+  end
+
   resources :notes, only: [:show, :edit, :update]
   resources :mdt, only: [:index]
 
