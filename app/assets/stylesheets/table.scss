@@ -24,14 +24,6 @@
         tr{
             position: relative;
             border-bottom: 1px solid transparentize($text, 0.8);
-            &.clickable{
-                @extend .selectable;
-                td:last-of-type{
-                    &:after{
-                        background-image: url(asset_path('right.svg'));
-                    }
-                }
-            }
             &.deleted-row{
                 background: transparentize($grey, 0.9);
                 &:hover{
@@ -40,6 +32,14 @@
                 &:focus-within{
                     background: transparentize($grey, 0.8) !important;
                     border-color: $grey !important;
+                }
+            }
+            &.clickable{
+                @extend .selectable;
+                td:last-of-type{
+                    &:after{
+                        background-image: url(asset_path('right.svg'));
+                    }
                 }
             }
             &.selectable{

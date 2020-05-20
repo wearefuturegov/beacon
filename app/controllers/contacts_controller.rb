@@ -36,18 +36,18 @@ class ContactsController < ApplicationController
     @browser = Browser.new(request.env['HTTP_USER_AGENT'])
 
     @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
-                  .uncompleted.not_assessments
+                  .uncompleted.not_assessments.not_pending
                   .sort { |a, b| Need.sort_created_and_start_date(a, b) }
 
     @completed_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
-                       .completed.not_assessments
+                       .completed.not_assessments.not_pending
 
     @open_assessments = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
-                        .uncompleted.assessments
+                        .uncompleted.assessments.not_pending
                         .sort { |a, b| Need.sort_created_and_start_date(a, b) }
 
     @completed_assessments = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
-                             .completed.assessments
+                             .completed.assessments.not_pending
   end
 
   def edit; end
