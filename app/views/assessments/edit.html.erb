@@ -23,7 +23,7 @@
       <%= form_with(model: @contact_needs, url: contact_assessment_path(@contact.id), method: :put, local: true) do |form| %>
 
       <header class="panel-header">
-        <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
+        <%= link_to image_tag("left.svg", alt: "Go back"), need_path(@assessment), class: "go-back" %>
         <h1 class="panel-header__title" id="edit-assessment-header"><%= @need.category %></h1>
       
       </header>

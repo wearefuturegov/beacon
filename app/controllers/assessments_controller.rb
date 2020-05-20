@@ -1,6 +1,6 @@
 class AssessmentsController < ApplicationController
   before_action :set_contact, only: %i[new create]
-  before_action :set_assessment, only: %i[fail update_failure assign update_assignment]
+  before_action :set_assessment, only: %i[fail update_failure edit update assign update_assignment]
   include AssigningConcern
   before_action :set_globals, only: :edit
 
@@ -21,7 +21,7 @@ class AssessmentsController < ApplicationController
 
     ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
     NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
-    redirect_to contact_path(@contact.id), notice: 'Contact was successfully updated.'
+    redirect_to assign_assessment_path(@assessment.id), notice: 'Contact was successfully updated.'
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
     render :edit
