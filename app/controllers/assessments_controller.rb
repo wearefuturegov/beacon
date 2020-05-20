@@ -36,6 +36,14 @@ class AssessmentsController < ApplicationController
     render :fail
   end
 
+  def assign
+
+  end
+
+  def update_assignment
+
+  end
+
   private
 
   def set_contact
