@@ -47,7 +47,6 @@ jobs:
       run: |
         bundle exec rake parallel:drop
         bundle exec rake parallel:setup
-        bundle exec rake parallel:seed
     - name: Compile assets
       env:
         RAILS_ENV: test
