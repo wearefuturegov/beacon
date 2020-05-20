@@ -192,8 +192,9 @@ class Need < ApplicationRecord
   end
 
   def created_by_name
-    user_id = versions.first.whodunnit
-    return "No user" if user_id.nil?
+    user_id = versions.where('event = ?', 'create').first.whodunnit
+    return 'No user' if user_id.nil?
+
     user = User.find(user_id)
     user.name_or_email
   end
