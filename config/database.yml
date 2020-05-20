@@ -13,7 +13,7 @@ development:
 
 test:
   <<: *default
-  url: postgresql://localhost/i_have_i_need_test
+  url: postgresql://localhost/i_have_i_need_test<%= ENV['TEST_ENV_NUMBER'] %>
   username: test_local_user
   password: password
 

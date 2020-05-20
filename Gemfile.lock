@@ -172,6 +172,8 @@ GEM
       activerecord (>= 4.2)
       request_store (~> 1.1)
     parallel (1.19.1)
+    parallel_tests (2.32.0)
+      parallel
     paranoia (2.4.2)
       activerecord (>= 4.0, < 6.1)
     parser (2.7.1.0)
@@ -351,6 +353,7 @@ DEPENDENCIES
   kaminari
   listen (>= 3.0.5, < 3.2)
   paper_trail
+  parallel_tests (~> 2.32.0)
   paranoia (~> 2.2)
   passwordless (~> 0.9)
   pg (>= 0.18, < 2.0)

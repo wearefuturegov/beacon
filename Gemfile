@@ -28,6 +28,7 @@ gem 'browser', require: 'browser/browser'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'parallel_tests', '~> 2.32.0'
 end
 
 group :development do
