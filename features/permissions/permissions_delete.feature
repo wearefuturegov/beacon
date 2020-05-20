@@ -73,7 +73,7 @@ Feature: Restrict deletion of support actions and notes to a user based on their
     Then I can delete the support action
     And I can see a deletion confirmation message
 
-  @javascript
+  @wip
   Scenario: Managers can restore deleted support actions
     Given I have deleted a support action
     When I choose to restore the support action
