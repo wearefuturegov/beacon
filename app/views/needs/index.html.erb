@@ -100,9 +100,9 @@
           </td>
           <td>
             <% if n.category == 'Phone triage' and policy(Need).start_assessment? %>
-              <a href="javascript:;" class="button button--blue button-grid">Start Triage</a>
+              <button class="button button--blue button-grid">Start Triage</button>
             <% elsif n.category == 'Check in' and policy(Need).start_assessment? %>
-              <a href="javascript:;" class="button button--blue button-grid">Start Check in</a>
+              <button class="button button--blue button-grid">Start Check in</button>
             <% else %>
               —
             <% end %>

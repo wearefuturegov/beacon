@@ -51,7 +51,7 @@
         </div>
         <div class="make-call-container invisible">
           <div>
-            <strong>Description </strong><%= time_ago_in_words(@need.created_at) %> ago created by
+            <strong>Description </strong><%= time_ago_in_words(@need.created_at) %> ago created by <%= Need.created_by_name(@need.id) %>
           </div>
           <br />
           <div><%= @need.name %></div>
