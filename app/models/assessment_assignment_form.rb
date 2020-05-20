@@ -1,0 +1,22 @@
+class AssessmentAssignmentForm
+  include ActiveModel::Model
+  include ActiveModel::Validations
+
+  attr_accessor :id
+  attr_accessor :needs
+
+  def self.from_id(id)
+    form = AssessmentAssignmentForm.new
+    form.id = id
+    form.needs = Need.where(assessment_id: id)
+    form
+  end
+
+  def save
+    needs.each do |need_params|
+      need = Need.find(need_params[0])
+      need.assigned_to = need_params[1]['assigned_to']
+      need.save
+    end
+  end
+end

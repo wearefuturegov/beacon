@@ -139,13 +139,18 @@
             &:first-of-type{
                 border-top: none;
             }
+
+          &.small td {
+            height: 80px;
+          }
         }
         td{
             height: 140px;
             vertical-align: top;
             padding-top: 25px;
             width: 10%;
-            a{
+
+            a {
                 color: $text;
                 text-decoration: none;
                 &:focus{
