@@ -1,6 +1,7 @@
 class AssessmentsController < ApplicationController
   before_action :set_contact, only: %i[new create]
-  before_action :set_assessment, only: %i[fail update_failure]
+  before_action :set_assessment, only: %i[fail update_failure assign update_assignment]
+  include AssigningConcern
 
   def new
     @assigned_to_options = construct_assigned_to_options
@@ -34,6 +35,20 @@ class AssessmentsController < ApplicationController
       return
     end
     render :fail
+  end
+
+  def assign
+    @assigned_to_options = construct_assigned_to_options(true)
+    @assignment_form = AssessmentAssignmentForm.from_id(params[:id])
+  end
+
+  def update_assignment
+    @assignment_form = AssessmentAssignmentForm.new(assessment_assignment_params.merge(id: params[:id]))
+    @assignment_form.save
+
+    render plain: 'Redirected to assessment completion'
+    # to do: implement redirecting to assessment completion
+    # redirect_to complete_assessment_path(params[:id])
   end
 
   private
@@ -84,17 +99,11 @@ class AssessmentsController < ApplicationController
     params.require(:assessment_failure_form).permit(:failure_reason, :left_message, :note_description)
   end
 
-  def notes_params
-    params.require(:note).permit(:body)
+  def assessment_assignment_params
+    params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to])
   end
 
-  def construct_assigned_to_options
-    roles = Role.all.order(:name)
-    users = User.all.order(:first_name, :last_name)
-
-    {
-      'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
-      'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
-    }
+  def notes_params
+    params.require(:note).permit(:body)
   end
 end

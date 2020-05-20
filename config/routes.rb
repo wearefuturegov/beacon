@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   resources :assessments do
     get 'fail', on: :member
     put 'update_failure', on: :member
+
+    get 'assign', on: :member
+    put 'update_assignment', on: :member
   end
 
   resources :notes, only: [:show, :edit, :update]
