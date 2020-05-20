@@ -12,25 +12,20 @@ Rails.application.routes.draw do
   end
   # get '/contacts/:id/needs', to: 'contacts#needs'
 
-  resources :assessments, only: [:index, :show, :destroy] do
+  resources :assessments, only: [:index, :show, :destroy, :edit, :update] do
     resources :notes
-  end
 
-  resources :needs, only: [:index, :show, :edit, :update, :destroy] do
-    resources :notes
-  end
-  
-  resources :assessments do
-    get 'fail', on: :member
-    put 'update_failure', on: :member
-  end
-
-  resources :assessments do
     get 'fail', on: :member
     put 'update_failure', on: :member
 
     get 'assign', on: :member
     put 'update_assignment', on: :member
+
+    get 'complete', on: :member
+  end
+
+  resources :needs, only: [:index, :show, :edit, :update, :destroy] do
+    resources :notes
   end
 
   resources :notes, only: [:show, :edit, :update]

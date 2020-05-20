@@ -1,6 +1,6 @@
 class AssessmentsController < ApplicationController
   before_action :set_contact, only: %i[new create]
-  before_action :set_assessment, only: %i[fail update_failure edit update assign update_assignment]
+  before_action :set_assessment, only: %i[fail update_failure edit update assign update_assignment complete]
   include AssigningConcern
   before_action :set_globals, only: :edit
 
@@ -73,9 +73,7 @@ class AssessmentsController < ApplicationController
     @assignment_form = AssessmentAssignmentForm.new(assessment_assignment_params.merge(id: params[:id]))
     @assignment_form.save
 
-    render plain: 'Redirected to assessment completion'
-    # to do: implement redirecting to assessment completion
-    # redirect_to complete_assessment_path(params[:id])
+    redirect_to complete_assessment_path(params[:id])
   end
 
   private
