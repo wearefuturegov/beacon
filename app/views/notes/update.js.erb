@@ -1,0 +1,2 @@
+document.getElementById("note-<%= @note.id %>-container").innerHTML = "<%= j(render partial:'shared/note', locals: {note: @note}) %>";
+document.getElementById("edit-note-<%= @note.id %>-btn").style.display="block"

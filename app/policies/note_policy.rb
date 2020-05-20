@@ -4,7 +4,9 @@ class NotePolicy < ApplicationPolicy
   end
 
   def update?
-    true
+    return true if admin?
+
+    Pundit.policy_scope!(@user, Note).where(id: @record.id, user_id: @user.id).exists?
   end
 
   def show?
