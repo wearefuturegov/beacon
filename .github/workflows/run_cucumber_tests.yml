@@ -45,10 +45,9 @@ jobs:
       env:
         RAILS_ENV: test
       run: |
-        bundle exec rails db:drop
-        bundle exec rails db:create
-        bundle exec rails db:migrate
-        bundle exec rails db:seed
+        bundle exec rake parallel:drop
+        bundle exec rake parallel:setup
+        bundle exec rake parallel:seed
     - name: Compile assets
       env:
         RAILS_ENV: test
