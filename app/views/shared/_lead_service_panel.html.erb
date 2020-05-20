@@ -1,5 +1,4 @@
 <%= form_for(@contact,:html=>{:id=>"update_lead_service",:remote=>true}) do |form|%>
-
   <div class="panel-small">
         <div class="panel-buttons-right">    
           <%= link_to 'Cancel', contact_path(@contact), class: "button button--dark", id: "contact-service-panel-cancel" %>
@@ -12,8 +11,8 @@
             </div>
           
             <div class="field-small">
-              <%= form.label :lead_service_id, "Lead service", class: "" %>
-              <%= form.select :lead_service_id, grouped_options_for_select(@teams_options, @contact.lead_service_id, prompt: 'Unassigned'), {}, { class: "need-actions__select" } %>
+              <%= form.label :lead_service_id, "Lead service", class: "dropdown-label" %>
+              <%= form.select :lead_service_id, grouped_options_for_select(@teams_options, @contact.lead_service_id, prompt: 'Unassigned'), {}, { class: "need-actions__select dropdown lead-service-dropdown" } %>
             </div>         
 
             <div class="field-small field--span-two-cols">
@@ -22,3 +21,5 @@
         </section>    
   </div>
 <% end %>
+
+<%= javascript_pack_tag 'lead-service' %>
