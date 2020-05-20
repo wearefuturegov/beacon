@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :notes
   end
 
+  resources :notes, only: [:show, :edit, :update]
   resources :mdt, only: [:index]
 
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]

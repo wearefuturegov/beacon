@@ -31,7 +31,11 @@
             <% if note.user %>
               by <%= note.user.name_or_email %>
             <% end %>
-
+            
+            <% if policy(note).edit? %>
+              <%= link_to "Edit", edit_note_path(note), class: "button button--blue edit-note-btn", id:"edit-note-#{note.id}-btn", remote: true %>
+            <% end %>
+            
             <% if policy(note).destroy? %>
               <%= link_to 'Delete',  { action: :destroy, id: note.id, note_only: true, need_id: @need.id}, 
                 class: "note-delete-link", id: "delete-note-#{note.id}", method: :delete, 
@@ -39,7 +43,9 @@
             <% end %>
             
           </header>
-          <p class="note__body"><%= simple_format note.body %></p>
+          <div id="note-<%= note.id %>-container">
+            <%= render partial:'shared/note', locals: {note: note} %>
+          </div>
         </article>
       <% end %>
     </div>
