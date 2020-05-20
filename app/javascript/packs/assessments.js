@@ -1,9 +1,14 @@
+require("select2");
+
+const dropdowns = $("#formAssessment .dropdown");
+dropdowns.select2();
+
 const allNeedsStatusComplete = document.querySelectorAll('.need--status_complete')
 const showHideAllNeedsStatusComplete = (display) => {
   for(let i = 0; i < allNeedsStatusComplete.length; i++) {
     allNeedsStatusComplete[i].style.display = display
   }  
-}
+};
 showHideAllNeedsStatusComplete('none')
 
 let showCompletedNeeds = false;
@@ -35,6 +40,5 @@ document.getElementById('btnAssessmentDropdown').addEventListener('click', (e) =
         }
     }
 });
-
 
 
