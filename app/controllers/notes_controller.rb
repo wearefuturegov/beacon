@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NotesController < ApplicationController
-  before_action :load_note, only: %i[show edit update]
+  before_action :set_note, only: %i[show edit update]
 
   def create
     @need = Need.find(params[:need_id])
@@ -24,7 +24,7 @@ class NotesController < ApplicationController
     params.require(:note).permit(:body, :category)
   end
 
-  def load_note
+  def set_note
     @note = Note.find params[:id]
   end
 end
