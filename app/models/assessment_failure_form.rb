@@ -17,7 +17,8 @@ class AssessmentFailureForm
       need.notes.create!(user: current_user, category: 'general', body: note_description_hash)
       need.update(status: 'blocked')
     else
-      need.notes.create!(user: current_user, category: 'phone_failure', body: note_description)
+      category = failure_reason == 'interrupted' ? 'general' : 'phone_failure'
+      need.notes.create!(user: current_user, category: category, body: note_description)
     end
   end
 end

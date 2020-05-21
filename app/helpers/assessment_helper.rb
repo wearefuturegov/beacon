@@ -5,7 +5,8 @@ module AssessmentHelper
     {
       incorrect_or_missing: 'Contact details were incorrect or missing',
       call_not_answered: 'The call was not answered',
-      other: 'Other reason'
+      interrupted: 'The call was interrupted',
+      other: 'Other reason',
     }
   end
 

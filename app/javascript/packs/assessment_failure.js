@@ -33,6 +33,7 @@ const updateFromState = () => {
     noteDescriptionSection.hidden = false;
 
     if (failure_reason === 'incorrect_or_missing') descriptionPromptLabel.textContent = "Describe the missing or invalid contact details";
+    else if (failure_reason === 'interrupted') descriptionPromptLabel.textContent = "Why could the call not be completed?";
     else if (failure_reason === 'other') descriptionPromptLabel.textContent = "Describe the reason for the failed assessment attempt";
 };
 

@@ -21,7 +21,12 @@ class AssessmentsController < ApplicationController
 
     ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
     NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
-    redirect_to assign_assessment_path(@assessment.id), notice: 'Contact was successfully updated.'
+
+    if params[:status] == 'fail'
+      redirect_to fail_assessment_path(@assessment.id), notice: 'Updated assessment'
+    else
+      redirect_to assign_assessment_path(@assessment.id), notice: 'Updated assessment'
+    end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
     render :edit
