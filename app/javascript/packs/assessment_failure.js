@@ -1,3 +1,11 @@
+$(document).ready(() => {
+    const progressWizard = new ProgressWizard();
+    progressWizard.markCallComplete();
+    progressWizard.markTriageFailed();
+    progressWizard.markAssignFailed();
+    progressWizard.markCompleteCurrent();
+});
+
 const descriptionPromptLabel = document.querySelector('label[for=assessment_failure_form_note_description]');
 const leftMessageQuestionSection = document.getElementById('left_message_question_section');
 const noteDescriptionSection = document.getElementById('note_description_section');
