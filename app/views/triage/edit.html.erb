@@ -44,6 +44,7 @@
                   </h3>
                 </div>
                 <%= need_form.hidden_field :name, :value => need[:name] %>
+                <%= need_form.hidden_field :assessment_id, :value => need[:assessment_id] %>
                 <div class="field <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
                   <%= need_form.label :description, 'Describe how we can help', class: 'field__label' %>
                   <%= need_form.text_area :description, value: need['description'] %>
@@ -56,7 +57,7 @@
               </div>
 
               <%= fields_for :contact, @contact do |contact_form| %>
-                <% if File.exists?(Rails.root.join("app", "views", params[:controller], "_#{need[:name].parameterize.underscore}.html.erb")) %>
+                <% if File.exists?(Rails.root.join("app", "views", "triage", "_#{need[:name].parameterize.underscore}.html.erb")) %>
                   <%# form will save to the need, contact_form will save to the contact %>
                   <div class="triage-grid__inner triage-grid__inner--grey <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
                     <%= render :partial => "#{need[:name].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need} %>

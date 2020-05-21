@@ -15,13 +15,13 @@ When('I choose to log an assessment') do
 end
 
 Then('I see the schedule assessment form') do
-  expect(page).to have_css('.panel__header', text: 'Schedule an assessment')
+  expect(page).to have_css('.panel__header-with-arrow', text: 'Schedule')
   expect(page).to have_field('need[start_on]')
   expect(page).not_to have_field('note[body]')
 end
 
 Then('I see the log assessment form') do
-  expect(page).to have_css('.panel__header', text: 'Log an assessment')
+  expect(page).to have_css('.panel__header-with-arrow', text: 'Log')
   expect(page).not_to have_field('need[start_on]')
   expect(page).to have_field('note[body]')
 end

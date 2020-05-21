@@ -6,10 +6,10 @@
 
   <aside class="with-left-sidebar__right">
     <header class="panel-header">
-      <h2 class="panel-header__title">Assessments</h2>
+      <h2 class="panel-header__title"><br/></h2>
     </header>
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
-      <%= link_to "#{@type.humanize} an assessment", contact_path(@contact.id), class: "panel__header" %>
+      <%= link_to "#{@type.humanize}", contact_path(@contact.id), class: "panel__header-with-arrow" %>
       <div class="panel__body">
         <%= render "shared/create-need-errors" %>
 
@@ -41,7 +41,7 @@
           </div>
 
           <fieldset class="field-section">
-            <legend class="field-section__title">Assessment Category</legend>
+            <legend class="field-section__title">Category</legend>
             <div class="radio">
               <%= form.radio_button :category, 'phone triage', {:checked => @need[:category] == 'Phone triage'} %>
               <%= form.label :category_phone_triage, "Phone Triage", class: "radio__label" %>

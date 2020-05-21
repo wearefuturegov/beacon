@@ -81,6 +81,30 @@
             margin-left: 15px;
         }
     }
+
+    &.button--disabled{
+        border: 1px solid grey;
+        @extend .button--blue;
+
+        background: grey;
+        &:hover{
+            background: darken(grey, 10);
+        }
+        &:active{
+            background: darken(grey, 20);
+        }
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+    }
+   
+}
+
+
+.button--larger {
+    @extend .button;
+    padding: 12px;
+    font-size: 1.2rem;
 }
 
 a {
@@ -96,4 +120,17 @@ a {
       background: none;
     }
   }
+}
+
+
+.tablink{
+    font-size: 1rem;
+    @extend .button, .button--dark;
+    border: none;
+    padding: 10px 25px 10px 25px;
+    margin-bottom: 0px;
+}
+
+.tablink__active{
+    background: white;
 }
