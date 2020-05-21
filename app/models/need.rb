@@ -117,6 +117,10 @@ class Need < ApplicationRecord
     order("call_attempts #{direction} NULLS LAST")
   }
 
+  scope :order_by_assigned_to, lambda { |direction|
+    order("user_id #{direction}, role_id #{direction}")
+  }
+
   delegate :name, :address, :postcode, :telephone, :mobile, :is_vulnerable,
            :count_people_in_house, :any_dietary_requirements, :dietary_details,
            :cooking_facilities, :delivery_details, :has_covid_symptoms,
@@ -208,7 +212,7 @@ class Need < ApplicationRecord
   end
 
   def self.dynamic_fields
-    %w[last_phoned_date call_attempts]
+    %w[last_phoned_date call_attempts assigned_to]
   end
 
   def self.categories_for_triage
