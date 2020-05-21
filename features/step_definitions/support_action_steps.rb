@@ -1,18 +1,18 @@
 Given('I have created a support action {string}') do |support_action|
   step 'a unique resident'
-  step "I add support actions \"#{support_action}\""
-  step 'I submit the add support actions form'
+  step "I add needs \"#{support_action}\""
+  step 'I submit the add needs form'
 end
 
-When('I add support actions {string}') do |support_action|
+When('I add needs {string}') do |support_action|
   visit "/contacts/#{@contact.id}"
-  click_link 'Add support actions +'
+  click_link 'Add needs +'
   choose_yes_on_support_action(page, support_action)
 end
 
-When('I add support actions') do
+When('I add needs') do
   visit "/contacts/#{@contact.id}"
-  click_link 'Add support actions +'
+  click_link 'Add needs +'
 end
 
 Then('I should not be able to add {string}') do |assessment_type|
@@ -29,7 +29,7 @@ And('I add another support action {string}') do |support_action|
   choose_yes_on_support_action(page, support_action)
 end
 
-And('I submit the add support actions form') do
+And('I submit the add needs form') do
   click_button('Save changes')
   @need = Need.order(:created_at).last
 end

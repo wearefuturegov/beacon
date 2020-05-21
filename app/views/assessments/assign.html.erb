@@ -9,7 +9,7 @@
     </header>
     
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
-      <%= link_to "Assign #{@assessment.category.humanize} Support Actions", edit_assessment_path(@assessment.id), class: "panel__header-with-arrow" %>
+      <%= link_to "Assign #{@assessment.category.humanize} Needs", edit_assessment_path(@assessment.id), class: "panel__header-with-arrow" %>
       <div class="panel__body">
         <% if @assignment_form.errors.any? %>
           <div class="error" id="error_explanation">

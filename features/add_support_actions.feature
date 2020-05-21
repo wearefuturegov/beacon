@@ -44,7 +44,7 @@ Feature: Add support actions
     Then I should not be able to add "<assessment types>"
     Examples:
       | assessment types              |
-      | Phone triage                  |
+      | Triage                  |
       | Check in                      |
       
   Scenario: Add multiple support actions
