@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     # collection do
     #   get 'call-list'
     # end
+    get 'assessments/:id/start', to: 'assessments#start', as: 'start_assessment'
     get 'triage', to: 'triage#edit', as: 'edit_triage'
     put 'triage', to: 'triage#update', as: 'triage'
   end

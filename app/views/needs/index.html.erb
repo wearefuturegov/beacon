@@ -99,13 +99,13 @@
             <%= n.call_attempts %>
           </td>
           <td>
-            <% if n.category == 'Phone triage' and policy(Need).start_assessment? %>
-              <button class="button button--blue button-grid">Start Triage</button>
-            <% elsif n.category == 'Check in' and policy(Need).start_assessment? %>
-              <button class="button button--blue button-grid">Start Check in</button>
+          <% if n.assessment? %>
+            <% if policy(n).start_assessment? %>
+            <%= link_to "Start #{n.category}", contact_start_assessment_path(contact_id: n.contact_id, id: n), class: "button button--blue button-link", id:"edit-assessment-btn" %>
             <% else %>
-              —
+              <button class="button button--disabled button-link" title="You need to assign this to yourself">Start <%= n.category %></button>
             <% end %>
+          <% end %>
           </td>
         </tr>
       <% end %>
