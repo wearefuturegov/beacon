@@ -1,6 +1,6 @@
 class AssessmentsController < ApplicationController
   before_action :set_contact, only: %i[new create]
-  before_action :set_assessment, only: %i[fail update_failure edit update assign update_assignment complete]
+  before_action :set_assessment, only: %i[fail update_failure edit update assign update_assignment complete start]
   include AssigningConcern
   before_action :set_globals, only: :edit
 
@@ -51,6 +51,8 @@ class AssessmentsController < ApplicationController
     end
   end
 
+  def start
+  end
   def fail
     @failure_form = AssessmentFailureForm.new
   end

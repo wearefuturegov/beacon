@@ -29,7 +29,7 @@
           <% end %>
           <% if @need.assessment? %>
             <% if policy(@need).start_assessment? %>
-              <%= link_to "Start #{@need.category}", edit_contact_assessment_path(contact_id: @need.contact_id, id: @need), class: "button button--blue button-link", id:"edit-assessment-btn" %>
+              <%= link_to "Start #{@need.category}", contact_start_assessment_path(contact_id: @need.contact_id, id: @need), class: "button button--blue button-link", id:"edit-assessment-btn" %>
             <% else %>
               <button class="button button--disabled" type="button" title="You need to assign this to yourself" >Start <%= @need.category %></button>
             <% end %>
@@ -51,18 +51,7 @@
             <%= render "shared/need-fields" %>
           </div>
         </div>
-        <div class="make-call-container invisible">
-          <div>
-            <strong>Description </strong><%= time_ago_in_words(@need.created_at) %> ago created by <%= @need.created_by_name %>
-          </div>
-          <br />
-          <div><%= @need.name %></div>
-          <h4>Were you able to get through this person?</h4>
-          <div>
-            <%= link_to 'No, describe why', fail_assessment_path(@need), class: "button button--dark" %>
-            <%= link_to 'Yes, continue to triage', edit_assessment_path(@need), class: "button button--blue" %>
-          </div>
-        </div>
+
       </div>
       <div class="notes-container">
         <%= render "notes" %>
