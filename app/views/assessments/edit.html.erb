@@ -80,7 +80,7 @@
       </div>
 
       <div class="panel-buttons-right assessment-buttons-right">
-        <%= link_to 'Failed call', need_path(@need), class: "button--larger button--dark", id: "assessment-cancel" %>
+        <%= form.button "Failed call", class: "button--larger button--dark", id: "assessment-cancel", name: "status", value: "fail" %>
         <%= form.button "Continue and assign", class: "button--larger button--blue", id: "assessment-submit-btn" %>
       </div>
 

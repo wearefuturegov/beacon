@@ -19,11 +19,11 @@ class AssessmentCompletionForm
   validates_presence_of :mdt_review_note, if: proc { |form| form.needs_assigned_to_mdt.any? }
 
   def save(current_user)
-    assessment = Need.find(self.id)
+    assessment = Need.find(id)
     contact = Contact.find(assessment.contact_id)
-    if next_check_in_date && !self.existing_check_in
-      contact.needs.build(category: 'check in', start_on: self.next_check_in_date, status: Need.statuses[:to_do], name: 'Check In')
-          .save
+    if next_check_in_date && !existing_check_in
+      contact.needs.build(category: 'check in', start_on: next_check_in_date, status: Need.statuses[:to_do], name: 'Check In')
+             .save
     end
     if needs_assigned_to_mdt.any?
       if existing_mdt_review
@@ -43,6 +43,6 @@ class AssessmentCompletionForm
 
   def needs_assigned_to_mdt
     mdt_role_id = Role.where(tag: 'mdt').first.id
-    Need.where(assessment_id: self.id, role_id: mdt_role_id)
+    Need.where(assessment_id: id, role_id: mdt_role_id)
   end
 end
