@@ -53,8 +53,8 @@ class AssessmentsController < ApplicationController
     end
   end
 
-  def start
-  end
+  def start; end
+
   def fail
     @failure_form = AssessmentFailureForm.new
   end
@@ -183,7 +183,6 @@ class AssessmentsController < ApplicationController
   def assessment_failure_params
     params.require(:assessment_failure_form).permit(:failure_reason, :left_message, :note_description)
   end
-
 
   def assessment_assignment_params
     params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to])

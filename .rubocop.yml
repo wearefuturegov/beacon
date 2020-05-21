@@ -8,3 +8,6 @@ AllCops:
 
 Metrics/ClassLength:
   Max: 210
+
+Metrics/AbcSize:
+  Max: 50
