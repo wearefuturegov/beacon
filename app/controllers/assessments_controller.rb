@@ -1,6 +1,6 @@
 class AssessmentsController < ApplicationController
   before_action :set_contact, only: %i[new create]
-  before_action :set_assessment, only: %i[fail update_failure edit update assign update_assignment complete]
+  before_action :set_assessment, only: %i[fail update_failure edit update assign update_assignment complete update_completion]
   include AssigningConcern
   before_action :set_globals, only: :edit
 
@@ -26,9 +26,6 @@ class AssessmentsController < ApplicationController
     flash[:alert] = STALE_ERROR_MESSAGE
     render :edit
   end
-
-  # Complete
-  def complete; end
 
   def new
     @assigned_to_options = construct_assigned_to_options
@@ -74,6 +71,26 @@ class AssessmentsController < ApplicationController
     @assignment_form.save
 
     redirect_to complete_assessment_path(params[:id])
+  end
+
+  # Complete
+  def complete
+    @completion_form = AssessmentCompletionForm.new(id: params[:id])
+    @completion_form.existing_check_in = Need.where(contact_id: @contact.id, category: 'Check in', status: Need.statuses[:to_do]).first
+    @completion_form.existing_mdt_review = Need.where(contact_id: @contact.id, category: 'mdt review', status: Need.statuses[:to_do]).first
+    @completion_form.mdt_review_is_urgent = @completion_form.existing_mdt_review&.is_urgent ? '1' : '0'
+  end
+
+  def update_completion
+    @completion_form = AssessmentCompletionForm.new(assessment_completion_params.merge(id: params[:id]))
+    @completion_form.existing_check_in = Need.where(contact_id: @contact.id, category: 'Check in', status: Need.statuses[:to_do]).first
+    @completion_form.existing_mdt_review = Need.where(contact_id: @contact.id, category: 'mdt review', status: Need.statuses[:to_do]).first
+
+    if @completion_form.valid? && @completion_form.save(current_user)
+      redirect_to contact_path(@contact.id), notice: 'Assessment completed.'
+    else
+      render :complete
+    end
   end
 
   private
@@ -163,6 +180,10 @@ class AssessmentsController < ApplicationController
 
   def assessment_assignment_params
     params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to])
+  end
+
+  def assessment_completion_params
+    params.require(:assessment_completion_form).permit(:completion_method, :completion_note, :next_check_in_date, :mdt_review_is_urgent, :mdt_review_note)
   end
 
   def notes_params

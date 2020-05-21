@@ -23,6 +23,7 @@
         <% end %>
         <%= form_with model: @assignment_form, url: update_assignment_assessment_path, :method => :put,
                       :local => true, :html => {:name => 'assessment_assignment_form', :autocomplete => 'off'} do |form| %>
+          <%= form.hidden_field :id, :value => @assignment_form.id %>
           <div class="field">
             <table class="needs-table">
               <colgroup>

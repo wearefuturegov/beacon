@@ -13,6 +13,7 @@ class AssessmentAssignmentForm
   end
 
   def save
+    return true if needs.nil?
     needs.each do |need_params|
       need = Need.find(need_params[0])
       need.assigned_to = need_params[1]['assigned_to']
