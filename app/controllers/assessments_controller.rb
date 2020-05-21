@@ -78,14 +78,14 @@ class AssessmentsController < ApplicationController
   # Complete
   def complete
     @completion_form = AssessmentCompletionForm.new(id: params[:id])
-    @completion_form.existing_check_in = Need.where(contact_id: @contact.id, category: 'Check in', status: Need.statuses[:to_do]).first
+    @completion_form.existing_check_in = Need.where(contact_id: @contact.id, category: 'Check in', status: Need.statuses[:to_do]).where.not(id: @assessment.id).first
     @completion_form.existing_mdt_review = Need.where(contact_id: @contact.id, category: 'mdt review', status: Need.statuses[:to_do]).first
     @completion_form.mdt_review_is_urgent = @completion_form.existing_mdt_review&.is_urgent ? '1' : '0'
   end
 
   def update_completion
     @completion_form = AssessmentCompletionForm.new(assessment_completion_params.merge(id: params[:id]))
-    @completion_form.existing_check_in = Need.where(contact_id: @contact.id, category: 'Check in', status: Need.statuses[:to_do]).first
+    @completion_form.existing_check_in = Need.where(contact_id: @contact.id, category: 'Check in', status: Need.statuses[:to_do]).where.not(id: @assessment.id).first
     @completion_form.existing_mdt_review = Need.where(contact_id: @contact.id, category: 'mdt review', status: Need.statuses[:to_do]).first
 
     if @completion_form.valid? && @completion_form.save(current_user)
