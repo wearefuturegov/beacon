@@ -55,7 +55,7 @@
                     <%= need_form.text_area :description, value: need[:description] %>
                   </div>
 
-                  <div class="checkbox <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
+                  <div class="checkbox-black <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
                     <%= need_form.check_box :is_urgent, class: 'checkbox__input', checked: need[:is_urgent] == '1' %>
                     <%= need_form.label :is_urgent, 'Urgent?', class: 'checkbox__label' %>
                   </div>

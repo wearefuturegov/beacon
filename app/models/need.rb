@@ -212,6 +212,10 @@ class Need < ApplicationRecord
     categories.reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
   end
 
+  def is_assessment?
+    self.category.downcase.in? ASSESSMENT_CATEGORIES
+  end
+
   def assigned
     if user
       user.name_or_email

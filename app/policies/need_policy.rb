@@ -72,4 +72,8 @@ class NeedPolicy < ApplicationPolicy
   def dashboard_change_multiple?
     return true if permissive_roles?
   end
+
+  def assigned_to_me?
+    Need.where(id: @record.id, user_id: @user.id).exists?
+  end
 end
