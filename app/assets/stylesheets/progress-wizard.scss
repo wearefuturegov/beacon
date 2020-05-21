@@ -1,4 +1,5 @@
-$progress-wizard-border-color: #666;
+$progress-wizard-border-width: 3px;
+
 $progress-wizard-current-step-color: #2D69E7;
 $progress-wizard-inactive-step-color: #B1AFAE;
 $progress-wizard-completed-step-color: #285B9F;
@@ -25,34 +26,70 @@ $progress-wizard-text-color: #F5F5F5;
     }
     &:first-child {
       box-sizing: content-box;
-      &::before,
-      &::after {
-        left: 5px;
-      }
     }
     &.current-step {
       &:before, &:after {
         background-color: $progress-wizard-current-step-color;
+        border-left: $progress-wizard-border-width solid $progress-wizard-current-step-color;
+        border-right: $progress-wizard-border-width solid white;
+      }
+      &:before {
+        border-top: $progress-wizard-border-width solid $progress-wizard-current-step-color;
+      }
+      &:after {
+        border-bottom: $progress-wizard-border-width solid $progress-wizard-current-step-color;
       }
       &.inactive {
         &:before, &:after {
           background-color: $progress-wizard-inactive-step-color;
+          border-left: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+          border-right: $progress-wizard-border-width solid white;
+        }
+        &:before {
+          border-top: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+        }
+        &:after {
+          border-bottom: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
         }
       }
     }
     &.completed-step {
       &:before, &:after {
         background-color: $progress-wizard-completed-step-color;
+        border-left: $progress-wizard-border-width solid $progress-wizard-completed-step-color;
+        border-right: $progress-wizard-border-width solid white;
+      }
+      &:before {
+        border-top: $progress-wizard-border-width solid $progress-wizard-completed-step-color;
+      }
+      &:after {
+        border-bottom: $progress-wizard-border-width solid $progress-wizard-completed-step-color;
       }
     }
     &.failed-step {
       &:before, &:after {
         background-color: $progress-wizard-failed-step-color;
+        border-left: $progress-wizard-border-width solid $progress-wizard-failed-step-color;
+        border-right: $progress-wizard-border-width solid white;
+      }
+      &:before {
+        border-top: $progress-wizard-border-width solid $progress-wizard-failed-step-color;
+      }
+      &:after {
+        border-bottom: $progress-wizard-border-width solid $progress-wizard-failed-step-color;
       }
     }
     &.failed-step.inactive {
       &:before, &:after {
         background-color: $progress-wizard-inactive-step-color;
+        border-left: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+        border-right: $progress-wizard-border-width solid white;
+      }
+      &:before {
+        border-top: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+      }
+      &:after {
+        border-bottom: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
       }
     }
     &:before, &:after {
@@ -62,19 +99,19 @@ $progress-wizard-text-color: #F5F5F5;
       height: 50%;
       width: 100%;
       background: $progress-wizard-inactive-step-color;
-      border-left: 2px solid $progress-wizard-border-color;
-      border-right: 2px solid $progress-wizard-border-color;
+      border-left: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+      border-right: $progress-wizard-border-width solid white;
       z-index: -2;
     }
     &:before {
       top: -2px;
       transform: skew(30deg);
-      border-top: 2px solid $progress-wizard-border-color;
+      border-top: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
     }
     &:after {
       bottom: -2px;
       transform: skew(-30deg);
-      border-bottom: 3px solid $progress-wizard-border-color;
+      border-bottom: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
     }
   }
 }
