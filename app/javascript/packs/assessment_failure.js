@@ -1,20 +1,3 @@
-$(document).ready(() => {
-    const progressWizard = new ProgressWizard();
-    if (localStorage.getItem("failedCall")) {
-        progressWizard.markCallComplete();
-        progressWizard.markTriageFailed();
-        progressWizard.markAssignFailedInactive();
-        progressWizard.markCompleteCurrentInactive();
-
-        localStorage.removeItem("failedCall");
-    } else {
-        progressWizard.markCallFailed();
-        progressWizard.markTriageFailedInactive();
-        progressWizard.markAssignFailedInactive();
-        progressWizard.markCompleteCurrentInactive();
-    }
-
-});
 
 const descriptionPromptLabel = document.querySelector('label[for=assessment_failure_form_note_description]');
 const leftMessageQuestionSection = document.getElementById('left_message_question_section');

@@ -10,7 +10,7 @@
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
       <%= link_to "Start #{@assessment.category.humanize}", need_path(@assessment.id), class: "panel__header-with-arrow" %>
       <div class="panel__body">
-          <%= render :partial => 'shared/progress-wizard' %>
+          <%= render :partial => 'shared/progress-wizard', locals: {state: [1, 0, 0, 0]} %>
           <div class="make-call-form-container">
             <strong>Description </strong><%= time_ago_in_words(@assessment.created_at) %> ago created by <%= @assessment.created_by_name %>
           </div>
@@ -25,5 +25,3 @@
     </div>
   </aside>
 </div>
-
-<%= javascript_pack_tag 'assessment_start' %>
