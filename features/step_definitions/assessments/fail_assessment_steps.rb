@@ -1,6 +1,6 @@
 Given('an assessment is assigned to me') do
   @contact = Contact.create!(first_name: 'Test')
-  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'phone triage', status: 'to_do', user: @user, start_on: DateTime.now)
+  @need = Need.create!(contact: @contact, name: 'Phone Triage', category: 'phone triage', status: 'to_do', user: @user, start_on: DateTime.now - 1.days)
 end
 
 Given('I am on the failed assessment page') do
