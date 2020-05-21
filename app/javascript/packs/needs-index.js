@@ -2,9 +2,11 @@ $(() => {
     $(".table.data-table tr").click((e) => {
         window.location = $(e.currentTarget).data("navigate-to");
     });
+    $(".button-link").click((e) => {
+        e.stopPropagation();
+        e.preventDefault;
+    });
 });
-
-
 
 $("tr .button-grid").click((e) => {
     e.stopPropagation();

@@ -9,7 +9,7 @@
       <h2 class="panel-header__title">Assessments</h2>
     </header>
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
-      <%= link_to "#{@type.humanize} an assessment", contact_path(@contact.id), class: "panel__header" %>
+      <%= link_to "#{@type.humanize} an assessment", contact_path(@contact.id), class: "panel__header-with-arrow" %>
       <div class="panel__body">
         <%= render "shared/create-need-errors" %>
 
