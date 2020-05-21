@@ -2,7 +2,7 @@
     <%= f.hidden_field :lock_version, :value => @need.lock_version %>
 
     <div class="need-actions__field" id="assigned-actions__field">
-    <%= f.label :assigned_to, 'Assigned to', class: 'need-actions__label' %>
+    <%= f.label :assigned_to, 'Assigned to', class: 'need-actions__label dropdown-label' %>
     <%= f.select :assigned_to,
       options_for_select([['Assigned to me','assigned-to-me'], ['Unassigned', '']], (@need.assigned_to.nil?) ? '' : nil) +
         grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: nil),
@@ -10,7 +10,7 @@
     </div>
 
     <div class="need-actions__field" id="priority-actions__field">
-    <%= f.label :is_urgent, 'Priority', class: 'need-actions__label' %>
+    <%= f.label :is_urgent, 'Priority', class: 'need-actions__label dropdown-label' %>
     <%= f.select :is_urgent, {
         "Urgent" => true,
         "Normal" => false
@@ -18,7 +18,7 @@
     </div>
 
     <div class="need-actions__field" id="status-actions__field">
-    <%= f.label :status, 'Status', class: 'need-actions__label' %>
+    <%= f.label :status, 'Status', class: 'need-actions__label dropdown-label' %>
     <%= f.select :status, need_statuses, {}, { class: "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity" } %>
     </div>
 <% end %>
