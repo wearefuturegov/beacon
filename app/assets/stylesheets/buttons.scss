@@ -121,3 +121,16 @@ a {
     }
   }
 }
+
+
+.tablink{
+    font-size: 1rem;
+    @extend .button, .button--dark;
+    border: none;
+    padding: 10px 25px 10px 25px;
+    margin-bottom: 0px;
+}
+
+.tablink__active{
+    background: white;
+}

@@ -40,5 +40,3 @@ document.getElementById('btnAssessmentDropdown').addEventListener('click', (e) =
         }
     }
 });
-
-
