@@ -195,6 +195,22 @@ textarea{
 }
 
 
+.checkbox-black{
+  @extend .checkbox;
+  input{
+    &:checked + label{
+      &:before{
+          background-color: $white;
+          border-color: black;
+      }
+      &:after{
+          background-image: url(asset_path('black-tick.svg'));
+        }
+    }
+  }
+}
+
+
 .radios, .checkboxes{
   border: none;
   margin: 0;
@@ -226,6 +242,10 @@ textarea{
       margin-bottom: 0px;
     }
   }
+}
+.assessment-buttons-right{
+  margin-top: 20px;
+  margin-bottom: 60px;
 }
 
 .panel-buttons-right{
