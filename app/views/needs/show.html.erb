@@ -51,20 +51,6 @@
             <%= render "shared/need-fields" %>
           </div>
         </div>
-        <div class="make-call-container invisible">
-          <%= render :partial => 'shared/progress-wizard' %>
-          <div class="make-call-form-container">
-            <strong>Description </strong><%= time_ago_in_words(@need.created_at) %> ago created by <%= @need.created_by_name %>
-          </div>
-          <br />
-          <div><%= @need.name %></div>
-          <h4>Were you able to get through this person?</h4>
-          <div>
-            <%= link_to 'No, describe why', fail_assessment_path(@need), class: "button button--dark" %>
-            <%= link_to 'Yes, continue to triage', contact_triage_path(@contact), class: "button button--blue" %>
-          </div>
-        </div>
-
       </div>
       <div class="notes-container">
         <%= render "notes" %>

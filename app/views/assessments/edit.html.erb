@@ -29,6 +29,9 @@
       
       <div id="assessment-container" class="panel panel--unpadded ">
         <%= link_to "Triage", contact_start_assessment_path(contact_id: @contact.id, id: @assessment.id), class: "panel__header-with-arrow" %>
+        <div class="assessment-triage-progress-container">
+          <%= render :partial => 'shared/progress-wizard' %>
+        </div>
       <div>
         <section class="assessment-grid">
           <% @contact_needs.needs_list.each do |need_entry| %>
@@ -85,4 +88,6 @@
     </aside>
     
   </div>
-  <%= javascript_pack_tag 'needs-accordion.js', 'data-turbolinks-track': 'reload' %>
+
+<%= javascript_pack_tag 'needs-accordion.js', 'data-turbolinks-track': 'reload' %>
+<%= javascript_pack_tag 'assessment_edit' %>

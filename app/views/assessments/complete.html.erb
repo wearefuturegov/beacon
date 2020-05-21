@@ -11,6 +11,9 @@
                   :local => true, :html => {:name => 'assessment_completion_form', :autocomplete => 'off'} do |form| %>
       <div class="panel panel--unpadded panel--stroked need--phone-triage">
         <%= link_to "Complete #{@assessment.category.humanize}", assign_assessment_path(@assessment.id), class: "panel__header" %>
+        <div class="assessment-complete-progress-container">
+          <%= render :partial => 'shared/progress-wizard' %>
+        </div>
         <div class="panel__body">
           <% if @completion_form.errors.any? %>
             <div class="error" id="error_explanation">

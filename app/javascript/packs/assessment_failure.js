@@ -1,9 +1,9 @@
 $(document).ready(() => {
     const progressWizard = new ProgressWizard();
-    progressWizard.markCallComplete();
-    progressWizard.markTriageFailed();
-    progressWizard.markAssignFailed();
-    progressWizard.markCompleteCurrent();
+    progressWizard.markCallFailed();
+    progressWizard.markTriageFailedInactive();
+    progressWizard.markAssignFailedInactive();
+    progressWizard.markCompleteCurrentInactive();
 });
 
 const descriptionPromptLabel = document.querySelector('label[for=assessment_failure_form_note_description]');

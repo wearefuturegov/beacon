@@ -2,6 +2,7 @@ $progress-wizard-border-color: #666;
 $progress-wizard-current-step-color: #2D69E7;
 $progress-wizard-inactive-step-color: #B1AFAE;
 $progress-wizard-completed-step-color: #285B9F;
+$progress-wizard-failed-step-color: #ED837A;
 $progress-wizard-text-color: #F5F5F5;
 
 .progress-wizard {
@@ -33,6 +34,11 @@ $progress-wizard-text-color: #F5F5F5;
       &:before, &:after {
         background-color: $progress-wizard-current-step-color;
       }
+      &.inactive {
+        &:before, &:after {
+          background-color: $progress-wizard-inactive-step-color;
+        }
+      }
     }
     &.completed-step {
       &:before, &:after {
@@ -40,6 +46,11 @@ $progress-wizard-text-color: #F5F5F5;
       }
     }
     &.failed-step {
+      &:before, &:after {
+        background-color: $progress-wizard-failed-step-color;
+      }
+    }
+    &.failed-step.inactive {
       &:before, &:after {
         background-color: $progress-wizard-inactive-step-color;
       }

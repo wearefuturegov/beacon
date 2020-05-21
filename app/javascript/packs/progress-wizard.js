@@ -11,6 +11,10 @@ class ProgressWizard {
         this._markStepComplete("make-call");
     }
 
+    markCallFailed() {
+        this._markStepFailed("make-call");
+    }
+
     markTriageCurrent() {
         this._markStepCurrent("triage");
     }
@@ -21,6 +25,10 @@ class ProgressWizard {
 
     markTriageFailed() {
         this._markStepFailed("triage");
+    }
+
+    markTriageFailedInactive() {
+        this._markStepFailedInactive("triage");
     }
 
     markAssignCurrent() {
@@ -35,8 +43,16 @@ class ProgressWizard {
         this._markStepFailed("assign");
     }
 
+    markAssignFailedInactive() {
+        this._markStepFailedInactive("assign");
+    }
+
     markCompleteCurrent() {
         this._markStepCurrent("complete")
+    }
+
+    markCompleteCurrentInactive() {
+        this._markStepCurrentInactive("complete");
     }
 
     _findStep(stepName) {
@@ -48,6 +64,11 @@ class ProgressWizard {
         currentStep.addClass("current-step");
     }
 
+    _markStepCurrentInactive(stepName) {
+        const currentStep = this._findStep(stepName);
+        currentStep.addClass("current-step inactive");
+    }
+
     _markStepComplete(stepName) {
         const currentStep = this._findStep(stepName);
         currentStep.addClass("completed-step");
@@ -57,6 +78,13 @@ class ProgressWizard {
     _markStepFailed(stepName) {
         const currentStep = this._findStep(stepName);
         currentStep.find("span.indicator.failed").removeClass("invisible");
+        currentStep.addClass("failed-step");
+    }
+
+    _markStepFailedInactive(stepName) {
+        const currentStep = this._findStep(stepName);
+        currentStep.find("span.indicator.failed").removeClass("invisible");
+        currentStep.addClass("inactive");
     }
 }
 
