@@ -74,6 +74,7 @@ class NeedPolicy < ApplicationPolicy
   end
 
   def start_assessment?
-    @user.in_role_name?('agent')
+    Need.where(id: @record.id, user_id: @user.id).exists?
   end
+
 end

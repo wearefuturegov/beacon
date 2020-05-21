@@ -19,18 +19,20 @@
       <% end %>
     </header>
 
-
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
       <div class="panel__header">
+        <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
         <%= link_to @need.category, @contact, class: "panel__header-link", id: "need-#{@need.id}-title" %>
         <div class="buttons-container">
           <% if policy(@need).edit? %>
             <%= link_to "Edit", edit_need_path(@need), class: "button button--blue", id:"edit-need-btn", remote: true %>
           <% end %>
-          <% if @need.category == 'Check in' and policy(Need).start_assessment? %>
-            <button class="button button--blue button-link" type="button" >Start Check in</button>
-          <% elsif @need.category == 'Phone triage' and policy(Need).start_assessment? %>
-            <button class="button button--blue button-link" type="button">Start Triage</button>
+          <% if @need.assessment? %>
+            <% if policy(@need).start_assessment? %>
+              <%= link_to "Start #{@need.category}", edit_contact_assessment_path(contact_id: @need.contact_id, id: @need), class: "button button--blue button-link", id:"edit-assessment-btn" %>
+            <% else %>
+              <button class="button button--disabled" type="button" title="You need to assign this to yourself" >Start <%= @need.category %></button>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -71,4 +73,3 @@
 </div>
 
 <%= javascript_pack_tag 'require-datepicker' %>
-<%= javascript_pack_tag 'needs-show' %>

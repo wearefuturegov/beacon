@@ -82,6 +82,21 @@
         }
     }
 
+    &.button--disabled{
+        border: 1px solid grey;
+        @extend .button--blue;
+
+        background: grey;
+        &:hover{
+            background: darken(grey, 10);
+        }
+        &:active{
+            background: darken(grey, 20);
+        }
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+    }
    
 }
 
