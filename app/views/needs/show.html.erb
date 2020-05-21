@@ -44,7 +44,7 @@
 
 
       <!-- Temporary button sort as you wish-->
-      <% if @need.is_assessment? %>
+      <% if @need.assessment? %>
             <% if policy(@need).assigned_to_me? %>  
               <%= link_to "Start assessment", edit_contact_assessment_path(contact_id: @need.contact_id, id: @need), class: "button button--primary", id:"edit-assessment-btn" %>
             <% else %>
