@@ -5,12 +5,11 @@
           <%= form.button 'Save', { type: 'submit', id: 'contact-service-panel-save', class: 'button button--blue' } %>
         </div>  
 
-        <section class="field-section-small field-section--two-cols" style="width: 50px">
-            <div class="field-small">
-              <img src="<%= image_path('person-icon.png') %>" height="55px">
+        <section class="field-section-small field-section--two-cols lead-service-section">
+            <div class="field-small lead-service-image">
             </div>
           
-            <div class="field-small">
+            <div class="field-small lead-service-dropdown-container">
               <%= form.label :lead_service_id, "Lead service", class: "dropdown-label" %>
               <%= form.select :lead_service_id, grouped_options_for_select(@teams_options, @contact.lead_service_id, prompt: 'Unassigned'), {}, { class: "need-actions__select dropdown lead-service-dropdown" } %>
             </div>         
