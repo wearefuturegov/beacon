@@ -44,7 +44,7 @@ Feature: Add needs
     Then I should not be able to add "<assessment types>"
     Examples:
       | assessment types              |
-      | Triage                  |
+      | Triage                        |
       | Check in                      |
       
   Scenario: Add multiple needs

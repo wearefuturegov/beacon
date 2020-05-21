@@ -16,7 +16,11 @@ When('I add needs') do
 end
 
 Then('I should not be able to add {string}') do |assessment_type|
-  expect(page).not_to have_content(assessment_type)
+  needs = page.all('.triage-grid__title')
+  # sanity check
+  expect(needs.select{|need| need.text.include?('Groceries and cooked meals')}.size).to eq 1
+  # should not contain the assessment_type
+  expect(needs.select{|need| need.text.include?(assessment_type)}.size).to eq 0
 end
 
 And('I set the start date for the {string} support action to {string}') do |support_action, start_date|
