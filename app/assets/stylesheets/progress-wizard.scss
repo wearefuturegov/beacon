@@ -1,0 +1,72 @@
+$progress-wizard-border-color: #666;
+$progress-wizard-current-step-color: #2D69E7;
+$progress-wizard-inactive-step-color: #B1AFAE;
+$progress-wizard-completed-step-color: #285B9F;
+$progress-wizard-text-color: #F5F5F5;
+
+.progress-wizard {
+  list-style-type: none;
+  padding: 0;
+  li {
+    display: inline-block;
+    position: relative;
+    padding: 5px;
+    width: 100px;
+    text-align: center;
+    color: white;
+    z-index: 1;
+    & span {
+      color: $progress-wizard-text-color;
+      font-size: 0.9rem;
+      &.invisible {
+        display: none;
+      }
+    }
+    &:first-child {
+      box-sizing: content-box;
+      &::before,
+      &::after {
+        left: 5px;
+      }
+    }
+    &.current-step {
+      &:before, &:after {
+        background-color: $progress-wizard-current-step-color;
+      }
+    }
+    &.completed-step {
+      &:before, &:after {
+        background-color: $progress-wizard-completed-step-color;
+      }
+    }
+    &.failed-step {
+      &:before, &:after {
+        background-color: $progress-wizard-inactive-step-color;
+      }
+    }
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      height: 50%;
+      width: 100%;
+      background: $progress-wizard-inactive-step-color;
+      border-left: 2px solid $progress-wizard-border-color;
+      border-right: 2px solid $progress-wizard-border-color;
+      z-index: -2;
+    }
+    &:before {
+      top: -2px;
+      transform: skew(30deg);
+      border-top: 2px solid $progress-wizard-border-color;
+    }
+    &:after {
+      bottom: -2px;
+      transform: skew(-30deg);
+      border-bottom: 2px solid $progress-wizard-border-color;
+    }
+  }
+}
+
+ 
+ 

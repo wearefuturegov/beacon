@@ -6,6 +6,8 @@ $(document).on("turbolinks:load", () => {
         $(".notes-container").addClass("invisible");
         $(".buttons-container").addClass("invisible");
         $(".make-call-container").removeClass("invisible");
+        const progressWizard = new ProgressWizard();
+        progressWizard.markCallCurrent();
     });
     if (localStorage.getItem("startAssessment")) {
         localStorage.removeItem("startAssessment");
