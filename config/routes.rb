@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   post '/needs/restore_note' => 'needs#restore_note'
   get '/deleted_needs' => 'needs#deleted_needs', as: 'deleted_needs'
   get '/deleted_notes' => 'needs#deleted_notes', as: 'deleted_notes'
+  get '/deleted_items' => 'needs#deleted_items', as: 'deleted_items'
 end
