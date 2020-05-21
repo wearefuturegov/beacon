@@ -61,6 +61,8 @@ class Need < ApplicationRecord
   scope :assessments, -> { where(category: ASSESSMENT_CATEGORIES) }
   scope :not_assessments, -> { where.not(category: ASSESSMENT_CATEGORIES) }
 
+  scope :not_pending, -> { where(assessment_id: nil) }
+
   scope :filter_by_user_id, lambda { |user_id|
     if user_id == 'Unassigned'
       where(user_id: nil)
@@ -187,8 +189,18 @@ class Need < ApplicationRecord
           group by n.id
         ) as notes_aggr on notes_aggr.id = needs.id"
 
-    Need.joins(:contact, sql).select('needs.*', 'last_phoned_date',
-                                     'call_attempts')
+    Need.joins(:contact, sql)
+        .where(assessment_id: nil)
+        .select('needs.*', 'last_phoned_date',
+                'call_attempts')
+  end
+
+  def created_by_name
+    user_id = versions.where('event = ?', 'create').first.whodunnit
+    return 'No user' if user_id.nil?
+
+    user = User.find(user_id)
+    user.name_or_email
   end
 
   def self.default_sort(results)
@@ -201,6 +213,15 @@ class Need < ApplicationRecord
 
   def self.categories_for_triage
     categories.except('Other').reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
+  end
+
+  # superseed the method aboves once triage gets removed
+  def self.categories_for_assessment
+    categories.reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
+  end
+
+  def assessment?
+    category.downcase.in? ASSESSMENT_CATEGORIES
   end
 
   def assigned

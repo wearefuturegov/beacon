@@ -11,7 +11,7 @@ Then('I see the last contacted date is today') do
 end
 
 Then('I see one call attempt') do
-  call_attempt_column = @resident_row.find('td:last-child')
+  call_attempt_column = @resident_row.find('td.column-call-attempts')
   expect(call_attempt_column).to have_content(1)
 end
 
