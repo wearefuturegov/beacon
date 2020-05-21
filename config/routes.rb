@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     put 'update_assignment', on: :member
 
     get 'complete', on: :member
+    put 'update_completion', on: :member
   end
 
   resources :needs, only: [:index, :show, :edit, :update, :destroy] do

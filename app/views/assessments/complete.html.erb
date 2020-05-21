@@ -7,11 +7,103 @@
     <header class="panel-header">
     <h2 class="panel-header__title">Start > Triage > Assign > <b>Complete</b> </h2>
     </header>
-    <div class="panel panel--unpadded panel--stroked need--phone-triage">
-      <%= link_to "Complete #{@assessment.category.humanize}", assign_assessment_path(@assessment.id), class: "panel__header-with-arrow" %>
-      <div class="panel__body">
+    <%= form_with model: @completion_form, url: update_completion_assessment_path, :method => :put,
+                  :local => true, :html => {:name => 'assessment_completion_form', :autocomplete => 'off'} do |form| %>
+      <div class="panel panel--unpadded panel--stroked need--phone-triage">
+        <%= link_to "Complete #{@assessment.category.humanize}", assign_assessment_path(@assessment.id), class: "panel__header" %>
+        <div class="panel__body">
+          <% if @completion_form.errors.any? %>
+            <div class="error" id="error_explanation">
+              <h2><%= pluralize(@completion_form.errors.count, "error") %> prohibited from being saved:</h2>
+
+              <ul>
+                <% @completion_form.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="field">
+            <h3>How did you complete the <%= @assessment.category.humanize %>?</h3>
+            <% assessment_completion_methods.each do |completion_method, description| %>
+              <div class="radio">
+                <%= form.radio_button :completion_method, completion_method %>
+                <%= form.label "completion_method_#{completion_method.downcase}", description, :class => 'radio__label' %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="field">
+            <%= form.text_area :completion_note, :placeholder => 'Add a note' %>
+          </div>
+
+          <% if @completion_form.existing_check_in %>
+            <div class="field">
+              <h3>Next check in call</h3>
+              <% if @completion_form.existing_check_in.start_on %>
+                <p>Scheduled for <%= @completion_form.existing_check_in.start_on&.strftime("%-d %B %Y") %></p>
+                <p><%= link_to 'View check in call', need_path(@completion_form.existing_check_in.id), {:target => '_blank'} %></p>
+              <% else %>
+                <p><%= link_to 'View check in call', need_path(@completion_form.existing_check_in.id), {:target => '_blank'} %></p>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="field">
+              <h3>Next check in call</h3>
+              <p>No further reviews currently scheduled</p>
+            </div>
+            <div class="field">
+              <%= form.label :next_check_in_date, "When should the next check-in call be scheduled for?", class: "field__label" %>
+              <%= form.text_field :next_check_in_date, {autocomplete: 'off', style: 'max-width: 300px'} %>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
+
+      <% if @completion_form.needs_assigned_to_mdt.any? %>
+        <div class="panel panel--unpadded panel--stroked need--phone-triage">
+          <div class="panel__body">
+            <h3>MDT Review</h3>
+
+            <% if @completion_form.existing_mdt_review %>
+              <h4>Update existing MDT review</h4>
+              <div class="field">
+                <div class="checkbox">
+                  <%= form.check_box :mdt_review_is_urgent, class: 'checkbox__input', checked: @completion_form.mdt_review_is_urgent == '1', :disabled => @completion_form.existing_mdt_review&.is_urgent %>
+                  <%= form.label :mdt_review_is_urgent, 'Urgent?', class: 'checkbox__label' %>
+                </div>
+              </div>
+              <div class="field">
+                <%= form.text_area :mdt_review_note, :placeholder => 'Add a note for the MDT review' %>
+              </div>
+
+            <% else %>
+              <h4>Create new MDT review</h4>
+              <div class="field">
+                <div class="checkbox">
+                  <%= form.check_box :mdt_review_is_urgent, class: 'checkbox__input', checked: @completion_form.mdt_review_is_urgent == '1' %>
+                  <%= form.label :mdt_review_is_urgent, 'Urgent?', class: 'checkbox__label' %>
+                </div>
+              </div>
+              <div class="field">
+                <%= form.text_area :mdt_review_note, :placeholder => 'Add a note for the MDT review' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <div class="panel panel--unpadded panel--stroked need--phone-triage">
+          <div class="panel__body">
+            <h3>MDT Review</h3>
+            <p>You have not assigned any needs to the MDT team</p>
+            <p>If this contact requires an MDT review, return to
+              the <%= link_to 'Assignment', assign_assessment_path(@assessment) %> step to assign needs for MDT
+              review</p>
+          </div>
+        </div>
+      <% end %>
+      <input type="submit" value="Complete assessment" class="button button--primary" style="float: right"/>
+    <% end %>
   </aside>
 </div>
-<%= javascript_pack_tag 'assessment_assignment' %>
+<%= javascript_pack_tag 'assessment_completion' %>
