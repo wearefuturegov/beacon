@@ -5,7 +5,7 @@
   <%= render 'shared/side-contact-profile' %>
   <aside class="with-left-sidebar__right">
     <header class="panel-header">
-    <h2 class="panel-header__title">Start > Triage > Assign > <b>Complete</b> </h2>
+      <h2 class="panel-header__title hidden">Start > Triage > Assign > <b>Complete</b> </h2>
     </header>
     <%= form_with model: @completion_form, url: update_completion_assessment_path, :method => :put,
                   :local => true, :html => {:name => 'assessment_completion_form', :autocomplete => 'off'} do |form| %>
