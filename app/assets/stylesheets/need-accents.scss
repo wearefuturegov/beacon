@@ -1,5 +1,7 @@
 @import "variables";
-
+.need--hide {
+  display: none !important;
+}
 .need--phone-triage {
   border-left-color: $text;
 }
