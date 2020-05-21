@@ -4,10 +4,13 @@
 class NeedsCreator
   def self.create_needs(contact, needs_form, other_need)
     needs_form.each do |_, value|
-      next unless value['active'] == 'true'
-
-      need_hash = create_need(contact, value)
-      contact.needs.build(need_hash).save
+      if inactive?(value)
+        existing = Need.where(id: value['id'])
+        existing.first.really_destroy! if existing.exists?
+      else
+        need_hash = create_need(contact, value)
+        Need.find_or_initialize_by(id: value[:id]).update(need_hash)
+      end
     end
 
     if other_need
@@ -17,14 +20,21 @@ class NeedsCreator
     end
   end
 
+  def self.active?(value)
+    value['active'] == 'true'
+  end
+
+  def self.inactive?(value)
+    !active?(value)
+  end
+
   def self.create_need(contact, need_values)
     need_hash = {}
+    need_hash[:id] = need_values['id']
+    need_hash[:assessment_id] = need_values['assessment_id']
+    need_hash[:contact_id] = contact.id
     need_hash[:category] = need_values['name'].humanize.downcase
-    need_hash[:name] = if need_values['description'].blank?
-                         "#{contact.name} needs #{need_hash[:category]}"
-                       else
-                         need_values['description']
-                       end
+    need_hash[:name] = need_name(contact, need_values)
     need_hash[:is_urgent] = need_values['is_urgent']
     need_hash[:food_priority] = need_values['food_priority'] if need_values['food_priority'].present?
     need_hash[:food_service_type] = need_values['food_service_type'] if need_values['food_service_type'].present?
@@ -38,5 +48,13 @@ class NeedsCreator
       end
     end
     need_hash
+  end
+
+  def self.need_name(contact, need_values)
+    if need_values['description'].blank?
+      "#{contact.name} needs #{need_values['name'].humanize.downcase}"
+    else
+      need_values['description']
+    end
   end
 end

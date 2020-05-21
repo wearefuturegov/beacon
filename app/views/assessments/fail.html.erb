@@ -4,11 +4,11 @@
 
   <%= render 'shared/side-contact-profile' %>
   <aside class="with-left-sidebar__right">
-    <header class="panel-header">
-      <h2 class="panel-header__title">Assessments</h2>
-    </header>
+  <header class="panel-header">
+    <h2 class="panel-header__title"><b>Fail</b> > Triage > Assign > Complete</h2>
+  </header>
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
-      <%= link_to "Failed #{@assessment.category.humanize}", contact_path(@contact.id), class: "panel__header" %>
+      <%= link_to "Failed #{@assessment.category.humanize}", need_path(@assessment.id), class: "panel__header" %>
       <div class="panel__body">
         <% if @failure_form.errors.any? %>
           <div class="error" id="error_explanation">

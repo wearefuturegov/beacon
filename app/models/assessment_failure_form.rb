@@ -6,7 +6,6 @@ class AssessmentFailureForm
   attr_accessor :failure_reason
   attr_accessor :left_message
   attr_accessor :note_description
-  :incorrect_or_missing.to_s
   validates_presence_of :failure_reason
   validates_presence_of :note_description
   validates_presence_of :left_message, if: proc { |form| form.failure_reason == 'call_not_answered' }

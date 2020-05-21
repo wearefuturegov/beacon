@@ -1,0 +1,27 @@
+<%= render "shared/vulnerable-banner" %>
+
+<div class="with-left-sidebar">
+
+  <%= render 'shared/side-contact-profile' %>
+  <aside class="with-left-sidebar__right">
+    <header class="panel-header">
+      <h2 class="panel-header__title"><b>Start</b> > Triage > Assign > Complete</h2>
+    </header>
+    <div class="panel panel--unpadded panel--stroked need--phone-triage">
+      <%= link_to "Start #{@assessment.category.humanize}", need_path(@assessment.id), class: "panel__header-with-arrow" %>
+      <div class="panel__body">
+          <div>
+            <strong>Description </strong><%= time_ago_in_words(@assessment.created_at) %> ago created by <%= @assessment.created_by_name %>
+          </div>
+          <br />
+          <div><%= @assessment.name %></div>
+          <h4>Were you able to get through this person?</h4>
+          <div>
+            <%= link_to 'No, describe why', fail_assessment_path(@assessment), class: "button button--dark" %>
+            <%= link_to 'Yes, continue to triage', edit_assessment_path(@assessment), class: "button button--blue" %>
+          </div>
+
+          </div>
+    </div>
+  </aside>
+</div>

@@ -13,15 +13,4 @@ $(document).on("turbolinks:load", () => {
         localStorage.removeItem("startAssessment");
         linkButton.click();
     }
-
-    $(".panel__header").click((e) => {
-        if (e.target.id === "edit-need-btn") {
-            return;
-        }
-        window.location = $(e.currentTarget).find(".panel__header-link").attr("href");
-    });
-
-    $(".panel__header .panel__header-link").click((e) => {
-        e.stopPropagation();
-    });
 });

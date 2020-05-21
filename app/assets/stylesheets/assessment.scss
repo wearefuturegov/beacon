@@ -46,3 +46,115 @@
 .assessment-fail-form-container {
   margin-bottom: 35px;
 }
+
+.assessment-assign-dropdown {
+  width: 100%;
+}
+
+
+#assessment-container{
+  margin-bottom: 20px;
+}
+.assessment-grid{
+  @media screen and (min-width: $breakpoint-m){
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-column-gap: 10px;
+  }
+  .assessment-grid__need{
+      margin: none;
+      background: $white;
+      box-shadow: 2px 0px 10px transparentize($text, 0.95);
+      margin-bottom: 0px;
+      border-left-width: 5px;
+      border-left-style: solid;
+      border-bottom: 1px solid transparentize($text, 0.8);
+  }
+  .assessment-grid__inner{
+      padding: 0px 20px 10px 20px;
+  }
+  .assessment-grid__inner--grey{
+      background: transparentize($pale, 0.5);
+      padding-bottom: 1px;
+  }
+  .assessment-grid__title{
+      padding-top: 10px;
+  }
+
+  .selectable{
+      cursor: pointer;
+      &:hover{
+          background: transparentize($blue, 0.9);
+      }
+      &:focus-within{
+          background: transparentize($yellow, 0.8);
+          border-color: $yellow;
+      }
+      td:last-of-type{
+          padding-right: 35px;
+          position: relative;
+          &:after{
+              position: absolute;
+              content: "";
+              display: block;
+              top: 0;
+              right: 0;
+              height: 100%;
+              width: 30px;
+              background-position: center;
+              background-repeat: no-repeat;
+          }
+      }
+  }
+}
+
+.assessment-checkbox{
+    position: relative;
+    padding: 0px 0px 0px 50px;
+    &:focus-within label:before{
+      outline: 2px solid $yellow;
+    }
+    input{
+      font-size: 2rem;
+      -webkit-appearance:none;
+      width:35px;
+      height:35px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      &:checked + label{
+        &:before{
+            background-color: $blue;
+            border-color: $blue;
+        }
+        &:after{
+            position: absolute;
+            content: "";
+            display: block;
+            height: 24px;
+            width: 24px;
+            left: 8px;
+            top: 8px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url(asset_path('white-tick.svg'));
+          }
+      }
+    }
+    .checkbox__label{
+      cursor: pointer;
+      color: $text;
+      &:before{
+        content: "";
+        display: inline-block;
+        background: $white;
+        border: 2px solid $text;
+        width: 35px;
+        height: 35px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+    }
+}

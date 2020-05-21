@@ -8,4 +8,11 @@ module AssessmentHelper
       other: 'Other reason'
     }
   end
+
+  def assessment_completion_methods
+    {
+        phone_success: 'Successful Call',
+        general: 'Other'
+    }
+  end
 end
