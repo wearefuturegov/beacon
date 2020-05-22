@@ -59,7 +59,7 @@ RSpec.describe NeedsCreator do
   end
 
   it 'parses and populates the start on date if one is present' do
-    needs_list = { 1 => { 'active' => 'true', 'name' => 'category', 'start_on' => '1/1/2000' } }
+    needs_list = { 1 => { 'active' => 'true', 'name' => 'category', 'start_on' => DateTime.new(2000, 1, 1) } }
     expected_date = DateTime.new(2000, 1, 1)
 
     allow(@need).to receive(:update).with(hash_including(start_on: expected_date)).and_return @need
@@ -67,8 +67,8 @@ RSpec.describe NeedsCreator do
   end
 
   it 'defaults to a start on date of 6 days from now if start on date is invalid' do
-    needs_list = { 1 => { 'active' => 'true', 'name' => 'category', 'start_on' => 'an_invalid_date' } }
-    expected_date = DateTime.now.beginning_of_day + 6.days
+    needs_list = { 1 => { 'active' => 'true', 'name' => 'category', 'start_on' => DateTime.now.beginning_of_day } }
+    expected_date = DateTime.now.beginning_of_day
 
     allow(@need).to receive(:update).with(hash_including(start_on: expected_date)).and_return @need
     described_class.create_needs(@test_contact, needs_list, nil)
