@@ -99,7 +99,7 @@
             <%= n.call_attempts %>
           </td>
           <td>
-          <% if n.assessment? %>
+          <% if n.assessment_start? %>
             <% if policy(n).start_assessment? %>
             <%= link_to "Start #{n.category}", contact_start_assessment_path(contact_id: n.contact_id, id: n), class: "button button--blue button-link", id:"edit-assessment-btn" %>
             <% else %>

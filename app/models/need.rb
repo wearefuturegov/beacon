@@ -23,6 +23,7 @@ class Need < ApplicationRecord
                  food_priority: :string,
                  food_service_type: :string
 
+  ASSESSMENT_START_CATEGORIES = ['triage', 'check in'].freeze
   ASSESSMENT_CATEGORIES = ['triage', 'check in', 'mdt review'].freeze
 
   enum category: { 'Triage': 'triage',
@@ -226,6 +227,10 @@ class Need < ApplicationRecord
 
   def assessment?
     category.downcase.in? ASSESSMENT_CATEGORIES
+  end
+
+  def assessment_start?
+    category.downcase.in? ASSESSMENT_START_CATEGORIES
   end
 
   def assigned
