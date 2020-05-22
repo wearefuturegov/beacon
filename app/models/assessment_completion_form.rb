@@ -31,8 +31,8 @@ class AssessmentCompletionForm
         existing_mdt_review.notes.build(user_id: current_user, body: mdt_review_note).save
       else
         mdt_role_id = Role.where(tag: 'mdt').first.id
-        contact.needs.build(category: 'mdt review', start_on: DateTime.now,
-                            status: Need.statuses[:to_do], name: mdt_review_note, role_id: mdt_role_id).save
+        contact.needs.build(category: 'mdt review', start_on: DateTime.today,
+                            status: Need.statuses[:to_do], name: mdt_review_note, role_id: mdt_role_id, is_urgent: mdt_review_is_urgent == '1').save
       end
     end
 
