@@ -44,16 +44,12 @@ end
 
 Then(/^I can see the support action filters$/) do
   main_menu = find('.main-menu')
-  expect(main_menu).to have_selector(:link_or_button, 'Open Covid Triages')
-  expect(main_menu).to have_selector(:link_or_button, 'In Progress Shielded Check-ins')
-  expect(main_menu).to have_selector(:link_or_button, 'Unstarted Shielded Check-ins')
+  expect(main_menu).to have_selector(:link_or_button, 'All triages and check-ins')
 end
 
 Then(/^I can not see the support action filters$/) do
   main_menu = find('.main-menu')
-  expect(main_menu).not_to have_selector(:link_or_button, 'Open Covid Triages')
-  expect(main_menu).not_to have_selector(:link_or_button, 'In Progress Shielded Check-ins')
-  expect(main_menu).not_to have_selector(:link_or_button, 'Unstarted Shielded Check-ins')
+  expect(main_menu).not_to have_selector(:link_or_button, 'All triages and check-ins')
 end
 
 Then(/^I can see the team action filters$/) do
