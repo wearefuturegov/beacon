@@ -16,7 +16,7 @@ And('I fail the assessment because {string}') do |reason|
 end
 
 When('I submit the failed assessment form') do
-  click_button('Update assessment')
+  click_button('Update')
 end
 
 Then('the assessment is set to blocked') do
