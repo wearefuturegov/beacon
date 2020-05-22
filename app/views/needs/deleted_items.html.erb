@@ -1,0 +1,19 @@
+<header class="panel-header">
+  <h1 class="panel-header__title">Deleted Items</h1>
+</header>
+
+<%= render "deleted-items-filter" %>
+
+<div class="panel">
+  <% if @items&.any? %>
+      <% if @items.first.is_a?(Need) %>
+        <%= render "deleted_needs" %>
+      <% else %>
+        <%= render "deleted_notes" %>
+      <% end %>
+      
+      <%= render "shared/pagination", model: @items %>
+  <% else %>
+    <p class="no-results">No matches</p>
+  <% end %>
+</div>

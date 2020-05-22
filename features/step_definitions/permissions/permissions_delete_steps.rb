@@ -48,7 +48,7 @@ Given('I have deleted a support action') do
 end
 
 When('I choose to restore the support action') do
-  visit '/deleted_needs?order=deleted_at&order_dir=DESC'
+  visit '/deleted_items?order=deleted_at&order_dir=DESC'
   page.find("#restore-need-#{@deleted_support_action}").click
   page.accept_alert
 end
@@ -79,7 +79,7 @@ Given('I have deleted a note') do
 end
 
 When('I choose to restore the note') do
-  visit '/deleted_notes?order=deleted_at&order_dir=DESC'
+  visit '/deleted_items?order=deleted_at&order_dir=DESC&type=notes'
   sleep 2 # I am not sure why this is randomly failing, this is a temp fix
   top_entry = page.find('table > tbody > tr:nth-child(1) > td:nth-child(2)')
   expect(top_entry).to have_content(@last_note)
