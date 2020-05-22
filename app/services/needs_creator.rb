@@ -41,7 +41,7 @@ class NeedsCreator
     need_hash[:status] = Need.statuses[:to_do]
 
     if need_values['start_on']
-        need_hash[:start_on] = need_values['start_on']
+      need_hash[:start_on] = need_values['start_on']
     end
     need_hash
   end
