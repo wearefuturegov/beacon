@@ -71,7 +71,7 @@
         <tbody>
           <tr id="toggle-visibility-completed-assessment" class="need--financial-support">
             <td>
-              <b><%= pluralize(@completed_assessments.count, 'x completed') %></b>
+              <b><%= "#{@completed_assessments.count} x completed" %></b>
             </td>
           </tr>
         </tbody>
