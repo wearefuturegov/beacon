@@ -12,6 +12,12 @@
                 <span class="main-menu__current">MDT dashboard</span>
               <% end %>
             </li>
+        <% else %>
+            <li class="main-menu__item">
+              <%= link_to_unless_current "My dashboard", root_path(:assigned_to => "user-#{current_user.id}"), class: "main-menu__link" do %>
+                <span class="main-menu__current">My dashboard</span>
+              <% end %>
+            </li>
         <% end %>
 
         <li class="main-menu__item">
