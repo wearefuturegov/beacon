@@ -56,7 +56,19 @@ class Need < ApplicationRecord
 
   scope :completed, -> { where(status: :complete) }
   scope :uncompleted, -> { where.not(status: [:complete, :cancelled]) }
-  scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
+  scope :started, lambda { |start_on|
+    date = Date.today
+    if start_on.present?
+      if start_on == 'tomorrow'
+        date = Date.tomorrow
+      elsif start_on == 'next_week'
+        date += 7.days
+      elsif start_on == 'any_time'
+        date = nil
+      end
+    end
+    where('start_on IS NULL or start_on <= ?', date) if date
+  }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
   scope :assessments, -> { where(category: ASSESSMENT_CATEGORIES) }
@@ -120,6 +132,10 @@ class Need < ApplicationRecord
 
   scope :order_by_assigned_to, lambda { |direction|
     order("user_id #{direction}, role_id #{direction}")
+  }
+
+  scope :order_start_on, lambda { |direction|
+    order("start_on #{direction}")
   }
 
   delegate :name, :address, :postcode, :telephone, :mobile, :is_vulnerable,

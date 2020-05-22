@@ -8,8 +8,8 @@ class NeedsController < NeedsTableController
   helper_method :get_param
 
   def index
-    @params = params.permit(:assigned_to, :status, :category, :page, :order_dir, :order, :commit, :is_urgent, :created_by_me)
-    @needs = needs
+    @params = params.permit(:assigned_to, :status, :category, :page, :order_dir, :order, :commit, :is_urgent, :created_by_me, :start_on)
+    @needs = needs(@params[:start_on])
 
     @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
