@@ -25,7 +25,7 @@ end
 
 Given(/^I am conducting a triage of the residents needs$/) do
   visit "contacts/#{@contact.id}"
-  click_link 'Add support actions +'
+  click_link 'Add needs +'
   # opens the contact in edit mode
   expect(page.find('#edit-triage-header')).to be_visible
   click_and_wait('#edit-contact-link', '#contact_first_name')
@@ -154,7 +154,7 @@ When(/^I save the assessment form$/) do
   page.find('#triage-submit-btn').click
 end
 
-Then('the residents list of support actions contains {string}') do |support_action|
+Then('the residents list of needs contains {string}') do |support_action|
   visit "/contacts/#{@contact.id}" unless @contact.nil?
   expect(page.first('.needs-table')).to have_text(support_action)
 end

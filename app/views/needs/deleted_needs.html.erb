@@ -1,0 +1,60 @@
+<header class="panel-header">
+  <h1 class="panel-header__title">Deleted needs</h1>
+</header>
+
+<div class="panel">
+  <% if @needs.any? %>
+    <table class="table data-table">
+      <thead>
+      <tr>
+        <th>
+          <div class="sortable">
+              Category
+              <div class="sortable__controls">
+                <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'category', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
+                <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'category', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
+              </div>
+            </div>
+        </th>
+        <th>Person</th>
+        <th>Status</th>
+        <th>Assigned to</th>
+        <th>
+        <div class="sortable">
+            Deleted
+            <div class="sortable__controls">
+              <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'deleted_at', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
+              <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'deleted_at', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
+            </div>
+          </div>
+      </th>
+      <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @needs.each do |n| %>
+        <tr class="selectable">
+          <td>
+            <%= n.category %>
+          </td>
+          <td><%= n.contact_name %></td>
+          <td><%= n.status_label %></td>
+          <td>
+            <%= n.user&.name_or_email || n.role&.name || 'Unassigned' %>
+          </td>
+          <td><%= n.deleted_at.strftime("%-d %B %Y, %H:%M:%S") %></td>
+          <td>
+            <%= link_to 'Restore', { controller: :needs, action: :restore_need, id: n.id }, 
+            class: "button", id: "restore-need-#{n.id}", method: :post, 
+            data: { confirm: 'Are you sure you want to restore this record?' }  %>            
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= render "shared/pagination", model: @needs %>
+    
+  <% else %>
+    <p class="no-results">No matches</p>
+  <% end %>
+</div>

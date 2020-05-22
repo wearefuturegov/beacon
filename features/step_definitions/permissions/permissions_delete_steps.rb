@@ -1,4 +1,4 @@
-Given('no notes exists on the support actions') do
+Given('no notes exists on the needs') do
   # nothing to do here
 end
 
@@ -72,7 +72,7 @@ end
 
 Given('I have deleted a note') do
   step "I am logged into the system as a 'manager' user"
-  step "a resident with 'Dog walking' support actions"
+  step "a resident with 'Dog walking' needs"
   step "I added a 'Note' note 'to be restored'"
   step 'I edit the support action'
   step 'I can delete the note'

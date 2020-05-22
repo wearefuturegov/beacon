@@ -22,8 +22,8 @@
         <% end %>
 
         <li class="main-menu__item">
-          <%= link_to_unless_current "Support Actions", root_path(:status => "to_do"), class: "main-menu__link" do %>
-            <span class="main-menu__current">Support Actions</span>
+          <%= link_to_unless_current "Needs", root_path(:status => "to_do"), class: "main-menu__link" do %>
+            <span class="main-menu__current">Needs</span>
           <% end %>
           <ul class="main-menu__submenu">
             <% if policy(Need).display_support_actions? %>
@@ -33,7 +33,7 @@
               <%= link_to_unless_current "In Progress Shielded Check-ins", root_path(:category => "check in", :status => "in_progress"), class: "main-menu__submenu-link" do %>
                 <span class="main-menu__submenu-current">In Progress Shielded Check-ins</span>
               <% end %>
-              <%= link_to_unless_current "Open Covid Triages", root_path(:status => "to_do", :category => "phone triage"), class: "main-menu__submenu-link" do %>
+              <%= link_to_unless_current "Open Covid Triages", root_path(:status => "to_do", :category => "triage"), class: "main-menu__submenu-link" do %>
                 <span class="main-menu__submenu-current">Open Covid Triages</span>
               <% end %>
             <% else %>
