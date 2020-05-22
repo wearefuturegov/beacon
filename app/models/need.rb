@@ -233,6 +233,19 @@ class Need < ApplicationRecord
     category.downcase.in? ASSESSMENT_START_CATEGORIES
   end
 
+  # superseed the method aboves once triage gets removed
+  def self.categories_for_assessment
+    categories.reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
+  end
+
+  def assessment?
+    category.downcase.in? ASSESSMENT_CATEGORIES
+  end
+
+  def assessment_start?
+    category.downcase.in? ASSESSMENT_START_CATEGORIES
+  end
+
   def assigned
     if user
       user.name_or_email
