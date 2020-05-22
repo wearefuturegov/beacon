@@ -20,8 +20,8 @@
               <span class="main-menu__current">All triages and check-ins</span>
               <% end %>
           <% else %>
-              <%= link_to_unless_current "Support Actions", root_path(:status => "to_do"), class: "main-menu__link" do %>
-                <span class="main-menu__current">Support Actions</span>
+              <%= link_to_unless_current "Needs", root_path(:status => "to_do"), class: "main-menu__link" do %>
+                <span class="main-menu__current">Needs</span>
               <% end %>
               <ul class="main-menu__submenu">
                   <%= link_to_unless_current "Team referrals", root_path(:status => "to_do", :assigned_to => "role-#{current_role_id}"), class: "main-menu__submenu-link" do %>
