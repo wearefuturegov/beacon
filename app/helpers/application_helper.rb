@@ -32,12 +32,17 @@ module ApplicationHelper
   end
 
   def wizard_state_as_class(state)
-    if state == 1
-      'current-step'
-    elsif state == -1
+    case state
+    when -2
+      'failed-step inactive'
+    when -1
       'failed-step'
-    elsif state == 2
+    when 1
+      'current-step'
+    when 2
       'completed-step'
+    else
+      ''
     end
   end
 end

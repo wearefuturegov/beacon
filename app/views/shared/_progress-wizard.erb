@@ -1,32 +1,32 @@
 <ul class="progress-wizard">
-  <li data-step="make-call" class="<%= wizard_state_as_class(state[0]) =%>">
-    <% if state[0] == 1 %>
-     <span class="indicator completed failed-step">&check;</span>
-    <% elsif state[0] == -1 %>
+  <li data-step="make-call" class="<%= wizard_state_as_class(state[0]) %>">
+    <% if state[0] == 2 %>
+     <span class="indicator completed">&check;</span>
+    <% elsif state[0] < 0 %>
       <span class="indicator failed">&#x2715;</span>
     <% end %>
     <span>Make call</span>
   </li>
-  <li data-step="triage" class="<%= wizard_state_as_class(state[1]) =%>">
-    <% if state[1] == 1 %>
+  <li data-step="triage" class="<%= wizard_state_as_class(state[1]) %>">
+    <% if state[1] == 2 %>
       <span class="indicator completed">&check;</span>
-    <% elsif state[1] == -1 %>
+    <% elsif state[1] < 0  %>
       <span class="indicator failed">&#x2715;</span>
     <% end %>
     <span>Triage</span>
   </li>
-  <li data-step="assign" class="<%= wizard_state_as_class(state[2]) =%>">
-    <% if state[2] == 1 %>
+  <li data-step="assign" class="<%= wizard_state_as_class(state[2]) %>">
+    <% if state[2] == 2 %>
       <span class="indicator completed">&check;</span>
-    <% elsif state[2] == -1 %>
+    <% elsif state[2] < 0 %>
       <span class="indicator failed">&#x2715;</span>
     <% end %>
     <span>Assign</span>
   </li>
-  <li data-step="complete" class="<%= wizard_state_as_class(state[3]) =%>">
-    <% if state[3] == 1  %>
+  <li data-step="complete" class="<%= wizard_state_as_class(state[3]) %>">
+    <% if state[3] == 2  %>
       <span class="indicator completed">&check;</span>
-    <% elsif state[3] == -1 %>
+    <% elsif state[3] < 0 %>
       <span class="indicator failed">&#x2715;</span>
     <% end %>
     <span>Complete</span>

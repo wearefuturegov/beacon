@@ -11,7 +11,7 @@
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
       <%= link_to "Assign #{@assessment.category.humanize} Support Actions", edit_assessment_path(@assessment.id), class: "panel__header-with-arrow" %>
       <div class="assessment-assign-progress-container">
-        <%= render :partial => 'shared/progress-wizard', locals: {state: [1, 1, 1, 0]} %>
+        <%= render :partial => 'shared/progress-wizard', locals: {state: [2, 2, 1, 0]} %>
       </div>
       <div class="panel__body">
         <% if @assignment_form.errors.any? %>
