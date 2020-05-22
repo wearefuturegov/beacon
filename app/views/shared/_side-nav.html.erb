@@ -74,7 +74,7 @@
       <% end %>
       
       
-      <% if policy(User).index? %>
+      <% if policy(User).admin? %>
         <li class="main-menu__item">
           <%= link_to_unless_current "Deleted Items", deleted_items_path, class: "main-menu__link" do %>
             <span class="main-menu__current">Deleted Items</span>
