@@ -1,4 +1,4 @@
-Feature: Automated emails when support actions are assigned to users/roles
+Feature: Automated emails when needs are assigned to users/roles
   As a user of the system
   I want to be notified via email when a support action is assigned to me
   So that I can be aware of what work I have in the system

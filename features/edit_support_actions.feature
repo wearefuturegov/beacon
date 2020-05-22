@@ -1,4 +1,4 @@
-Feature: Edit support actions
+Feature: Edit needs
   As a user of the system
   I want to edit a persons support action
   So that I can assign a user, and change the key details
@@ -11,7 +11,7 @@ Feature: Edit support actions
     Given a resident with a support action exists
     When I assign the support action to me
     Then I see the support action in the 'assigned to me' page
-    And I see the updated support action details in the contact's 'support actions' list
+    And I see the updated support action details in the contact's 'needs' list
 
   @javascript
   Scenario: Reassign a support action from myself to another user
@@ -19,7 +19,7 @@ Feature: Edit support actions
     And I have assigned the support action to me
     When I assign the support action to another user
     Then I no longer see the support action in the 'assigned to me' page
-    And I see the updated support action details in the contact's 'support actions' list
+    And I see the updated support action details in the contact's 'needs' list
 
   @javascript
   Scenario:

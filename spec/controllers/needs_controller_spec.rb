@@ -126,7 +126,7 @@ RSpec.describe NeedsController, type: :controller do
   describe 'GET #deleted_needs' do
     it 'filters deleted needs on page number passed in params' do
       expect(deleted_need).to receive(:page).with('1').and_return(deleted_need)
-      get :deleted_needs, params: { page: 1 }
+      get :deleted_items, params: { page: 1, type: 'needs' }
       expect(response).to be_successful
     end
   end
@@ -134,7 +134,7 @@ RSpec.describe NeedsController, type: :controller do
   describe 'GET #deleted_notes' do
     it 'filters deleted notes on page number passed in params' do
       expect(deleted_note).to receive(:page).with('1').and_return(deleted_note)
-      get :deleted_notes, params: { page: 1 }
+      get :deleted_items, params: { page: 1, type: 'notes' }
       expect(response).to be_successful
     end
   end

@@ -23,9 +23,9 @@ class Need < ApplicationRecord
                  food_priority: :string,
                  food_service_type: :string
 
-  ASSESSMENT_CATEGORIES = ['phone triage', 'check in', 'mdt review'].freeze
+  ASSESSMENT_CATEGORIES = ['triage', 'check in', 'mdt review'].freeze
 
-  enum category: { 'Phone triage': 'phone triage',
+  enum category: { 'Triage': 'triage',
                    'MDT review': 'mdt review',
                    'Check in': 'check in',
                    'Groceries and cooked meals': 'groceries and cooked meals',

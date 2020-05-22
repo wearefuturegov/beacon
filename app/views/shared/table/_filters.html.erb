@@ -4,7 +4,7 @@
   <section class="filters">
 <% end %>
 
-  <% if params[:user_id] || params[:status] || params[:category] || params[:is_urgent] %>
+  <% if params[:user_id] || params[:status] || params[:category] || params[:is_urgent] || params[:assigned_to] %>
       <%= link_to "Clear filters", filters_path, class: "button button--dark", id: "btnClearFilters"%>
     <div class="filters__content">
   <% else %>
