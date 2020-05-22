@@ -1,0 +1,9 @@
+<div class="panel">
+  <%= form_with(url: deleted_items_path, method: :get, class: "deleted_items_filter__form") do %>
+    <%= select_tag("type", 
+      options_for_select([['Deleted needs', 'needs'], ['Deleted notes', 'notes']], :selected => params["type"]),
+      :onchange => 'this.form.submit()', class: 'dropdown', "data-minimum-results-for-search" => "Infinity" ) %>
+  <% end %>
+</div>
+
+<%= javascript_pack_tag 'deleted-items-filter', 'data-turbolinks-track': 'reload' %>

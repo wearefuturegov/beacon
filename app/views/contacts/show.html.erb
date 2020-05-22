@@ -8,12 +8,12 @@
 
   <aside class="with-left-sidebar__right">
     <header class="panel-header" id="needs-panel">
-      <h2 class="panel-header__title">Support Actions</h2>
+      <h2 class="panel-header__title">Needs</h2>
       <% if @open_needs.any? %>
         <span class="panel-header__badge"><%= @open_needs.count %></span>
       <% end %>
       <% if policy(Need).create? %>
-        <%= link_to "Add support actions +", contact_triage_path(@contact), class: "btn-triage" %>
+        <%= link_to "Add needs +", contact_triage_path(@contact), class: "btn-triage" %>
       <% end %>
     </header>
     <div class="panel panel--unpadded">  
@@ -40,7 +40,7 @@
     <header class="panel-header" id="needs-panel">
       <% if policy(Need).create? %>
         <div class="left">
-            <button class="tablink" id="phone-triage">Triage</button>
+            <button class="tablink" id="triage">Triage</button>
             <button class="tablink" id="check-in">Check-in</button>
             <button class="tablink" id="mdt-review">MDT Review</button>
         </div>
@@ -71,7 +71,7 @@
         <tbody>
           <tr id="toggle-visibility-completed-assessments" class="need--financial-support">
             <td>
-              <b><%= pluralize(@completed_assessments.count, 'x completed assessment') %></b>
+              <b><%= pluralize(@completed_assessments.count, 'x completed') %></b>
             </td>
           </tr>
         </tbody>
