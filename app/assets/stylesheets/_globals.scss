@@ -99,6 +99,10 @@ span.selection {
     white-space: nowrap;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .turbolinks-progress-bar {
     background-color: $yellow;
 }
