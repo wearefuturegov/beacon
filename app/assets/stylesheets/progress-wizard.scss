@@ -1,0 +1,120 @@
+$progress-wizard-border-width: 3px;
+
+$progress-wizard-current-step-color: #2D69E7;
+$progress-wizard-inactive-step-color: #B1AFAE;
+$progress-wizard-completed-step-color: #285B9F;
+$progress-wizard-failed-step-color: #ED837A;
+$progress-wizard-text-color: #F5F5F5;
+
+.progress-wizard {
+  list-style-type: none;
+  padding: 0;
+  li {
+    display: inline-block;
+    position: relative;
+    padding: 5px;
+    width: 20%;
+    text-align: center;
+    color: white;
+    z-index: 1;
+    & span {
+      color: $progress-wizard-text-color;
+      font-size: 0.9rem;
+      &.invisible {
+        display: none;
+      }
+    }
+    &:first-child {
+      box-sizing: content-box;
+    }
+    &.current-step {
+      &:before, &:after {
+        background-color: $progress-wizard-current-step-color;
+        border-left: $progress-wizard-border-width solid $progress-wizard-current-step-color;
+        border-right: $progress-wizard-border-width solid white;
+      }
+      &:before {
+        border-top: $progress-wizard-border-width solid $progress-wizard-current-step-color;
+      }
+      &:after {
+        border-bottom: $progress-wizard-border-width solid $progress-wizard-current-step-color;
+      }
+      &.inactive {
+        &:before, &:after {
+          background-color: $progress-wizard-inactive-step-color;
+          border-left: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+          border-right: $progress-wizard-border-width solid white;
+        }
+        &:before {
+          border-top: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+        }
+        &:after {
+          border-bottom: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+        }
+      }
+    }
+    &.completed-step {
+      &:before, &:after {
+        background-color: $progress-wizard-completed-step-color;
+        border-left: $progress-wizard-border-width solid $progress-wizard-completed-step-color;
+        border-right: $progress-wizard-border-width solid white;
+      }
+      &:before {
+        border-top: $progress-wizard-border-width solid $progress-wizard-completed-step-color;
+      }
+      &:after {
+        border-bottom: $progress-wizard-border-width solid $progress-wizard-completed-step-color;
+      }
+    }
+    &.failed-step {
+      &:before, &:after {
+        background-color: $progress-wizard-failed-step-color;
+        border-left: $progress-wizard-border-width solid $progress-wizard-failed-step-color;
+        border-right: $progress-wizard-border-width solid white;
+      }
+      &:before {
+        border-top: $progress-wizard-border-width solid $progress-wizard-failed-step-color;
+      }
+      &:after {
+        border-bottom: $progress-wizard-border-width solid $progress-wizard-failed-step-color;
+      }
+    }
+    &.failed-step.inactive {
+      &:before, &:after {
+        background-color: $progress-wizard-inactive-step-color;
+        border-left: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+        border-right: $progress-wizard-border-width solid white;
+      }
+      &:before {
+        border-top: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+      }
+      &:after {
+        border-bottom: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+      }
+    }
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      height: 50%;
+      width: 100%;
+      background: $progress-wizard-inactive-step-color;
+      border-left: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+      border-right: $progress-wizard-border-width solid white;
+      z-index: -2;
+    }
+    &:before {
+      top: -2px;
+      transform: skew(30deg);
+      border-top: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+    }
+    &:after {
+      bottom: -2px;
+      transform: skew(-30deg);
+      border-bottom: $progress-wizard-border-width solid $progress-wizard-inactive-step-color;
+    }
+  }
+}
+
+ 
+ 
