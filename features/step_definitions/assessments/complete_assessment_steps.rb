@@ -22,7 +22,7 @@ Given('I have assigned needs {string} to {string} for the assessment') do |needs
 end
 
 And('I am on the assessment completion page') do
-  page.find('.panel__header', text: 'Complete Triage')
+  page.find('.panel__header-with-arrow', text: 'Complete Triage')
 end
 
 Then('I should be informed there are no scheduled further check ins') do
