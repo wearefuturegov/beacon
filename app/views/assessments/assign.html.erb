@@ -9,7 +9,7 @@
     </header>
     
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
-      <%= link_to "Assign #{@assessment.category.humanize} Support Actions", edit_assessment_path(@assessment.id), class: "panel__header-with-arrow" %>
+      <%= link_to "Assign #{@assessment.category.humanize} Needs", edit_assessment_path(@assessment.id), class: "panel__header-with-arrow" %>
       <div class="assessment-assign-progress-container">
         <%= render :partial => 'shared/progress-wizard', locals: {state: [1, 1, 1, 0]} %>
       </div>
@@ -70,7 +70,7 @@
                 </tbody>
                 </table>
                 </div>
-              <input type="submit" value="Update assessment" class="button button--primary"/>
+              <input type="submit" value="Update" class="button button--primary"/>
         <% end %>
       </div>
     </div>

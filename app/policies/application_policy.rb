@@ -56,11 +56,11 @@ class ApplicationPolicy
     @user.in_role_name?('mdt')
   end
 
-  protected
-
   def admin?
     @user.in_role_name?('manager')
   end
+
+  protected
 
   def agent?
     @user.in_role_name?('agent')

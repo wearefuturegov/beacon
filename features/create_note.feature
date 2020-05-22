@@ -1,7 +1,7 @@
 @javascript
 Feature: Create note
   As a Call centre agent
-  I want to add notes and call logs to a residents support actions
+  I want to add notes and call logs to a residents needs
   So that I can record details of the interactions with the resident
 
   Background:

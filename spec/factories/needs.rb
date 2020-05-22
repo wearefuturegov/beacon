@@ -8,7 +8,7 @@ FactoryBot.define do
     category { Need.categories.values.sample }
     name { Faker::Lorem.sentence }
     start_on do
-      Faker::Date.between(from: 2.days.ago, to: 6.days.from_now) if category.in?(['check in', 'phone triage', 'mdt review'])
+      Faker::Date.between(from: 2.days.ago, to: 6.days.from_now) if category.in?(['check in', 'triage', 'mdt review'])
     end
 
     food_priority do
@@ -29,7 +29,7 @@ FactoryBot.define do
 
     trait :imported do
       name { 'Imported call log' }
-      category { 'phone triage' }
+      category { 'triage' }
     end
 
     factory :need_with_notes do

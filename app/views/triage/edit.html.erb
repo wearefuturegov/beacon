@@ -24,7 +24,7 @@
 
       <header class="panel-header">
         <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
-        <h1 class="panel-header__title" id="edit-triage-header">Add support actions</h1>
+        <h1 class="panel-header__title" id="edit-triage-header">Add needs</h1>
       </header>
 
       <section class="triage-grid">
@@ -70,7 +70,7 @@
       </section>
 
       <div class="panel panel--unpadded">
-        <h2 class="panel__banner">Other support actions</h2>
+        <h2 class="panel__banner">Other needs</h2>
         <div class="panel__body two-thirds">
           <div class="field">
             <%= form.label :other_need, "Describe any other needs not covered above", class: "field__label" %>
