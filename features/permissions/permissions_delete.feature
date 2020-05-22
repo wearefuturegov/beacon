@@ -1,4 +1,4 @@
-@permissions @support_actions
+@permissions @support_actions @wip
 Feature: Restrict deletion of needs and notes to a user based on their role
   As a beacon owner
   I want to restrict what record people can delete in beacon
