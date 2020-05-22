@@ -51,19 +51,19 @@ RSpec.describe AssessmentsController do
     end
 
     it 'redirects to the contacts show page when successful' do
-      post :create, params: { contact_id: 1, type: 'log', need: { category: 'phone triage' }, note: { body: 'test' } }
+      post :create, params: { contact_id: 1, type: 'log', need: { category: 'triage' }, note: { body: 'test' } }
       expect(response).to redirect_to controller: :contacts, action: :show, id: 1
     end
 
     it 'saves the note when the assessment is being logged' do
       expect(@test_note).to receive(:save).and_return(true)
-      post :create, params: { contact_id: 1, type: 'log', need: { category: 'phone triage' }, note: { body: 'test' } }
+      post :create, params: { contact_id: 1, type: 'log', need: { category: 'triage' }, note: { body: 'test' } }
       expect(response).to redirect_to controller: :contacts, action: :show, id: 1
     end
 
     it 'tests the need has a start_on date when it is being scheduled' do
       expect(@test_need).to receive(:valid?).and_return(true)
-      post :create, params: { contact_id: 1, type: 'schedule', need: { category: 'phone triage' }, note: { body: 'test' } }
+      post :create, params: { contact_id: 1, type: 'schedule', need: { category: 'triage' }, note: { body: 'test' } }
       expect(response).to redirect_to controller: :contacts, action: :show, id: 1
     end
   end
