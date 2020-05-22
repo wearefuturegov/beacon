@@ -1,5 +1,5 @@
 $(() => {
-    $(".table.data-table tr").click((e) => {
+    $(".table.data-table tbody tr").click((e) => {
         window.location = $(e.currentTarget).data("navigate-to");
     });
     $(".button-link").click((e) => {
