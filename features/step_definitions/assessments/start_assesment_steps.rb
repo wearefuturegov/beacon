@@ -3,11 +3,11 @@ When('I go to the assessment details page') do
 end
 
 Then('I see the option to start the assessment') do
-  expect(page).to have_content('Start Phone triage')
+  expect(page).to have_content('Start Triage')
 end
 
 And('I choose to start the assessment') do
-  click_link_or_button 'Start Phone triage'
+  click_link_or_button 'Start Triage'
 end
 
 And('I see the assessment opening questionnaire') do

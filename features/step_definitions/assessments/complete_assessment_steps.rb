@@ -18,11 +18,11 @@ Given('I have assigned needs {string} to {string} for the assessment') do |needs
     saved_needs = Need.where(assessment_id: @need.id).to_a
     assignees.each_with_index { |assignee, index| select2 "assessment_assignment_form_needs_#{saved_needs[index].id}_assigned_to", assignee }
   end
-  click_link_or_button 'Update assessment'
+  click_link_or_button 'Update'
 end
 
 And('I am on the assessment completion page') do
-  page.find('.panel__header', text: 'Complete Phone triage')
+  page.find('.panel__header', text: 'Complete Triage')
 end
 
 Then('I should be informed there are no scheduled further check ins') do

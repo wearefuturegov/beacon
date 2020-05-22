@@ -12,7 +12,7 @@ Feature: Start an assessment
     Then I see the option to start the assessment
 
   Scenario: See the assessment start button from the list view
-    When I go to the support actions list
+    When I go to the needs list
     Then I see the option to start the assessment
 
   Scenario: Start an assessment and see options
