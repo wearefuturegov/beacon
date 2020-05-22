@@ -1,36 +1,36 @@
-Feature: List support actions
+Feature: List needs
   As a Call centre agent
-  I want to list all support actions in the system
-  So that I can get a high level view of what support actions exist
+  I want to list all needs in the system
+  So that I can get a high level view of what needs exist
 
   Background:
     * I am logged into the system
 
   Scenario: View last contacted date
     Given a unique resident
-    When I add support actions "Dog walking"
-    And I submit the add support actions form
+    When I add needs "Dog walking"
+    And I submit the add needs form
     And I add a "Successful Call" note "Phone call text"
     And I submit the form to create the note
-    When I view any support actions list row for that resident
+    When I view any needs list row for that resident
     Then I see the last contacted date is today
     Then I see one call attempt
 
   @javascript
-  Scenario Outline: Filter resident support actions by category
+  Scenario Outline: Filter resident needs by category
     Given a resident with a "<category>" support action
-    When I view any support actions list row for that resident
-    And I filter support actions by category "<category>"
+    When I view any needs list row for that resident
+    And I filter needs by category "<category>"
     Then I see the support action for category "<category>" in the results
     Examples:
       | category    |
       | Dog walking |
 
   @javascript
-  Scenario Outline: Filter all support actions by category
-    Given many support actions exist
-    When I filter support actions by category "<category>"
-    Then I see every support actions with category "<category>" in the results
+  Scenario Outline: Filter all needs by category
+    Given many needs exist
+    When I filter needs by category "<category>"
+    Then I see every needs with category "<category>" in the results
     Examples:
       | category                   |
       | Groceries and cooked meals |
@@ -38,14 +38,14 @@ Feature: List support actions
       | Dog walking                |
 
 
-  Scenario: Sort support actions by category ascending
-    Given a resident with "Book drops and entertainment, Dog walking, Groceries and cooked meals" support actions
-    When I sort support actions by category in "ASC" order
+  Scenario: Sort needs by category ascending
+    Given a resident with "Book drops and entertainment, Dog walking, Groceries and cooked meals" needs
+    When I sort needs by category in "ASC" order
     Then I see the support action for category "Book drops and entertainment" first in the results
 
-  Scenario: Sort support actions by category descending
-    Given a resident with "Book drops and entertainment, Dog walking, Groceries and cooked meals" support actions
-    When I sort support actions by category in "DESC" order
+  Scenario: Sort needs by category descending
+    Given a resident with "Book drops and entertainment, Dog walking, Groceries and cooked meals" needs
+    When I sort needs by category in "DESC" order
     Then I see the support action for category "Groceries and cooked meals" first in the results
 
   Scenario: See unassigned needs I have created in the created and unassigned list

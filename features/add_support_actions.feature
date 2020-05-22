@@ -1,8 +1,8 @@
 @javascript
-Feature: Add support actions
+Feature: Add needs
   As a Call centre agent
-  I want to add multiples support actions to a person
-  So that I can confirm details with people on the phone as their support actions are identified
+  I want to add multiples needs to a person
+  So that I can confirm details with people on the phone as their needs are identified
 
   Call centre manager: 200 new shielded people have been added to the list from online referrals,
   I need to *see what my staff are currently working on*
@@ -23,13 +23,13 @@ Feature: Add support actions
   Background:
     * I am logged into the system
 
-  Scenario Outline: Add any support actions
+  Scenario Outline: Add any needs
     Given a resident
-    When I add support actions "<support actions>"
-    And I submit the add support actions form
-    Then the residents list of support actions contains "<support actions>"
+    When I add needs "<needs>"
+    And I submit the add needs form
+    Then the residents list of needs contains "<needs>"
     Examples:
-      | support actions               |
+      | needs               |
       | Groceries and cooked meals    |
       | Physical and mental wellbeing |
       | Financial support             |
@@ -38,21 +38,21 @@ Feature: Add support actions
       | Book drops and entertainment  |
       | Dog walking                   |
 
-  Scenario Outline: Add any support actions should not add assessment types
+  Scenario Outline: Add any needs should not add assessment types
     Given a resident
-    When I add support actions
+    When I add needs
     Then I should not be able to add "<assessment types>"
     Examples:
       | assessment types              |
-      | Phone triage                  |
+      | Triage                        |
       | Check in                      |
       
-  Scenario: Add multiple support actions
+  Scenario: Add multiple needs
     Given a resident
-    When I add support actions "Groceries and cooked meals"
+    When I add needs "Groceries and cooked meals"
     And I add another support action "Staying social"
     And I add another support action "Dog walking"
-    And I submit the add support actions form
-    Then the residents list of support actions contains "Groceries and cooked meals"
-    And the residents list of support actions contains "Staying social"
-    And the residents list of support actions contains "Dog walking"
+    And I submit the add needs form
+    Then the residents list of needs contains "Groceries and cooked meals"
+    And the residents list of needs contains "Staying social"
+    And the residents list of needs contains "Dog walking"

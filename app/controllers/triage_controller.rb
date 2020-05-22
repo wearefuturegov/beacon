@@ -52,7 +52,7 @@ class TriageController < ApplicationController
         name: label,
         active: false
       }
-      if label == 'Phone triage'
+      if label == 'Triage'
         need[:active] =
           need[:start_on] = (Date.today + 6.days).strftime('%d/%m/%y')
       end

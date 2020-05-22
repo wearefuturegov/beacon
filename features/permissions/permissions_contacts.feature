@@ -5,7 +5,7 @@ Feature: Restrict viewing/editing contact access to a user based on their role
   so that data is kept secure
 
   @list
-  Scenario Outline: Can view contacts with support actions that are assigned to me
+  Scenario Outline: Can view contacts with needs that are assigned to me
     Given I am logged into the system as a "<role>" user
     And a support action for a contact is assigned to me
     When I go to the contact list
@@ -31,7 +31,7 @@ Feature: Restrict viewing/editing contact access to a user based on their role
       | council_service_name_of_service |
 
   @list
-  Scenario Outline: Certain roles can view contacts with support actions that are assigned to a member of their team
+  Scenario Outline: Certain roles can view contacts with needs that are assigned to a member of their team
     Given I am logged into the system as a "<role>" user
     And another user exists in that role
     And a support action is assigned to the other user
@@ -43,7 +43,7 @@ Feature: Restrict viewing/editing contact access to a user based on their role
       | council_service_name_of_service |
 
   @list
-  Scenario: MDT user cannot see contacts with support actions assigned to another MDT user
+  Scenario: MDT user cannot see contacts with needs assigned to another MDT user
     Given I am logged into the system as an "MDT" user
     And another user exists in that role
     And a support action for a contact is assigned to the other user
