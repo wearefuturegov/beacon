@@ -5,12 +5,15 @@
   <%= render 'shared/side-contact-profile' %>
   <aside class="with-left-sidebar__right">
     <header class="panel-header">
-    <h2 class="panel-header__title">Start > Triage > Assign > <b>Complete</b> </h2>
+      <h2 class="panel-header__title hidden">Start > Triage > Assign > <b>Complete</b> </h2>
     </header>
     <%= form_with model: @completion_form, url: update_completion_assessment_path, :method => :put,
                   :local => true, :html => {:name => 'assessment_completion_form', :autocomplete => 'off'} do |form| %>
       <div class="panel panel--unpadded panel--stroked need--phone-triage">
         <%= link_to "Complete #{@assessment.category.humanize}", assign_assessment_path(@assessment.id), class: "panel__header" %>
+        <div class="assessment-complete-progress-container">
+          <%= render :partial => 'shared/progress-wizard', locals: {state: [1, 1, 1, 2]} %>
+        </div>
         <div class="panel__body">
           <% if @completion_form.errors.any? %>
             <div class="error" id="error_explanation">

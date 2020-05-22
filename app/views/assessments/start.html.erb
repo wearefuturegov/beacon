@@ -5,12 +5,13 @@
   <%= render 'shared/side-contact-profile' %>
   <aside class="with-left-sidebar__right">
     <header class="panel-header">
-      <h2 class="panel-header__title"><b>Start</b> > Triage > Assign > Complete</h2>
+      <h2 class="panel-header__title hidden"><b>Start</b> > Triage > Assign > Complete</h2>
     </header>
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
       <%= link_to "Start #{@assessment.category.humanize}", need_path(@assessment.id), class: "panel__header-with-arrow" %>
       <div class="panel__body">
-          <div>
+          <%= render :partial => 'shared/progress-wizard', locals: {state: [1, 0, 0, 0]} %>
+          <div class="make-call-form-container">
             <strong>Description </strong><%= time_ago_in_words(@assessment.created_at) %> ago created by <%= @assessment.created_by_name %>
           </div>
           <br />
@@ -20,7 +21,6 @@
             <%= link_to 'No, describe why', fail_assessment_path(@assessment), class: "button button--dark" %>
             <%= link_to 'Yes, continue to triage', edit_assessment_path(@assessment), class: "button button--blue" %>
           </div>
-
           </div>
     </div>
   </aside>
