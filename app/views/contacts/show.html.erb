@@ -24,7 +24,7 @@
       <div class="panel panel--unpadded">
         <table class="completed-needs-table-nav-show">
           <tbody>
-            <tr id="toggle-visibility-completed-needs" class="need--financial-support">
+            <tr id="toggle-visibility-completed-need" class="need--financial-support">
               <td>
                 <b><%= pluralize(@completed_needs.count, 'x completed need') %></b>
               </td>
@@ -33,7 +33,7 @@
         </table>
       </div>
       <div class="panel panel--unpadded">
-        <%= render "completed-needs" %>
+        <%= render partial: "completed-needs", locals: { completed: @completed_needs, class_name: 'completed-need' } %>
       </div>
     <% end %>
 
@@ -69,13 +69,16 @@
     <div class="panel panel--unpadded">
       <table class="completed-needs-table-nav-show">
         <tbody>
-          <tr id="toggle-visibility-completed-assessments" class="need--financial-support">
+          <tr id="toggle-visibility-completed-assessment" class="need--financial-support">
             <td>
               <b><%= pluralize(@completed_assessments.count, 'x completed') %></b>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="panel panel--unpadded">
+      <%= render partial: "completed-needs", locals: { completed: @completed_assessments, class_name: 'completed-assessment' } %>
     </div>
   </aside>
 </div>

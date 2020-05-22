@@ -8,8 +8,8 @@
     </tr>
   </thead>
   <tbody>
-    <% @completed_needs.each do |n| %>
-        <tr onclick="window.location='<%= need_path(n) %>'" class="need--<%= n.category.parameterize %> completed-need">
+    <% completed.each do |n| %>
+        <tr onclick="window.location='<%= need_path(n) %>'" class="need--<%= n.category.parameterize %> <%= class_name %>">
         <td>
           <%= link_to n.category, n %>
         </td>
