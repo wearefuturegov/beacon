@@ -23,7 +23,7 @@
         <% end %>
 
         <div class="assessment-fail-form-container">
-          <% if request.referrer.include? 'edit' %>
+          <% if request.referrer.to_s.include? 'edit' %>
             <%= render :partial => "shared/progress-wizard", locals: {state: [2, -1, -2, 0]} %>
           <% else %>
             <%= render :partial => "shared/progress-wizard", locals: {state: [-1, -2, -2, 0]} %>
