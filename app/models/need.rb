@@ -61,11 +61,13 @@ class Need < ApplicationRecord
     if start_on.present?
       if start_on == 'tomorrow'
         date = Date.tomorrow
-      elsif start_on == 'this_week'
-        date = date.end_of_week
+      elsif start_on == 'next_week'
+        date += 7.days
+      elsif start_on == 'any_time'
+        date = nil
       end
     end
-    where('start_on IS NULL or start_on <= ?', date)
+    where('start_on IS NULL or start_on <= ?', date) if date
   }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
