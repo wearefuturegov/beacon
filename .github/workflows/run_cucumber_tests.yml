@@ -58,4 +58,4 @@ jobs:
       env:
         RAILS_ENV: test
       run: |
-        bundle exec cucumber
+        bundle exec cucumber --fail-fast
