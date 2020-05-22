@@ -1,8 +1,8 @@
 <header class="panel-header">
-  <h1 class="panel-header__title">All support actions</h1>
+  <h1 class="panel-header__title">All needs</h1>
 </header>
 
-<%= render "bulk-actions" %>
+<%= render "shared/table/bulk-actions" %>
 
 <div class="panel">
   <% if @needs.any? %>
@@ -65,7 +65,7 @@
       </thead>
       <tbody>
       <% @needs.each do |n| %>
-        <tr class="clickable" onclick="window.location='<%= need_path(n) %>'">
+        <tr class="clickable" data-navigate-to="<%= need_path(n) %>">
           <td>
             <%= check_box_tag("need[#{n.id}]", n.id, false, { class: "select-needs bulk-action-checkbox" }) %>
           </td>
@@ -95,8 +95,17 @@
           <td>
             <%= n.last_phoned_date&.strftime("%-d %B %Y") %>
           </td>
-          <td>
+          <td class="column-call-attempts">
             <%= n.call_attempts %>
+          </td>
+          <td>
+          <% if n.assessment_start? %>
+            <% if policy(n).start_assessment? %>
+            <%= link_to "Start #{n.category}", contact_start_assessment_path(contact_id: n.contact_id, id: n), class: "button button--blue button-link", id:"edit-assessment-btn" %>
+            <% else %>
+              <button class="button button--disabled button-link" title="You need to assign this to yourself">Start <%= n.category %></button>
+            <% end %>
+          <% end %>
           </td>
         </tr>
       <% end %>
@@ -107,4 +116,7 @@
     <p class="no-results">No matches</p>
   <% end %>
   <%= javascript_pack_tag 'bulk-actions', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'needs-index' %>
 </div>
+
+

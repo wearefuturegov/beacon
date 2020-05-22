@@ -1,0 +1,92 @@
+<%= render "shared/vulnerable-banner" %>
+
+    <% if @contact_needs.errors.any? || @contact.errors.any? %>
+      <div class="error" id="error_explanation">
+        <h2><%= pluralize(@contact_needs.errors.count + @contact.errors.count, "error") %> prohibited this assessment form from
+          being saved:</h2>
+
+        <ul>
+          <% @contact.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          <% @contact_needs.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    <%= render 'shared/side-contact-profile' %>
+
+
+    <aside class="with-left-sidebar__right">
+      <%= form_with(model: @contact_needs, url: contact_assessment_path(@contact.id), method: :put, local: true) do |form| %>
+
+      <header class="panel-header">
+         <h2 class="panel-header__title hidden">Start > <b>Triage</b> > Assign > Complete</h2>
+      </header>
+      
+      <div id="assessment-container" class="panel panel--unpadded ">
+        <%= link_to "Triage", contact_start_assessment_path(contact_id: @contact.id, id: @assessment.id), class: "panel__header-with-arrow" %>
+        <div class="assessment-triage-progress-container">
+          <%= render :partial => 'shared/progress-wizard', locals: {state: [2, 1, 0, 0]} %>
+        </div>
+      <div>
+        <section class="assessment-grid">
+          <% @contact_needs.needs_list.each do |need_entry| %>
+            <% need = need_entry[1] %>
+            <%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>
+              <div class="selectable assessment-grid__need <%= "need--#{need[:name].parameterize}" %>">
+                <div class="assessment-grid__inner">
+                  <div class="assessment-checkbox">
+                    <h3 class="assessment-grid__title">
+                      <%= need_form.check_box :active, {
+                        class: 'checkbox__input need-checkbox', 
+                        checked: need[:active] == 'true', 
+                        data: "#{need[:name].parameterize}" },
+                        'true', 'false' %>
+                      <%= need_form.label :active, need[:name], class: 'checkbox__label' %>
+                    </h3>
+                  </div>
+                  <%= need_form.hidden_field :name, :value => need[:name] %>
+                  <%= need_form.hidden_field :assessment_id, :value => @assessment_id %>
+                  <%= need_form.hidden_field :id, :value => need[:id] %>
+                  <div class="field <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
+                    <%= need_form.label :description, 'Describe how we can help', class: 'field__label' %>
+                    <%= need_form.text_area :description, value: need[:description] %>
+                  </div>
+
+                  <div class="checkbox-black <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
+                    <%= need_form.check_box :is_urgent, class: 'checkbox__input', checked: need[:is_urgent] == '1' %>
+                    <%= need_form.label :is_urgent, 'Urgent?', class: 'checkbox__label' %>
+                  </div>
+                </div>
+
+                <%= fields_for :contact, @contact do |contact_form| %>
+                  <% if File.exists?(Rails.root.join("app", "views", "assessments", "_#{need[:name].parameterize.underscore}.html.erb")) %>
+                    <%# form will save to the need, contact_form will save to the contact %>
+                    <div class="assessment-grid__inner assessment-grid__inner--grey <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
+                      <%= render :partial => "#{need[:name].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need} %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+          
+        </section>
+        </div>
+      </div>
+
+      <div class="panel-buttons-right assessment-buttons-right">
+        <%= form.button "Failed call", class: "button--larger button--dark", id: "assessment-cancel", name: "status", value: "fail" %>
+        <%= form.button "Continue and assign", class: "button--larger button--blue", id: "assessment-submit-btn" %>
+      </div>
+
+    <% end %>
+    </aside>
+    
+  </div>
+
+<%= javascript_pack_tag 'needs-accordion.js', 'data-turbolinks-track': 'reload' %>

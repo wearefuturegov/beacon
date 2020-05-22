@@ -1,31 +1,42 @@
-<%= render "shared/vulnerable-banner" %>
+  <%= render "shared/vulnerable-banner" %>
+
+<div id="lead-service-panel" >
+  <%= render partial: 'shared/lead_service_panel', locals: { contact: @contact, teams_options: @teams_options} %>
+</div>
 
 <div class="with-left-sidebar">
 
-  <aside class="with-left-sidebar__left">
-    <header class="panel-header">
-      <h2 class="panel-header__title">Profile</h2>
-    </header>
-    <div class="panel panel--unpadded">  
-      <%= render "shared/profile-accordion" %>
-    </div>
-  </aside>
+<%= render 'shared/side-contact-profile' %>
 
   <aside class="with-left-sidebar__right">
-    <header class="panel-header">
-      <h2 class="panel-header__title">Support Actions</h2>
+    <header class="panel-header" id="needs-panel">
+      <h2 class="panel-header__title">Needs</h2>
       <% if @contact.needs.any? %>
         <span class="panel-header__badge"><%= @contact.needs.count %></span>
       <% end %>
       <% if policy(Need).create? %>
-        <%= link_to "Add support actions", contact_triage_path(@contact), class: "btn-triage button button--dark" %>
+        <%= link_to "Add needs +", contact_triage_path(@contact), class: "btn-triage" %>
       <% end %>
     </header>
 
-
     <div class="panel panel--unpadded panel--stroked need--<%= @need.category.parameterize %>">
-      <%= link_to @need.category, @contact, class: "panel__header", id: "need-#{@need.id}-title" %>
-      
+      <div class="panel__header">
+        <%= link_to image_tag("left.svg", alt: "Go back"), contact_path(@contact), class: "go-back" %>
+        <%= link_to @need.category, @contact, class: "panel__header-link", id: "need-#{@need.id}-title" %>
+        <div class="buttons-container">
+          <% if policy(@need).edit? %>
+            <%= link_to "Edit", edit_need_path(@need), class: "button button--blue", id:"edit-need-btn", remote: true %>
+          <% end %>
+          <% if @need.assessment_start? %>
+            <% if policy(@need).start_assessment? %>
+              <%= link_to "Start #{@need.category}", contact_start_assessment_path(contact_id: @need.contact_id, id: @need), class: "button button--blue button-link", id:"edit-assessment-btn" %>
+            <% else %>
+              <button class="button button--disabled" type="button" title="You need to assign this to yourself" >Start <%= @need.category %></button>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
       <% if policy(@need).destroy? %>
         <%= link_to 'Delete',  { action: :destroy, id: @need.id }, 
           class: "need-delete-link", id: "delete-need-#{@need.id}", method: :delete, 
@@ -33,38 +44,20 @@
       <% end %>
       
       <div class="panel__body">
-
-        <%= render "need-actions" %>
-
-        <dl class="details-list">
-          <dt class="details-list__caption">Description</dt>
-          <dd class="details-list__value"><%= simple_format @need.name %></dd>
-
-          <% if @need.food_priority %>
-            <dt class="details-list__caption">Food requirements priority</dt>
-            <dd class="details-list__value">Priority <%= @need.food_priority %></dt>
-          <% end %>
-
-          <% if @need.food_service_type %>
-            <dt class="details-list__caption">Food service type</dt>
-            <dd class="details-list__value"><%= @need.food_service_type %></dt>
-          <% end %>
-
-          <dt class="details-list__caption">Created</dt>
-          <dd class="details-list__value"><%= @need.created_at&.strftime("%-d %B %Y") %></dd>
-
-          <% if @need.start_on %>
-            <dt class="details-list__caption">Starts on</dt>
-            <dd class="details-list__value"><%= @need.start_on&.strftime("%-d %B %Y") %></dd>
-          <% end %>
-        </dl>
-
+        <div class="needs-container">
+          <div id="need-error-container"></div>
+          <%= render "need-actions" %>
+          <div id="need-fields-container">
+            <%= render "shared/need-fields" %>
+          </div>
+        </div>
       </div>
-      <%= render "notes" %>
+      <div class="notes-container">
+        <%= render "notes" %>
+      </div>
     </div>
   </aside>
 
 </div>
 
-
-<%= javascript_pack_tag 'users_viewing_page.js' %>
+<%= javascript_pack_tag 'require-datepicker' %>

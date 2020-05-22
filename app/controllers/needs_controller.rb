@@ -1,48 +1,30 @@
 # frozen_string_literal: true
 
-class NeedsController < ApplicationController
-  include ParamsConcern
+class NeedsController < NeedsTableController
   before_action :set_need, only: %i[show edit update]
+  before_action :set_teams_options, only: %i[show edit update]
   before_action :set_contact, only: %i[new create]
 
   helper_method :get_param
 
   def index
     @params = params.permit(:assigned_to, :status, :category, :page, :order_dir, :order, :commit, :is_urgent, :created_by_me)
-    @needs = if @params[:created_by_me] == 'true'
-               @assigned_to_options = {}
-               Need.created_by(current_user.id).filter_by_assigned_to('Unassigned')
-             else
-               @assigned_to_options = construct_assigned_to_options
-               policy_scope(Need).started
-             end
+    @needs = needs
 
     @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
     @assigned_to_options_with_deleted = construct_assigned_to_options(true)
-    respond_to do |format|
-      format.html
-      format.csv do
-        authorize(Need, :export?)
-        send_data @needs.to_csv, filename: "needs-#{Date.today}.csv"
-      end
-    end
+
+    handle_response_formats
   end
 
-  def deleted_needs
-    @params = params.permit(:category, :page, :order_dir, :order, :commit, :deleted_at)
-    @needs = policy_scope(Need).deleted
-                               .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
-    @needs = @needs.page(params[:page])
-  end
+  def deleted_items
+    @params = params.permit(:page, :order_dir, :order, :type)
+    @items = policy_scope(Need).deleted if params[:type].blank? || params[:type] == 'needs'
+    @items = policy_scope(Note).deleted.filter_need_not_destroyed if params[:type] == 'notes'
+    @items = @items&.filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
 
-  def deleted_notes
-    @params = params.permit(:category, :page, :order_dir, :order, :commit, :deleted_at)
-    @notes = policy_scope(Note).deleted
-                               .filter_need_not_destroyed
-                               .filter_and_sort(@params.slice(:category, :deleted_at), @params.slice(:order, :order_dir))
-
-    @notes = @notes.page(params[:page])
+    @items = @items&.page(params[:page])
   end
 
   def destroy
@@ -70,10 +52,18 @@ class NeedsController < ApplicationController
   def update
     if @need.update(need_params)
       NeedsAssigneeNotifier.notify_new_assignee(@need)
-      redirect_to need_path(@need), notice: 'Record successfully updated.'
+      respond_to do |format|
+        format.html { redirect_to need_path(@need), notice: 'Record successfully updated.' }
+        format.js
+      end
     else
-      populate_page_data
-      render :show
+      respond_to do |format|
+        format.html do
+          populate_page_data
+          render :show
+        end
+        format.js
+      end
     end
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
@@ -105,10 +95,10 @@ class NeedsController < ApplicationController
       need_name = need.first.category
       Rails.logger.info("Restored need '#{params[:id]}'")
       need.first.restore(recursive: true)
-      redirect_to deleted_needs_path(order: 'deleted_at', order_dir: 'DESC'),
+      redirect_to deleted_items_path(order: 'deleted_at', order_dir: 'DESC'),
                   notice: "Restored '#{need_name}' see <a href='#{need_path(need.first.id)}'>here</a>"
     else
-      redirect_to deleted_needs_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
+      redirect_to deleted_items_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
     end
   end
 
@@ -118,24 +108,25 @@ class NeedsController < ApplicationController
       note_name = note.first.category
       Rails.logger.info("Restored note '#{params[:id]}'")
       note.first.restore
-      redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'),
+      redirect_to deleted_items_path(order: 'deleted_at', order_dir: 'DESC'),
                   notice: "Restored '#{note_name}' see <a href='#{need_path(note.first.need_id)}'>here</a>"
     else
-      redirect_to deleted_notes_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
+      redirect_to deleted_items_path(order: 'deleted_at', order_dir: 'DESC'), alert: 'Could not restore record.'
     end
   end
 
-  def construct_assigned_to_options(with_deleted = false)
-    roles = Role.all.order(:name)
-    users = with_deleted ? User.all.with_deleted.order(:first_name, :last_name) : User.all.order(:first_name, :last_name)
-
-    {
-      'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
-      'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
-    }
+  def set_teams_options
+    @teams_options = construct_teams_options
   end
 
   private
+
+  def construct_teams_options
+    roles = Role.all.order(:name)
+    {
+      'Teams' => roles.map { |role| [role.name, role.id.to_s] }
+    }
+  end
 
   def delete_note(params)
     note = Note.find(params[:id])
@@ -180,16 +171,5 @@ class NeedsController < ApplicationController
 
   def set_contact
     @contact = Contact.find(params[:contact_id])
-  end
-
-  def need_params
-    permit_need_params = params.require(:need).permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version)
-    permit_need_params[:assigned_to] = assigned_to_me(permit_need_params[:assigned_to])
-    permit_need_params
-  end
-
-  def assigned_to_me(assigned_to)
-    assigned_to = "user-#{current_user.id}" if assigned_to == 'assigned-to-me'
-    assigned_to
   end
 end

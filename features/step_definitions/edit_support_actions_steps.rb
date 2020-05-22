@@ -56,7 +56,7 @@ end
 
 And('I see the saved completed task details on the contact') do
   visit "/contacts/#{@contact.id}"
-  completed_link = find('#toggle-visibility-completed-needs')
+  completed_link = find('#toggle-visibility-completed-need')
   expect(completed_link).to have_content('1 x completed need')
 end
 
@@ -83,7 +83,7 @@ end
 
 def get_area_panel(area)
   case area
-  when 'support actions'
+  when 'needs'
     panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(1)'
   when 'completed'
     panel_selector = '.with-left-sidebar__right .panel.panel--unpadded:nth-of-type(2)'

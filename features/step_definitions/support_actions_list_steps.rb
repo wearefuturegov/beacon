@@ -1,6 +1,6 @@
-When('I view any support actions list row for that resident') do
+When('I view any needs list row for that resident') do
   visit '/'
-  expect(page).to have_text('All support actions')
+  expect(page).to have_text('All needs')
   @resident_row = find_resident_row(@contact.first_name)
   expect(@resident_row).not_to be_nil
 end
@@ -11,11 +11,11 @@ Then('I see the last contacted date is today') do
 end
 
 Then('I see one call attempt') do
-  call_attempt_column = @resident_row.find('td:last-child')
+  call_attempt_column = @resident_row.find('td.column-call-attempts')
   expect(call_attempt_column).to have_content(1)
 end
 
-When('I filter support actions by category {string}') do |category|
+When('I filter needs by category {string}') do |category|
   page.find('#needs-filters').click
   select2 'category', category
 end
@@ -26,13 +26,13 @@ Then('I see the support action for category {string} in the results') do |catego
   expect(category_column).to have_content(category)
 end
 
-Given('many support actions exist') do
-  # nothing to do, we have support actions from the seed data
+Given('many needs exist') do
+  # nothing to do, we have needs from the seed data
   visit '/'
-  page.should have_content('All support actions')
+  page.should have_content('All needs')
 end
 
-When('I sort support actions by category in {string} order') do |order|
+When('I sort needs by category in {string} order') do |order|
   visit "/?order=category&order_dir=#{order}&page=1"
 end
 
@@ -46,7 +46,7 @@ Then('I see the support action for category {string} first in the results') do |
   expect(category_column).to have_content(category)
 end
 
-Then('I see every support actions with category {string} in the results') do |category|
+Then('I see every needs with category {string} in the results') do |category|
   page.all('table tr').each do |row|
     category_column = row.find('td:first-child')
     expect(category_column).to have_content(category)

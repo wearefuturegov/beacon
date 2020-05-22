@@ -1,0 +1,7 @@
+const needErrorContainer = $("#need-error-container");
+<% if @need && @need.errors.any? %>
+  needErrorContainer.html("<%= j(render 'shared/create-need-errors' ) %>");
+<% else %>
+  needErrorContainer.html("");
+  $("#need-fields-container").html("<%= j(render 'shared/need-fields' ) %>");
+<% end %>

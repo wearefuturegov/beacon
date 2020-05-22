@@ -23,9 +23,11 @@ class Need < ApplicationRecord
                  food_priority: :string,
                  food_service_type: :string
 
-  ASSESSMENT_CATEGORIES = ['phone triage', 'check in'].freeze
+  ASSESSMENT_START_CATEGORIES = ['triage', 'check in'].freeze
+  ASSESSMENT_CATEGORIES = ['triage', 'check in', 'mdt review'].freeze
 
-  enum category: { 'Phone triage': 'phone triage',
+  enum category: { 'Triage': 'triage',
+                   'MDT review': 'mdt review',
                    'Check in': 'check in',
                    'Groceries and cooked meals': 'groceries and cooked meals',
                    'Physical and mental wellbeing': 'physical and mental wellbeing',
@@ -53,12 +55,14 @@ class Need < ApplicationRecord
   end
 
   scope :completed, -> { where(status: :complete) }
-  scope :uncompleted, -> { where.not(status: :complete) }
+  scope :uncompleted, -> { where.not(status: [:complete, :cancelled]) }
   scope :started, -> { where('start_on IS NULL or start_on <= ?', Date.today) }
   scope :filter_by_category, ->(category) { where(category: category.downcase) }
 
   scope :assessments, -> { where(category: ASSESSMENT_CATEGORIES) }
   scope :not_assessments, -> { where.not(category: ASSESSMENT_CATEGORIES) }
+
+  scope :not_pending, -> { where(assessment_id: nil) }
 
   scope :filter_by_user_id, lambda { |user_id|
     if user_id == 'Unassigned'
@@ -112,6 +116,10 @@ class Need < ApplicationRecord
 
   scope :order_by_call_attempts, lambda { |direction|
     order("call_attempts #{direction} NULLS LAST")
+  }
+
+  scope :order_by_assigned_to, lambda { |direction|
+    order("user_id #{direction}, role_id #{direction}")
   }
 
   delegate :name, :address, :postcode, :telephone, :mobile, :is_vulnerable,
@@ -186,8 +194,18 @@ class Need < ApplicationRecord
           group by n.id
         ) as notes_aggr on notes_aggr.id = needs.id"
 
-    Need.joins(:contact, sql).select('needs.*', 'last_phoned_date',
-                                     'call_attempts')
+    Need.joins(:contact, sql)
+        .where(assessment_id: nil)
+        .select('needs.*', 'last_phoned_date',
+                'call_attempts')
+  end
+
+  def created_by_name
+    user_id = versions.where('event = ?', 'create').first.whodunnit
+    return 'No user' if user_id.nil?
+
+    user = User.find(user_id)
+    user.name_or_email
   end
 
   def self.default_sort(results)
@@ -195,11 +213,24 @@ class Need < ApplicationRecord
   end
 
   def self.dynamic_fields
-    %w[last_phoned_date call_attempts]
+    %w[last_phoned_date call_attempts assigned_to]
   end
 
   def self.categories_for_triage
     categories.except('Other', 'Initial review').reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
+  end
+
+  # superseed the method aboves once triage gets removed
+  def self.categories_for_assessment
+    categories.reject { |_k, v| v.in? ASSESSMENT_CATEGORIES }
+  end
+
+  def assessment?
+    category.downcase.in? ASSESSMENT_CATEGORIES
+  end
+
+  def assessment_start?
+    category.downcase.in? ASSESSMENT_START_CATEGORIES
   end
 
   def assigned

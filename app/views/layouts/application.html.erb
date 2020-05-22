@@ -7,7 +7,7 @@
 
     <div class="content-pane">
 
-      <header class="panel content-header">
+      <header class="panel content-header" id="panel-content-header">
         <%= yield :header %>
         <nav class="content-header__actions-right">
           <% if current_user.roles.count > 1 %>
@@ -26,19 +26,20 @@
       <!-- Concurrent Users modal -->
       <div id="concurrent-users-modal">
         <div id="concurrent-users"></div>
-        <div id="contactId" hidden="hidden"><%= @edit_contact_id %></div>
         <div id="userEmail" hidden="hidden"><%= current_user.email %></div>
       </div>
 
       <!-- Notifications -->
-      <% flash.each do |type, msg| %>
-        <div class="<%= type %>"><%= sanitize msg %></div>
-      <% end %>
-
+      <div id="flash-messages">
+        <% flash.each do |type, msg| %>
+          <div class="<%= type %>"><%= sanitize msg %></div>
+        <% end %>
+      </div>
       <%= yield %>
 
     </div>
 
     <%= render :partial =>  "shared/popup" %>
   </body>
+  <%= javascript_pack_tag 'users_viewing_page.js' %>
 </html>

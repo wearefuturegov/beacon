@@ -1,0 +1,1 @@
+const flatpickr = require('flatpickr')

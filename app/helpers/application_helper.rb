@@ -30,4 +30,19 @@ module ApplicationHelper
   def current_role_id
     current_user.role&.id
   end
+
+  def wizard_state_as_class(state)
+    case state
+    when -2
+      'failed-step inactive'
+    when -1
+      'failed-step'
+    when 1
+      'current-step'
+    when 2
+      'completed-step'
+    else
+      ''
+    end
+  end
 end

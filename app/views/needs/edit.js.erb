@@ -1,0 +1,12 @@
+$("#need-fields-container").html("<%= j(render 'shared/need-fields-edit' ) %>")
+$(".buttons-container").addClass("invisible");
+$(".make-call-container").addClass("invisible");
+
+inputDefaultDate = document.getElementById("show-need-start-on-flatpicker_format")
+if(inputDefaultDate) {
+  flatpickr('#need_start_on', {
+      dateFormat: "d/m/Y",
+      allowInput: true,
+      defaultDate: [inputDefaultDate.value]
+  });
+}

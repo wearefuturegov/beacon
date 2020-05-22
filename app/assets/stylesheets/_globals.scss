@@ -50,6 +50,10 @@ select::-ms-expand {
   background-position: 95% center;
 }
 
+.dropdown-label {
+  margin-left: 5px;
+}
+
 .dropdown {
   width: 135px;
 }
@@ -93,6 +97,10 @@ span.selection {
     clip: rect(1px 1px 1px 1px);
     clip: rect(1px, 1px, 1px, 1px);
     white-space: nowrap;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .turbolinks-progress-bar {

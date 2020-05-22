@@ -1,26 +1,7 @@
-const allNeedsStatusComplete = document.querySelectorAll('.need--status_complete')
-const showHideAllNeedsStatusComplete = (display) => {
-  for(let i = 0; i < allNeedsStatusComplete.length; i++) {
-    allNeedsStatusComplete[i].style.display = display
-  }  
-}
-showHideAllNeedsStatusComplete('none')
+require("select2");
 
-let showCompletedNeeds = false;
-const toggleDisplay = (show) => show ? 'table-row' : 'none';
-
-const toggleVisibilityCompletedAssessments = document.getElementById('toggle-visibility-completed-assessments')
-toggleVisibilityCompletedAssessments.addEventListener('click', (e) => {
-    showCompletedNeeds = !showCompletedNeeds;
-    const table = toggleVisibilityCompletedAssessments.parentNode.parentNode
-    if(showCompletedNeeds) {
-      table.classList.add("table-nav-hide")
-    } else {
-      table.classList.remove("table-nav-hide")
-    }
-    showHideAllNeedsStatusComplete(toggleDisplay(showCompletedNeeds))
-    e.preventDefault()
-});
+const dropdowns = $("#formAssessment .dropdown");
+dropdowns.select2();
 
 document.getElementById('btnAssessmentDropdown').addEventListener('click', (e) => {
     document.getElementById('assessmentDropdownElements').classList.toggle('assessment-dropdown-show');
@@ -35,6 +16,3 @@ document.getElementById('btnAssessmentDropdown').addEventListener('click', (e) =
         }
     }
 });
-
-
-

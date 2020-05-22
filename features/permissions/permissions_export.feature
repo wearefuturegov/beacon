@@ -7,7 +7,7 @@ Feature: Restrict exporting need data depending on role
   Scenario Outline: Roles that can see export functionality
     Given I am logged into the system as a "<role>" user
     And a support action for a contact is assigned to me
-    When I go to the support actions list
+    When I go to the needs list
     Then I can see the export button
     And I can export data from the system
     Examples:
@@ -18,7 +18,7 @@ Feature: Restrict exporting need data depending on role
   Scenario Outline: Roles that cannot see export functionality
     Given I am logged into the system as a "<role>" user
     And a support action for a contact is assigned to me
-    When I go to the support actions list
+    When I go to the needs list
     Then I can not see the export button
     And I can not export data from the system
     Examples:

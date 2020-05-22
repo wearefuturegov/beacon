@@ -2,73 +2,57 @@
 
 <div class="with-left-sidebar">
 
-  <aside class="with-left-sidebar__left">
-    <header class="panel-header">
-      <h2 class="panel-header__title">Profile</h2>
-    </header>
-    <div class="panel panel--unpadded">
-      <%= render "shared/profile-accordion" %>
-    </div>
-  </aside>
+<%= render 'shared/side-contact-profile' %>
 
   <aside class="with-left-sidebar__right">
     <header class="panel-header">
-      <h2 class="panel-header__title">Assessments</h2>
+      <h2 class="panel-header__title"><br/></h2>
     </header>
     <div class="panel panel--unpadded panel--stroked need--phone-triage">
-      <%= link_to "#{@type.humanize} an assessment", contact_path(@contact.id), class: "panel__header" %>
+      <%= link_to "#{@type.humanize}", contact_path(@contact.id), class: "panel__header-with-arrow" %>
       <div class="panel__body">
-        <% if @need.errors.any? || @note.errors.any? %>
-          <div class="error" id="error_explanation">
-            <h2><%= pluralize(@need.errors.count + @note.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <%= render "shared/create-need-errors" %>
 
-            <ul>
-              <% @need.errors.full_messages.each do |message| %>
-                <li>Assessment <%= message.downcase %></li>
-              <% end %>
-              <% @note.errors.full_messages.each do |message| %>
-                <li>Note <%= message.downcase %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-
-        <%= form_with(model: @need, url: contact_assessments_path, local: true) do |form| %>
+        <%= form_with(model: @need, url: contact_assessments_path, local: true, id: "formAssessment") do |form| %>
           <input type="hidden" value="<%= @type %>" name="type" hidden="hidden">
           <div class="need-actions">
             <div class="need-actions__field" id="teams-actions__field">
-              <%= form.label :user_id, 'Assigned to', class: 'need-actions__label' %>
-              <%= form.select :assigned_to, grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: 'Unassigned'), {}, { class: "need-actions__select" } %>
+              <%= form.label :user_id, 'Assigned to', class: 'need-actions__label dropdown-label' %>
+              <%= form.select :assigned_to, grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: 'Unassigned'), {}, { class: "need-actions__select dropdown" } %>
             </div>
 
             <div class="need-actions__field" id="priority-actions__field">
-              <%= form.label :is_urgent, 'Priority', class: 'need-actions__label' %>
+              <%= form.label :is_urgent, 'Priority', class: 'need-actions__label dropdown-label' %>
               <%= form.select :is_urgent, {
                   "Urgent" => true,
                   "Normal" => false
-              }, {}, {class: @need.is_urgent ? "need-actions__select need-actions__select--red" : "need-actions__select"} %>
+              }, {}, {class: @need.is_urgent ? "need-actions__select need-actions__select--red" : "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity"} %>
             </div>
 
             <div class="need-actions__field" id="status-actions__field">
               <%= form.label :status, 'Status', class: 'need-actions__label' %>
 
               <% if @type == 'log' %>
-                <%= form.select :status, [%w(Complete complete)], {}, {class: "need-actions__select", readonly: true} %>
+                <%= form.select :status, [%w(Complete complete)], {}, {class: "need-actions__select", readonly: true, "data-minimum-results-for-search" => "Infinity"} %>
               <% else %>
-                <%= form.select :status, need_statuses, {}, {class: "need-actions__select"} %>
+                <%= form.select :status, need_statuses, {}, {class: "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity"} %>
               <% end %>
             </div>
           </div>
 
           <fieldset class="field-section">
-            <legend class="field-section__title">Assessment Category</legend>
+            <legend class="field-section__title">Category</legend>
             <div class="radio">
-              <%= form.radio_button :category, 'phone triage', {:checked => @need[:category] == 'Phone triage'} %>
-              <%= form.label :category_phone_triage, "Phone Triage", class: "radio__label" %>
+              <%= form.radio_button :category, 'triage', {:checked => @need[:category] == 'Triage'} %>
+              <%= form.label :category_triage, "Triage", class: "radio__label" %>
             </div>
             <div class="radio">
               <%= form.radio_button :category, 'check in', {:checked => @need[:category] == 'Check in'} %>
               <%= form.label :category_check_in, "Check in", class: "radio__label" %>
+            </div> 
+            <div class="radio">
+              <%= form.radio_button :category, 'mdt review', {:checked => @need[:category] == 'MDT review'} %>
+              <%= form.label :category_mdt_review, "MDT review", class: "radio__label" %>
             </div>
           </fieldset>
           <br/>
@@ -99,5 +83,6 @@
 
 </div>
 
+<%= javascript_pack_tag 'assessments' %>
 <%= javascript_pack_tag 'assessment_datepicker' %>
 <%= javascript_pack_tag 'users_viewing_page.js' %>

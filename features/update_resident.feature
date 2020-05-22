@@ -1,3 +1,4 @@
+@javascript
 Feature: Update person
   As a call centre agent
   I want to edit a residents profile

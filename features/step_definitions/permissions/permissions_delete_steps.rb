@@ -1,4 +1,4 @@
-Given('no notes exists on the support actions') do
+Given('no notes exists on the needs') do
   # nothing to do here
 end
 
@@ -48,7 +48,7 @@ Given('I have deleted a support action') do
 end
 
 When('I choose to restore the support action') do
-  visit '/deleted_needs?order=deleted_at&order_dir=DESC'
+  visit '/deleted_items?order=deleted_at&order_dir=DESC'
   page.find("#restore-need-#{@deleted_support_action}").click
   page.accept_alert
 end
@@ -72,14 +72,15 @@ end
 
 Given('I have deleted a note') do
   step "I am logged into the system as a 'manager' user"
-  step "a resident with 'Dog walking' support actions"
+  step "a resident with 'Dog walking' needs"
   step "I added a 'Note' note 'to be restored'"
   step 'I edit the support action'
   step 'I can delete the note'
 end
 
 When('I choose to restore the note') do
-  visit '/deleted_notes?order=deleted_at&order_dir=DESC'
+  visit '/deleted_items?order=deleted_at&order_dir=DESC&type=notes'
+  sleep 2 # I am not sure why this is randomly failing, this is a temp fix
   top_entry = page.find('table > tbody > tr:nth-child(1) > td:nth-child(2)')
   expect(top_entry).to have_content(@last_note)
 

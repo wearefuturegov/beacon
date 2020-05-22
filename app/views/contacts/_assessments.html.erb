@@ -1,4 +1,4 @@
-<table class="needs-table assessments-table">
+<table id="open-assessments-table" class="needs-table assessments-table">
   <thead>
   <tr>
     <th>Type</th>
@@ -10,9 +10,6 @@
   </thead>
   <tbody>
   <% @open_assessments.each do |n| %>
-    <%= render partial: 'assessment_row', locals: {n: n} %>
-  <% end %>
-  <% @completed_assessments.each do |n| %>
     <%= render partial: 'assessment_row', locals: {n: n} %>
   <% end %>
   </tbody>

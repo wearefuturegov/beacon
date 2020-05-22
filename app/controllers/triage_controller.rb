@@ -6,7 +6,6 @@ class TriageController < ApplicationController
   before_action :set_contact, only: %i[edit update]
 
   def edit
-    @edit_contact_id = @contact.id
     @contact_needs = create_contact_needs
   end
 
@@ -53,7 +52,7 @@ class TriageController < ApplicationController
         name: label,
         active: false
       }
-      if label == 'Phone triage'
+      if label == 'Triage'
         need[:active] =
           need[:start_on] = (Date.today + 6.days).strftime('%d/%m/%y')
       end

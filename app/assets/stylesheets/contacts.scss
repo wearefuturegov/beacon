@@ -1,0 +1,22 @@
+.assessment-operations {
+  flex: 1;
+  margin-bottom: 15px;
+  &.left {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+  }
+  &.right {
+    text-align: right;
+  }
+}
+.lead-service-section{
+  background-image: url(asset_path('person-icon.png'));
+  background-repeat: no-repeat;
+  width: 400px;
+}
+
+@media all and (-ms-high-contrast:none)
+{
+*::-ms-backdrop, .lead-service-dropdown-container { margin-left: 95px !important; } /* IE11 */
+}

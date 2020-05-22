@@ -52,18 +52,18 @@ class ApplicationPolicy
     mdt_council_or_food_role? ? false : true
   end
 
-  protected
+  def mdt?
+    @user.in_role_name?('mdt')
+  end
 
   def admin?
     @user.in_role_name?('manager')
   end
 
+  protected
+
   def agent?
     @user.in_role_name?('agent')
-  end
-
-  def mdt?
-    @user.in_role_name?('mdt')
   end
 
   def council_service?

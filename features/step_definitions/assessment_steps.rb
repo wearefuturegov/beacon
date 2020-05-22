@@ -15,19 +15,19 @@ When('I choose to log an assessment') do
 end
 
 Then('I see the schedule assessment form') do
-  expect(page).to have_css('.panel__header', text: 'Schedule an assessment')
+  expect(page).to have_css('.panel__header-with-arrow', text: 'Schedule')
   expect(page).to have_field('need[start_on]')
   expect(page).not_to have_field('note[body]')
 end
 
 Then('I see the log assessment form') do
-  expect(page).to have_css('.panel__header', text: 'Log an assessment')
+  expect(page).to have_css('.panel__header-with-arrow', text: 'Log')
   expect(page).not_to have_field('need[start_on]')
   expect(page).to have_field('note[body]')
 end
 
 And('I enter valid details') do
-  page.find('label', text: 'Check in').click
+  page.find('label', text: 'Triage').click
   if @assessment_type == 'log'
     page.find('#note_body').fill_in(with: 'Some call notes')
   elsif @assessment_type == 'schedule'
@@ -43,12 +43,12 @@ end
 
 Then('I see the saved assessment details on the contact') do
   if @assessment_type == 'log'
-    completed_link = find('#toggle-visibility-completed-assessments')
-    expect(completed_link).to have_content('1 x completed assessment')
+    completed_link = find('#toggle-visibility-completed-assessment')
+    expect(completed_link).to have_content('1 x completed')
   elsif @assessment_type == 'schedule'
     assessments_table = find('.assessments-table')
     assessment_row = assessments_table.find('tbody tr')
-    expect(assessment_row).to have_content('Check in')
+    expect(assessment_row).to have_content('Triage')
     expect(assessment_row).to have_content("#{@scheduled_date.strftime('%-d %B %Y')} (Future)")
   end
 end

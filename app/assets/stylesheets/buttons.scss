@@ -35,6 +35,18 @@
             color: $white;
         }
     }
+    &.button--blue{
+      color: $white;
+      background: $blue;
+      margin-right: 10px;
+      &:focus{
+          outline: 2px solid $yellow;
+      }
+      &:hover{
+          background: darken($blue, 10);
+          color: $white;
+      }
+    }
 
     &.button--primary{
         padding: 12px;
@@ -69,4 +81,56 @@
             margin-left: 15px;
         }
     }
+
+    &.button--disabled{
+        border: 1px solid grey;
+        @extend .button--blue;
+
+        background: grey;
+        &:hover{
+            background: darken(grey, 10);
+        }
+        &:active{
+            background: darken(grey, 20);
+        }
+        &:focus{
+            outline: 2px solid $yellow;
+        }
+    }
+   
+}
+
+
+.button--larger {
+    @extend .button;
+    padding: 12px;
+    font-size: 1.2rem;
+}
+
+a {
+  &.btn-triage {
+    color: $blue;
+    margin-left: auto;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    padding: 0;
+    text-decoration: none;
+    &:focus {
+      background: none;
+    }
+  }
+}
+
+
+.tablink{
+    font-size: 1rem;
+    @extend .button, .button--dark;
+    border: none;
+    padding: 10px 25px 10px 25px;
+    margin-bottom: 0px;
+}
+
+.tablink__active{
+    background: white;
 }

@@ -34,12 +34,13 @@
     justify-content: flex-start;
     align-items: center;
     z-index: 100;
-    background: $yellow;
+    background: transparentize($yellow, 0.3);
+    // outline: 2px solid $yellow;
 
     ul{
         list-style: none;
-        margin-bottom: 25px;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
+        margin: 15px;
         li{
             padding-top: 5px;
             font-size: 1.2rem;

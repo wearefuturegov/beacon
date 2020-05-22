@@ -112,12 +112,21 @@ RSpec.describe NeedsController, type: :controller do
       expect(options).to eq('Teams' => [['mdt', 'role-1']],
                             +'Users' => [['User Test [X]', 'user-1']])
     end
+
+    it 'inherits parents methods' do
+      expect(need).to receive(:page)
+      expect(need).to receive(:categories).and_return(['a', 'b', 'c'])
+      get :index
+      expect(subject.can_bulk_action?).to eq(true)
+      expect(subject.categories).to eq(['a', 'b', 'c'])
+      expect(subject.filters_path).to eq(root_path)
+    end
   end
 
   describe 'GET #deleted_needs' do
     it 'filters deleted needs on page number passed in params' do
       expect(deleted_need).to receive(:page).with('1').and_return(deleted_need)
-      get :deleted_needs, params: { page: 1 }
+      get :deleted_items, params: { page: 1, type: 'needs' }
       expect(response).to be_successful
     end
   end
@@ -125,7 +134,7 @@ RSpec.describe NeedsController, type: :controller do
   describe 'GET #deleted_notes' do
     it 'filters deleted notes on page number passed in params' do
       expect(deleted_note).to receive(:page).with('1').and_return(deleted_note)
-      get :deleted_notes, params: { page: 1 }
+      get :deleted_items, params: { page: 1, type: 'notes' }
       expect(response).to be_successful
     end
   end
