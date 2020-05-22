@@ -328,3 +328,13 @@
         }
     }
 }
+
+
+tr.completed-need, tr.completed-assessment{
+    td{
+        color: transparentize($text, 0.4) !important;
+        a, strong {
+            color: transparentize($text, 0.4) !important;
+        }
+    }
+}
