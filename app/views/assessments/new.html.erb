@@ -44,7 +44,7 @@
             <legend class="field-section__title">Category</legend>
             <div class="radio">
               <%= form.radio_button :category, 'triage', {:checked => @need[:category] == 'Triage'} %>
-              <%= form.label :category_phone_triage, "Triage", class: "radio__label" %>
+              <%= form.label :category_triage, "Triage", class: "radio__label" %>
             </div>
             <div class="radio">
               <%= form.radio_button :category, 'check in', {:checked => @need[:category] == 'Check in'} %>
