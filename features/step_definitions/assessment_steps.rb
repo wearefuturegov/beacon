@@ -43,10 +43,10 @@ end
 
 Then('I see the saved assessment details on the contact') do
   if @assessment_type == 'log'
-    completed_link = find('#toggle-visibility-completed-assessments')
+    completed_link = find('#toggle-visibility-completed-assessment')
     expect(completed_link).to have_content('1 x completed')
   elsif @assessment_type == 'schedule'
-    assessments_table = find('.assessments-table')
+    assessments_table = find('.needs-table')
     assessment_row = assessments_table.find('tbody tr')
     expect(assessment_row).to have_content('Check in')
     expect(assessment_row).to have_content("#{@scheduled_date.strftime('%-d %B %Y')} (Future)")
