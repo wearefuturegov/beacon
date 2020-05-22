@@ -21,7 +21,8 @@
 
         <% if categories.size > 0 %>
           <label for="category" class="visually-hidden">By category</label>
-          <%= select_tag("category", options_for_select(categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select dropdown") %>
+          <%= select_tag("category", 
+            content_tag(:option,'Triages and Check ins', :value => "triages-and-check-ins", :selected => params["category"] == "triages-and-check-ins") + options_for_select(categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select dropdown") %>
         <% end %>
 
         <label for="status" class="visually-hidden">By status</label>

@@ -69,7 +69,13 @@ class Need < ApplicationRecord
     end
     where('start_on IS NULL or start_on <= ?', date) if date
   }
-  scope :filter_by_category, ->(category) { where(category: category.downcase) }
+  scope :filter_by_category, lambda { |category|
+    if category == 'triages-and-check-ins'
+      where(category: ['triage', 'check in'])
+    else
+      where(category: category.downcase)
+    end
+  }
 
   scope :assessments, -> { where(category: ASSESSMENT_CATEGORIES) }
   scope :not_assessments, -> { where.not(category: ASSESSMENT_CATEGORIES) }
