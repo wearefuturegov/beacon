@@ -25,13 +25,13 @@ class NeedsTableController < ApplicationController
     end
   end
 
-  def needs
+  def needs(start_on = nil)
     if @params[:created_by_me] == 'true'
       @assigned_to_options = {}
       Need.created_by(current_user.id).filter_by_assigned_to('Unassigned')
     else
       @assigned_to_options = construct_assigned_to_options
-      policy_scope(Need).started
+      policy_scope(Need).started(start_on)
     end
   end
 

@@ -29,6 +29,16 @@
 
         <label for="is_urgent" class="visually-hidden">By priority</label>
         <%= select_tag("is_urgent", options_for_select(need_urgencies, :selected => get_param_capitalized('is_urgent')), prompt: 'All priorities', class: "filters__select dropdown", "data-minimum-results-for-search" => "Infinity") %>
+      
+        <label for="is_urgent" class="visually-hidden">Date</label>
+        <%= select_tag("start_on", 
+              options_for_select([["Today", "today"], ["Tomorrow", "tomorrow"], ["This week", "this_week"]], :selected => params["start_on"]), 
+              prompt: nil, class: "filters__select dropdown", "data-minimum-results-for-search" => "Infinity") %>
+        <% if params[:order] && params[:order] == 'start_on' && params[:order_dir] %>
+          <%= hidden_field_tag 'order', params[:order] %> 
+          <%= hidden_field_tag 'order_dir', params[:order_dir] %> 
+        <% end %>
+      
       <% end %>
   </div>
 </section>
