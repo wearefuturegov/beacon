@@ -58,6 +58,7 @@ class Need < ApplicationRecord
   scope :uncompleted, -> { where.not(status: [:complete, :cancelled]) }
   scope :started, lambda { |start_on|
     next all if start_on.nil? || start_on == 'any_time'
+
     case start_on
     when 'today'
       where('start_on >= ? and start_on <= ?', Date.today, Date.today.end_of_day)
