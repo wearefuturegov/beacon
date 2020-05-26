@@ -57,17 +57,19 @@ class Need < ApplicationRecord
   scope :completed, -> { where(status: :complete) }
   scope :uncompleted, -> { where.not(status: [:complete, :cancelled]) }
   scope :started, lambda { |start_on|
-    date = Date.today
-    if start_on.present?
-      if start_on == 'tomorrow'
-        date = Date.tomorrow
-      elsif start_on == 'next_week'
-        date += 7.days
-      elsif start_on == 'any_time'
-        date = nil
-      end
+    next all if start_on.nil? || start_on == 'any_time'
+    case start_on
+    when 'today'
+      where('start_on >= ? and start_on <= ?', Date.today, Date.today.end_of_day)
+    when 'tomorrow'
+      where('start_on >= ? and start_on <= ?', Date.today + 1.days, Date.today.end_of_day + 1.days)
+    when 'next_week'
+      where('start_on >= ? and start_on <= ?', Date.today + 1.days, Date.today.end_of_day + 7.days)
+    when 'after_today'
+      where('start_on >= ?', Date.today + 1.days)
+    else
+      raise "Invalid start_on filter #{start_on}"
     end
-    where('start_on IS NULL or start_on <= ?', date) if date
   }
   scope :filter_by_category, lambda { |category|
     if category == 'triages-and-check-ins'
