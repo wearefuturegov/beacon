@@ -22,7 +22,10 @@
         <% if categories.size > 0 %>
           <label for="category" class="visually-hidden">By category</label>
           <%= select_tag("category", 
-            content_tag(:option,'Triages and Check ins', :value => "triages-and-check-ins", :selected => params["category"] == "triages-and-check-ins") + options_for_select(categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select dropdown") %>
+            content_tag(:option,'Triages and Check ins', :value => "triages-and-check-ins", :selected => params["category"] == "triages-and-check-ins") +
+            content_tag(:option,'Not triages & check ins', :value => "not-triages-and-check-ins", :selected => params["category"] == "not-triages-and-check-ins") +
+                options_for_select(categories, :selected => params["category"]), prompt: 'All categories', class: "filters__select dropdown")
+          %>
         <% end %>
 
         <label for="status" class="visually-hidden">By status</label>
@@ -33,7 +36,7 @@
       
         <label for="is_urgent" class="visually-hidden">Date</label>
         <%= select_tag("start_on", 
-              options_for_select([["Today", "today"], ["Tomorrow", "tomorrow"], ["Next week", "next_week"],["Any time", "any_time"]], :selected => params["start_on"]), 
+              options_for_select([["Any time", "any_time"], %w(Today today), %w(Tomorrow tomorrow), ["Next week", "next_week"], %w(Future after_today)], :selected => params["start_on"]),
               prompt: nil, class: "filters__select dropdown", "data-minimum-results-for-search" => "Infinity") %>
         <% if params[:order] && params[:order] == 'start_on' && params[:order_dir] %>
           <%= hidden_field_tag 'order', params[:order] %> 
