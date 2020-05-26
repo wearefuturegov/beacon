@@ -28,16 +28,17 @@
     %>
     <%= form.email_field :email, placeholder: "eg. example@email.com" %>
   </div>
-</section>
-
-<fieldset class="field-section">
-  <legend class="field-section__title">What roles is this user in?</legend>
-  <% @roles.each do |role| %>
-    <div class="field">
-      <div class="checkbox">
-        <%= form.check_box :roles, {multiple: true, checked: @user.in_role?(role.id)}, role.id, false %>
-        <%= form.label :roles, role.name, {:value => role.id, :class => 'checkbox__label'} %>
-      </div>
+  
+    <div class="field field--span-two-cols">
+      <h3 class="field-section__title">What roles is this user in?</h3>
     </div>
-  <% end %>
-</fieldset>
+    <% @roles.each do |role| %>
+      <div class="field">
+        <div class="checkbox">
+          <%= form.check_box :roles, {multiple: true, checked: @user.in_role?(role.id)}, role.id, false %>
+          <%= form.label :roles, role.name, {:value => role.id, :class => 'checkbox__label'} %>
+        </div>
+      </div>
+    <% end %>
+
+</section>
