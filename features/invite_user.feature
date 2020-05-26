@@ -1,10 +1,10 @@
 Feature: Invite user
-  As a
+  As a system administrator
   I want to be able to invite users and admin users to use the system
   so that the people who need to access the system are able to do so.
 
   Background:
-    * I am logged into the system as an admin
+    * I am logged into the system as a 'sysadmin' user
 
   Scenario: Add a user
     Given a users email address "normaluser@test.com"

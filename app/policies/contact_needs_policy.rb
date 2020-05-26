@@ -3,7 +3,7 @@ class ContactNeedsPolicy < ApplicationPolicy
     def resolve
       @user.assign_role_if_empty
       case @user.role.tag
-      when 'manager', 'agent', 'mdt'
+      when 'sysadmin', 'manager', 'agent', 'mdt'
         @scope
       when 'food_delivery_manager'
         needs_me_role_team 'food_delivery_manager'

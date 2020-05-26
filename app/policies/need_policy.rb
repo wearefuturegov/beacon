@@ -3,7 +3,7 @@ class NeedPolicy < ApplicationPolicy
     def resolve
       @user.assign_role_if_empty
       case @user.role.tag
-      when 'manager', 'agent'
+      when 'sysadmin', 'manager', 'agent'
         @scope
       when 'mdt'
         needs_me_or_role 'mdt'
