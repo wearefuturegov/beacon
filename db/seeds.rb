@@ -15,6 +15,7 @@ ActiveRecord::Base.transaction do
   Faker::Config.locale = 'en-GB'
 
   roles = {
+    'System Admin' => 'sysadmin',
     'Contact Centre Manager' => 'manager',
     'Contact Centre Agent' => 'agent',
     'MDT' => 'mdt',
@@ -75,7 +76,7 @@ end
 # make an initial user for sake of the readme
 seed_user_emails = ENV['SEED_USER_EMAILS'] || 'admin@example.com'
 seed_user_emails.split(',').each do |email|
-  admin_role = Role.find_by(role: 'manager')
+  admin_role = Role.find_by(role: 'sysadmin')
   User.find_or_initialize_by(email: email.strip)
       .update!(
         invited: DateTime.now,
