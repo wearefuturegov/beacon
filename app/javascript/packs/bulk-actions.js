@@ -44,8 +44,9 @@ statusJQueryWrapper.on("select2:select", (e) => {
 });
 
 for (let i = 0; i < needs.length; i++) needs[i].addEventListener('click', checkboxClicked)
-allNeeds.addEventListener('click', selectAllNeeds)
-
+if(allNeeds) {
+  allNeeds.addEventListener('click', selectAllNeeds)
+}
 function checkboxClicked(e) {
   e.stopPropagation()
   let checkedCount = 0;
