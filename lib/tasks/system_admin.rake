@@ -4,7 +4,7 @@ namespace :upgrade do
     task create_sysadmin: :environment do
       ActiveRecord::Base.transaction do
         {
-          'System Admin' => 'sysadmin',
+          'System Admin' => 'sysadmin'
         }.map { |name, role| Role.create(name: name, role: role) unless Role.exists?(name: name, role: role) }
       end
     end

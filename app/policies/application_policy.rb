@@ -63,7 +63,7 @@ class ApplicationPolicy
   def sysadmin?
     @user.in_role_name?('sysadmin')
   end
-  
+
   protected
 
   def agent?

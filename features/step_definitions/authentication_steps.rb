@@ -12,7 +12,6 @@ Given('they have logged into the system as a {string} user') do |user|
   step "I am logged into the system as a '#{user}' user"
 end
 
-
 Given(/^I am logged into the system as an admin$/) do
   visit generate_magic_link('manager')
   expect(page.status_code).to eq(200) if Capybara.current_driver == :rack_test
