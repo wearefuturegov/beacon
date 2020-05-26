@@ -74,6 +74,8 @@ class Need < ApplicationRecord
   scope :filter_by_category, lambda { |category|
     if category == 'triages-and-check-ins'
       where(category: ['triage', 'check in'])
+    elsif category == 'not-triages-and-check-ins'
+      where.not(category: ['triage', 'check in'])
     else
       where(category: category.downcase)
     end
