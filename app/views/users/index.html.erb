@@ -10,7 +10,9 @@
       Beacon users
     <% end %>
   </h1>
-  <%= link_to "Invite a user", new_user_path, class: "panel-header__action" %>
+  <% if policy(User).create? %>
+    <%= link_to "Invite a user", new_user_path, class: "panel-header__action" %>
+  <% end %>
 </header>
 
 <div class="panel">
@@ -51,8 +53,8 @@
           
         </td>
         <td>
-        <% if !user.deleted? %>
-          <%= link_to 'View', edit_user_path(user), class: "button", id: "view-user-#{user.id}" %>
+        <% if !user.deleted? && policy(User).update?%>
+          <%= link_to 'Edit', edit_user_path(user), class: "button", id: "view-user-#{user.id}" %>
         <% end %>
         </td>
       </tr>
