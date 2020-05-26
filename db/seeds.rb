@@ -55,9 +55,9 @@ ActiveRecord::Base.transaction do
       user.roles = [roles[%w[manager agent].sample]]
       user.save
 
-      contacts = FactoryBot.create_list :contact, 50
+      contacts = FactoryBot.create_list :contact, 500
 
-      contacts.first(10).each do |contact|
+      contacts.each do |contact|
         [1, 2, 3].sample.times do
           FactoryBot.create :need_with_notes,
                             notes_count: [0, 1, 2, 3].sample,
