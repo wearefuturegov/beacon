@@ -63,11 +63,11 @@ class Need < ApplicationRecord
     when 'today'
       where('start_on >= ? and start_on <= ?', Date.today, Date.today.end_of_day)
     when 'tomorrow'
-      where('start_on >= ? and start_on <= ?', Date.today + 1.days, Date.today.end_of_day + 1.days)
+      where('start_on >= ? and start_on <= ?', Date.tomorrow, Date.tomorrow.end_of_day)
     when 'next_week'
-      where('start_on >= ? and start_on <= ?', Date.today + 1.days, Date.today.end_of_day + 7.days)
+      where('start_on >= ? and start_on <= ?', Date.tomorrow, Date.today.end_of_day + 7.days)
     when 'after_today'
-      where('start_on >= ?', Date.today + 1.days)
+      where('start_on >= ?', Date.tomorrow)
     else
       raise "Invalid start_on filter #{start_on}"
     end
