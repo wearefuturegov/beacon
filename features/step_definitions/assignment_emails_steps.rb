@@ -21,3 +21,7 @@ Then('I should receive an email notifying me of the assignment to my team') do
   expect(mail_values['To']).to eq 'council_service_x@test.com'
   expect(mail_values['Subject']).to eq 'Send role assigned need email'
 end
+
+When('I choose to notify with emails') do
+  find('#send-email').click
+end
