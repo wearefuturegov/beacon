@@ -10,6 +10,9 @@ RSpec.describe AssessmentsController do
 
     @contact = class_double('Contact').as_stubbed_const
     allow(@contact).to receive(:find).and_return(@test_contact)
+
+    allow_any_instance_of(AssigningConcern).to receive(:construct_assigned_to_options).and_return([])
+    allow_any_instance_of(AssigningConcern).to receive(:construct_teams_options).and_return([])
   end
 
   describe 'GET #new' do

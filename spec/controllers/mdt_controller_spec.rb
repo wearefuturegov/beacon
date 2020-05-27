@@ -6,6 +6,8 @@ RSpec.describe MdtController, type: :controller do
   before :each do
     controller.class.skip_before_action :require_user!, raise: false
     controller.instance_variable_set(:@current_user, {})
+    allow_any_instance_of(AssigningConcern).to receive(:construct_assigned_to_options).and_return([])
+    allow_any_instance_of(AssigningConcern).to receive(:construct_teams_options).and_return([])
   end
 
   let(:need) do
