@@ -59,6 +59,10 @@
               <%= form.label :next_check_in_date, "When should the next check-in call be scheduled for?", class: "field__label" %>
               <%= form.text_field :next_check_in_date, {autocomplete: 'off', style: 'max-width: 300px'} %>
             </div>
+            <div class="field">
+              <%= form.label :next_check_in_description, "Describe how we can help", class: "field__label" %>
+              <%= form.text_area :next_check_in_description, { autocomplete: 'off', style: 'max-width: 300px;'} %>
+            </div>
           <% end %>
         </div>
       </div>

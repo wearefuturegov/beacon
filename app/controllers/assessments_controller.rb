@@ -189,7 +189,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_completion_params
-    params.require(:assessment_completion_form).permit(:completion_method, :completion_note, :next_check_in_date, :mdt_review_is_urgent, :mdt_review_note)
+    params.require(:assessment_completion_form).permit(:completion_method, :completion_note, :next_check_in_date, :next_check_in_description, :mdt_review_is_urgent, :mdt_review_note)
   end
 
   def notes_params
