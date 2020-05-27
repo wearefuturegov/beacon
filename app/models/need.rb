@@ -10,7 +10,8 @@ class Need < ApplicationRecord
   self.ignored_columns = %w[due_by]
   before_update :enforce_single_assignment
   after_initialize :set_status
-
+  attribute :send_email, :boolean
+  
   enum status: { to_do: 'to_do', in_progress: 'in_progress', blocked: 'blocked', complete: 'complete', cancelled: 'cancelled' }
   belongs_to :contact
   belongs_to :user, optional: true

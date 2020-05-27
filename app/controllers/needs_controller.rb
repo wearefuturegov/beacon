@@ -73,7 +73,6 @@ class NeedsController < NeedsTableController
 
   def bulk_action
     for_update = JSON.parse(params[:for_update])
-
     updated_needs = []
     for_update.each do |obj|
       need = Need.find(obj['need_id'])
@@ -81,6 +80,7 @@ class NeedsController < NeedsTableController
       to_update = {}
       to_update[:assigned_to] = assigned_to_me(obj['assigned_to']) if obj.key?('assigned_to')
       to_update[:status] = obj['status'] if obj.key?('status')
+      to_update[:send_email] = obj['sendEmail'] if obj.key?('sendEmail')
       need.update! to_update
       updated_needs.append(need)
     end

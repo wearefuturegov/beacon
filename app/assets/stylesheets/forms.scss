@@ -64,7 +64,7 @@
   margin-bottom: 10px;
 }
 
-:disabled {
+:disabled+label {
   color: darkgray;
 }
 
@@ -275,3 +275,8 @@ textarea{
   margin: 0px 0px 30px 0px;
 }
 
+.btn-right{
+  margin-left: auto;
+  margin-bottom: 0px;
+  margin-right: 0px !important;    
+}
