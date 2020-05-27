@@ -67,7 +67,7 @@ ActiveRecord::Base.transaction do
         end
       end
     end
-    
+
     [20, 30, 40].sample.times do
       FactoryBot.create :imported_item_with_contact,
                         contacts_count: [10, 20, 30].sample

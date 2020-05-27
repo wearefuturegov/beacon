@@ -2,6 +2,10 @@
   <h1 class="panel-header__title">
     Imported Items
   </h1>
+  
+  <% if policy(ImportedItem).create? %>
+    <%= link_to "Add a import", new_imported_item_path, class: "panel-header__action" %>
+  <% end %>
 </header>
 
 <div class="panel">
@@ -23,7 +27,7 @@
       </thead>
       <tbody>
         <% @imported_items.each do |imported_item| %>
-          <tr class="clickable" onclick="window.location='<%= imported_item_path(imported_item) %>'">
+          <tr class="clickable" onclick="window.location='<%= imported_item_contacts_path(imported_item) %>'">
             <td><%= link_to imported_item.name, imported_item, class: "primary-link" %></td>
             <td><%= imported_item.created_at.strftime("%-d %B %Y") %></td>
           </tr>

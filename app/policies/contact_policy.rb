@@ -56,5 +56,4 @@ class ContactPolicy < ApplicationPolicy
   def see_sensitive_info?
     admin? || agent? || mdt? || council_service?
   end
-
 end

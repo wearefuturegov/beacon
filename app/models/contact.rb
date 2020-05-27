@@ -3,6 +3,9 @@
 class Contact < ApplicationRecord
   include PgSearch::Model
 
+  require 'activerecord-import/base'
+  require 'activerecord-import/active_record/adapters/postgresql_adapter'
+
   has_many :needs, dependent: :destroy
   has_many :uncompleted_needs, -> { uncompleted }, class_name: 'Need'
   has_many :completed_needs, -> { completed }, class_name: 'Need'
