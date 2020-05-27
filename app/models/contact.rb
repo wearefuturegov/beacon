@@ -8,6 +8,7 @@ class Contact < ApplicationRecord
   has_many :completed_needs, -> { completed }, class_name: 'Need'
 
   belongs_to :role, foreign_key: 'lead_service_id', optional: true
+  belongs_to :imported_item, optional: true
 
   has_paper_trail
 

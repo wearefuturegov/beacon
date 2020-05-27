@@ -87,6 +87,13 @@
         </li>
       <% end %>
       
+      <% if policy(ImportedItem).admin? %>
+        <li class="main-menu__item">
+          <%= link_to_unless_current "Imported Items", imported_items_path, class: "main-menu__link" do %>
+            <span class="main-menu__current">Imported Items</span>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
 
     <div class="nav-bottom">
