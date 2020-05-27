@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ContactsController < ApplicationController
+  include AssigningConcern
+  
   before_action :set_contact, :set_teams_options, only: %i[edit update show needs add_needs]
 
   def index
@@ -75,13 +77,6 @@ class ContactsController < ApplicationController
       format.js
       format.json { render json: @contact.errors, status: :unprocessable_entity }
     end
-  end
-
-  def construct_teams_options
-    roles = Role.all.order(:name)
-    {
-      'Teams' => roles.map { |role| [role.name, role.id.to_s] }
-    }
   end
 
   def set_contact

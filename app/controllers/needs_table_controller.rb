@@ -2,18 +2,10 @@
 
 class NeedsTableController < ApplicationController
   include ParamsConcern
+  include AssigningConcern
 
   helper_method :filters_path, :categories, :can_bulk_action?
 
-  def construct_assigned_to_options(with_deleted = false)
-    roles = Role.all.order(:name)
-    users = with_deleted ? User.all.with_deleted.order(:first_name, :last_name) : User.all.order(:first_name, :last_name)
-
-    {
-      'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
-      'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
-    }
-  end
 
   def handle_response_formats
     respond_to do |format|

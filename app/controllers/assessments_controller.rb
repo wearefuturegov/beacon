@@ -69,7 +69,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assign
-    @assigned_to_options = construct_assigned_to_options(true)
+    @assigned_to_options = construct_assigned_to_options
     @assignment_form = AssessmentAssignmentForm.from_id(params[:id])
   end
 

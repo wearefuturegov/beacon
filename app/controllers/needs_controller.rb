@@ -121,13 +121,6 @@ class NeedsController < NeedsTableController
 
   private
 
-  def construct_teams_options
-    roles = Role.all.order(:name)
-    {
-      'Teams' => roles.map { |role| [role.name, role.id.to_s] }
-    }
-  end
-
   def delete_note(params)
     note = Note.find(params[:id])
     note.destroy
