@@ -36,7 +36,7 @@ class AssessmentCompletionForm
       end
     end
 
-    assessment.notes.build(user_id: current_user.id, category: completion_method, body: "Completed #{assessment.category.humanize}")
+    assessment.notes.build(user_id: current_user.id, category: completion_method, body: completion_note)
     assessment.update(status: 'complete')
     Need.where(assessment_id: assessment.id).update_all(assessment_id: nil)
   end
