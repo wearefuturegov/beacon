@@ -7,8 +7,9 @@ class ExampleAssigningConcern < ApplicationController
 end
 
 RSpec.describe ExampleAssigningConcern do
-  describe 'GET #index' do
+  describe 'roles assignments' do
     before :each do
+      Rails.cache.clear
       # roles
       roles = [Role.new(id: 1, name: 'mdt')]
       role_class = class_double(Role).as_stubbed_const
@@ -18,9 +19,10 @@ RSpec.describe ExampleAssigningConcern do
 
     it 'populates assignable users options' do
       # users
-      users = [User.new(id: 1, first_name: 'User', last_name: 'Test', email: 'user1@test.com')]
+      users = [User.new(id: 1, first_name: 'User', last_name: 'Test', email: 'user1@test.com'), User.new(id: 1, first_name: 'User', last_name: 'Test', email: 'user1@test.com', deleted_at: DateTime.now)]
       user_class = class_double(User).as_stubbed_const
       allow(user_class).to receive(:all).and_return(user_class)
+      allow(user_class).to receive(:with_deleted).and_return(user_class)
       allow(user_class).to receive(:order).and_return(users)
 
       # populates the users list with active users only
