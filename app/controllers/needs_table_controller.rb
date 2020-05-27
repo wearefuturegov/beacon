@@ -6,7 +6,6 @@ class NeedsTableController < ApplicationController
 
   helper_method :filters_path, :categories, :can_bulk_action?
 
-
   def handle_response_formats
     respond_to do |format|
       format.html

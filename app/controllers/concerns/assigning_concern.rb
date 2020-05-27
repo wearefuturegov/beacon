@@ -8,17 +8,16 @@ module AssigningConcern
   end
 
   def construct_assigned_to_options(with_deleted = false)
-
     Rails.cache.fetch(:roles) do
       Role.all.order(:name)
     end
     Rails.cache.fetch(:users_with_deleted) do
       User.all.with_deleted.order(:first_name, :last_name)
     end
-    
+
     roles = Rails.cache.fetch(:roles)
     users = Rails.cache.fetch(:users_with_deleted)
-    users = with_deleted ? users : users.reject{|x| x.deleted?}
+    users = with_deleted ? users : users.reject(&:deleted?)
 
     {
       'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },

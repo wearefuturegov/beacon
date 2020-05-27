@@ -2,7 +2,7 @@
 
 class ContactsController < ApplicationController
   include AssigningConcern
-  
+
   before_action :set_contact, :set_teams_options, only: %i[edit update show needs add_needs]
 
   def index
