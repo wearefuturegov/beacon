@@ -1,10 +1,9 @@
 class UserPolicy < ApplicationPolicy
-  [:index?, :update?, :create?].each do |m|
-    define_method(m) { admin? }
+  def index?
+    true
   end
 
-  def destroy?
-    # only admins can destroy
-    return true if admin?
+  [:update?, :create?, :destroy?].each do |m|
+    define_method(m) { sysadmin? }
   end
 end

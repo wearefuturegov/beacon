@@ -34,12 +34,12 @@ end
 Then('I see that my roles have been updated') do
   user_row = first('tr.selectable')
   expect(user_row).to have_content('other role')
-  expect(user_row).to have_content('manager role')
+  expect(user_row).to have_content('sysadmin role')
 end
 
 And('I see the option to switch between my roles') do
   role_switcher = find('form.role-switcher')
-  expect(role_switcher).to have_select('id', options: ['other role', 'manager role'])
+  expect(role_switcher).to have_select('id', options: ['other role', 'sysadmin role'])
 end
 
 Then(/^I can see the support action filters$/) do

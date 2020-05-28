@@ -60,6 +60,10 @@ class ApplicationPolicy
     @user.in_role_name?('manager')
   end
 
+  def sysadmin?
+    @user.in_role_name?('sysadmin')
+  end
+
   protected
 
   def agent?

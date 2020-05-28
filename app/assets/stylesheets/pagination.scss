@@ -1,5 +1,43 @@
 @import "variables";
 
+.pagination-records-summary, .pagination-page-selection {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.pagination-page-selection {
+  * {
+    margin-left: 10px;
+  }
+
+  a {
+    &.button {
+      min-width: 40px;
+      width: 40px;
+      height: 20px;
+      margin-right: 0;
+      padding-top: 0;
+      &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .page-select {
+    width: 40px;
+    height: 40px;
+    border: 1px solid $text;
+    font-size: 0.9rem;
+    background: white;
+    &:focus {
+      border-color: inherit;
+      background: inherit;
+    }
+  }
+}
+
 .pagination{
     display: flex;
     flex-direction: row;

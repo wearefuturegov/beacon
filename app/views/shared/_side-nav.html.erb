@@ -22,10 +22,10 @@
 
         <li class="main-menu__item">
           <% if policy(Need).display_support_actions? %>
-              <%= link_to_unless_current "All triages and check-ins", root_path(:status => "to_do", :order => "assigned_to", :order_dir => "desc"), class: "main-menu__link" do %>
+              <%= link_to_unless_current "All triages and check-ins", root_path(:status => "to_do", :order => "assigned_to", :order_dir => "desc", :assigned_to => "Unassigned", :category => "triages-and-check-ins"), class: "main-menu__link" do %>
               <span class="main-menu__current">All triages and check-ins</span>
               <% end %>
-              <%= link_to_unless_current "Future Triages and check-ins", root_path(:start_on => "any_time", :order => "start_on", :order_dir => "asc"), class: "main-menu__link" do %>
+              <%= link_to_unless_current "Future Triages and check-ins", root_path(:start_on => "any_time", :order => "start_on", :order_dir => "asc", :category => "triages-and-check-ins", :start_on => "after_today"), class: "main-menu__link" do %>
               <span class="main-menu__current">Future Triages and check-ins</span>
               <% end %>
               <%= link_to_unless_current "In Progress", root_path(:status => "in_progress", :order => "created_at", :order_dir => "asc"), class: "main-menu__link" do %>
@@ -59,7 +59,7 @@
         </li>
 
         <li class="main-menu__item">
-            <%= link_to_unless_current "Unassigned needs", root_path(:assigned_to => 'Unassigned'), class: "main-menu__link" do %>
+            <%= link_to_unless_current "Unassigned needs", root_path(:assigned_to => 'Unassigned', :category => "not-triages-and-check-ins"), class: "main-menu__link" do %>
                 <span class="main-menu__current">Unassigned needs</span>
             <% end %>
         </li>
