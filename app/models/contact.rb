@@ -42,4 +42,14 @@ class Contact < ApplicationRecord
   def assigned_to
     role.id.to_s if role
   end
+
+  def telephone=(value)
+    value = value.delete(' ')
+    super(value)
+  end
+
+  def mobile=(value)
+    value = value.delete(' ')
+    super(value)
+  end
 end
