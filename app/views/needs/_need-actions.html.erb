@@ -1,4 +1,5 @@
-<%= form_with(model: @need, local: true, class: "need-actions") do |f| %>
+<%= form_with(model: @need, local: true, class: "need-actions-form") do |f| %>
+    <div class="need-actions">
       <%= f.hidden_field :lock_version, :value => @need.lock_version %>
 
       <div class="need-actions__field" id="assigned-actions__field">
@@ -20,11 +21,11 @@
       <div class="need-actions__field" id="status-actions__field">
       <%= f.label :status, 'Status', class: 'need-actions__label dropdown-label' %>
       <%= f.select :status, need_statuses, {}, { class: "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity" } %>
-
       </div>   
+    </div> 
 
     <div class="send-email__field" id="send-email__field">
-      <%= f.check_box :send_email, class: 'bulk-action-checkbox', checked: false,  id: "send-email" %>
+      <%= f.check_box :send_email, {class: 'bulk-action-checkbox', checked: false,  id: "send-email"}, 'true', 'false' %>
       <%= label_tag :send_email, 'Send notification email?', id: "send-email-label"  %>  
     </div>   
 

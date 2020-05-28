@@ -177,7 +177,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_params
-    params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on, :assessment_id)
+    params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on, :assessment_id, :send_email)
   end
 
   def assessment_failure_params
@@ -185,7 +185,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_assignment_params
-    params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to])
+    params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to, :send_email])
   end
 
   def assessment_completion_params

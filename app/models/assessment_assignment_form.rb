@@ -18,6 +18,7 @@ class AssessmentAssignmentForm
     needs.each do |need_params|
       need = Need.find(need_params[0])
       need.assigned_to = need_params[1]['assigned_to']
+      need.send_email = need_params[1]['send_email']
       need.save
     end
   end
