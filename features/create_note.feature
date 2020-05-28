@@ -36,7 +36,7 @@ Feature: Create note
 
   Scenario: Add a Successful call to a Dog walking with a blank note
     Given a resident with a "Dog walking" support action
-    When I add a "Successful Call" note ""
+    When I add a "Successful Call" note "Call details"
     And I submit the form to create the note
-    Then the list of notes contains "No details captured"
+    Then the list of notes contains "Call details"
     And the note category is "Successful Call"

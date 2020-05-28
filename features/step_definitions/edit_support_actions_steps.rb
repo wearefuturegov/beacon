@@ -1,5 +1,5 @@
 Given('a resident with a support action exists') do
-  @contact = Contact.create!(first_name: 'Test')
+  @contact = Contact.create!(first_name: 'Test', surname: 'Test', channel: 'Channel')
   @need = Need.create!(contact_id: @contact.id, name: 'Dog walking', category: 'Dog walking')
 end
 

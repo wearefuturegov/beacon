@@ -13,22 +13,22 @@ end
 
 And('a support action for contact {string} is assigned to role {string}') do |name, role|
   @role = find_role(role)
-  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
+  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36), surname: 'Test', channel: 'Channel')
   @support_action = Need.create!(contact: @contact, name: 'Dog walking', category: 'Dog walking', role: @role)
 end
 
 And('a support action for contact {string} is assigned to me') do |name|
-  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
+  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36), surname: 'Test', channel: 'Channel')
   @support_action = Need.create!(contact: @contact, name: 'Dog walking', category: 'Dog walking', user: @user)
 end
 
 And('a support action for contact {string} is assigned to that role') do |name|
-  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
+  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36), surname: 'Test', channel: 'Channel')
   @support_action = Need.create!(contact: @contact, name: 'Dog walking', category: 'Dog walking', role: @role)
 end
 
 And('a support action for contact {string} is assigned to the other user') do |name|
-  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
+  @contact = Contact.create!(first_name: name + rand(10**10).to_s(36), surname: 'Test', channel: 'Channel')
   @support_action = Need.create!(contact: @contact, name: 'Dog walking', category: 'Dog walking', user: @other_user)
 end
 

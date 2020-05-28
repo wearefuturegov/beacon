@@ -6,8 +6,9 @@ end
 When('I add the new person details') do
   fill_in('contact_first_name', with: 'Bob')
   fill_in('contact_surname', with: 'Jones')
-  fill_in('contact_telephone', with: '123456789')
+  fill_in('contact_telephone', with: '01234567890')
   fill_in('contact_date_of_birth', with: '01/4/1936')
+  fill_in('contact_channel', with: 'Channel')
 end
 
 When('I save the person form') do

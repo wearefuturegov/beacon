@@ -8,9 +8,7 @@ class NotesController < ApplicationController
     authorize @need, :update?
     params = note_params
     @note = @need.notes.build(params.merge(user: current_user))
-    if @note.valid? && @note.save
-      redirect_to need_path(@need)
-    end
+    redirect_to need_path(@need) if @note.valid? && @note.save
   end
 
   def update

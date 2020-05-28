@@ -1,5 +1,5 @@
 And('another contact {string} is not visible to me') do |name|
-  @another_contact = Contact.create!(first_name: name + rand(10**10).to_s(36))
+  @another_contact = Contact.create!(first_name: name + rand(10**10).to_s(36), surname: 'Test', channel: 'Channel')
   @another_need = Need.create!(contact: @another_contact, name: 'Dog walking', category: 'Dog walking')
 end
 

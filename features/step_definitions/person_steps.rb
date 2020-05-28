@@ -1,5 +1,5 @@
 Given(/^a resident$/) do
-  @contact = Contact.create!(first_name: 'Test')
+  @contact = Contact.create!(first_name: 'Test', surname: 'Test', channel: 'Channel')
 end
 
 Given(/^a resident with a complete profile$/) do
@@ -7,15 +7,15 @@ Given(/^a resident with a complete profile$/) do
                              surname: 'Surname',
                              date_of_birth: Date.new(1982, 7, 1),
                              postcode: 'AB12 9YZ',
-                             nhs_number: 'NHS-999999')
+                             nhs_number: 'NHS-999999', channel: 'Channel')
 end
 
 Given(/^a unique resident$/) do
-  @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36))
+  @contact = Contact.create!(first_name: 'Test' + rand(10**10).to_s(36), surname: 'Test', channel: 'Channel')
 end
 
 Given(/^I am on a call with a resident$/) do
-  @contact = Contact.create!(first_name: 'Test')
+  @contact = Contact.create!(first_name: 'Test', surname: 'Test', channel: 'Channel')
 end
 
 Given(/^I am editing the residents profile$/) do
@@ -96,8 +96,8 @@ When(/^I edit the residents contact details$/) do
   visit "contacts/#{@contact.id}"
   click_and_wait('#edit-contact-link', '#contact_first_name')
   fill_in('contact_email', with: 'test@test.com')
-  fill_in('contact_telephone', with: '01 811 8055')
-  fill_in('contact_mobile', with: '0770 123 456')
+  fill_in('contact_telephone', with: '01234567890')
+  fill_in('contact_mobile', with: '07234567890')
 end
 
 When(/^I edit the residents vulnerability status$/) do
@@ -198,8 +198,8 @@ end
 
 Then(/^the residents contact details have been updated$/) do
   expect(page.find_by_id('email_address')).to have_text('test@test.com')
-  expect(page.find_by_id('phone_details')).to have_text('01 811 8055')
-  expect(page.find_by_id('phone_details')).to have_text('0770 123 456')
+  expect(page.find_by_id('phone_details')).to have_text('01234567890')
+  expect(page.find_by_id('phone_details')).to have_text('07234567890')
 end
 
 Then(/^the residents vulnerability status has been updated$/) do

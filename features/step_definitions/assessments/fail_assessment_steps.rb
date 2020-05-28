@@ -1,5 +1,5 @@
 Given('an assessment is assigned to me') do
-  @contact = Contact.create!(first_name: 'Test')
+  @contact = Contact.create!(first_name: 'Test', surname: 'Test', channel: 'Channel')
   @need = Need.create!(contact: @contact, name: 'Triage', category: 'triage', status: 'to_do', user: @user, start_on: DateTime.now - 1.days)
 end
 
