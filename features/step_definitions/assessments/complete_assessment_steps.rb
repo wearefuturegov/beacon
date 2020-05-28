@@ -52,7 +52,7 @@ end
 When('I complete the assessment with the required fields') do
   step 'I schedule a check in for tomorrow'
   step 'I fill in the required fields'
-  click_link_or_button 'Complete assessment'
+  click_link_or_button 'Complete'
 end
 
 When('I schedule a check in for tomorrow') do
