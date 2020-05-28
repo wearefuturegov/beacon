@@ -7,10 +7,10 @@ class NotesController < ApplicationController
     @need = Need.find(params[:need_id])
     authorize @need, :update?
     params = note_params
-    params.merge!(body: 'No details captured') if note_params[:body].blank?
-    @need.notes.create!(params.merge(user: current_user))
-
-    redirect_to need_path(@need)
+    @note = @need.notes.build(params.merge(user: current_user))
+    if @note.valid? && @note.save
+      redirect_to need_path(@need)
+    end
   end
 
   def update

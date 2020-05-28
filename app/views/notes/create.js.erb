@@ -1,0 +1,3 @@
+<% if @note.errors.any? %>
+document.getElementById("note-errors").innerHTML = "<%= j(render 'note-errors' ) %>";
+<% end %>

@@ -37,6 +37,8 @@ en:
         name: "Support action description"
         due_by: "Due by date"
         start_on: "Scheduled for date"
+      note:
+        body: "Note content"
     errors:
       models:
         contact:

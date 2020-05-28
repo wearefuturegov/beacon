@@ -1,7 +1,9 @@
 <section class="notes">
-  
-  <%= form_with(model: [@need, @need.notes.build], local: true, class: "notes__form") do |form| %>
+  <%= form_with(model: [@need, @need.notes.build], class: "notes__form") do |form| %>
     <h3 class="notes__title">Updates</h3>
+    <div id="note-errors">
+      <!-- space for errors -->
+    </div>
     <fieldset class="field-section field-section--four-cols">
       <legend>
         <%= form.label :category, 'Choose a category', class: "field__label" %>
