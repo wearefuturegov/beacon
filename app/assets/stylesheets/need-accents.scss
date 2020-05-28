@@ -30,6 +30,22 @@
   border-left-color: $text;
 }
 
+.need--medical-transport {
+  border-left-color: #009ADC;
+}
+
+.need--waste-removal {
+  border-left-color: #54B544;
+}
+
+.need--repairs {
+  border-left-color: #EF9D9D;
+}
+
+.need--household-tasks {
+  border-left-color: #572F00;
+}
+
 .need--status_complete {
   opacity: 0.5;
 }
