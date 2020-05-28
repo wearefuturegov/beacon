@@ -35,4 +35,34 @@ RSpec.describe Contact, type: :model do
     valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', date_of_birth: 'abc'
     expect(valid_contact.valid?).to be_falsy
   end
+
+  it 'validates postcode with invalid postcode' do
+    valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', postcode: 'INVALID'
+    expect(valid_contact.valid?).to be_falsy
+  end
+
+  it 'validates postcode with valid postcode' do
+    valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', postcode: 'A1 1AA'
+    expect(valid_contact.valid?).to be_truthy
+  end
+
+  it 'validates phone number when phone number is too long' do
+    valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', telephone: '111111111111'
+    expect(valid_contact.valid?).to be_falsey
+  end
+
+  it 'validates mobile when mobile is too long' do
+    valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', mobile: '111111111111'
+    expect(valid_contact.valid?).to be_falsey
+  end
+
+  it 'validates phone number when phone number is too short' do
+    valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', telephone: '11111111'
+    expect(valid_contact.valid?).to be_falsey
+  end
+
+  it 'validates mobile when mobile is too short' do
+    valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', mobile: '11111111'
+    expect(valid_contact.valid?).to be_falsey
+  end
 end
