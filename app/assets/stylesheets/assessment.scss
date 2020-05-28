@@ -82,6 +82,10 @@
   &.field__assessment {
     .field__label {
       font-size: 16px;
+      &.triage {
+        margin-top: 15px;
+      }
+
       &.title-element {
         font-weight: bold;
       }
