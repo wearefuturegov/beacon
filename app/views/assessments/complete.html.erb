@@ -29,7 +29,7 @@
           <div class="field">
             <h3>How did you complete the <%= @assessment.category.humanize %>?</h3>
             <% assessment_completion_methods.each do |completion_method, description| %>
-              <div class="radio">
+              <div class="radio radio-spacing-small">
                 <%= form.radio_button :completion_method, completion_method %>
                 <%= form.label "completion_method_#{completion_method.downcase}", description, :class => 'radio__label' %>
               </div>
