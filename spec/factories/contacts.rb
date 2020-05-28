@@ -20,6 +20,6 @@ FactoryBot.define do
     eligible_for_free_prescriptions { Faker::Boolean.boolean(true_ratio: 0.2) }
     date_of_birth { Faker::Date.between(from: 93.years.ago, to: 15.years.ago) }
     has_covid_symptoms { Faker::Boolean.boolean(true_ratio: 0.3) }
-    channel { %w(Phone Email).sample }
+    channel { %w[Phone Email].sample }
   end
 end
