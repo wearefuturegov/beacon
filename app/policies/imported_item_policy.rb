@@ -1,17 +1,17 @@
 class ImportedItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      raise 'Cannot determine scope' unless @user.in_role_name?('manager')
+      raise 'Cannot determine scope' unless @user.in_role_name?('sysadmin')
 
       ImportedItem.all
     end
   end
 
   def index?
-    admin?
+    sysadmin?
   end
 
   def create?
-    admin?
+    sysadmin?
   end
 end
