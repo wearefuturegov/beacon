@@ -18,16 +18,11 @@
                       disabled: 'disabled' %>
               
         <%= check_box_tag('send_email', value = "true", checked = false, {class: "select-all-needs bulk-action-checkbox", id: "send-email", disabled: 'disabled'}) %>  
-        
         <%= label_tag :send_email, 'Send notification email?', disabled: 'disabled', id: "send-email-label", class: "send-email-label"  %>
       <% end %>             
       
       <% if policy(Need).export? %>
-        <% if params[:user_id] || params[:status] || params[:category] || params[:is_urgent] %>
-          <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--blue btn-right", "data-open" => "true" %>
-        <% else %>
-          <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--blue btn-right" %>
-        <% end %>
+        <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--blue btn-right", "data-open" => "true" %>
       <% end %>
     </div>
 

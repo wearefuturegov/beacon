@@ -3,7 +3,7 @@
 .need-actions{
     display: flex;
     flex-direction: row;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
 
     .need-actions__field{
         flex: 1;
@@ -45,6 +45,15 @@
             outline: 2px solid $yellow;
         }
     }
+}
+.send-email__field {
+  display: block;
+  clear: both;
+  margin-left: 5px;
+  margin-bottom: 30px;
+  label {
+    font-size: 0.9rem;
+  }
 }
 
 .btn-triage {

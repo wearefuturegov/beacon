@@ -1,26 +1,32 @@
 <%= form_with(model: @need, local: true, class: "need-actions") do |f| %>
-    <%= f.hidden_field :lock_version, :value => @need.lock_version %>
+      <%= f.hidden_field :lock_version, :value => @need.lock_version %>
 
-    <div class="need-actions__field" id="assigned-actions__field">
-    <%= f.label :assigned_to, 'Assigned to', class: 'need-actions__label dropdown-label' %>
-    <%= f.select :assigned_to,
-      options_for_select([['Assigned to me','assigned-to-me'], ['Unassigned', '']], (@need.assigned_to.nil?) ? '' : nil) +
-        grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: nil),
-      {}, { class: "need-actions__select dropdown dropdown-autocomplete" } %>
-    </div>
+      <div class="need-actions__field" id="assigned-actions__field">
+      <%= f.label :assigned_to, 'Assigned to', class: 'need-actions__label dropdown-label' %>
+      <%= f.select :assigned_to,
+        options_for_select([['Assigned to me','assigned-to-me'], ['Unassigned', '']], (@need.assigned_to.nil?) ? '' : nil) +
+          grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: nil),
+        {}, { class: "need-actions__select dropdown dropdown-autocomplete" } %>
+      </div>
 
-    <div class="need-actions__field" id="priority-actions__field">
-    <%= f.label :is_urgent, 'Priority', class: 'need-actions__label dropdown-label' %>
-    <%= f.select :is_urgent, {
-        "Urgent" => true,
-        "Normal" => false
-    }, {}, { class: @need.is_urgent ? "need-actions__select need-actions__select--red dropdown" : "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity" } %>
-    </div>
+      <div class="need-actions__field" id="priority-actions__field">
+      <%= f.label :is_urgent, 'Priority', class: 'need-actions__label dropdown-label' %>
+      <%= f.select :is_urgent, {
+          "Urgent" => true,
+          "Normal" => false
+      }, {}, { class: @need.is_urgent ? "need-actions__select need-actions__select--red dropdown" : "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity" } %>
+      </div>
 
-    <div class="need-actions__field" id="status-actions__field">
-    <%= f.label :status, 'Status', class: 'need-actions__label dropdown-label' %>
-    <%= f.select :status, need_statuses, {}, { class: "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity" } %>
-    </div>
+      <div class="need-actions__field" id="status-actions__field">
+      <%= f.label :status, 'Status', class: 'need-actions__label dropdown-label' %>
+      <%= f.select :status, need_statuses, {}, { class: "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity" } %>
+
+      </div>   
+
+    <div class="send-email__field" id="send-email__field">
+      <%= f.check_box :send_email, class: 'bulk-action-checkbox', checked: false,  id: "send-email" %>
+      <%= label_tag :send_email, 'Send notification email?', id: "send-email-label"  %>  
+    </div>   
+
 <% end %>
-
 <%= javascript_pack_tag 'need-actions', 'data-turbolinks-track': 'reload' %>
