@@ -35,8 +35,8 @@ When('I have chosen to notify with emails') do
 end
 
 def check_email_send
-  if @send_email == true
-    find('#send-email').click
-    expect(find('#send-email').checked?).to eq(true)
-  end
+  return unless @send_email == true
+
+  find('#send-email').click
+  expect(find('#send-email').checked?).to eq(true)
 end
