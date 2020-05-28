@@ -1,4 +1,4 @@
-class AssessmentsController < NeedsTableController
+class AssessmentsController < ApplicationController
   before_action :set_contact, only: %i[new create]
   before_action :set_assessment, only: %i[fail update_failure edit update assign update_assignment complete update_completion start]
   include AssigningConcern
