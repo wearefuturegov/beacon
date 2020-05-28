@@ -1,11 +1,11 @@
 <fieldset class="field-section field-section--two-cols">
   <legend><h3 class="field-section__title">Food requirements priority</h3></legend>
 
-  <div class="radio">
+  <div class="radio radio-spacing-small">
     <%= need_form.radio_button :food_priority, '1', checked: need[:food_priority] == '1' %>
     <%= need_form.label :food_priority_1, 'Priority 1', class: 'radio__label' %>
   </div>
-  <div class="radio">
+  <div class="radio radio-spacing-small">
     <%= need_form.radio_button :food_priority, '2', checked: need[:food_priority] == '2' %>
     <%= need_form.label :food_priority_2, 'Priority 2', class: 'radio__label' %>
   </div>
@@ -15,15 +15,15 @@
 <fieldset class="field-section field-section--two-cols">
   <legend><h3 class="field-section__title">Which type of food service?</h3></legend>
 
-  <div class="radio">
+  <div class="radio radio-spacing-small">
     <%= need_form.radio_button :food_service_type, 'Hot meal', checked: need[:food_service_type] == 'Hot meal' %>
     <%= need_form.label :food_service_type_hot_meal, 'Hot meal', class: 'radio__label' %>
   </div>
-  <div class="radio">
+  <div class="radio radio-spacing-small">
     <%= need_form.radio_button :food_service_type, 'Heat up', checked: need[:food_service_type] == 'Heat up' %>
     <%= need_form.label :food_service_type_heat_up, 'Heat up', class: 'radio__label' %>
   </div>
-  <div class="radio">
+  <div class="radio radio-spacing-small">
     <%= need_form.radio_button :food_service_type, 'Grocery delivery', checked: need[:food_service_type] == 'Grocery delivery' %>
     <%= need_form.label :food_service_type_grocery_delivery, 'Grocery delivery', class: 'radio__label' %>
   </div>
@@ -35,11 +35,11 @@
 
 
   <fieldset class="field-section field-section--two-cols">
-    <div class="radio">
+    <div class="radio radio-spacing-small">
       <%= form.radio_button :any_dietary_requirements, true, :id => "any_dietary_requirements_true" %>
       <label for="any_dietary_requirements_true" class="radio__label">Yes</label>
     </div>
-    <div class="radio">
+    <div class="radio radio-spacing-small">
       <%= form.radio_button :any_dietary_requirements, false, :id => "any_dietary_requirements_false" %>
       <label for="any_dietary_requirements_false" class="radio__label">No</label>
     </div>

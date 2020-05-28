@@ -37,7 +37,7 @@
         <div class="field">
           <h3>Why wasn't the check in call successful?</h3>
           <% assessment_failure_reasons.each do |failure_reason, description| %>
-            <div class="radio">
+            <div class="radio radio-spacing-small">
               <%= form.radio_button :failure_reason, failure_reason %>
               <%= form.label "failure_reason_#{failure_reason.downcase}", description, :class => 'radio__label' %>
             </div>
@@ -47,7 +47,7 @@
         <div id="left_message_question_section" class="field" hidden="hidden">
           <h3>Did you leave a message?</h3>
           <% %w(Yes No).each do |message_choice| %>
-            <div class="radio">
+            <div class="radio radio-spacing-small">
               <%= form.radio_button :left_message, message_choice %>
               <%= form.label :"left_message_#{message_choice.downcase}", message_choice, :class => 'radio__label' %>
             </div>
