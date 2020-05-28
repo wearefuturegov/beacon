@@ -1,4 +1,4 @@
-class AssessmentsController < ApplicationController
+class AssessmentsController < NeedsTableController
   before_action :set_contact, only: %i[new create]
   before_action :set_assessment, only: %i[fail update_failure edit update assign update_assignment complete update_completion start]
   include AssigningConcern
@@ -185,7 +185,11 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_assignment_params
-    params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to])
+    permit_params = params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to])
+    permit_params[:needs].to_h.each do |key, _value|
+      permit_params[:needs][key]['assigned_to'] = assigned_to_me(permit_params[:needs][key]['assigned_to'])
+    end
+    permit_params
   end
 
   def assessment_completion_params
