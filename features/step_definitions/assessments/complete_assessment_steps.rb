@@ -13,11 +13,18 @@ Given('I have assigned needs {string} to {string} for the assessment') do |needs
   assignment_dropdowns = page.all('.assessment-assign-dropdown')
 
   if Capybara.current_driver == :rack_test
-    assignees.each_with_index { |assignee, index| assignment_dropdowns[index].find(:option, assignee).select_option }
+    assignees.each_with_index { |assignee, index| 
+                                assignment_dropdowns[index].find(:option, assignee).select_option 
+                                check_email_send
+                              }
   else
     saved_needs = Need.where(assessment_id: @need.id).to_a
-    assignees.each_with_index { |assignee, index| select2 "assessment_assignment_form_needs_#{saved_needs[index].id}_assigned_to", assignee }
+    assignees.each_with_index { |assignee, index| 
+                                select2 "assessment_assignment_form_needs_#{saved_needs[index].id}_assigned_to", assignee
+                                check_email_send
+                              }
   end
+  
   click_link_or_button 'Update'
 end
 
@@ -39,6 +46,12 @@ Then('I should see the date of the next check in') do
 end
 
 When('I complete the assessment') do
+  click_link_or_button 'Complete assessment'
+end
+
+When('I complete the assessment with the required fields') do
+  step 'I schedule a check in for tomorrow'
+  step 'I fill in the required fields'
   click_link_or_button 'Complete assessment'
 end
 

@@ -1,5 +1,10 @@
+Given('I can see the support action details') do
+  
+end
+
 When('I (assign)/(have assigned) the support action to the role {string}') do |role|
   visit "/needs/#{@need.id}"
+  check_email_send
   @user_email = @user_email.present? ? @user_email : @user.email
   select2 'need_assigned_to', role
   @expected_assignee = role
@@ -23,5 +28,16 @@ Then('I should receive an email notifying me of the assignment to my team') do
 end
 
 When('I choose to notify with emails') do
-  find('#send-email').click
+  @send_email = true
+end
+
+When('I have chosen to notify with emails') do
+  step 'I choose to notify with emails'
+end
+
+def check_email_send
+  if @send_email==true
+    find('#send-email').click
+    expect(find('#send-email').checked?).to eq(true)
+  end
 end
