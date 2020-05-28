@@ -1,5 +1,4 @@
 Given('I can see the support action details') do
-  
 end
 
 When('I (assign)/(have assigned) the support action to the role {string}') do |role|
@@ -36,7 +35,7 @@ When('I have chosen to notify with emails') do
 end
 
 def check_email_send
-  if @send_email==true
+  if @send_email == true
     find('#send-email').click
     expect(find('#send-email').checked?).to eq(true)
   end
