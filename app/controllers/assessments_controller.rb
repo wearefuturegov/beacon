@@ -185,7 +185,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_assignment_params
-    params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to, :send_email])
+    params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to, :send_email, :status])
   end
 
   def assessment_completion_params

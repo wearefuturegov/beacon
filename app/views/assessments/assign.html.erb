@@ -32,15 +32,17 @@
             <table class="needs-table">
               <colgroup>
                 <col style="width: 30%"/>
-                <col style="width: 15%"/>
-                <col style="width: 35%"/>
+                <col style="width: 10%"/>
+                <col style="width: 30%"/>
                 <col style="width: 20%"/>
+                <col style="width: 10%"/>
               </colgroup>
               <thead>
               <tr>
                 <th>Type</th>
                 <th>Priority</th>
                 <th>Assigned</th>
+                <th>Status</th>
                 <th>Send notification email</th>
               </tr>
               </thead>
@@ -67,8 +69,12 @@
                                              {}, {class: "dropdown dropdown-autocomplete assessment-assign-dropdown"} %>
                     </td>
                     <td>
+                      <%= need_fields.select :status, need_statuses, {}, { class: "dropdown", "data-minimum-results-for-search" => "Infinity" } %>
+                    </td>
+                    <td>
                       <%= need_fields.check_box :send_email, {class: 'bulk-action-checkbox', checked: false,  id: "send-email"}, 'true', 'false' %>
                     </td>
+                  
                   </tr>
                 <% end %>
                 <% end %>

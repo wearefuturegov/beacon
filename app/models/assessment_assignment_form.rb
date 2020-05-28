@@ -19,6 +19,7 @@ class AssessmentAssignmentForm
       need = Need.find(need_params[0])
       need.assigned_to = need_params[1]['assigned_to']
       need.send_email = need_params[1]['send_email']
+      need.status = need_params[1]['status'] if need_params[1]['status'].present?
       need.save
     end
   end
