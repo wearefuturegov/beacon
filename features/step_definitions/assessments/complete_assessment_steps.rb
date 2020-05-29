@@ -19,10 +19,10 @@ Given('I have assigned needs {string} to {string} for the assessment') do |needs
     end
   else
     saved_needs = Need.where(assessment_id: @need.id).to_a
-    assignees.each_with_index { |assignee, index| 
+    assignees.each_with_index do |assignee, index|
       select2 "assessment_assignment_form_needs_#{saved_needs[index].id}_assigned_to", assignee
       check_email_send
-    }
+    end
   end
 
   click_link_or_button 'Update'
