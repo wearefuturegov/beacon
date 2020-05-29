@@ -2,6 +2,7 @@
 
 class NeedsTableController < ApplicationController
   include ParamsConcern
+  include AssigningConcern
 
   helper_method :filters_path, :categories, :can_bulk_action?, :any_filters?
 
@@ -59,10 +60,5 @@ class NeedsTableController < ApplicationController
                          .permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version, :food_priority, :food_service_type, :start_on, :send_email)
     permit_need_params[:assigned_to] = assigned_to_me(permit_need_params[:assigned_to])
     permit_need_params
-  end
-
-  def assigned_to_me(assigned_to)
-    assigned_to = "user-#{current_user.id}" if assigned_to == 'assigned-to-me'
-    assigned_to
   end
 end

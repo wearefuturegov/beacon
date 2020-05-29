@@ -185,7 +185,11 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_assignment_params
-    params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to, :send_email, :status])
+    permit_params = params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to, :status, :send_email])
+    permit_params[:needs].to_h.each do |key, _value|
+      permit_params[:needs][key]['assigned_to'] = assigned_to_me(permit_params[:needs][key]['assigned_to'])
+    end
+    permit_params
   end
 
   def assessment_completion_params
