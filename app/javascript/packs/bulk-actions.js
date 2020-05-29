@@ -4,7 +4,9 @@ let needs = document.querySelectorAll(".select-needs");
 let allNeeds = document.querySelector("#select-all-needs");
 const assign = document.querySelector("#assign-selected-needs");
 const status = document.querySelector("#status-selected-needs");
-const bulkActionsElems = [assign, status]
+const sendEmail = document.querySelector("#send-email");
+const sendEmailLabel = document.querySelector("#send-email-label");
+const bulkActionsElems = [assign, status, sendEmail, sendEmailLabel]
 
 const assignJQueryWrapper = $(assign);
 assignJQueryWrapper.select2();
@@ -13,13 +15,14 @@ assignJQueryWrapper.on("select2:select", (e) => {
       ? null
       : e.currentTarget.value;
   const for_update = []
+  const sendEmail = $('#send-email').prop('checked');
   for (let i = 0; i < needs.length; i++) {
-    if (needs[i].checked) {
-      for_update.push({ need_id: needs[i].value, assigned_to: assigned_to });
+    if (needs[i].checked) {      
+      for_update.push({ need_id: needs[i].value, assigned_to: assigned_to, sendEmail: sendEmail });
     }
   }
-  if (for_update.length > 0) {
-    applyPatchUpdate(for_update);
+  if (for_update.length > 0) {    
+    applyPatchUpdate(for_update)
   }
 });
 
@@ -32,9 +35,10 @@ statusJQueryWrapper.on("select2:select", (e) => {
   }
 
   const for_update = [];
+  const sendEmail = $('#send-email').prop('checked');
   for (let i = 0; i < needs.length; i++) {
     if (needs[i].checked) {
-      for_update.push({ need_id: needs[i].value, status: status })
+      for_update.push({ need_id: needs[i].value, status: status, sendEmail: sendEmail })
     }
   }
 

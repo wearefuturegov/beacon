@@ -1,15 +1,10 @@
-<% if params[:user_id] || params[:status] || params[:category] || params[:is_urgent] %>
   <section data-open="true" class="filters">
-<% else %>
-  <section class="filters">
-<% end %>
 
   <% if params[:user_id] || params[:status] || params[:category] || params[:is_urgent] || params[:assigned_to] %>
-      <%= link_to "Clear filters", filters_path, class: "button button--dark", id: "btnClearFilters"%>
+      <%= link_to "Clear filters", filters_path, class: "", id: "btnClearFilters"%>
     <div class="filters__content">
   <% else %>
-      <button id="needs-filters" class="button button--dark filters__controls" aria-expanded="false">Filters</button>
-      <div class="filters__content" hidden>
+      <div class="filters__content">
   <% end %>
       <%= form_with(url: filters_path, method: :get, local: true, class: "filters__form") do %>
         <label for="assigned_to" class="visually-hidden">By assigned user or team</label>

@@ -5,6 +5,7 @@ end
 
 When('I (assign)/(have assigned) the support action to me') do
   visit "/needs/#{@need.id}"
+  check_email_send
   @user_email = @user_email.present? ? @user_email : @user.email
   select2 'need_assigned_to', @user_email
   @expected_assignee = @user_email

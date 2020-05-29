@@ -31,10 +31,11 @@
           <div class="field">
             <table class="needs-table">
               <colgroup>
-                <col style="width: 25%"/>
-                <col style="width: 25%"/>
-                <col style="width: 25%"/>
-                <col style="width: 25%"/>
+                <col style="width: 30%"/>
+                <col style="width: 10%"/>
+                <col style="width: 30%"/>
+                <col style="width: 20%"/>
+                <col style="width: 10%"/>
               </colgroup>
               <thead>
               <tr>
@@ -42,6 +43,7 @@
                 <th>Priority</th>
                 <th>Assigned</th>
                 <th>Status</th>
+                <th>Send notification email</th>
               </tr>
               </thead>
               <tbody>
@@ -69,6 +71,10 @@
                     <td>
                       <%= need_fields.select :status, need_statuses, {}, { class: "dropdown", "data-minimum-results-for-search" => "Infinity" } %>
                     </td>
+                    <td>
+                      <%= need_fields.check_box :send_email, {class: 'bulk-action-checkbox', checked: n.send_email,  id: "send-email"}, 'true', 'false' %>
+                    </td>
+                  
                   </tr>
                 <% end %>
                 <% end %>

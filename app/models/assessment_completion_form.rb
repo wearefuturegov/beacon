@@ -38,8 +38,15 @@ class AssessmentCompletionForm
     end
 
     assessment.notes.build(user_id: current_user.id, category: completion_method, body: "Completed #{assessment.category.humanize}")
+    update_needs(assessment)
+  end
+
+  def update_needs(assessment)
     assessment.update(status: 'complete')
-    Need.where(assessment_id: assessment.id).update_all(assessment_id: nil)
+    needs_to_update = Need.where(assessment_id: assessment.id)
+
+    needs_to_update.each { |need| NeedsAssigneeNotifier.notify_new_assignee(need) }
+    needs_to_update.update_all(assessment_id: nil)
   end
 
   def needs_assigned_to_mdt
