@@ -25,7 +25,7 @@
           Needs
         </th>
         <th>
-          Categories
+          Description
       </th>
         <th>Assigned to</th>
         <th>
@@ -61,7 +61,7 @@
             <% end %>
           </td>
           <td><%= n.contact.support_actions_count %></td>
-          <td><%= n.contact.support_actions_names %></td>
+          <td><%= n.name %></td>
           <td>
             <%= n.user&.name_or_email || n.role&.name || 'Unassigned' %>
           </td>
@@ -69,7 +69,7 @@
             <%= n.last_phoned_date&.strftime("%-d %B %Y") %>
           </td>
           <td>
-            <%= link_to 'Action', need_path(n), class: "button", id: "action-mdt-#{n.id}", method: :get  %>          
+            <%= link_to 'View Profile', contact_path(n.contact), class: "button button--blue button-link", id: "action-mdt-#{n.id}", method: :get  %>          
           </td>
         </tr>
       <% end %>
