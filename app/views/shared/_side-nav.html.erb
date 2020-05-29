@@ -26,7 +26,7 @@
               <span class="main-menu__current">Triage and check-ins</span>
               <% end %>
               <ul class="main-menu__submenu">
-                <%= link_to_unless_current "Future", root_path(:start_on => "any_time", :order => "start_on", :order_dir => "asc", :category => "triages-and-check-ins", :start_on => "after_today"), class: "main-menu__submenu-link" do %>
+                <%= link_to_unless_current "Future", root_path(:start_on => "any_time", :status => "to_do", :order => "start_on", :order_dir => "asc", :category => "triages-and-check-ins", :start_on => "after_today"), class: "main-menu__submenu-link" do %>
                   <span class="main-menu__submenu-current">Future</span>
                 <% end %>
                 <%= link_to_unless_current "In Progress", root_path(:status => "in_progress", :order => "created_at", :order_dir => "asc"), class: "main-menu__submenu-link" do %>
