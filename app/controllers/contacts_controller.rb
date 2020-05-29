@@ -4,8 +4,9 @@ class ContactsController < ApplicationController
   before_action :set_contact, :set_teams_options, only: %i[edit update show needs add_needs]
 
   def index
-    @params = params.permit(:search, :page)
     @contacts = policy_scope(Contact)
+    @params = params.permit(:search, :page, :imported_item_id)
+    @contacts = @contacts.where(imported_item_id: @params[:imported_item_id]) if @params[:imported_item_id].present?
     @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id)) if @params[:search].present?
     @contacts = @contacts.page(@params[:page])
   end
