@@ -72,7 +72,7 @@
                       <%= need_fields.select :status, need_statuses, {}, { class: "dropdown", "data-minimum-results-for-search" => "Infinity" } %>
                     </td>
                     <td>
-                      <%= need_fields.check_box :send_email, {class: 'bulk-action-checkbox', checked: false,  id: "send-email"}, 'true', 'false' %>
+                      <%= need_fields.check_box :send_email, {class: 'bulk-action-checkbox', checked: n.send_email,  id: "send-email"}, 'true', 'false' %>
                     </td>
                   
                   </tr>
