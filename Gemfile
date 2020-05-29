@@ -25,6 +25,7 @@ gem 'pundit', '~> 2.1.0'
 gem 'validates_timeliness'
 gem 'paranoia', '~> 2.2'
 gem 'browser', require: 'browser/browser'
+gem 'activerecord-import'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

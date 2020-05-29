@@ -46,6 +46,14 @@ ActiveRecord::Schema.define(version: 2020_05_28_104308) do
     t.boolean "share_data_flag"
     t.bigint "lead_service_id"
     t.string "lead_service_note"
+    t.bigint "imported_item_id"
+  end
+
+  create_table "imported_items", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_imported_items_on_name", unique: true
   end
 
   create_table "needs", force: :cascade do |t|
@@ -143,6 +151,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_104308) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "contacts", "imported_items"
   add_foreign_key "contacts", "roles", column: "lead_service_id"
   add_foreign_key "needs", "contacts"
   add_foreign_key "needs", "needs", column: "assessment_id"
