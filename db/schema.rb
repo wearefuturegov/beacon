@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_120013) do
+ActiveRecord::Schema.define(version: 2020_05_28_104308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,14 @@ ActiveRecord::Schema.define(version: 2020_05_18_120013) do
     t.boolean "share_data_flag"
     t.bigint "lead_service_id"
     t.string "lead_service_note"
+    t.bigint "imported_item_id"
+  end
+
+  create_table "imported_items", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_imported_items_on_name", unique: true
   end
 
   create_table "needs", force: :cascade do |t|
@@ -64,6 +72,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_120013) do
     t.string "status", default: "to_do"
     t.datetime "deleted_at"
     t.bigint "assessment_id"
+    t.boolean "send_email", default: false
     t.index ["contact_id"], name: "index_needs_on_contact_id"
     t.index ["deleted_at"], name: "index_needs_on_deleted_at"
     t.index ["role_id"], name: "index_needs_on_role_id"
@@ -142,6 +151,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_120013) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "contacts", "imported_items"
   add_foreign_key "contacts", "roles", column: "lead_service_id"
   add_foreign_key "needs", "contacts"
   add_foreign_key "needs", "needs", column: "assessment_id"

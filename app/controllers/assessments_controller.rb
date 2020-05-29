@@ -177,7 +177,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_params
-    params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on, :assessment_id)
+    params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on, :assessment_id, :send_email)
   end
 
   def assessment_failure_params
@@ -185,7 +185,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_assignment_params
-    permit_params = params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to, :status])
+    permit_params = params.require(:assessment_assignment_form).permit(needs: [:id, :assigned_to, :status, :send_email])
     permit_params[:needs].to_h.each do |key, _value|
       permit_params[:needs][key]['assigned_to'] = assigned_to_me(permit_params[:needs][key]['assigned_to'])
     end
@@ -193,7 +193,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_completion_params
-    params.require(:assessment_completion_form).permit(:completion_method, :completion_note, :next_check_in_date, :mdt_review_is_urgent, :mdt_review_note)
+    params.require(:assessment_completion_form).permit(:completion_method, :completion_note, :next_check_in_date, :next_check_in_description, :mdt_review_is_urgent, :mdt_review_note)
   end
 
   def notes_params

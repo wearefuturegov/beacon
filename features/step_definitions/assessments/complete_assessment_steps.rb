@@ -13,11 +13,18 @@ Given('I have assigned needs {string} to {string} for the assessment') do |needs
   assignment_dropdowns = page.all('.assessment-assign-dropdown')
 
   if Capybara.current_driver == :rack_test
-    assignees.each_with_index { |assignee, index| assignment_dropdowns[index].find(:option, assignee).select_option }
+    assignees.each_with_index do |assignee, index|
+      assignment_dropdowns[index].find(:option, assignee).select_option
+      check_email_send
+    end
   else
     saved_needs = Need.where(assessment_id: @need.id).to_a
-    assignees.each_with_index { |assignee, index| select2 "assessment_assignment_form_needs_#{saved_needs[index].id}_assigned_to", assignee }
+    assignees.each_with_index do |assignee, index|
+      select2 "assessment_assignment_form_needs_#{saved_needs[index].id}_assigned_to", assignee
+      check_email_send
+    end
   end
+
   click_link_or_button 'Update'
 end
 
@@ -42,11 +49,19 @@ When('I complete the assessment') do
   click_link_or_button 'Complete'
 end
 
+When('I complete the assessment with the required fields') do
+  step 'I schedule a check in for tomorrow'
+  step 'I fill in the required fields'
+  click_link_or_button 'Complete'
+end
+
 When('I schedule a check in for tomorrow') do
   page.find('#assessment_completion_form_next_check_in_date').fill_in(with: (DateTime.now + 1.days).strftime('%d/%m/%Y'))
+  page.find('#assessment_completion_form_next_check_in_description').fill_in(with: 'Check in')
 end
 
 Then('I should see the future check in') do
+  page.find('button#check-in').click
   check_in_row = page.find('.need--check-in')
   expect(check_in_row).to have_content("#{(DateTime.now + 1.days).strftime('%-d %B %Y')} (Future)")
 end

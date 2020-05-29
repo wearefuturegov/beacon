@@ -16,7 +16,6 @@ Then('I see one call attempt') do
 end
 
 When('I filter needs by category {string}') do |category|
-  page.find('#needs-filters').click
   select2 'category', category
 end
 
