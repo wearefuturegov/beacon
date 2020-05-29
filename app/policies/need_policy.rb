@@ -74,6 +74,6 @@ class NeedPolicy < ApplicationPolicy
   end
 
   def start_assessment?
-    Need.where(id: @record.id, user_id: @user.id).exists?
+    Need.where(id: @record.id, user_id: @user.id, status: ['to_do', 'in_progress', 'blocked']).exists?
   end
 end
