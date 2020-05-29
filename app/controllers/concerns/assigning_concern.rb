@@ -16,4 +16,9 @@ module AssigningConcern
       'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
     }
   end
+
+  def assigned_to_me(assigned_to)
+    assigned_to = "user-#{current_user.id}" if assigned_to == 'assigned-to-me'
+    assigned_to
+  end
 end
