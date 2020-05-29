@@ -26,8 +26,8 @@
               </ul>
             </div>
           <% end %>
-          <div class="field">
-            <h3>How did you complete the <%= @assessment.category.humanize %>?</h3>
+          <div class="field field__assessment">
+            <h3 class="field__label title-element">How did you complete the <%= @assessment.category.humanize %>?</h3>
             <% assessment_completion_methods.each do |completion_method, description| %>
               <div class="radio radio-spacing-small">
                 <%= form.radio_button :completion_method, completion_method %>
@@ -36,13 +36,13 @@
             <% end %>
           </div>
 
-          <div class="field">
+          <div class="field field__assessment">
             <%= form.text_area :completion_note, :placeholder => 'Add a note' %>
           </div>
 
           <% if @completion_form.existing_check_in %>
-            <div class="field">
-              <h3>Next check in call</h3>
+            <div class="field__assessment">
+              <h3 class="field__label title-element">Next check in call</h3>
               <% if @completion_form.existing_check_in.start_on %>
                 <p>Scheduled for <%= @completion_form.existing_check_in.start_on&.strftime("%-d %B %Y") %></p>
                 <p><%= link_to 'View check in call', need_path(@completion_form.existing_check_in.id), {:target => '_blank'} %></p>
@@ -51,13 +51,17 @@
               <% end %>
             </div>
           <% else %>
-            <div class="field">
-              <h3>Next check in call</h3>
+            <div class="field field__assessment">
+              <h3 class="field__label title-element">Next check in call</h3>
               <p>No further reviews currently scheduled</p>
             </div>
-            <div class="field">
+            <div class="field__assessmentd">
               <%= form.label :next_check_in_date, "When should the next check-in call be scheduled for?", class: "field__label" %>
               <%= form.text_field :next_check_in_date, {autocomplete: 'off', style: 'max-width: 300px'} %>
+            </div>
+            <div class="field">
+              <%= form.label :next_check_in_description, "Describe how we can help", class: "field__label" %>
+              <%= form.text_area :next_check_in_description, { style: 'max-width: 300px;'} %>
             </div>
           <% end %>
         </div>
@@ -70,25 +74,25 @@
 
             <% if @completion_form.existing_mdt_review %>
               <h4>Update existing MDT review</h4>
-              <div class="field">
+              <div class="field__assessment">
                 <div class="checkbox">
                   <%= form.check_box :mdt_review_is_urgent, class: 'checkbox__input', checked: @completion_form.mdt_review_is_urgent == '1', :disabled => @completion_form.existing_mdt_review&.is_urgent %>
                   <%= form.label :mdt_review_is_urgent, 'Urgent?', class: 'checkbox__label' %>
                 </div>
               </div>
-              <div class="field">
+              <div class="field field__assessment">
                 <%= form.text_area :mdt_review_note, :placeholder => 'Add a note for the MDT review' %>
               </div>
 
             <% else %>
               <h4>Create new MDT review</h4>
-              <div class="field">
+              <div class="field field__assessment">
                 <div class="checkbox">
                   <%= form.check_box :mdt_review_is_urgent, class: 'checkbox__input', checked: @completion_form.mdt_review_is_urgent == '1' %>
                   <%= form.label :mdt_review_is_urgent, 'Urgent?', class: 'checkbox__label' %>
                 </div>
               </div>
-              <div class="field">
+              <div class="field field__assessment">
                 <%= form.text_area :mdt_review_note, :placeholder => 'Add a note for the MDT review' %>
               </div>
             <% end %>

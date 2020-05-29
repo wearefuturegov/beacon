@@ -10,6 +10,7 @@ class AssessmentCompletionForm
   attr_accessor :completion_method
   attr_accessor :completion_note
   attr_accessor :next_check_in_date
+  attr_accessor :next_check_in_description
   attr_accessor :mdt_review_is_urgent
   attr_accessor :mdt_review_note
 
@@ -22,7 +23,7 @@ class AssessmentCompletionForm
     assessment = Need.find(id)
     contact = Contact.find(assessment.contact_id)
     if next_check_in_date && !existing_check_in
-      contact.needs.build(category: 'check in', start_on: next_check_in_date, status: Need.statuses[:to_do], name: 'Check In')
+      contact.needs.build(category: 'check in', start_on: next_check_in_date, status: Need.statuses[:to_do], name: next_check_in_description)
              .save
     end
     if needs_assigned_to_mdt.any?

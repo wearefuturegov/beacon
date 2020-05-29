@@ -52,8 +52,8 @@
                   <%= need_form.hidden_field :name, :value => need[:name] %>
                   <%= need_form.hidden_field :assessment_id, :value => @assessment_id %>
                   <%= need_form.hidden_field :id, :value => need[:id] %>
-                  <div class="field <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
-                    <%= need_form.label :description, 'Describe how we can help', class: 'field__label' %>
+                  <div class="field field__assessment <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
+                    <%= need_form.label :description, 'Describe how we can help', class: 'field__label triage' %>
                     <%= need_form.text_area :description, value: need[:description] %>
                   </div>
 

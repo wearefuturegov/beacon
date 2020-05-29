@@ -64,6 +64,9 @@
 
 .assessment-fail-form-container {
   margin-bottom: 35px;
+  h3 {
+    font-size: 16px;
+  }
 }
 
 .assessment-assign-dropdown {
@@ -74,6 +77,30 @@
 #assessment-container{
   margin-bottom: 20px;
 }
+
+.field {
+  &.field__assessment {
+    .field__label {
+      font-size: 16px;
+      &.triage {
+        margin-top: 15px;
+      }
+
+      &.title-element {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.field-section {
+  &.field-section__assessment {
+    .field-section__title {
+      font-size: 16px;
+    }
+  }
+}
+
 .assessment-grid{
   @media screen and (min-width: $breakpoint-m){
       display: grid;

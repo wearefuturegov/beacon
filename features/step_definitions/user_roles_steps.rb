@@ -44,12 +44,12 @@ end
 
 Then(/^I can see the support action filters$/) do
   main_menu = find('.main-menu')
-  expect(main_menu).to have_selector(:link_or_button, 'All triages and check-ins')
+  expect(main_menu).to have_selector(:link_or_button, 'Triage and check-ins')
 end
 
 Then(/^I can not see the support action filters$/) do
   main_menu = find('.main-menu')
-  expect(main_menu).not_to have_selector(:link_or_button, 'All triages and check-ins')
+  expect(main_menu).not_to have_selector(:link_or_button, 'Triage and check-ins')
 end
 
 Then(/^I can see the team action filters$/) do
