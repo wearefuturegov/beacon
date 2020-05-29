@@ -16,7 +16,7 @@ Given('I have assigned needs {string} to {string} for the assessment') do |needs
     assignees.each_with_index { |assignee, index| assignment_dropdowns[index].find(:option, assignee).select_option }
   else
     saved_needs = Need.where(assessment_id: @need.id).to_a
-    assignees.reject{'Unassigned'}.each_with_index { |assignee, index| select2 "assessment_assignment_form_needs_#{saved_needs[index].id}_assigned_to", assignee }
+    assignees.reject { 'Unassigned' }.each_with_index { |assignee, index| select2 "assessment_assignment_form_needs_#{saved_needs[index].id}_assigned_to", assignee }
   end
   click_link_or_button 'Update'
 end
@@ -44,7 +44,7 @@ end
 
 When('I schedule a check in for tomorrow') do
   page.find('#assessment_completion_form_next_check_in_date').fill_in(with: (DateTime.now + 1.days).strftime('%d/%m/%Y'))
-  page.find('#assessment_completion_form_next_check_in_description').fill_in(with: ('Check in'))
+  page.find('#assessment_completion_form_next_check_in_description').fill_in(with: 'Check in')
 end
 
 Then('I should see the future check in') do
