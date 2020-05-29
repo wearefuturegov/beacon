@@ -6,6 +6,7 @@
     flex: 1 0 auto;
     flex-wrap: wrap;
     align-items: center;
+    margin-bottom: 10px;
     .last-element {
       margin-left: auto;
       display: flex;
@@ -13,18 +14,14 @@
     .assign__needs.dropdown {
       width: 300px;
     }
-    #btnExport {
-      margin-left: auto;
-      order: 2;
-      &[data-open=true] {
-        @media screen and (max-width: 1458px) {
-          margin-top: 10px;
-        }
-      }
-    }
     #assign-selected-needs-users, #assign-selected-needs-team {
       width: 160px;
     }
+}
+
+.send-email-label {
+  font-size: 0.9rem;
+  margin-left: 5px;
 }
 
 .bulk-action-checkbox{

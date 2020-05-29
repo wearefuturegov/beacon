@@ -32,6 +32,24 @@ RSpec.describe AssessmentsController do
     end
   end
 
+  describe 'PUT #update_assignment' do
+    before(:each) do
+      @need = class_double('Need').as_stubbed_const
+      @test_need = double('Need')
+      allow(@need).to receive(:find).and_return(@test_need)
+      allow(@test_need).to receive(:save).and_return(true)
+      allow(@test_need).to receive(:contact_id).and_return(1)
+      allow(@test_need).to receive(:valid?).and_return(true)
+    end
+
+    it 'saves assigned_to and send_email fields' do
+      expect(@test_need).to receive(:send_email=).with('true')
+      expect(@test_need).to receive(:assigned_to=).with('4')
+      put :update_assignment, params: { 'contact_id' => '1', 'id' => '18', 'assessment_assignment_form' => { 'needs' => { '137' => { 'id' => '137', 'assigned_to' => '4', 'send_email' => 'true' } } } }
+      expect(response).to redirect_to complete_assessment_path('18')
+    end
+  end
+
   describe 'POST #create' do
     before(:each) do
       allow_any_instance_of(controller.class).to receive(:authorize).and_return(nil)

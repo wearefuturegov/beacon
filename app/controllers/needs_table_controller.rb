@@ -4,7 +4,7 @@ class NeedsTableController < ApplicationController
   include ParamsConcern
   include AssigningConcern
 
-  helper_method :filters_path, :categories, :can_bulk_action?
+  helper_method :filters_path, :categories, :can_bulk_action?, :any_filters?
 
   def construct_assigned_to_options(with_deleted = false)
     roles = Role.all.order(:name)
@@ -14,6 +14,10 @@ class NeedsTableController < ApplicationController
       'Teams' => roles.map { |role| [role.name, "role-#{role.id}"] },
       'Users' => users.map { |user| [user.name_or_email, "user-#{user.id}"] }
     }
+  end
+
+  def any_filters?
+    params[:user_id] || params[:status] || params[:category] || params[:is_urgent] || params[:assigned_to]
   end
 
   def handle_response_formats
@@ -53,7 +57,7 @@ class NeedsTableController < ApplicationController
   def need_params
     permit_need_params = params
                          .require(:need)
-                         .permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version, :food_priority, :food_service_type, :start_on)
+                         .permit(:id, :name, :status, :assigned_to, :category, :is_urgent, :lock_version, :food_priority, :food_service_type, :start_on, :send_email)
     permit_need_params[:assigned_to] = assigned_to_me(permit_need_params[:assigned_to])
     permit_need_params
   end
