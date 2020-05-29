@@ -1,5 +1,7 @@
 <% content_for :header do %>
-  <%= render partial: "shared/mini-search", locals: { url: contacts_path, text_field_placeholder: "Search people" } %>
+  <% unless @params[:imported_item_id].present? %>
+    <%= render partial: "shared/mini-search", locals: { url: contacts_path, text_field_placeholder: "Search people" } %>
+  <% end %>
 <% end %>
 
 <header class="panel-header">
@@ -10,7 +12,7 @@
       People in need
     <% end %>
   </h1>
-  <% if policy(Contact).create? %>
+  <% if policy(Contact).create? && @params[:imported_item_id].blank? %>
     <%= link_to "Add a person", new_contact_path, class: "panel-header__action" %>
   <% end %>
 </header>
