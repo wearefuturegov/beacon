@@ -1,11 +1,11 @@
 <fieldset class="field-section field-section--two-cols">
   <legend><h3 class="field-section__title">Are they eligible for free prescriptions?</h3></legend>
   
-  <div class="radio">
+  <div class="radio radio-spacing-small">
     <%= form.radio_button :eligible_for_free_prescriptions, true, :id => "eligible_for_free_prescriptions_true" %>
     <label for="eligible_for_free_prescriptions_true" class="radio__label">Yes</label>
   </div>
-  <div class="radio">
+  <div class="radio radio-spacing-small">
     <%= form.radio_button :eligible_for_free_prescriptions, false, :id => "eligible_for_free_prescriptions_false" %>
     <label for="eligible_for_free_prescriptions_false" class="radio__label">No</label>
   </div>

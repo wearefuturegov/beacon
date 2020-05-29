@@ -39,7 +39,7 @@ Then('I should see the date of the next check in') do
 end
 
 When('I complete the assessment') do
-  click_link_or_button 'Complete assessment'
+  click_link_or_button 'Complete'
 end
 
 When('I schedule a check in for tomorrow') do

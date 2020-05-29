@@ -28,39 +28,39 @@
           <% else %>
             <%= render :partial => "shared/progress-wizard", locals: {state: [-1, -2, -2, 0]} %>
           <% end %>
-        </div>
-        <h3>Update</h3>
-        <p>If the call was unsuccessful, or you want to leave a note, please update the following questions.</p>
+          <h3>Update</h3>
+          <p>If the call was unsuccessful, or you want to leave a note, please update the following questions.</p>
 
-        <%= form_with model: @failure_form, url: update_failure_assessment_path, :method => :put,
-                      :local => true, :html => { :name => 'assessment_failure_form', :autocomplete => 'off' } do |form| %>
-        <div class="field">
-          <h3>Why wasn't the check in call successful?</h3>
-          <% assessment_failure_reasons.each do |failure_reason, description| %>
-            <div class="radio">
-              <%= form.radio_button :failure_reason, failure_reason %>
-              <%= form.label "failure_reason_#{failure_reason.downcase}", description, :class => 'radio__label' %>
+          <%= form_with model: @failure_form, url: update_failure_assessment_path, :method => :put,
+                        :local => true, :html => { :name => 'assessment_failure_form', :autocomplete => 'off' } do |form| %>
+            <div class="field field__assessment">
+              <h3 class="field__label title-element">Why wasn't the check in call successful?</h3>
+              <% assessment_failure_reasons.each do |failure_reason, description| %>
+                <div class="radio radio-spacing-small">
+                  <%= form.radio_button :failure_reason, failure_reason %>
+                  <%= form.label "failure_reason_#{failure_reason.downcase}", description, :class => 'radio__label' %>
+                </div>
+              <% end %>
             </div>
+
+            <div id="left_message_question_section" class="field" hidden="hidden">
+              <h3>Did you leave a message?</h3>
+              <% %w(Yes No).each do |message_choice| %>
+                <div class="radio radio-spacing-small">
+                  <%= form.radio_button :left_message, message_choice %>
+                  <%= form.label :"left_message_#{message_choice.downcase}", message_choice, :class => 'radio__label' %>
+                </div>
+              <% end %>
+            </div>
+
+            <div id="note_description_section" class="field" hidden="hidden">
+              <%= form.label :note_description, 'Why didn\'t you leave a message?', :class => 'field__label' %>
+              <%= form.text_area :note_description, :placeholder => 'Enter note description' %>
+            </div>
+
+            <input type="submit" value="Update" class="button button--primary"/>
           <% end %>
         </div>
-
-        <div id="left_message_question_section" class="field" hidden="hidden">
-          <h3>Did you leave a message?</h3>
-          <% %w(Yes No).each do |message_choice| %>
-            <div class="radio">
-              <%= form.radio_button :left_message, message_choice %>
-              <%= form.label :"left_message_#{message_choice.downcase}", message_choice, :class => 'radio__label' %>
-            </div>
-          <% end %>
-        </div>
-
-        <div id="note_description_section" class="field" hidden="hidden">
-          <%= form.label :note_description, 'Why didn\'t you leave a message?', :class => 'field__label' %>
-          <%= form.text_area :note_description, :placeholder => 'Enter note description' %>
-        </div>
-
-        <input type="submit" value="Update" class="button button--primary"/>
-        <% end %>
       </div>
     </div>
   </aside>

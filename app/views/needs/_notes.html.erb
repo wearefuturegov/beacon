@@ -7,7 +7,7 @@
         <%= form.label :category, 'Choose a category', class: "field__label" %>
       </legend>
       <% Note.categories_without_phone_import.each.with_index do |nc, index| %>
-        <div class="radio">
+        <div class="radio radio-spacing-small">
           <% field_value = "category_#{note_category_form_id(nc)}"  %>
           <%= form.radio_button :category, note_category_form_id(nc), :id => field_value, :checked => index == 0 %>
           <label for=<%= field_value %> class="radio__label"><%= note_category_form_display(nc) %></label>
