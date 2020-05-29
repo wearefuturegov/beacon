@@ -93,6 +93,11 @@ When('I choose to see the assessment') do
   visit "/needs/#{@need.id}/"
 end
 
+Then('I can see the assessment has a completed status') do
+  status = page.find('#status-actions__field select').value
+  expect(status).to have_content 'complete'
+end
+
 Then('I cannot see the option to start the assessment') do
   expect(page.find('#start-assessment-disabled-btn').visible?).to be(true)
 end
