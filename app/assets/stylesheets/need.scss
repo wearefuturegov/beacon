@@ -84,3 +84,12 @@ table {
     display: none;
   }
 }
+
+.accordion {
+  &.assessment {
+    margin-top: 30px;
+    .accordion__control {
+      padding: 10px;
+    }
+  }
+}

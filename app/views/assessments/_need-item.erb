@@ -1,0 +1,38 @@
+<% need = need_entry[1] %>
+<%= form.fields_for 'needs_list', :index => need_entry[0] do |need_form| %>
+  <div class="selectable assessment-grid__need <%= "need--#{need[:name].parameterize}" %>">
+    <div class="assessment-grid__inner">
+      <div class="assessment-checkbox">
+        <h3 class="assessment-grid__title">
+          <%= need_form.check_box :active, {
+              class: 'checkbox__input need-checkbox',
+              checked: need[:active] == 'true',
+              data: "#{need[:name].parameterize}" },
+                                  'true', 'false' %>
+          <%= need_form.label :active, need[:name], class: 'checkbox__label' %>
+        </h3>
+      </div>
+      <%= need_form.hidden_field :name, :value => need[:name] %>
+      <%= need_form.hidden_field :assessment_id, :value => @assessment_id %>
+      <%= need_form.hidden_field :id, :value => need[:id] %>
+      <div class="field field__assessment <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
+        <%= need_form.label :description, 'Describe how we can help', class: 'field__label triage' %>
+        <%= need_form.text_area :description, value: need[:description] %>
+      </div>
+
+      <div class="checkbox-black <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
+        <%= need_form.check_box :is_urgent, class: 'checkbox__input', checked: need[:is_urgent] == '1' %>
+        <%= need_form.label :is_urgent, 'Urgent?', class: 'checkbox__label' %>
+      </div>
+    </div>
+
+    <%= fields_for :contact, @contact do |contact_form| %>
+      <% if File.exists?(Rails.root.join("app", "views", "assessments", "_#{need[:name].parameterize.underscore}.html.erb")) %>
+        <%# form will save to the need, contact_form will save to the contact %>
+        <div class="assessment-grid__inner assessment-grid__inner--grey <%= "need-accordion-#{need[:name].parameterize}" %>" hidden="true">
+          <%= render :partial => "#{need[:name].parameterize.underscore}", locals: {form: contact_form, need_form: need_form, need: need} %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
