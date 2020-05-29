@@ -31,7 +31,7 @@
             <% if policy(@need).start_assessment? %>
               <%= link_to "Start #{@need.category}", contact_start_assessment_path(contact_id: @need.contact_id, id: @need), class: "button button--blue button-link", id:"edit-assessment-btn" %>
             <% else %>
-              <button class="button button--disabled" type="button" title="You need to assign this to yourself" >Start <%= @need.category %></button>
+              <button class="button button--disabled" type="button" title="You need to assign this to yourself" id="start-assessment-disabled-btn">Start <%= @need.category %></button>
             <% end %>
           <% end %>
         </div>
