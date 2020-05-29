@@ -84,7 +84,7 @@ Given('I have completed an assessment') do
   step 'the mdt role exists'
   step 'an assessment is assigned to me'
   step 'I have chosen to notify with emails'
-  step "I have assigned needs 'Groceries and cooked meals' to 'council_service_x role' for the assessment" 
+  step "I have assigned needs 'Groceries and cooked meals' to 'council_service_x role' for the assessment"
   step 'I complete the assessment with the required fields'
   step 'I should receive an email notifying me of the assignment to my team'
 end
