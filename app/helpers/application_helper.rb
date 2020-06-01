@@ -46,9 +46,4 @@ module ApplicationHelper
     end
   end
 
-  def displayed_items_count(model, page_number)
-    expected_elements_count = model.total_count - (page_number.to_i - 1) * model.default_per_page
-
-    expected_elements_count < model.default_per_page ? expected_elements_count : model.default_per_page
-  end
 end
