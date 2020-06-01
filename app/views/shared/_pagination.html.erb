@@ -1,34 +1,6 @@
-<div class="pagination-records-summary">
-  Displaying <%= displayed_items_count(model, params[:page]) %> out of <%= model.total_count %> records
+<div>
+    <%= page_entries_info model, entry_name: 'item' %>
 </div>
 <nav class="pagination">
-    <p>Page <strong><%= params[:page] || "1" %></strong> of <strong><%= model.total_pages %></strong></p>
-
-    <% if previous_page_url(model) %>
-        <%= link_to image_tag("left.svg", alt: "Previous page"),
-            path_to_previous_page(model), 
-            class: "pagination__previous" 
-        %>
-    <% else %>
-        <div class="pagination__previous pagination__previous--disabled">
-            <%= image_tag "left.svg", alt: "Previous page" %>
-        </div>
-    <% end %>
-    <% if next_page_url(model) %>
-        <%= link_to image_tag("right.svg", alt: "Next page"), 
-            path_to_next_page(model), 
-            class: "pagination__next" 
-        %>
-    <% else %>
-        <div class="pagination__next pagination__next--disabled">
-            <%= image_tag "right.svg", alt: "Next page" %>
-        </div>
-    <% end %>
+    <%= paginate model, param_name: :page %>
 </nav>
-<div class="pagination-page-selection">
-  <label for="txtPage">Go to page:</label>
-  <input id="txtPage" type="text" class="page-select" pattern="[0-9]+" />
-  <%= link_to 'Go', '', class: 'button button--blue' %>
-</div>
-
-<%= javascript_pack_tag 'pagination' %>
