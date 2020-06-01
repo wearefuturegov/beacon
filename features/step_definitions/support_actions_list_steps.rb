@@ -62,10 +62,6 @@ def find_resident_row(resident_name)
       end
     end
 
-    next_button = page.find('.pagination__next')
-    break if !next_button || next_button[:class].include?('pagination__next--disabled')
-
-    next_button.click
   end
   found_row
 end
