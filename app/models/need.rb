@@ -228,7 +228,8 @@ class Need < ApplicationRecord
   end
 
   def created_by_name
-    user_id = versions.where('event = ?', 'create').first.whodunnit
+    record = versions.where('event = ?', 'create').first
+    user_id = record.present? ? record.whodunnit : nil
     return 'No user' if user_id.nil?
 
     user = User.find(user_id)

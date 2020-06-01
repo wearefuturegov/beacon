@@ -37,3 +37,9 @@ Feature: Complete an assessment
     When I complete the assessment
     And I go to the contact page for that contact
     Then I should see the MDT review
+  
+  Scenario: Cannot Start a completed assessment
+    Given I have completed an assessment
+    When I choose to see the assessment
+    Then I can see the assessment has a completed status
+    And I cannot see the option to start the assessment

@@ -78,3 +78,26 @@ end
 Then('I should see the MDT review') do
   page.find('.need--mdt-review')
 end
+
+Given('I have completed an assessment') do
+  step "I am logged into the system as a 'council_service_x' user"
+  step 'the mdt role exists'
+  step 'an assessment is assigned to me'
+  step 'I have chosen to notify with emails'
+  step "I have assigned needs 'Groceries and cooked meals' to 'council_service_x role' for the assessment"
+  step 'I complete the assessment with the required fields'
+  step 'I should receive an email notifying me of the assignment to my team'
+end
+
+When('I choose to see the assessment') do
+  visit "/needs/#{@need.id}/"
+end
+
+Then('I can see the assessment has a completed status') do
+  status = page.find('#status-actions__field select').value
+  expect(status).to have_content 'complete'
+end
+
+Then('I cannot see the option to start the assessment') do
+  expect(page.find('#start-assessment-disabled-btn').visible?).to be(true)
+end
