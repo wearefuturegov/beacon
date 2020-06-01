@@ -1,0 +1,7 @@
+applications:
+  - name: beacon-support
+    memory: 1024M
+    buildpacks:
+      - ruby_buildpack
+    services:
+      - beacon-postgres

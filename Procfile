@@ -1,1 +1,1 @@
-release: rails db:migrate
+beacon-support: rails db:migrate
