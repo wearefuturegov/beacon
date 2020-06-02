@@ -12,10 +12,8 @@ class NeedsController < NeedsTableController
     @needs = needs(@params[:start_on])
 
     @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
-    @needs = @needs.page(params[:page]) unless request.format == 'csv'
+    @needs = @needs.page(params[:page])
     @assigned_to_options_with_deleted = construct_assigned_to_options(true)
-
-    handle_response_formats
   end
 
   def deleted_items

@@ -225,9 +225,7 @@ Then(/^I see the resident in the search results$/) do
   expect(page.find_link('Forename Surname')).not_to be_nil
   results_table = page.find('.table')
   expect(results_table).to have_text('Forename Surname')
-  expect(results_table).to have_text('1982')
   expect(results_table).to have_text('AB12 9YZ')
-  expect(results_table).to have_text('NHS-999999')
 end
 
 Then('I see an option to add a person') do

@@ -20,16 +20,6 @@ class NeedsTableController < ApplicationController
     params[:user_id] || params[:status] || params[:category] || params[:is_urgent] || params[:assigned_to]
   end
 
-  def handle_response_formats
-    respond_to do |format|
-      format.html
-      format.csv do
-        authorize(Need, :export?)
-        send_data @needs.to_csv, filename: "needs-#{Date.today}.csv"
-      end
-    end
-  end
-
   def needs(start_on = nil)
     if @params[:created_by_me] == 'true'
       @assigned_to_options = {}

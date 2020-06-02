@@ -25,11 +25,6 @@
       <%= form.text_field :date_of_birth, :value => "#{@contact.date_of_birth&.strftime('%-d/%-m/%Y')}" %>
     </div>
 
-    <div class="field">
-      <%= form.label :nhs_number, 'NHS Number', class: "field__label" %>
-      <%= form.text_field :nhs_number %>
-    </div>
-
     <div class="field field--span-two-cols">
       <%= form.label :address, class: "field__label" %>
       <%= form.text_area :address %>
@@ -145,7 +140,7 @@
       <dd class="details-list__value">
         <div class="checkbox">
           <%= form.check_box :share_data_flag, class: 'checkbox__input' %>
-          <%= form.label :share_data_flag, 'Consent to share data', class: 'checkbox__label' %>
+          <%= form.label :share_data_flag, 'Consent to share (NB most sharing not need consent)', class: 'checkbox__label' %>
         </div>
       </dd>
 

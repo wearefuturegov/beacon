@@ -76,13 +76,6 @@ RSpec.describe NeedsController, type: :controller do
       expect(response).to be_successful
     end
 
-    it 'does not page when the request is for a csv' do
-      allow(need).to receive(:to_csv)
-      expect(need).not_to receive(:page)
-      get :index, format: :csv
-      expect(response).to be_successful
-    end
-
     it 'populates assignable users options' do
       # users
       users = [User.new(id: 1, first_name: 'User', last_name: 'Test', email: 'user1@test.com')]
