@@ -25,6 +25,7 @@
       <tr>
         <th>Name</th>
         <th>Postcode</th>
+        <th>Lead Service</th>
       </tr>
       </thead>
       <tbody>
@@ -32,6 +33,7 @@
         <tr class="clickable" onclick="window.location='<%= contact_path(contact) %>'">
           <td><%= link_to contact.name, contact, class: "primary-link" %></td>
           <td><%= contact.postcode %></td>
+          <td><%= name_for_lead_service contact.lead_service_id %></td>
         </tr>
       <% end %>
       </tbody>
