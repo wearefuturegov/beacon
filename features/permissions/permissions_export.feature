@@ -1,4 +1,4 @@
-@permissions @export
+@permissions @export @skip
 Feature: Restrict exporting need data depending on role
   As a beacon owner
   I want to restrict which roles can export data in beacon
