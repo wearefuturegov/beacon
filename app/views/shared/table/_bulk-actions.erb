@@ -21,9 +21,6 @@
         <%= label_tag :send_email, 'Send notification email?', disabled: 'disabled', id: "send-email-label", class: "send-email-label"  %>
       <% end %>             
       
-      <% if policy(Need).export? %>
-        <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--blue btn-right", "data-open" => "true" %>
-      <% end %>
     </div>
 
     <div class="panel ">

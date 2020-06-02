@@ -65,8 +65,8 @@
             <% end %>
           <% elsif @type == 'schedule' %>
             <div class="field">
-              <%= form.label :name, "Support action description", class: "field__label" %>
-              <%= form.text_field :name, placeholder: 'Describe the support action' %>
+              <%= form.label :name, "Description", class: "field__label" %>
+              <%= form.text_field :name %>
             </div>
 
             <div class="field">
