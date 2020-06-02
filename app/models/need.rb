@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
-require 'csv'
-
 class Need < ApplicationRecord
   include Filterable
-  include NeedCsv
   acts_as_paranoid
 
   self.ignored_columns = %w[due_by]
