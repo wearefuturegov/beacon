@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
   before_action :set_contact, :set_teams_options, only: %i[edit update show needs add_needs]
   before_action :roles, only: %i[index]
   helper_method :name_for_lead_service
-  
+
   def index
     @contacts = policy_scope(Contact)
     @params = params.permit(:search, :page, :imported_item_id)
@@ -72,7 +72,8 @@ class ContactsController < ApplicationController
 
   def name_for_lead_service(role_id)
     return unless role_id.present?
-    @roles.select{|i| i.id == role_id}.first.name
+
+    @roles.select { |i| i.id == role_id }.first.name
   end
 
   def roles
