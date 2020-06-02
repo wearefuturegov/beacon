@@ -20,5 +20,15 @@ module IHaveINeed
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag.html_safe }
+
+    config.log_tags = [
+        :request_id,
+        ->(req) {
+          session_key = (Rails.application.config.session_options || {})[:key]
+          session_data = req.cookie_jar.encrypted[session_key] || {}
+          user_id = session_data["email"] || "guest"
+          "user: #{user_id.to_s}"
+        }
+    ]
   end
 end
