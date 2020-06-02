@@ -10,10 +10,7 @@
 
   <aside class="with-left-sidebar__right">
     <header class="panel-header" id="needs-panel">
-      <h2 class="panel-header__title">Needs</h2>
-      <% if @contact.needs.any? %>
-        <span class="panel-header__badge"><%= @contact.needs.count %></span>
-      <% end %>
+      <h2 class="panel-header__title">Need</h2>
       <% if policy(Need).create? %>
         <%= link_to "Add needs +", contact_triage_path(@contact), class: "btn-triage" %>
       <% end %>
