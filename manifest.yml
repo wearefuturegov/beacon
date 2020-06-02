@@ -5,3 +5,4 @@ applications:
       - ruby_buildpack
     services:
       - beacon-postgres
+    health-check-type: http
