@@ -9,10 +9,16 @@ RSpec.describe NeedsController, type: :controller do
     allow_any_instance_of(controller.class).to receive(:authorize).and_return(nil)
   end
 
+  let(:activerecord_relation) do
+    relation = double ActiveRecord::Relation
+    allow(relation).to receive(:map).and_return([])
+    relation
+  end
+
   let(:need) do
     need = class_double('Need').as_stubbed_const
     allow(need).to receive(:filter_and_sort).and_return(need)
-    allow(need).to receive(:page).and_return(need)
+    allow(need).to receive(:page).and_return(activerecord_relation)
     allow(need).to receive(:started).and_return(need)
     allow(controller).to receive(:policy_scope).with(Need).and_return(need)
     need
@@ -21,7 +27,7 @@ RSpec.describe NeedsController, type: :controller do
   let(:deleted_need) do
     need = class_double('Need').as_stubbed_const
     allow(need).to receive(:filter_and_sort).and_return(need)
-    allow(need).to receive(:page).and_return(need)
+    allow(need).to receive(:page).and_return(activerecord_relation)
     allow(need).to receive(:deleted).and_return(need)
     allow(controller).to receive(:policy_scope).with(Need).and_return(need)
     need
@@ -31,7 +37,7 @@ RSpec.describe NeedsController, type: :controller do
     note = class_double('Note').as_stubbed_const
     allow(note).to receive(:filter_and_sort).and_return(note)
     allow(note).to receive(:filter_need_not_destroyed).and_return(note)
-    allow(note).to receive(:page).and_return(note)
+    allow(note).to receive(:page).and_return(activerecord_relation)
     allow(note).to receive(:deleted).and_return(note)
     allow(controller).to receive(:policy_scope).with(Note).and_return(note)
     note
@@ -47,7 +53,7 @@ RSpec.describe NeedsController, type: :controller do
     end
 
     it 'filters on page number passed in params' do
-      expect(need).to receive(:page).with('5').and_return(need)
+      expect(need).to receive(:page).with('5').and_return(activerecord_relation)
       get :index, params: { page: 5 }
       expect(response).to be_successful
     end
@@ -118,7 +124,7 @@ RSpec.describe NeedsController, type: :controller do
 
   describe 'GET #deleted_needs' do
     it 'filters deleted needs on page number passed in params' do
-      expect(deleted_need).to receive(:page).with('1').and_return(deleted_need)
+      expect(deleted_need).to receive(:page).with('1').and_return(activerecord_relation)
       get :deleted_items, params: { page: 1, type: 'needs' }
       expect(response).to be_successful
     end
@@ -126,7 +132,7 @@ RSpec.describe NeedsController, type: :controller do
 
   describe 'GET #deleted_notes' do
     it 'filters deleted notes on page number passed in params' do
-      expect(deleted_note).to receive(:page).with('1').and_return(deleted_note)
+      expect(deleted_note).to receive(:page).with('1').and_return(activerecord_relation)
       get :deleted_items, params: { page: 1, type: 'notes' }
       expect(response).to be_successful
     end

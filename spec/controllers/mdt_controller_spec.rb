@@ -8,10 +8,16 @@ RSpec.describe MdtController, type: :controller do
     controller.instance_variable_set(:@current_user, {})
   end
 
+  let(:activerecord_relation) do
+    relation = double ActiveRecord::Relation
+    allow(relation).to receive(:map).and_return([])
+    relation
+  end
+
   let(:need) do
     need = class_double('Need').as_stubbed_const
     allow(need).to receive(:filter_and_sort).and_return(need)
-    allow(need).to receive(:page).and_return(need)
+    allow(need).to receive(:page).and_return(activerecord_relation)
     allow(need).to receive(:started).and_return(need)
     need
   end
@@ -28,7 +34,7 @@ RSpec.describe MdtController, type: :controller do
     end
 
     it 'filters on page number passed in params' do
-      expect(need).to receive(:page).with('1').and_return(need)
+      expect(need).to receive(:page).with('1').and_return(activerecord_relation)
       get :index, params: { page: 1 }
       expect(response).to be_successful
     end

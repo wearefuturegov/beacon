@@ -10,7 +10,7 @@ RSpec.describe ContactsController do
     controller.instance_variable_set(:@current_user, user)
   end
 
-  let(:contact_relation) do
+  let(:activerecord_relation) do
     relation = double ActiveRecord::Relation
     allow(relation).to receive(:map).and_return([])
     relation
@@ -18,16 +18,15 @@ RSpec.describe ContactsController do
 
   let(:contact) do
     contact = class_double('Contact').as_stubbed_const
-    contact_relation = double ActiveRecord::Relation
     allow(contact).to receive(:all).and_return(contact)
-    allow(contact).to receive(:page).and_return(contact_relation)
+    allow(contact).to receive(:page).and_return(activerecord_relation)
     allow(controller).to receive(:policy_scope).with(Contact).and_return(contact)
     contact
   end
 
   describe 'GET #index' do
     it 'receives contact index with pagination' do
-      expect(contact).to receive(:page).with('5').and_return(contact_relation)
+      expect(contact).to receive(:page).with('5').and_return(activerecord_relation)
       get :index, params: { page: 5 }
       expect(response).to be_successful
     end
