@@ -39,13 +39,13 @@ class NeedsController < NeedsTableController
   end
 
   def show
-    Rails.logger.log("User viewed need show page for contact ID: #{@contact.id}")
+    Rails.logger.unknown("User viewed need show page for contact ID: #{@contact.id}")
     @need.notes.order(created_at: :desc)
     populate_page_data
   end
 
   def edit
-    Rails.logger.log("User viewed need edit page for contact ID: #{@contact.id}")
+    Rails.logger.unknown("User viewed need edit page for contact ID: #{@contact.id}")
     @delete_prompt = get_delete_prompt @need
   end
 

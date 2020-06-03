@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
     @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id)) if @params[:search].present?
 
     @contacts = @contacts.page(@params[:page])
-    Rails.logger.log("User viewed contact list page for contact ID: #{@contacts.map(&:id).join(',')}")
+    Rails.logger.unknown("User viewed contact list page for contact ID: #{@contacts.map(&:id).join(',')}")
   end
 
   def new
@@ -38,7 +38,7 @@ class ContactsController < ApplicationController
   end
 
   def show
-    Rails.logger.log("User viewed contacts details page for contact ID: #{@contact.id}")
+    Rails.logger.unknown("User viewed contacts details page for contact ID: #{@contact.id}")
     @browser = Browser.new(request.env['HTTP_USER_AGENT'])
 
     @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
@@ -57,7 +57,7 @@ class ContactsController < ApplicationController
   end
 
   def edit
-    Rails.logger.log("User viewed contacts edit page for contact ID: #{@contact.id}")
+    Rails.logger.unknown("User viewed contacts edit page for contact ID: #{@contact.id}")
   end
 
   def update
