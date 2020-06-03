@@ -26,7 +26,7 @@ module IHaveINeed
         ->(req) {
           session_key = (Rails.application.config.session_options || {})[:key]
           session_data = req.cookie_jar.encrypted[session_key] || {}
-          user_id = session_data["email"] || "guest"
+          user_id = session_data["passwordless_session_id--user"] || "anon"
           "user: #{user_id.to_s}"
         }
     ]
