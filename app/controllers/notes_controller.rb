@@ -9,12 +9,13 @@ class NotesController < ApplicationController
     params = note_params
     params.merge!(body: 'No details captured') if note_params[:body].blank?
     @need.notes.create!(params.merge(user: current_user))
-
+    Rails.logger.unknown("User created a note on need ID: #{@need.id}")
     redirect_to need_path(@need)
   end
 
   def update
     authorize @note
+    Rails.logger.unknown("User updated note ID: #{@note.id}")
     @note.update(note_params)
   end
 
