@@ -12,7 +12,6 @@ Feature: Restrict exporting need data depending on role
     And I can export data from the system
     Examples:
       | role                  |
-      | manager               |
       | food_delivery_manager |
 
   Scenario Outline: Roles that cannot see export functionality
@@ -25,4 +24,5 @@ Feature: Restrict exporting need data depending on role
       | role                     |
       | agent                    |
       | mdt                      |
+      | manager                  |
       | council_service_anything | 
