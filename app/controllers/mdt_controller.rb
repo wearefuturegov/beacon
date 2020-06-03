@@ -8,9 +8,11 @@ class MdtController < NeedsTableController
 
     @params[:category] = 'mdt review'
     @needs = @needs.uncompleted.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
-    @needs = @needs.page(params[:page])
+    @needs = @needs.page(params[:page]) unless request.format == 'csv'
     @assigned_to_options_with_deleted = construct_assigned_to_options(true)
     Rails.logger.unknown("User viewed MDT table: #{@needs.map(&:id)}")
+
+    handle_response_formats
   end
 
   # override
