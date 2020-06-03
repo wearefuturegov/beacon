@@ -19,8 +19,11 @@
               
         <%= check_box_tag('send_email', value = "true", checked = false, {class: "select-all-needs bulk-action-checkbox", id: "send-email", disabled: 'disabled'}) %>  
         <%= label_tag :send_email, 'Send notification email?', disabled: 'disabled', id: "send-email-label", class: "send-email-label"  %>
-      <% end %>             
-      
+      <% end %>
+
+      <% if policy(Need).export? %>
+        <%= link_to "Export", url_for(params: request.query_parameters, :format => 'csv'), id: "btnExport", class: "button button--blue btn-right", "data-open" => "true" %>
+      <% end %>
     </div>
 
     <div class="panel ">

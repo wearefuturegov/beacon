@@ -66,7 +66,7 @@ class NeedPolicy < ApplicationPolicy
   end
 
   def export?
-    admin? || food_manager?
+    food_manager?
   end
 
   def dashboard_change_multiple?
