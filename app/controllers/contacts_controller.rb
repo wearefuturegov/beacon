@@ -10,7 +10,9 @@ class ContactsController < ApplicationController
     @params = params.permit(:search, :page, :imported_item_id)
     @contacts = @contacts.where(imported_item_id: @params[:imported_item_id]) if @params[:imported_item_id].present?
     @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id)) if @params[:search].present?
+
     @contacts = @contacts.page(@params[:page])
+    Rails.logger.unknown("User viewed contact list page for contact ID: #{@contacts.map(&:id).join(',')}")
   end
 
   def new
@@ -36,6 +38,7 @@ class ContactsController < ApplicationController
   end
 
   def show
+    Rails.logger.unknown("User viewed contacts details page for contact ID: #{@contact.id}")
     @browser = Browser.new(request.env['HTTP_USER_AGENT'])
 
     @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
@@ -53,7 +56,9 @@ class ContactsController < ApplicationController
                              .completed.assessments.not_pending
   end
 
-  def edit; end
+  def edit
+    Rails.logger.unknown("User viewed contacts edit page for contact ID: #{@contact.id}")
+  end
 
   def update
     if @contact.update(contact_params)
