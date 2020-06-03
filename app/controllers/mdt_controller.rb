@@ -10,6 +10,7 @@ class MdtController < NeedsTableController
     @needs = @needs.uncompleted.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page])
     @assigned_to_options_with_deleted = construct_assigned_to_options(true)
+    Rails.logger.unknown("User viewed MDT table: #{@needs.map(&:id)}")
   end
 
   # override

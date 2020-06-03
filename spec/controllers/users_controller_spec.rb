@@ -9,18 +9,24 @@ RSpec.describe UsersController, type: :controller do
     allow_any_instance_of(controller.class).to receive(:authorize).and_return(nil)
   end
 
+  let(:activerecord_relation) do
+    relation = double ActiveRecord::Relation
+    allow(relation).to receive(:map).and_return([])
+    relation
+  end
+
   let(:user_class) do
     user_class = class_double('User').as_stubbed_const
     allow(user_class).to receive(:all).and_return(user_class)
     allow(user_class).to receive(:with_deleted).and_return(user_class)
     allow(user_class).to receive(:name_order).and_return(user_class)
-    allow(user_class).to receive(:page).and_return(user_class)
+    allow(user_class).to receive(:page).and_return(activerecord_relation)
     user_class
   end
 
   describe 'GET #index' do
     it 'filters on page number passed in params' do
-      expect(user_class).to receive(:page).with('1').and_return(user_class)
+      expect(user_class).to receive(:page).with('1').and_return(activerecord_relation)
       get :index, params: { page: 1 }
       expect(response).to be_successful
     end
