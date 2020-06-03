@@ -3,7 +3,7 @@
 require 'errors'
 
 class ApplicationController < ActionController::Base
-  before_action :require_user!
+  before_action :require_user!, except: :healthcheck
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from Exceptions::NoValidRoleError, with: :redirect_to_logout
