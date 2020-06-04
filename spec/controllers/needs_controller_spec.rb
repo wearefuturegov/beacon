@@ -112,6 +112,14 @@ RSpec.describe NeedsController, type: :controller do
                             +'Users' => [['User Test [X]', 'user-1']])
     end
 
+    it 'does not page when the request is for a csv' do
+      allow(need).to receive(:filter_and_sort).and_return([])
+      allow(need).to receive(:to_csv)
+      expect(need).not_to receive(:page)
+      get :index, format: :csv
+      expect(response).to be_successful
+    end
+
     it 'inherits parents methods' do
       expect(need).to receive(:page)
       expect(need).to receive(:categories).and_return(['a', 'b', 'c'])

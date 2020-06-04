@@ -12,9 +12,11 @@ class NeedsController < NeedsTableController
     @needs = needs(@params[:start_on])
 
     @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
-    @needs = @needs.page(params[:page])
+    @needs = @needs.page(params[:page]) unless request.format == 'csv'
     @assigned_to_options_with_deleted = construct_assigned_to_options(true)
     Rails.logger.unknown("User viewed needs table: #{@needs.map(&:id)}")
+
+    handle_response_formats
   end
 
   def deleted_items

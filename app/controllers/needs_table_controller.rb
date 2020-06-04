@@ -6,6 +6,16 @@ class NeedsTableController < ApplicationController
 
   helper_method :filters_path, :categories, :can_bulk_action?, :any_filters?
 
+  def handle_response_formats
+    respond_to do |format|
+      format.html
+      format.csv do
+        authorize(Need, :export?)
+        send_data @needs.to_csv, filename: "needs-#{Date.today}.csv"
+      end
+    end
+  end
+
   def construct_assigned_to_options(with_deleted = false)
     roles = Role.all.order(:name)
     users = with_deleted ? User.all.with_deleted.order(:first_name, :last_name) : User.all.order(:first_name, :last_name)
