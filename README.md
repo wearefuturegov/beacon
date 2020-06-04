@@ -76,11 +76,12 @@ Coming soon...
 
 ## Environment variables
 
-|       Name       |                                     Description                                     |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| COUNCIL          | Config key for `councils.yml`                                                       |
-| NOTIFY_API_KEY   | Gov.uk Notify API key (production only)                                             |
-| HOSTNAME         | Hostname used in outbound emails (e.g. `x.beacon.com`). Defaults to heroku app name |
-| SEED_USER_EMAILS | Optional comma-separated list of emails to seed users table with                    |
-| GA_PROPERTY_ID   | Optional Google Analytics property ID                                               |
+|        Name         |                                     Description                                     |
+| ------------------- | ----------------------------------------------------------------------------------- |
+| COUNCIL             | Config key for `councils.yml`                                                       |
+| NOTIFY_API_KEY      | Gov.uk Notify API key (production only)                                             |
+| HOSTNAME            | Hostname used in outbound emails (e.g. `x.beacon.com`). Defaults to heroku app name |
+| SEED_USER_EMAILS    | Optional comma-separated list of emails to seed users table with                    |
+| GA_PROPERTY_ID      | Optional Google Analytics property ID                                               |
+| LINK_EXPIRY_MINUTES | Magic link expiry time in minutes                                                                                    |
 
