@@ -14,11 +14,10 @@ class AssessmentFailureForm
     need = Need.find(id)
     if failure_reason == 'incorrect_or_missing'
       note_description_hash = note_description.downcase.include?('#invalid') ? note_description : note_description + ' #Invalid'
-      need.notes.create!(user: current_user, category: 'general', body: note_description_hash)
+      need.notes.create!(user: current_user, category: 'phone_failure', body: note_description_hash)
       need.update(status: 'blocked')
     else
-      category = failure_reason == 'interrupted' ? 'general' : 'phone_failure'
-      need.notes.create!(user: current_user, category: category, body: note_description)
+      need.notes.create!(user: current_user, category: 'phone_failure', body: note_description)
     end
   end
 end
