@@ -13,6 +13,7 @@ module Passwordless
       @magic_link = send(Passwordless.mounted_as)
                     .token_sign_in_url(session.token)
 
+      @timeout = ENV['LINK_EXPIRY_MINUTES'] || 60
       email_field = @session.authenticatable.class.passwordless_email_field
 
       # mail(
@@ -22,7 +23,8 @@ module Passwordless
 
       set_template(Rails.configuration.councils[ENV['COUNCIL'] || :demo][:magic_link_template])
       set_personalisation(
-        magic_link: @magic_link
+        magic_link: @magic_link,
+        timeout: @timeout
       )
       mail(to: @session.authenticatable.send(email_field))
     end

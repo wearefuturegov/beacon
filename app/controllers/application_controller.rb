@@ -3,7 +3,7 @@
 require 'errors'
 
 class ApplicationController < ActionController::Base
-  before_action :require_user!
+  before_action :require_user!, except: :healthcheck
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from Exceptions::NoValidRoleError, with: :redirect_to_logout
@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
 
   STALE_ERROR_MESSAGE = 'Error. Somebody else has changed this record, please refresh.'
+
+  def healthcheck
+    render plain: 'OK'
+  end
 
   def council_key
     ENV['COUNCIL'] || 'demo'

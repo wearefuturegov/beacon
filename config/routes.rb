@@ -45,4 +45,7 @@ Rails.application.routes.draw do
   resources :imported_items, only: [:index, :show, :new, :create] do
     resources :contacts, only: [:index]
   end
+
+  get '/ready', to: 'application#healthcheck'
+  get '/healthz', to: 'application#healthcheck'
 end

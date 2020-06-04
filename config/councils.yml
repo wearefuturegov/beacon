@@ -7,7 +7,7 @@ default: &default
     privacy_link: "#"
     default_from_address: "help@beacon.support"
     invite_template: '31d2b530-8db4-44ce-9bfa-34b01519335f'
-    magic_link_template: '2305fb7b-6a7b-4b03-8cdd-a01743511286'
+    magic_link_template: '47da4e5d-ef0d-4ab7-91ee-eb96baa4ed07'
     need_assigned_user_template: 'fec187e7-9e84-46ae-8c38-f7b5327e9e8b'
     need_assigned_role_template: 'aeb1017e-9c43-4cc5-9153-19aafe777fbd'
 
@@ -19,7 +19,7 @@ default: &default
     privacy_link: "https://www.hackney.gov.uk/privacy"
     default_from_address: "help@hackney.beacon.support"
     invite_template: '31d2b530-8db4-44ce-9bfa-34b01519335f'
-    magic_link_template: '2305fb7b-6a7b-4b03-8cdd-a01743511286'
+    magic_link_template: '47da4e5d-ef0d-4ab7-91ee-eb96baa4ed07'
     need_assigned_user_template: 'fec187e7-9e84-46ae-8c38-f7b5327e9e8b'
     need_assigned_role_template: 'aeb1017e-9c43-4cc5-9153-19aafe777fbd'
 
@@ -31,7 +31,7 @@ default: &default
     privacy_link: "https://www.camden.gov.uk/data-protection-privacy-and-cookies"
     default_from_address: "help@camden.beacon.support"
     invite_template: '31d2b530-8db4-44ce-9bfa-34b01519335f'
-    magic_link_template: '2305fb7b-6a7b-4b03-8cdd-a01743511286'
+    magic_link_template: '47da4e5d-ef0d-4ab7-91ee-eb96baa4ed07'
     need_assigned_user_template: 'fec187e7-9e84-46ae-8c38-f7b5327e9e8b'
     need_assigned_role_template: 'aeb1017e-9c43-4cc5-9153-19aafe777fbd'
 

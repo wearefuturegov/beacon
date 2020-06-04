@@ -6,3 +6,4 @@ applications:
     services:
       - beacon-postgres
     health-check-type: http
+    health-check-http-endpoint: /ready
