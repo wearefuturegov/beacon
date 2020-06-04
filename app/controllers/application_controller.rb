@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
 
   STALE_ERROR_MESSAGE = 'Error. Somebody else has changed this record, please refresh.'
-  
+
   def healthcheck
     render plain: 'OK'
   end
