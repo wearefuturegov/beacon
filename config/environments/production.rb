@@ -68,6 +68,10 @@ Rails.application.configure do
       session_data = req.cookie_jar.encrypted[session_key] || {}
       user_id = session_data['user_id'] || 'anon'
       "user: #{user_id}"
+    },
+    lambda { |request|
+      vcap_request_id = request.headers["X-Vcap-Request-Id"] || 'none'
+      "vcap_request_id: #{vcap_request_id}"
     }
   ]
 
