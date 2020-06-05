@@ -30,7 +30,7 @@ module IHaveINeed
         "user: #{user_id}"
       },
       lambda { |request|
-        vcap_request_id = request.headers["X-Vcap-Request-Id"] || 'none'
+        vcap_request_id = request.headers['X-Vcap-Request-Id'] || 'none'
         "vcap_request_id: #{vcap_request_id}"
       }
     ]
