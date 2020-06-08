@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://beacon-support-staging.herokuapp.com/">
+    <a href="https://beacon.support/">
         <img src="https://github.com/wearefuturegov/beacon/blob/master/app/assets/images/beacon.png?raw=true" width="350px" />               
     </a>
 </p>
@@ -14,7 +14,7 @@
 
 🚨**This is BETA software.** Please submit issues for any bugs you find.🚨
 
-This is a tool for local authorities and voluntary organisations to record and triage the needs of shielded people in their jurisdiction, and assign those needs to those who can meet them.
+This is a tool for local authorities and voluntary organisations to record and triage the needs of shielded people in their jurisdiction, and assign those needs to those who can meet them. Learn more at [beacon.support](https://beacon.support/).
 
 It deals in:
 
