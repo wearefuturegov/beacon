@@ -26,6 +26,7 @@
         <th>Name</th>
         <th>Address</th>
         <th>Postcode</th>
+        <th>Test & Trace ID</th>
         <th>Date of Birth</th>
         <th>Lead Service</th>
       </tr>
@@ -36,6 +37,7 @@
           <td><%= link_to contact.name, contact, class: "primary-link" %></td>
           <td><%= contact.address %></td>
           <td><%= contact.postcode %></td>
+          <td><%= contact.test_and_trace_account_id %></td>
           <td><%= contact.date_of_birth %></td>
           <td><%= name_for_lead_service contact.lead_service_id %></td>
         </tr>

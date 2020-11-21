@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Contact < ApplicationRecord
-  include PgSearch::Model
-
   require 'activerecord-import/base'
   require 'activerecord-import/active_record/adapters/postgresql_adapter'
 
@@ -18,11 +16,24 @@ class Contact < ApplicationRecord
   validates :first_name, presence: true
   validates_date :date_of_birth, allow_nil: true, allow_blank: true
 
-  pg_search_scope :search,
-                  against: [:first_name, :surname, :postcode, :nhs_number, :date_of_birth],
-                  using: {
-                    tsearch: { prefix: true }
-                  }
+  scope :search, lambda { |text|
+                   where("first_name ilike ?
+    or middle_names ilike ?
+    or surname ilike ?
+    or postcode ilike ?
+    or nhs_number ilike ?
+    or TO_CHAR(date_of_birth, 'DD/MM/YYYY') ilike ?
+    or test_and_trace_account_id ilike ?
+    or address ilike ?",
+                         "%#{sanitize_sql_like(text)}%",
+                         "%#{sanitize_sql_like(text)}%",
+                         "%#{sanitize_sql_like(text)}%",
+                         "%#{sanitize_sql_like(text)}%",
+                         "%#{sanitize_sql_like(text)}%",
+                         "%#{sanitize_sql_like(text)}%",
+                         "%#{sanitize_sql_like(text)}%",
+                         "%#{sanitize_sql_like(text)}%")
+                 }
 
   def name
     [first_name, middle_names, surname].join(' ')

@@ -7,26 +7,50 @@ Feature: Search person
   Background:
     * I am logged into the system
 
-  Scenario: The named person searched for exists in the system
+  Scenario: The named person searched for exists in the system by first name
     Given a resident with a complete profile
-    When I search for the resident by "Forename"
+    When I search for the resident by part of the "first name" "renam"
+    Then I see the resident in the search results
+    And I see an option to add a person
+    
+  Scenario: The named person searched for exists in the system by middle name
+    Given a resident with a complete profile
+    When I search for the resident by part of the "middle name" "ddlenam"
+    Then I see the resident in the search results
+    And I see an option to add a person
+    
+  Scenario: The named person searched for exists in the system by surname
+    Given a resident with a complete profile
+    When I search for the resident by part of the "surname" "urna"
+    Then I see the resident in the search results
+    And I see an option to add a person
+    
+  Scenario: Search by Postcode
+    Given a resident with a complete profile
+    When I search for the resident by part of the "Postcode" "B12 9"
     Then I see the resident in the search results
     And I see an option to add a person
 
   Scenario: Search by Year of Birth
     Given a resident with a complete profile
-    When I search for the resident by "1982"
+    When I search for the resident by part of the "Year of Birth" "1982"
     Then I see the resident in the search results
     And I see an option to add a person
 
   Scenario: search by NHS number
     Given a resident with a complete profile
-    When I search for the resident by "NHS-999999"
+    When I search for the resident by part of the "NHS number" "NHS-999999"
+    Then I see the resident in the search results
+    And I see an option to add a person
+    
+  Scenario: search by Address
+    Given a resident with a complete profile
+    When I search for the resident by part of the "Address" "New Bertr"
     Then I see the resident in the search results
     And I see an option to add a person
 
   Scenario: The named person searched for does not exist in the system
     Given a resident with a complete profile
-    When I search for the resident by "Thisdoesnotexist"
+    When I search for the resident by part of the "any field" "Thisdoesnotexist"
     Then I see a "No matches" message
     And I see an option to add a person

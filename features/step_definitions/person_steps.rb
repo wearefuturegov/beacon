@@ -4,10 +4,12 @@ end
 
 Given(/^a resident with a complete profile$/) do
   @contact = Contact.create!(first_name: 'Forename',
+                             middle_names: 'Middlename',
                              surname: 'Surname',
                              date_of_birth: Date.new(1982, 7, 1),
                              postcode: 'AB12 9YZ',
-                             nhs_number: 'NHS-999999')
+                             nhs_number: 'NHS-999999',
+                             address: 'Thiel Place, New Bertram, HI W')
 end
 
 Given(/^a unique resident$/) do
@@ -215,6 +217,12 @@ Then(/^the residents covid-19 status has been updated$/) do
   expect(page.find_by_id('contact-has-covid')).to have_text('Yes')
 end
 
+When('I search for the resident by part of the {string} {string}') do |_column, query|
+  visit 'contacts'
+  fill_in('search', with: query)
+  click_button('search-submit')
+end
+
 When('I search for the resident by {string}') do |query|
   visit 'contacts'
   fill_in('search', with: query)
@@ -222,9 +230,9 @@ When('I search for the resident by {string}') do |query|
 end
 
 Then(/^I see the resident in the search results$/) do
-  expect(page.find_link('Forename Surname')).not_to be_nil
+  expect(page.find_link('Forename Middlename Surname')).not_to be_nil
   results_table = page.find('.table')
-  expect(results_table).to have_text('Forename Surname')
+  expect(results_table).to have_text('Forename Middlename Surname')
   expect(results_table).to have_text('AB12 9YZ')
 end
 
