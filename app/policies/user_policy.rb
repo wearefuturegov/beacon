@@ -3,7 +3,7 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
-  [:update?, :create?, :destroy?].each do |m|
+  [:update?, :create?, :destroy?, :restore?].each do |m|
     define_method(m) { sysadmin? }
   end
 end

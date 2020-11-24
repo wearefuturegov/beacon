@@ -60,6 +60,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     user = User.find(params[:id])
+    authorize user
     user.roles = []
     user.destroy
     Rails.logger.unknown("User deleted another user ID: #{user.id}")
@@ -72,6 +73,13 @@ class UsersController < ApplicationController
       current_user.save
     end
     redirect_to '/'
+  end
+
+  def restore
+    user = User.only_deleted.find(params[:user_id])
+    authorize user
+    user.restore
+    redirect_to users_url, notice: 'User was successfully restored.'
   end
 
   private
