@@ -149,6 +149,10 @@ class Need < ApplicationRecord
     order("start_on #{direction}")
   }
 
+  scope :order_by_completed_on, lambda { |direction|
+    order("completed_on #{direction}")
+  }
+
   delegate :name, :address, :postcode, :telephone, :mobile, :is_vulnerable,
            :count_people_in_house, :any_dietary_requirements, :dietary_details,
            :cooking_facilities, :delivery_details, :has_covid_symptoms,
