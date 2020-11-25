@@ -25,6 +25,19 @@ RSpec.describe Need, type: :model do
     end
   end
 
+  describe 'orders' do
+    let!(:completed_need_first) { create :need, status: :complete, completed_on: DateTime.yesterday }
+    let!(:completed_need_second) { create :need, status: :complete, completed_on: DateTime.tomorrow }
+
+    it '.order_by_completed_on asc' do
+      expect(described_class.order_by_completed_on(:asc)).to eq [completed_need_first, completed_need_second]
+    end
+
+    it '.order_by_completed_on desc' do
+      expect(described_class.order_by_completed_on(:desc)).to eq [completed_need_second, completed_need_first]
+    end
+  end
+
   it { is_expected.to be_versioned }
 
   it '#default status' do
