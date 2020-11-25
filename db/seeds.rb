@@ -31,7 +31,8 @@ ActiveRecord::Base.transaction do
     'Camden VCS Team' => 'council_service_vcs',
     'Neighbourhood VCS Huddle' => 'council_service_neighbourhood_vcs',
     'Simple Needs Team' => 'council_service_simple_needs',
-    'Social Prescribing' => 'council_service_social_prescribing'
+    'Social Prescribing' => 'council_service_social_prescribing',
+    'Contact Camden' => 'council_service_contact'
   }.map do |name, role|
     created_role = Role.create(name: name, role: role)
     [role, created_role]
