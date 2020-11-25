@@ -33,7 +33,10 @@ Rails.application.routes.draw do
   resources :notes, only: [:show, :edit, :update]
   resources :mdt, only: [:index]
 
-  resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :users, only: [:index, :new, :create, :edit, :update, :destroy] do
+    put 'restore', to: 'users#restore'
+  end
+
   post 'role', to: 'users#set_role', as: 'set_role'
   passwordless_for :users, at: '/', as: :auth
 
