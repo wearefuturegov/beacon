@@ -42,7 +42,13 @@
         <td><%= user.role_names %></td>
         <td>
           <% if user.deleted? %>
-            Deleted
+            <% if policy(User).restore? %>
+              <%= link_to 'Restore', user_restore_path(user.id), 
+              class: "button", id: "restore-user-#{user.id}", method: :put, 
+              data: { confirm: 'Are you sure you want to restore this record?' }  %>
+            <% else %>
+              Deleted
+            <% end %>
           <% else %>
             <% if policy(User).destroy? %>
               <%= link_to 'Delete', { controller: :users, action: :destroy, id: user.id }, 
