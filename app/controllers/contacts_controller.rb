@@ -117,7 +117,7 @@ class ContactsController < ApplicationController
                                     :delivery_details, :any_dietary_requirements, :dietary_details,
                                     :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version,
                                     :channel, :no_calls_flag, :deceased_flag, :share_data_flag, :date_of_birth, :nhs_number,
-                                    :lead_service_id, :lead_service_note)
+                                    :lead_service_id, :lead_service_note, :test_and_trace_account_id)
   end
 
   def extract_role_id(role_id)
