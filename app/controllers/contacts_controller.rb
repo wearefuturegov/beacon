@@ -53,7 +53,7 @@ class ContactsController < ApplicationController
                         .sort { |a, b| Need.sort_created_and_start_date(a, b) }
 
     @completed_assessments = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
-                             .completed.assessments.not_pending
+                             .completed.assessments.not_pending.order_by_completed_on(:desc)
   end
 
   def edit
