@@ -27,8 +27,16 @@ class ImportedItemsController < ApplicationController
       Rails.logger.unknown('User imported new contacts')
       redirect_to imported_items_path(order: 'created_at', order_dir: 'DESC'), notice: 'Created Imported Item'
     end
-  rescue ActiveRecord::RecordInvalid => e
-    flash[:error] = e.message
+  rescue ActiveRecord::RecordInvalid, Exceptions::NotUniqueRecord => e
+    if e.instance_of?(Exceptions::NotUniqueRecord)
+      flash[:error] = 'Failed! Following records are not unique <br>(Test & Trace ID - NHS number - email):<br>'
+      e.not_unique_records.each do |record|
+        flash[:error] += "#{record[0]} - #{record[1]} - #{record[6]}<br>"
+      end
+    else
+      flash[:error] = e.message
+    end
+
     render :new
   end
 end
