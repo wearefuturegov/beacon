@@ -125,3 +125,5 @@
     <%= form.text_field :channel, placeholder: "Eg: phone, email, social media" %>
   </div>
 </fieldset>
+
+<%= render partial: '/contacts/extra_question_household', locals: { contact: contact, form: form } %>

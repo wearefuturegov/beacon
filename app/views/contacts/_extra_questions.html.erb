@@ -1,18 +1,4 @@
 <fieldset class="field-section field-section--two-cols">
-  <legend><h2 class="field-section__title">Additional information about their household</h2></legend>
-
-  <div class="field field count-people-in-house-field">
-    <%= form.label :count_people_in_house, 'How many people in total live there?', class: "field__label" %>
-    <%= form.number_field :count_people_in_house %>
-  </div>
-
-  <div class="field field--span-two-cols">
-    <%= form.label :delivery_details, 'Any special delivery details?', class: "field__label" %>
-    <%= form.text_area :delivery_details %>
-  </div>
-</fieldset>
-
-<fieldset class="field-section field-section--two-cols">
   <legend><h2 class="field-section__title">Are there any children under 18 living in the household?</h2></legend>
   <div class="radio">
     <%= form.radio_button :any_children_under_age, true, :id => "any_children_under_age_true" %>
