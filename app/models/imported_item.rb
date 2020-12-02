@@ -18,7 +18,7 @@ class ImportedItem < ApplicationRecord
       contacts << Contact.new(
         test_and_trace_account_id: row[0],
         nhs_number: row[1],
-        is_vulnerable: (row[2] == 1 || row[2].to_s&.downcase == 'true'),
+        is_vulnerable: (row[2] == 1 || row[2].to_s.downcase == 'true'),
         first_name: row[3],
         surname: row[4],
         date_of_birth: row[5],
