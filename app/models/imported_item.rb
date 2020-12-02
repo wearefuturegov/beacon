@@ -9,7 +9,7 @@ class ImportedItem < ApplicationRecord
   validates :name, presence: true, allow_blank: false
   has_many :contacts
 
-  def import(params)
+  def import(params) # test
     contacts = []
     CSV.foreach(params[:file].path) do |r|
       contacts << Contact.new(
