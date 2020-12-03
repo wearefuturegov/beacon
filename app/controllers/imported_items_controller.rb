@@ -23,20 +23,21 @@ class ImportedItemsController < ApplicationController
 
     ImportedItem.transaction do
       imported_item = ImportedItem.create! name: @params[:imported_item_name]
-      imported_item.import(@params.slice(:file))
+      unique_contacts, not_unique_contacts = imported_item.import(@params.slice(:file))
       Rails.logger.unknown('User imported new contacts')
-      redirect_to imported_items_path(order: 'created_at', order_dir: 'DESC'), notice: 'Created Imported Item'
-    end
-  rescue ActiveRecord::RecordInvalid, Exceptions::NotUniqueRecord => e
-    if e.instance_of?(Exceptions::NotUniqueRecord)
-      flash[:error] = 'Failed! Following records are not unique <br>(Test & Trace ID - NHS number - email):<br>'
-      e.not_unique_records.each do |record|
-        flash[:error] += "#{record[0]} - #{record[1]} - #{record[6]}<br>"
+      msg = if unique_contacts.empty?
+              'Not Created Imported Item'
+            else
+              'Created Imported Item'
+            end
+      msg += '<br>Following records are not unique and not imported <br>(Test & Trace ID - NHS number - email):<br>' unless not_unique_contacts.empty?
+      not_unique_contacts.each do |contact|
+        msg += "#{contact[0]} - #{contact[1]} - #{contact[6]}<br>"
       end
-    else
-      flash[:error] = e.message
+      redirect_to imported_items_path(order: 'created_at', order_dir: 'DESC'), notice: msg
     end
-
+  rescue ActiveRecord::RecordInvalid => e
+    flash[:error] = e.message
     render :new
   end
 end
