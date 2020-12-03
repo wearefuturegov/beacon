@@ -25,19 +25,31 @@ class ImportedItemsController < ApplicationController
       imported_item = ImportedItem.create! name: @params[:imported_item_name]
       unique_contacts, not_unique_contacts = imported_item.import(@params.slice(:file))
       Rails.logger.unknown('User imported new contacts')
-      msg = if unique_contacts.empty?
-              'Not Created Imported Item'
-            else
-              'Created Imported Item'
-            end
-      msg += '<br>Following records are not unique and not imported <br>(Test & Trace ID - NHS number - email):<br>' unless not_unique_contacts.empty?
-      not_unique_contacts.each do |contact|
-        msg += "#{contact[0]} - #{contact[1]} - #{contact[6]}<br>"
-      end
-      redirect_to imported_items_path(order: 'created_at', order_dir: 'DESC'), notice: msg
+      raise ActiveRecord::Rollback if unique_contacts.empty?
+
+      redirect_to imported_items_path(order: 'created_at', order_dir: 'DESC'), notice: import_msg(unique_contacts, not_unique_contacts)
+    rescue ActiveRecord::RecordInvalid => e
+      flash[:error] = e.message
+      render :new
+    rescue ActiveRecord::Rollback
+      flash[:error] = 'Please enter at leat one unique contact'
+      render :new
+      raise ActiveRecord::Rollback
     end
-  rescue ActiveRecord::RecordInvalid => e
-    flash[:error] = e.message
-    render :new
+  end
+
+  private
+
+  def import_msg(unique_contacts, not_unique_contacts)
+    msg = if unique_contacts.empty?
+            'Not Created Imported Item'
+          else
+            'Created Imported Item'
+          end
+    msg += '<br>Following records are not unique and not imported <br>(Test & Trace ID - NHS number - Forename - Surname):<br>' unless not_unique_contacts.empty?
+    not_unique_contacts.each do |contact|
+      msg += "#{contact[0]} - #{contact[1]} - #{contact[3]} - #{contact[4]}<br>"
+    end
+    msg
   end
 end

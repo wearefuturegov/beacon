@@ -61,7 +61,7 @@ class ImportedItem < ApplicationRecord
       row
     elsif not_empty(row[1]) && not_zero(Contact.where('nhs_number = ?', row[1].to_s))
       row
-    elsif not_empty(row[6]) && not_zero(Contact.where('email = ?', row[6]))
+    elsif not_empty_name(row)
       row
     end
   end
@@ -72,5 +72,9 @@ class ImportedItem < ApplicationRecord
 
   def not_zero(records)
     !records.count.zero?
+  end
+
+  def not_empty_name(row)
+    not_empty(row[3]) && not_empty(row[4]) && not_zero(Contact.where('first_name = ? and surname = ?', row[3], row[4]))
   end
 end
