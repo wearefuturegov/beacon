@@ -7,13 +7,15 @@ default: &default
 
 development:
   <<: *default
-  url: postgresql://localhost/i_have_i_need_development
+  host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+  database: i_have_i_need_development
   username: dev_local_user
   password: password
 
 test:
   <<: *default
-  url: postgresql://localhost/i_have_i_need_test
+  host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+  database: i_have_i_need_test
   username: test_local_user
   password: password
 

@@ -72,4 +72,7 @@ Rails.application.configure do
       :authentication => :plain,
       :enable_starttls_auto => false
   }
+
+  # Allow console to connect from docker
+  config.web_console.whitelisted_ips = ['172.29.0.0/16', '127.0.0.1']
 end
