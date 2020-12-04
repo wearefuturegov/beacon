@@ -35,4 +35,11 @@ RSpec.describe Contact, type: :model do
     valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', date_of_birth: 'abc'
     expect(valid_contact.valid?).to be_falsy
   end
+
+  it 'validates nhs number is unique' do
+    valid_contact = create :contact, first_name: 'John', nhs_number: 'abc1'
+    expect(valid_contact.valid?).to be_truthy
+    not_valid_contact = build :contact, first_name: 'Mat', nhs_number: 'abc1'
+    expect(not_valid_contact.valid?).to be_falsy
+  end
 end

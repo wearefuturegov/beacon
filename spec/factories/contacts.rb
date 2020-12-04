@@ -21,5 +21,6 @@ FactoryBot.define do
     date_of_birth { Faker::Date.between(from: 93.years.ago, to: 15.years.ago) }
     has_covid_symptoms { Faker::Boolean.boolean(true_ratio: 0.3) }
     test_and_trace_account_id { Faker::Alphanumeric.alphanumeric(number: 8) }
+    nhs_number { Faker::Alphanumeric.unique.alphanumeric(number: 5) }
   end
 end
