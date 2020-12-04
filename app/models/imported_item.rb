@@ -10,11 +10,17 @@ class ImportedItem < ApplicationRecord
   has_many :contacts
 
   def import(params)
-    contacts = []
     contacts_rows = []
     Roo::Spreadsheet.open(params[:file].path).each_with_index do |row, idx|
       next if idx.zero?
 
+      contacts_rows << row
+    end
+
+    unique_contacts, not_unique_contacts = unique_records contacts_rows
+
+    contacts = []
+    unique_contacts.each do |row|
       contacts << Contact.new(
         test_and_trace_account_id: row[0],
         nhs_number: row[1],
@@ -30,23 +36,24 @@ class ImportedItem < ApplicationRecord
         needs: [Need.new(category: 'Check in', start_on: Date.today + 2.days, name: row[11])],
         imported_item: self
       )
-
-      contacts_rows << row
     end
-
-    unique_records contacts_rows
     Contact.import! contacts, recursive: true, all_or_none: true
+    [unique_contacts, not_unique_contacts]
   end
 
   private
 
   def unique_records(rows)
     not_unique_records = []
+    unique_records = []
     rows.each do |row|
-      result = check_row(row)
-      not_unique_records << result if result
+      if check_row(row)
+        not_unique_records << row
+      else
+        unique_records << row
+      end
     end
-    raise Exceptions::NotUniqueRecord, not_unique_records unless not_unique_records.empty?
+    [unique_records, not_unique_records]
   end
 
   def check_row(row)
@@ -54,7 +61,7 @@ class ImportedItem < ApplicationRecord
       row
     elsif not_empty(row[1]) && not_zero(Contact.where('nhs_number = ?', row[1].to_s))
       row
-    elsif not_empty(row[6]) && not_zero(Contact.where('email = ?', row[6]))
+    elsif not_empty_name(row)
       row
     end
   end
@@ -65,5 +72,9 @@ class ImportedItem < ApplicationRecord
 
   def not_zero(records)
     !records.count.zero?
+  end
+
+  def not_empty_name(row)
+    not_empty(row[3]) && not_empty(row[4]) && not_zero(Contact.where('first_name = ? and surname = ?', row[3], row[4]))
   end
 end
