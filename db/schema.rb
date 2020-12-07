@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_12_04_164913) do
     t.string "lead_service_note"
     t.bigint "imported_item_id"
     t.string "test_and_trace_account_id"
-    t.index ["nhs_number"], name: "index_contacts_on_nhs_number", unique: true
+    t.index "lower((nhs_number)::text)", name: "index_contacts_on_lower_nhs_number", unique: true
   end
 
   create_table "imported_items", force: :cascade do |t|

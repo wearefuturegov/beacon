@@ -42,4 +42,11 @@ RSpec.describe Contact, type: :model do
     not_valid_contact = build :contact, first_name: 'Mat', nhs_number: 'abc1'
     expect(not_valid_contact.valid?).to be_falsy
   end
+
+  it 'validates nhs number is unique case insensitive' do
+    valid_contact = create :contact, first_name: 'John', nhs_number: 'abc1'
+    expect(valid_contact.valid?).to be_truthy
+    not_valid_contact = build :contact, first_name: 'Mat', nhs_number: 'aBC1'
+    expect(not_valid_contact.valid?).to be_falsy
+  end
 end

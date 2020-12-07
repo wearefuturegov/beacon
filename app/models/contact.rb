@@ -14,7 +14,7 @@ class Contact < ApplicationRecord
   has_paper_trail
 
   validates :first_name, presence: true
-  validates :nhs_number, uniqueness: true
+  validates :nhs_number, uniqueness: { case_sensitive: false }
   validates_date :date_of_birth, allow_nil: true, allow_blank: true
 
   scope :search, lambda { |text|
