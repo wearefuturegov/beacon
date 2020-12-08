@@ -4,6 +4,8 @@ class Contact < ApplicationRecord
   require 'activerecord-import/base'
   require 'activerecord-import/active_record/adapters/postgresql_adapter'
 
+  before_save :normalize_blank_nhs_number
+
   has_many :needs, dependent: :destroy
   has_many :uncompleted_needs, -> { uncompleted }, class_name: 'Need'
   has_many :completed_needs, -> { completed }, class_name: 'Need'
@@ -14,7 +16,7 @@ class Contact < ApplicationRecord
   has_paper_trail
 
   validates :first_name, presence: true
-  validates :nhs_number, uniqueness: { case_sensitive: false }
+  validates :nhs_number, uniqueness: { case_sensitive: false }, allow_blank: true
   validates_date :date_of_birth, allow_nil: true, allow_blank: true
 
   scope :search, lambda { |text|
@@ -50,5 +52,9 @@ class Contact < ApplicationRecord
 
   def assigned_to
     role.id.to_s if role
+  end
+
+  def normalize_blank_nhs_number
+    self[:nhs_number] = nil if !self[:nhs_number].nil? && self[:nhs_number].empty?
   end
 end
