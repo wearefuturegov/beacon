@@ -22,17 +22,17 @@ class ImportedItem < ApplicationRecord
     contacts = []
     unique_contacts.each do |row|
       contacts << Contact.new(
-        test_and_trace_account_id: row[0],
-        nhs_number: row[1],
+        test_and_trace_account_id: row[0].strip,
+        nhs_number: row[1].strip,
         is_vulnerable: (row[2] == 1 || row[2].to_s.downcase == 'true'),
-        first_name: row[3],
-        surname: row[4],
+        first_name: row[3].strip,
+        surname: row[4].strip,
         date_of_birth: row[5],
-        email: row[6],
+        email: row[6].strip,
         mobile: row[7],
         telephone: row[8],
-        address: row[9],
-        postcode: row[10],
+        address: row[9].strip,
+        postcode: row[10].strip,
         needs: [Need.new(category: 'Check in', start_on: Date.today + 2.days, name: row[11])],
         imported_item: self
       )
