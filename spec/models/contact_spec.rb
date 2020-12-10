@@ -35,4 +35,13 @@ RSpec.describe Contact, type: :model do
     valid_contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe', date_of_birth: 'abc'
     expect(valid_contact.valid?).to be_falsy
   end
+
+  describe '#strip_whitespace' do
+    it 'removes whitespace around fields that respond to the #strip method' do
+      valid_contact = create :contact, first_name: '     Marcy', middle_names: 'Sarah Marie ', surname: ' Smith-Williams', date_of_birth: '1/12/1986'
+      expect(valid_contact.first_name).to eq 'Marcy'
+      expect(valid_contact.middle_names).to eq 'Sarah Marie'
+      expect(valid_contact.surname).to eq 'Smith-Williams'
+    end
+  end
 end
