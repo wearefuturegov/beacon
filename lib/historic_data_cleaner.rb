@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HistoricDataCleaner
-  BATCH_SIZE = 1000
+  BATCH_SIZE = Rails.env.development? || Rails.env.test? ? 5 : 1000
   DOUBLE_LINE = '================================================='
   FAILURE = '❌'
   LINE = '------------------------------------'
