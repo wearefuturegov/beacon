@@ -3,6 +3,9 @@
 class Contact < ApplicationRecord
   require 'activerecord-import/base'
   require 'activerecord-import/active_record/adapters/postgresql_adapter'
+  include CleanData
+
+  before_validation :strip_whitespace_from_all_text_and_strings
 
   has_many :needs, dependent: :destroy
   has_many :uncompleted_needs, -> { uncompleted }, class_name: 'Need'
