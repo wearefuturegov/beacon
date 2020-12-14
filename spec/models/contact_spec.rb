@@ -55,6 +55,7 @@ RSpec.describe Contact, type: :model do
     expect(valid_contact_first.valid?).to be_truthy
     valid_contact_second = create :contact, first_name: 'Mat', nhs_number: nil
     expect(valid_contact_second.valid?).to be_truthy
+  end
 
   describe '#strip_whitespace' do
     it 'removes whitespace around fields that respond to the #strip method' do
