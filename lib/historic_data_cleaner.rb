@@ -14,7 +14,7 @@ class HistoricDataCleaner
   attr_reader :multi_logger
 
   def initialize(object, caller, fields_to_update)
-    @caller = caller
+    self.caller = caller
     @environment_log_message = environment_log_message
     @fields_to_update = fields_to_update
     @object_name = object
@@ -42,7 +42,7 @@ class HistoricDataCleaner
   attr_reader :fields_to_update, :object
 
   def caller=(caller)
-    @caller = caller.include?(':') ? caller.split(':').join('-') : caller
+    @caller = caller.include?(':') ? caller.split(':').join('_') : caller
   end
 
   def environment_log_message
