@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HistoricDataCleaner
-  BATCH_SIZE = 5
+  BATCH_SIZE = 1000
   DOUBLE_LINE = '================================================='
   FAILURE = '❌'
   LINE = '------------------------------------'
