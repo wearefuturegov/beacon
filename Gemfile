@@ -26,6 +26,7 @@ gem 'validates_timeliness'
 gem 'paranoia', '~> 2.2'
 gem 'browser', require: 'browser/browser'
 gem 'activerecord-import'
+gem 'camden_style_guide', git: 'https://github.com/wearefuturegov/camden-style-guide.git'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

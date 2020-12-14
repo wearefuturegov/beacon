@@ -51,4 +51,5 @@ Rails.application.routes.draw do
 
   get '/ready', to: 'application#healthcheck'
   get '/healthz', to: 'application#healthcheck'
+  mount Camden::StyleGuide::Engine => "/style-guide"
 end
