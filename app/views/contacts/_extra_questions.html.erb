@@ -1,23 +1,28 @@
-<fieldset class="field-section field-section--two-cols">
-  <legend><h2 class="field-section__title">Are there any children under 18 living in the household?</h2></legend>
-  <div class="radio">
-    <%= form.radio_button :any_children_under_age, true, :id => "any_children_under_age_true" %>
-    <label for="any_children_under_age_true" class="radio__label">Yes</label>
-  </div>
-  <div class="radio">
-    <%= form.radio_button :any_children_under_age, false, :id => "any_children_under_age_false" %>
-    <label for="any_children_under_age_false" class="radio__label">No</label>
-  </div>
+<fieldset class="field-section">
+    <legend><h2 class="field-section__title">Are there any children under 18 living in the household?</h2></legend>
+    <div class="field-section--two-cols">
+        <div class="radio">
+            <%= form.radio_button :any_children_under_age, true, :id => "any_children_under_age_true" %>
+            <label for="any_children_under_age_true" class="radio__label">Yes</label>
+        </div>
+        <div class="radio">
+            <%= form.radio_button :any_children_under_age, false, :id => "any_children_under_age_false" %>
+            <label for="any_children_under_age_false" class="radio__label">No</label>
+        </div>
+    </div>
 </fieldset>
 
-<fieldset class="field-section field-section--two-cols">
+<fieldset class="field-section">
   <legend><h2 class="field-section__title">Are you or anyone in your home showing any symptoms of COVID-19?</h2></legend>
-  <div class="radio">
-    <%= form.radio_button :has_covid_symptoms, true, :id => "has_covid_symptoms_true" %>
-    <label for="has_covid_symptoms_true" class="radio__label">Yes</label>
-  </div>
-  <div class="radio">
-    <%= form.radio_button :has_covid_symptoms, false, :id => "has_covid_symptoms_false" %>
-    <label for="has_covid_symptoms_false" class="radio__label">No</label>
+
+  <div class="field-section--two-cols">
+      <div class="radio">
+          <%= form.radio_button :has_covid_symptoms, true, :id => "has_covid_symptoms_true" %>
+          <label for="has_covid_symptoms_true" class="radio__label">Yes</label>
+      </div>
+      <div class="radio">
+          <%= form.radio_button :has_covid_symptoms, false, :id => "has_covid_symptoms_false" %>
+          <label for="has_covid_symptoms_false" class="radio__label">No</label>
+      </div>
   </div>
 </fieldset>

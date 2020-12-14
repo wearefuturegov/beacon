@@ -4,9 +4,18 @@ services:
     image: postgres:11.7-alpine
     volumes:
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_DB: i_have_i_need_development
       POSTGRES_USER: dev_local_user
       POSTGRES_PASSWORD: password
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgresql

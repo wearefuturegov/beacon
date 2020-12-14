@@ -24,6 +24,20 @@ It deals in:
 
 It's a rails app backed by a postgresql database.
 
+## Running with Docker Compose
+
+Spin up a postgres database and rails app
+
+```
+docker-compose up
+```
+
+Run tests
+
+```
+docker-compose run app rake
+```
+
 ## Running it locally
 
 ```
