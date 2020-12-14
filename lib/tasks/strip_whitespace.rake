@@ -6,7 +6,7 @@ namespace :strip_whitespace do
     args.with_defaults(object_name: :unspecified, first_attribute: :unspecified)
     abort 'Missing Arguments! Exiting' if args[:object_name] == :unspecified || args[:first_attribute] == :unspecified
 
-    fields_to_update = [ args[:first_attribute] ]
+    fields_to_update = [args[:first_attribute]]
     if args.extras.any?
       fields_to_update.push args.extras
     else
