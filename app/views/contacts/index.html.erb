@@ -33,7 +33,7 @@
       </thead>
       <tbody>
       <% @contacts.each do |contact| %>
-        <tr class="clickable" onclick="window.location='<%= contact_path(contact) %>'">
+        <tr class="clickable" data-target="<%= contact_path(contact) %>">
           <td><%= link_to contact.name, contact, class: "primary-link" %></td>
           <td><%= contact.address %></td>
           <td><%= contact.postcode %></td>
