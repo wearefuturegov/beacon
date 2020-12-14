@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module CleanData
+module Stripable
   extend ActiveSupport::Concern
 
   # Strip Leading and Trailing Whitespace from text and string fields
   # Include on an ApplicationRecord object via:
-  # 'include CleanData'
+  # 'include Stripable'
   module ClassMethods
     # If only would like to strip whitespace from specific attributes/fields
     # 'trim_fields :first_name, :middle_names, :surname'
