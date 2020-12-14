@@ -75,6 +75,6 @@ class ImportedItem < ApplicationRecord
   end
 
   def not_empty_name(row)
-    not_empty(row[3]) && not_empty(row[4]) && not_zero(Contact.where('first_name = ? and surname = ?', row[3], row[4]))
+    not_empty(row[3]) && not_empty(row[4]) && not_zero(Contact.where('lower(first_name) = lower(?) and lower(surname) = lower(?)', row[3], row[4]))
   end
 end
