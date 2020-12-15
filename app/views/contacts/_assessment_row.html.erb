@@ -1,4 +1,4 @@
-<tr onclick="window.location='<%= need_path(n) %>'" class="need--<%= n.category.parameterize %>" data="<%= n.category.parameterize %>">
+<tr data-target="<%= need_path(n) %>" class="need--<%= n.category.parameterize %>" data="<%= n.category.parameterize %>">
   <td>
     <%= link_to n.category, n %>
   </td>
