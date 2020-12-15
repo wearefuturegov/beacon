@@ -17,5 +17,7 @@ services:
       - .:/app
     ports:
       - "3000:3000"
+    environment:
+      - HOSTNAME=localhost:3000
     depends_on:
       - postgresql
