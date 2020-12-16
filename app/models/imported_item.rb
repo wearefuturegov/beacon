@@ -17,25 +17,25 @@ class ImportedItem < ApplicationRecord
       contacts_rows << row
     end
 
-    unique_contacts, not_unique_contacts = unique_and_non_unique_records contacts_rows
+    unique_contacts, not_unique_contacts = unique_records contacts_rows
 
     contacts = []
-    unique_contacts.each do |contact_record|
+    unique_contacts.each do |row|
       contacts << Contact.new(
-        test_and_trace_account_id: contact_record[0],
-        nhs_number: contact_record[1],
-        is_vulnerable: (contact_record[2] == 1 || contact_record[2].to_s.downcase == 'true'),
-        first_name: contact_record[3],
-        surname: contact_record[4],
-        date_of_birth: contact_record[5],
-        email: contact_record[6],
-        mobile: contact_record[7],
-        telephone: contact_record[8],
-        address: contact_record[9],
-        postcode: contact_record[10],
-        needs: [Need.new(category: 'Check in', start_on: Date.today + 2.days, name: contact_record[11])],
-        test_trace_creation_date: contact_record[12],
-        isolation_start_date: contact_record[13],
+        test_and_trace_account_id: row[0],
+        nhs_number: row[1],
+        is_vulnerable: (row[2] == 1 || row[2].to_s.downcase == 'true'),
+        first_name: row[3],
+        surname: row[4],
+        date_of_birth: row[5],
+        email: row[6],
+        mobile: row[7],
+        telephone: row[8],
+        address: row[9],
+        postcode: row[10],
+        needs: [Need.new(category: 'Check in', start_on: Date.today + 2.days, name: row[11])],
+        test_trace_creation_date: row[12],
+        isolation_start_date: row[13],
         imported_item: self
       )
     end
@@ -45,26 +45,26 @@ class ImportedItem < ApplicationRecord
 
   private
 
-  def unique_and_non_unique_records(records)
+  def unique_records(rows)
     not_unique_records = []
     unique_records = []
-    records.each do |record|
-      if check_record(record)
-        not_unique_records << record
+    rows.each do |row|
+      if check_row(row)
+        not_unique_records << row
       else
-        unique_records << record
+        unique_records << row
       end
     end
     [unique_records, not_unique_records]
   end
 
-  def check_record(record)
-    if not_empty(record[0]) && not_zero(Contact.where('test_and_trace_account_id = ?', record[0].to_s))
-      record
-    elsif not_empty(record[1]) && not_zero(Contact.where('nhs_number = ?', record[1].to_s))
-      record
-    elsif not_empty_name(record)
-      record
+  def check_row(row)
+    if not_empty(row[0]) && not_zero(Contact.where('test_and_trace_account_id = ?', row[0].to_s))
+      row
+    elsif not_empty(row[1]) && not_zero(Contact.where('nhs_number = ?', row[1].to_s))
+      row
+    elsif not_empty_name(row)
+      row
     end
   end
 
@@ -76,7 +76,7 @@ class ImportedItem < ApplicationRecord
     !records.count.zero?
   end
 
-  def not_empty_name(record)
-    not_empty(record[3]) && not_empty(record[4]) && not_zero(Contact.where('lower(first_name) = lower(?) and lower(surname) = lower(?)', record[3], record[4]))
+  def not_empty_name(row)
+    not_empty(row[3]) && not_empty(row[4]) && not_zero(Contact.where('lower(first_name) = lower(?) and lower(surname) = lower(?)', row[3], row[4]))
   end
 end
