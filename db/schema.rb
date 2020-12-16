@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_125747) do
+ActiveRecord::Schema.define(version: 2020_12_04_164913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_125747) do
     t.string "lead_service_note"
     t.bigint "imported_item_id"
     t.string "test_and_trace_account_id"
+    t.index "lower((nhs_number)::text)", name: "index_contacts_on_lower_nhs_number", unique: true
   end
 
   create_table "imported_items", force: :cascade do |t|
