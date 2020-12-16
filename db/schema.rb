@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_163610) do
+ActiveRecord::Schema.define(version: 2020_12_16_184644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,10 +56,11 @@ ActiveRecord::Schema.define(version: 2020_12_16_163610) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
     t.integer "imported"
-    t.integer "failed"
-    t.bigint "uploaded_by_user_id"
+    t.integer "rejected"
     t.index ["name"], name: "index_imported_items_on_name", unique: true
+    t.index ["user_id"], name: "index_imported_items_on_user_id"
   end
 
   create_table "needs", force: :cascade do |t|
@@ -116,11 +117,11 @@ ActiveRecord::Schema.define(version: 2020_12_16_163610) do
 
   create_table "rejected_contacts", force: :cascade do |t|
     t.bigint "imported_item_id", null: false
+    t.string "reason"
     t.string "test_and_trace_account_id"
     t.string "nhs_number"
     t.boolean "is_vulnerable"
     t.string "first_name"
-    t.string "middle_names"
     t.string "surname"
     t.date "date_of_birth"
     t.text "email"
@@ -131,7 +132,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_163610) do
     t.string "needs"
     t.date "test_trace_creation_date"
     t.date "isolation_start_date"
-    t.string "reason"
     t.index ["imported_item_id"], name: "index_rejected_contacts_on_imported_item_id"
   end
 
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_163610) do
 
   add_foreign_key "contacts", "imported_items"
   add_foreign_key "contacts", "roles", column: "lead_service_id"
+  add_foreign_key "imported_items", "users"
   add_foreign_key "needs", "contacts"
   add_foreign_key "needs", "needs", column: "assessment_id"
   add_foreign_key "needs", "roles"

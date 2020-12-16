@@ -94,13 +94,10 @@ class ImportedItem < ApplicationRecord
   def check_row(row)
     if not_empty(row[0]) && not_zero(Contact.where('test_and_trace_account_id = ?', row[0].to_s))
       row << "Test and Trace Account ID - Duplicate [#{row[0]}]"
-      row
     elsif not_empty(row[1]) && not_zero(Contact.where('nhs_number = ?', row[1].to_s))
       row << "NHS Number - Duplicate [#{row[1]}]"
-      row
     elsif not_empty_name(row)
       row << "Name - Duplicate [#{row[3].downcase}, #{row[4].downcase}]"
-      row
     end
   end
 
