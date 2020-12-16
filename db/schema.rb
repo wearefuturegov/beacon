@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_191958) do
+ActiveRecord::Schema.define(version: 2020_12_16_153958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 2020_12_15_191958) do
     t.string "needs"
     t.date "test_trace_creation_date"
     t.date "isolation_start_date"
+    t.string "reason"
     t.index ["imported_item_id"], name: "index_rejected_contacts_on_imported_item_id"
   end
 
