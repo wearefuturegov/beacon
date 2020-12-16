@@ -8,6 +8,7 @@ class ImportedItem < ApplicationRecord
   validates_uniqueness_of :name
   validates :name, presence: true, allow_blank: false
   has_many :contacts
+  has_many :rejected_contacts
 
   def import(params)
     contacts_rows = []
@@ -17,8 +18,17 @@ class ImportedItem < ApplicationRecord
       contacts_rows << row
     end
 
-    unique_contacts, not_unique_contacts = unique_records contacts_rows
+    unique_contacts, not_unique_contacts = unique_and_non_unique_records contacts_rows
 
+    process_unique_contacts(unique_contacts)
+    process_non_unique_contacts(not_unique_contacts)
+
+    [unique_contacts, not_unique_contacts]
+  end
+
+  private
+
+  def process_unique_contacts(unique_contacts)
     contacts = []
     unique_contacts.each do |row|
       contacts << Contact.new(
@@ -40,12 +50,32 @@ class ImportedItem < ApplicationRecord
       )
     end
     Contact.import! contacts, recursive: true, all_or_none: true
-    [unique_contacts, not_unique_contacts]
   end
 
-  private
+  def process_non_unique_contacts(not_unique_contacts)
+    rejected_contacts = []
+    not_unique_contacts.each do |row|
+      rejected_contacts << RejectedContact.new(
+        test_and_trace_account_id: row[0],
+        nhs_number: row[1],
+        is_vulnerable: (row[2] == 1 || row[2].to_s.downcase == 'true'),
+        first_name: row[3],
+        surname: row[4],
+        date_of_birth: row[5],
+        email: row[6],
+        mobile: row[7],
+        telephone: row[8],
+        address: row[9],
+        postcode: row[10],
+        needs: row[11],
+        imported_item: self
+      )
+    end
 
-  def unique_records(rows)
+    RejectedContact.import! rejected_contacts, recursive: true, all_or_none: true
+  end
+
+  def unique_and_non_unique_records(rows)
     not_unique_records = []
     unique_records = []
     rows.each do |row|

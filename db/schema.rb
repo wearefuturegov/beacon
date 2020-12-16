@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_112311) do
+ActiveRecord::Schema.define(version: 2020_12_15_191958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,26 @@ ActiveRecord::Schema.define(version: 2020_12_15_112311) do
     t.index ["authenticatable_type", "authenticatable_id"], name: "authenticatable"
   end
 
+  create_table "rejected_contacts", force: :cascade do |t|
+    t.bigint "imported_item_id", null: false
+    t.string "test_and_trace_account_id"
+    t.string "nhs_number"
+    t.boolean "is_vulnerable"
+    t.string "first_name"
+    t.string "middle_names"
+    t.string "surname"
+    t.date "date_of_birth"
+    t.text "email"
+    t.string "mobile"
+    t.string "telephone"
+    t.string "address"
+    t.string "postcode"
+    t.string "needs"
+    t.date "test_trace_creation_date"
+    t.date "isolation_start_date"
+    t.index ["imported_item_id"], name: "index_rejected_contacts_on_imported_item_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
     t.string "role", null: false
@@ -162,6 +182,7 @@ ActiveRecord::Schema.define(version: 2020_12_15_112311) do
   add_foreign_key "needs", "users"
   add_foreign_key "notes", "needs"
   add_foreign_key "notes", "users"
+  add_foreign_key "rejected_contacts", "imported_items"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
   add_foreign_key "users", "roles"
