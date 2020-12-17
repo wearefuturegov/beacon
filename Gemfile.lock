@@ -142,9 +142,6 @@ GEM
       guard (~> 2.8)
       guard-compat (~> 1.0)
       multi_json (~> 1.8)
-    guard-minitest (2.4.6)
-      guard-compat (~> 1.2)
-      minitest (>= 3.0)
     http_parser.rb (0.6.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
@@ -388,7 +385,6 @@ DEPENDENCIES
   govuk_notify_rails
   guard (~> 2.16.2)
   guard-livereload (~> 2.5.2)
-  guard-minitest (~> 2.4.6)
   jbuilder (~> 2.7)
   jsonb_accessor (~> 1.0.0)
   kaminari
