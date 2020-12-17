@@ -4,34 +4,49 @@
         <h2 class="accordion__title">Personal details</h2>  
     </button>
     <div class="accordion__content">  
-        <dl class="details-list">
-          <dt class="details-list__caption">Name</dt>
-          <dd class="details-list__value" id="contact_name"><%= @contact.name %></dd>
+      <dl class="details-list">
+        <dt class="details-list__caption">Name</dt>
+        <dd class="details-list__value" id="contact_name">
+          <%= @contact.name %>
+        </dd>
 
-          <dt class="details-list__caption">Date of Birth</dt>
-          <dd class="details-list__value" id="contact_dob"><%= @contact.date_of_birth&.strftime("%-d %B %Y") %></dd>
+        <dt class="details-list__caption">Date of Birth</dt>
+        <dd class="details-list__value" id="contact_dob">
+          <%= @contact.date_of_birth&.strftime("%-d %B %Y") %>
+        </dd>
 
-          <dt class="details-list__caption">Address</dt>
-            <dd class="details-list__value" id="address_details">
-                <%= @contact.address %><br/>
-                <%= @contact.postcode %>
-            </dd>
+        <dt class="details-list__caption">Address</dt>
+          <dd class="details-list__value" id="address_details">
+              <%= @contact.address %><br/>
+              <%= @contact.postcode %>
+          </dd>
 
-            <dt class="details-list__caption">Email</dt>
-            <dd class="details-list__value" id="email_address"><%= dash_if_empty @contact.email %></dd>
+          <dt class="details-list__caption">Email</dt>
+          <dd class="details-list__value" id="email_address">
+            <%= dash_if_empty @contact.email %>
+          </dd>
 
-            <dt class="details-list__caption">Phone</dt>
-            <dd class="details-list__value" id="phone_details">
-                <%= @contact.telephone %><br/>
-                <%= @contact.mobile %>
-            </dd>
-            
-            <dt class="details-list__caption">Test & Trace Id</dt>
-            <dd class="details-list__value" id="test_and_trace_account_id">
-                <%= @contact.test_and_trace_account_id %>
-            </dd>
-        </dl>
+          <dt class="details-list__caption">Phone</dt>
+          <dd class="details-list__value" id="phone_details">
+              <%= @contact.telephone %><br/>
+              <%= @contact.mobile %>
+          </dd>
 
+          <dt class="details-list__caption">Test & Trace Id</dt>
+          <dd class="details-list__value" id="test_and_trace_account_id">
+            <%= @contact.test_and_trace_account_id %>
+          </dd>
+
+          <dt class="details-list__caption">Test & Trace Creation Date</dt>
+          <dd class="details-list__value" id="test_trace_creation_date">
+            <%= @contact.test_trace_creation_date %>
+          </dd>
+
+          <dt class="details-list__caption">Isolation Start Date</dt>
+          <dd class="details-list__value" id="isolation_start_date">
+            <%= @contact.isolation_start_date %>
+          </dd>
+      </dl>
     </div>
 
     <button class="accordion__control" aria-expanded="true">
