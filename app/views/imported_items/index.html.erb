@@ -72,31 +72,33 @@
         </div>
 
         <% @imported_items.each do |imported_item| %>
-            <div class="o-layout__item u-4-of-12" data-target="<%= imported_item_contacts_path(imported_item) %>" >
-                <div class="b-sm__t b-gray u-pb- u-pt-">
-                    <i class="c-icon c-icon--import bg-green"></i>
-                    <%= imported_item.name %>
+            <div class="o-layout o-layout--flush selectable" data-target="<%= imported_item_contacts_path(imported_item) %>">
+                <div class="o-layout__item u-4-of-12">
+                    <div class="b-sm__t b-gray u-pb- u-pt-">
+                        <i class="c-icon c-icon--import bg-green"></i>
+                        <%= imported_item.name %>
+                    </div>
                 </div>
-            </div>
-            <div class="o-layout__item u-2-of-12">
-                <div class="b-sm__t b-gray u-pb- u-pt-">
-                    <%= imported_item.created_at.strftime("%-d %B %Y") %>
+                <div class="o-layout__item u-2-of-12">
+                    <div class="b-sm__t b-gray u-pb- u-pt-">
+                        <%= imported_item.created_at.strftime("%-d %B %Y") %>
+                    </div>
                 </div>
-            </div>
-            <div class="o-layout__item u-1-of-12">
-                <div class="b-sm__t b-gray u-pb- u-pt-">
-                    <%= imported_item.imported %>
+                <div class="o-layout__item u-1-of-12">
+                    <div class="b-sm__t b-gray u-pb- u-pt-">
+                        <%= imported_item.imported %>
+                    </div>
                 </div>
-            </div>
-            <div class="o-layout__item u-1-of-12">
-                <div class="b-sm__t b-gray u-pb- u-pt-">
-                    <%= imported_item.rejected %>
+                <div class="o-layout__item u-1-of-12">
+                    <div class="b-sm__t b-gray u-pb- u-pt-">
+                        <%= imported_item.rejected %>
+                    </div>
                 </div>
-            </div>
-            <div class="o-layout__item u-4-of-12" data-target="<%= imported_item_contacts_path(imported_item) %>" >
-                <div class="b-sm__t b-gray u-pb- u-pt- l-space-between">
-                    <%= imported_item.user.try(:name) %>
-                    <i class="c-icon c-icon--chevron-right bg-black"></i>
+                <div class="o-layout__item u-4-of-12">
+                    <div class="b-sm__t b-gray u-pb- u-pt- l-space-between">
+                        <%= imported_item.user.try(:name) %>
+                        <i class="c-icon c-icon--chevron-right bg-black u-mr"></i>
+                    </div>
                 </div>
             </div>
         <% end %>
