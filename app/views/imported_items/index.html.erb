@@ -14,6 +14,8 @@
       <thead>
       <tr>
         <th>Name</th>
+        <th>Imported</th>
+        <th>Rejected</th>
         <th>
           <div class="sortable">
             Created
@@ -22,13 +24,15 @@
               <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'created_at', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
             </div>
           </div>
-        </th<
+        </th>
       </tr>
       </thead>
       <tbody>
         <% @imported_items.each do |imported_item| %>
           <tr class="clickable" data-target="<%= imported_item_contacts_path(imported_item) %>">
             <td><%= link_to imported_item.name, imported_item, class: "primary-link" %></td>
+            <td><%= imported_item.imported.nil? ? '-' : imported_item.imported %></td>
+            <td><%= imported_item.rejected.nil? ? '-' : imported_item.rejected %></td>
             <td><%= imported_item.created_at.strftime("%-d %B %Y") %></td>
           </tr>
         <% end %>
