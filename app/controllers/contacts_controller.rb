@@ -111,13 +111,39 @@ class ContactsController < ApplicationController
     @teams_options = construct_teams_options
   end
 
-  def contact_params
-    params.require(:contact).permit(:first_name, :middle_names, :surname, :address, :postcode, :email, :telephone,
-                                    :mobile, :additional_info, :is_vulnerable, :count_people_in_house, :any_children_under_age,
-                                    :delivery_details, :any_dietary_requirements, :dietary_details,
-                                    :cooking_facilities, :eligible_for_free_prescriptions, :has_covid_symptoms, :lock_version,
-                                    :channel, :no_calls_flag, :deceased_flag, :share_data_flag, :date_of_birth, :nhs_number,
-                                    :lead_service_id, :lead_service_note, :test_and_trace_account_id)
+  def contact_params # rubocop:disable Metrics/MethodLength
+    params.require(:contact).permit(
+      :additional_info,
+      :address,
+      :any_children_under_age,
+      :any_dietary_requirements,
+      :channel,
+      :cooking_facilities,
+      :count_people_in_house,
+      :date_of_birth,
+      :deceased_flag,
+      :delivery_details,
+      :dietary_details,
+      :eligible_for_free_prescriptions,
+      :email,
+      :first_name,
+      :has_covid_symptoms,
+      :isolation_start_date,
+      :is_vulnerable,
+      :lock_version,
+      :lead_service_id,
+      :lead_service_note,
+      :middle_names,
+      :mobile,
+      :nhs_number,
+      :no_calls_flag,
+      :postcode,
+      :share_data_flag,
+      :surname,
+      :telephone,
+      :test_and_trace_account_id,
+      :test_trace_creation_date
+    )
   end
 
   def extract_role_id(role_id)

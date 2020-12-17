@@ -53,6 +53,16 @@
       <%= form.label :test_and_trace_account_id, "Test & Trace Id", class: "field__label" %>
       <%= form.text_field :test_and_trace_account_id %>
     </div>
+
+    <div class="field">
+      <%= form.label :test_trace_creation_date, 'Test & Trace Creation Date', class: "field__label" %>
+      <%= form.text_field :test_trace_creation_date, placeholder: 'Eg: 17/12/2020', :value => "#{@contact.test_trace_creation_date&.strftime('%-d/%-m/%Y')}" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :isolation_start_date, 'Isolation Start Date', class: "field__label" %>
+      <%= form.text_field :isolation_start_date, placeholder: 'Eg: 17/12/2020', :value => "#{@contact.isolation_start_date&.strftime('%-d/%-m/%Y')}" %>
+    </div>
   </div>
 
   <button type="button" type="button" type="button" class="accordion__control" aria-expanded="true">
