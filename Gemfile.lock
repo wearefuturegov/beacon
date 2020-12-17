@@ -1,9 +1,8 @@
 GIT
   remote: https://github.com/wearefuturegov/camden-style-guide.git
-  revision: 11eb2b7e74ff398a67acdd315e2574f98411e152
-  branch: feature/icons
+  revision: 7225feda3203575e1847e8aa49dd83207ce94844
   specs:
-    camden_style_guide (0.1.0)
+    camden_style_guide (0.2.1)
       rails (~> 6.0.2, >= 6.0.2.2)
       webpacker (~> 4)
 
@@ -384,7 +383,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   browser
   byebug
-  camden_style_guide!
+  camden_style_guide (= 0.2.1)!
   capybara (>= 2.15)
   csv
   cucumber-rails
