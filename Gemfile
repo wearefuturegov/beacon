@@ -29,11 +29,11 @@ gem 'activerecord-import'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'guard', '~>2.16.2',require:false
-  gem 'guard-livereload','~>2.5.2', require: false
+  gem 'guard', '~>2.16.2', require: false
+  gem 'guard-livereload', '~>2.5.2', require: false
   gem 'guard-minitest', '~>2.4.6', require: false
   gem 'rack-livereload'
-  gem 'foreman'  
+  gem 'foreman'
 end
 
 group :development do
