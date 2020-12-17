@@ -13,7 +13,7 @@ class ImportedItemsController < ApplicationController
 
   def create
     authorize ImportedItem
-    @params = params.permit(:authenticity_token, :imported_item => [:file])
+    @params = params.permit(:authenticity_token, imported_item: [:file])
     @imported_item = ImportedItem.new(@params[:imported_item])
     @imported_item.user = current_user
 
@@ -34,6 +34,7 @@ class ImportedItemsController < ApplicationController
   end
 
   private
+
   def load_imported_items
     @imported_items = policy_scope(ImportedItem)
     @imported_items = @imported_items.filter_and_sort({}, @params.slice(:order, :order_dir))

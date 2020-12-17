@@ -10,7 +10,7 @@ class ImportedItem < ApplicationRecord
   has_many :contacts
   has_many :rejected_contacts
   attr_reader :file
-  belongs_to :user, :optional => true
+  belongs_to :user, optional: true
 
   def file=(file)
     @file = file
