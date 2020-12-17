@@ -1,0 +1,17 @@
+.o-file-field {
+    .select {
+        input { display: none; }
+    }
+    .preview {
+        display: none;
+    }
+
+    &[data-selected=true] .preview {
+        display: block;
+    }
+
+    &[data-selected=true] .select {
+        display: none;
+    }
+}
+

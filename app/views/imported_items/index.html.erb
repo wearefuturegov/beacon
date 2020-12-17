@@ -1,45 +1,111 @@
-<header class="panel-header">
-  <h1 class="panel-header__title">
-    Imported Items
-  </h1>
-  
-  <% if policy(ImportedItem).create? %>
-    <%= link_to "Add a import", new_imported_item_path, class: "panel-header__action" %>
-  <% end %>
-</header>
+<% if policy(ImportedItem).create? %>
+    <section class="bg-white u-p u-pt++ u-mb">
+        <% if @created_item %>
+            <h2>
+                <div class="bg-green b-circle c-icon c-icon--medium u-mr-">
+                    <i class="bg-white c-icon c-icon--tick"></i>
+                </div>
+                File import complete
+            </h2>
 
-<div class="panel">
-  <% if @imported_items.any? %>
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Imported</th>
-        <th>Rejected</th>
-        <th>
-          <div class="sortable">
-            Created
-            <div class="sortable__controls">
-              <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'created_at', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
-              <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'created_at', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
-            </div>
-          </div>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-        <% @imported_items.each do |imported_item| %>
-          <tr class="clickable" data-target="<%= imported_item_contacts_path(imported_item) %>">
-            <td><%= link_to imported_item.name, imported_item, class: "primary-link" %></td>
-            <td><%= imported_item.imported.nil? ? '-' : imported_item.imported %></td>
-            <td><%= imported_item.rejected.nil? ? '-' : imported_item.rejected %></td>
-            <td><%= imported_item.created_at.strftime("%-d %B %Y") %></td>
-          </tr>
+            <p class="u-mb--"><%= @created_item.imported %> were imported into Beacon</p>
+            <p><%= @created_item.rejected %> duplicates found and have not been imported</p>
+
+            <%= render 'form', :locals => { :button_label => 'Import another file' } %>
+        <% else %>
+            <% if @imported_item.errors.any? %>
+                <h2>
+                    <div class="bg-red b-circle c-icon c-icon--medium u-mr-">
+                        <i class="bg-white c-icon c-icon--tiny c-icon--cross"></i>
+                    </div>
+                    File import failed
+                </h2>
+                <ul>
+                    <% @imported_item.errors.full_messages.each do |error| %>
+                        <li class="c-red"><%= error %></li>
+                    <% end %>
+                </ul>
+            <% else %>
+                <h2 class="u-mb++">Choose a file</h2>
+            <% end %>
+
+            <%= render 'form' %>
         <% end %>
-      </tbody>
-    </table>
-    <%= render "shared/pagination", model: @imported_items %>
-  <% else %>
-    <p class="no-results">No items</p>
-  <% end %>
-</div>
+    </section>
+<% end %>
+
+<section class="bg-white u-p u-pt++ u-mb">
+    <h2 class="u-mb++">Recently Imported</h2>
+
+    <% if @imported_items.any? %>
+      <div class="o-layout o-layout--flush u-mb">
+        <div class="o-layout__item u-4-of-12">
+            <div class="u-pb-">
+              Name <i class="bg-gray c-icon c-icon--sort"></i>
+            </div>
+        </div>
+        <div class="o-layout__item u-2-of-12">
+            <div class="u-pb-">
+                Created <i class="bg-gray c-icon c-icon--sort"></i>
+                <!-- FIXME
+                <%= link_to_unless_current @params.merge(order: 'created_at', order_dir: 'ASC') do %>
+                    <i class="bg-gray c-icon c-icon--sort-up"></i>
+                <% end %>
+                <%= link_to_unless_current @params.merge(order: 'created_at', order_dir: 'DESC') do %>
+                    <i class="bg-gray c-icon c-icon--sort-down"></i>
+                <% end %>
+                -->
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-12">
+            <div class="u-pb-">
+                Imported
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-12">
+            <div class="u-pb-">
+                Failed
+            </div>
+        </div>
+        <div class="o-layout__item u-4-of-12">
+            <div class="u-pb-">
+                Imported by
+            </div>
+        </div>
+
+        <% @imported_items.each do |imported_item| %>
+            <div class="o-layout__item u-4-of-12" data-target="<%= imported_item_contacts_path(imported_item) %>" >
+                <div class="b-sm__t b-gray u-pb- u-pt-">
+                    <i class="c-icon c-icon--import bg-green"></i>
+                    <%= imported_item.name %>
+                </div>
+            </div>
+            <div class="o-layout__item u-2-of-12">
+                <div class="b-sm__t b-gray u-pb- u-pt-">
+                    <%= imported_item.created_at.strftime("%-d %B %Y") %>
+                </div>
+            </div>
+            <div class="o-layout__item u-1-of-12">
+                <div class="b-sm__t b-gray u-pb- u-pt-">
+                    <%= imported_item.imported %>
+                </div>
+            </div>
+            <div class="o-layout__item u-1-of-12">
+                <div class="b-sm__t b-gray u-pb- u-pt-">
+                    <%= imported_item.rejected %>
+                </div>
+            </div>
+            <div class="o-layout__item u-4-of-12" data-target="<%= imported_item_contacts_path(imported_item) %>" >
+                <div class="b-sm__t b-gray u-pb- u-pt- l-space-between">
+                    <%= imported_item.user.try(:name) %>
+                    <i class="c-icon c-icon--chevron-right bg-black"></i>
+                </div>
+            </div>
+        <% end %>
+      </div>
+
+      <%= render "shared/pagination", model: @imported_items %>
+    <% else %>
+      <p class="no-results">No items</p>
+    <% end %>
+</section>

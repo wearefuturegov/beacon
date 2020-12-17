@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/wearefuturegov/camden-style-guide.git
-  revision: 4a0e9d1faef02702ba4b338d765e2867d585d306
+  revision: 078a9e282c502c4100160d567da9c1201adf1585
+  branch: feature/icons
   specs:
     camden_style_guide (0.1.0)
       rails (~> 6.0.2, >= 6.0.2.2)
