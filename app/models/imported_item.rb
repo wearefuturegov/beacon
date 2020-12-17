@@ -96,8 +96,8 @@ class ImportedItem < ApplicationRecord
       row << "Test and Trace Account ID - Duplicate [#{row[0]}]"
     elsif not_empty(row[1]) && not_zero(Contact.where('nhs_number = ?', row[1].to_s))
       row << "NHS Number - Duplicate [#{row[1]}]"
-    elsif not_empty_name(row)
-      row << "Name - Duplicate [#{row[3].downcase}, #{row[4].downcase}]"
+    elsif not_empty_name_and_dob(row)
+      row << "Name & DOB - Duplicate [#{row[3].downcase}, #{row[4].downcase}, #{row[5]}]"
     end
   end
 
@@ -109,7 +109,10 @@ class ImportedItem < ApplicationRecord
     !records.count.zero?
   end
 
-  def not_empty_name(row)
-    not_empty(row[3]) && not_empty(row[4]) && not_zero(Contact.where('lower(first_name) = lower(?) and lower(surname) = lower(?)', row[3], row[4]))
+  def not_empty_name_and_dob(row)
+    not_empty(row[3]) && not_empty(row[4]) && not_empty(row[5]) &&
+      not_zero(
+        Contact.where('lower(first_name) = lower(?) and lower(surname) = lower(?) and date_of_birth = (?)', row[3], row[4], Date.parse(row[5].to_s))
+      )
   end
 end
