@@ -21,10 +21,11 @@ class ImportedItemsController < ApplicationController
       begin
         @imported_item.import
         Rails.logger.unknown("User imported new contacts: Import Record ID #{@imported_item.id}, Successful(#{@imported_item.imported}) / Rejected (#{@imported_item.rejected})")
-        redirect_to imported_items_path(order: 'created_at', order_dir: 'DESC', created_id: @imported_item.id), notice: import_msg(@imported_item)
-      rescue ActiveRecord::Rollback
-        load_imported_items
-        render :index
+        redirect_to imported_items_path(order: params[:order], order_dir: params[:order_dir], created_id: @imported_item.id), notice: 'Successfully fmported file'
+      rescue StandardError => e
+        logger.error e.message
+        logger.error e.backtrace
+        redirect_to imported_items_path(order: params[:order], order_dir: params[:order_dir], created_id: @imported_item.id), notice: 'There was a problem uploading this file'
       end
     else
       load_imported_items
@@ -33,11 +34,6 @@ class ImportedItemsController < ApplicationController
   end
 
   private
-
-  def import_msg(imported_item)
-    imported_item.imported > 0 ? 'Created Imported Item' : 'Did not create Imported Item'
-  end
-
   def load_imported_items
     @imported_items = policy_scope(ImportedItem)
     @imported_items = @imported_items.filter_and_sort({}, @params.slice(:order, :order_dir))
