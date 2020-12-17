@@ -18,6 +18,8 @@ class Contact < ApplicationRecord
 
   validates :first_name, presence: true
   validates_date :date_of_birth, allow_nil: true, allow_blank: true
+  validates_date :test_trace_creation_date, allow_nil: true, allow_blank: true
+  validates_date :isolation_start_date, allow_nil: true, allow_blank: true
 
   scope :search, lambda { |text|
                    where("first_name ilike ?

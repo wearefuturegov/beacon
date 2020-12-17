@@ -43,6 +43,10 @@ en:
           attributes:
             date_of_birth:
               invalid_date: "must be a valid date"
+            test_trace_creation_date:
+              invalid_date: "must be a valid date"
+            isolation_start_date:
+              invalid_date: "must be a valid date"
 
   passwordless:
     mailer:
