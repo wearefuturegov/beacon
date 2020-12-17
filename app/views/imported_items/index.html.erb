@@ -41,20 +41,18 @@
       <div class="o-layout o-layout--flush u-mb">
         <div class="o-layout__item u-4-of-12">
             <div class="u-pb-">
-              Name <i class="bg-gray c-icon c-icon--sort"></i>
+                <%= link_to @params.merge(order: 'name', order_dir: sort_direction('name')), class: 'c-black t-dec-none' do %>
+                    Name
+                    <i class="c-icon <%= sort_icon('name') %>"></i>
+                <% end %>
             </div>
         </div>
         <div class="o-layout__item u-2-of-12">
             <div class="u-pb-">
-                Created <i class="bg-gray c-icon c-icon--sort"></i>
-                <!-- FIXME
-                <%= link_to_unless_current @params.merge(order: 'created_at', order_dir: 'ASC') do %>
-                    <i class="bg-gray c-icon c-icon--sort-up"></i>
+                <%= link_to @params.merge(order: 'created_at', order_dir: sort_direction('created_at')), class: 'c-black t-dec-none' do %>
+                    Created
+                    <i class="c-icon <%= sort_icon('created_at') %>"></i>
                 <% end %>
-                <%= link_to_unless_current @params.merge(order: 'created_at', order_dir: 'DESC') do %>
-                    <i class="bg-gray c-icon c-icon--sort-down"></i>
-                <% end %>
-                -->
             </div>
         </div>
         <div class="o-layout__item u-1-of-12">

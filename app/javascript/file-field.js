@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbolinks:load", () => {
   $(".o-file-field").change(e => {
     e.currentTarget.setAttribute("data-selected", true);
     const value = $(e.currentTarget)
