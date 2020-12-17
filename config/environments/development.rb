@@ -1,6 +1,15 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   
+  # docker specific development setup
+  if ENV.fetch('DOCKERIZED', false) == 'true'
+    # setup hot reload
+    config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
+    # whitelist ip to enable web console
+    host_ip = `/sbin/ip route|awk '/default/ { print $3 }'`.strip
+    config.web_console.whitelisted_ips = host_ip
+  end 
+  
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -71,8 +80,5 @@ Rails.application.configure do
       :port => 1025,
       :authentication => :plain,
       :enable_starttls_auto => false
-  }
-
-  # Allow console to connect from docker
-  config.web_console.whitelisted_ips = ['172.29.0.0/16', '127.0.0.1']
+  } 
 end

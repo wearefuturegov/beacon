@@ -26,16 +26,28 @@ It's a rails app backed by a postgresql database.
 
 ## Running with Docker Compose
 
-Spin up a postgres database and rails app
+### Build
+
+Follow these steps to build the database and app
 
 ```
+docker-compose build
+docker-compose run app rails db:setup
 docker-compose up
 ```
 
-Run tests
+The site will now be available on https://localhost:3000
+
+### Run tests
 
 ```
 docker-compose run app rake
+```
+
+### Run app
+
+```
+docker-compose up
 ```
 
 ## Running it locally
