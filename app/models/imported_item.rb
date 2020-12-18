@@ -43,7 +43,7 @@ class ImportedItem < ApplicationRecord
         telephone: row[8],
         address: row[9],
         postcode: row[10],
-        needs: [Need.new(category: 'Check in', start_on: Date.today + 2.days, name: row[11])],
+        needs: [Need.new(category: 'Check in', start_on: Date.today, name: row[11])],
         test_trace_creation_date: row[12],
         isolation_start_date: row[13],
         imported_item: self
