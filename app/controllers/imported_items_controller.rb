@@ -21,7 +21,7 @@ class ImportedItemsController < ApplicationController
       begin
         @imported_item.import
         Rails.logger.unknown("User imported new contacts: Import Record ID #{@imported_item.id}, Successful(#{@imported_item.imported}) / Rejected (#{@imported_item.rejected})")
-        redirect_to imported_items_path(order: params[:order], order_dir: params[:order_dir], created_id: @imported_item.id), notice: 'Successfully fmported file'
+        redirect_to imported_items_path(order: params[:order], order_dir: params[:order_dir], created_id: @imported_item.id), notice: 'Successfully imported file'
       rescue StandardError => e
         logger.error e.message
         logger.error e.backtrace

@@ -11,7 +11,7 @@
             <p class="u-mb--"><%= @created_item.imported %> were imported into Beacon</p>
             <p><%= @created_item.rejected %> duplicates found and have not been imported</p>
 
-            <%= render 'form', :locals => { :button_label => 'Import another file' } %>
+            <%= render 'form', :button_label => 'Import another file' %>
         <% else %>
             <% if @imported_item.errors.any? %>
                 <h2>
@@ -26,7 +26,7 @@
                     <% end %>
                 </ul>
             <% else %>
-                <h2 class="u-mb++">Choose a file</h2>
+                <h2>Choose a file</h2>
             <% end %>
 
             <%= render 'form' %>
@@ -39,7 +39,7 @@
 
     <% if @imported_items.any? %>
       <div class="o-layout o-layout--flush u-mb">
-        <div class="o-layout__item u-4-of-12">
+        <div class="o-layout__item u-5-of-12">
             <div class="u-pb-">
                 <%= link_to @params.merge(order: 'name', order_dir: sort_direction('name')), class: 'c-black t-dec-none' do %>
                     Name
@@ -47,7 +47,7 @@
                 <% end %>
             </div>
         </div>
-        <div class="o-layout__item u-2-of-12">
+        <div class="o-layout__item u-1-of-12">
             <div class="u-pb-">
                 <%= link_to @params.merge(order: 'created_at', order_dir: sort_direction('created_at')), class: 'c-black t-dec-none' do %>
                     Created
@@ -73,30 +73,30 @@
 
         <% @imported_items.each do |imported_item| %>
             <div class="o-layout o-layout--flush selectable" data-target="<%= imported_item_contacts_path(imported_item) %>">
-                <div class="o-layout__item u-4-of-12">
-                    <div class="b-sm__t b-gray u-pb- u-pt-">
-                        <i class="c-icon c-icon--import bg-green"></i>
+                <div class="o-layout__item u-5-of-12">
+                    <div class="b-sm__t b-gray u-pb u-pt">
+                        <i class="c-icon c-icon--import bg-green u-mr-"></i>
                         <%= imported_item.name %>
                     </div>
                 </div>
-                <div class="o-layout__item u-2-of-12">
-                    <div class="b-sm__t b-gray u-pb- u-pt-">
-                        <%= imported_item.created_at.strftime("%-d %B %Y") %>
+                <div class="o-layout__item u-1-of-12">
+                    <div class="b-sm__t b-gray u-pb u-pt">
+                        <%= imported_item.created_at.strftime("%-d %b %Y") %>
                     </div>
                 </div>
                 <div class="o-layout__item u-1-of-12">
-                    <div class="b-sm__t b-gray u-pb- u-pt-">
+                    <div class="b-sm__t b-gray u-pb u-pt">
                         <%= imported_item.imported %>
                     </div>
                 </div>
                 <div class="o-layout__item u-1-of-12">
-                    <div class="b-sm__t b-gray u-pb- u-pt-">
+                    <div class="b-sm__t b-gray u-pb u-pt">
                         <%= imported_item.rejected %>
                     </div>
                 </div>
                 <div class="o-layout__item u-4-of-12">
-                    <div class="b-sm__t b-gray u-pb- u-pt- l-space-between">
-                        <%= imported_item.user.try(:name) %>
+                    <div class="b-sm__t b-gray u-pb u-pt l-space-between">
+                        <%= imported_item.user.try(:name) || '&nbsp'.html_safe %>
                         <i class="c-icon c-icon--chevron-right bg-black u-mr"></i>
                     </div>
                 </div>
