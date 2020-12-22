@@ -1,16 +1,9 @@
-<%= form_with url: url, local: true, method: "get" do |f| %>
-    <div class="mini-search">
-        <%= f.label :search, "Search query", class: "visually-hidden" %>
-        <%= f.text_field :search,
+<%= form_with url: url, local: true, method: "get", class: 'camden-form' do |f| %>
+    <%= f.label :search, "Search by Person’s First Name / Last Name / Date of birth / NHS Number / Postcode / Track & Trace ID" %>
+    <div class="u-mt u-mb">
+        <%= f.search_field :search,
             value: params[:search],
-            class: "mini-search__input",
             placeholder: text_field_placeholder
         %>
-        <% if params[:search].present? %>
-            <%= link_to image_tag("clear.svg", alt: "Clear search"), url, class: "mini-search__submit" %>
-        <% else %>
-          <%= f.submit "search-submit", id: 'mini-search', class: 'mini-search__submit',
-                       type: :image, src: image_path("search.svg"), alt: "Submit search" %>
-        <% end %>
     </div>
 <% end %>
