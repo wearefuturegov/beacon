@@ -17,7 +17,10 @@ class ContactsController < ApplicationController
 
   def search
     @params = params.permit(:search, :page, :imported_item_id)
+    @contacts = policy_scope(Contact)
     @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id))
+    @contacts = @contacts.page(@params[:page])
+    render :index
   end
 
   def new
