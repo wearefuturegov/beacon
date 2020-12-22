@@ -1,0 +1,2 @@
+class RejectedContactPolicy < ContactPolicy
+end

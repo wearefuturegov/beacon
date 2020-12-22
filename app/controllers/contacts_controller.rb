@@ -3,16 +3,21 @@
 class ContactsController < ApplicationController
   before_action :set_contact, :set_teams_options, only: %i[edit update show needs add_needs]
   before_action :roles, only: %i[index]
+  before_action :load_imported_item, only: :index, if: proc { params[:imported_item_id] }
   helper_method :name_for_lead_service
 
   def index
-    @contacts = policy_scope(Contact)
-    @params = params.permit(:search, :page, :imported_item_id)
-    @contacts = @contacts.where(imported_item_id: @params[:imported_item_id]) if @params[:imported_item_id].present?
-    @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id)) if @params[:search].present?
-
+    @params = params.permit(:page, :imported_item_id)
+    model = params[:view] == 'Failed' ? RejectedContact : Contact
+    @contacts = policy_scope(model)
+    @contacts = @contacts.where(imported_item_id: @params[:imported_item_id])
     @contacts = @contacts.page(@params[:page])
     Rails.logger.unknown("User viewed contact list page for contact ID: #{@contacts.map(&:id).join(',')}")
+  end
+
+  def search
+    @params = params.permit(:search, :page, :imported_item_id)
+    @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id))
   end
 
   def new
@@ -148,5 +153,9 @@ class ContactsController < ApplicationController
 
   def extract_role_id(role_id)
     role_id.split('-').second
+  end
+
+  def load_imported_item
+    @imported_item = ImportedItem.where(id: params[:imported_item_id]).first
   end
 end
