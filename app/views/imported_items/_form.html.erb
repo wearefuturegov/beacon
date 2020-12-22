@@ -1,0 +1,26 @@
+<%
+  button_label = local_assigns[:button_label] || 'Browse Computer'
+%>
+<%= form_for @imported_item, multipart: true do |f| %>
+    <div class="o-file-field u-mb">
+        <div class="select">
+            <%= f.file_field :file %>
+            <%= f.label :file, button_label, class: 'c-btn c-btn--primary u-mb' %>
+            <p>No file chosen</p>
+        </div>
+        <div class="preview">
+            <i class="bg-black c-icon c-icon--file c-icon--large"></i>
+            <span class="filename">
+            </span>
+            <%= f.label :file do %>
+                <i class="bg-black c-icon c-icon--close u-ml"></i>
+            <% end %>
+
+            <div class="u-mt">
+                <button class="c-btn c-btn--secondary">
+                    <i class="c-icon c-icon--import bg-white"></i> Import
+                </button>
+            </div>
+        </div>
+    </div>
+<% end %>

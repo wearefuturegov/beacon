@@ -45,4 +45,17 @@ module ApplicationHelper
       ''
     end
   end
+
+  SORT_DIRECTIONS = %w[ASC DESC].freeze
+  SORT_ICONS = Hash[SORT_DIRECTIONS.zip(['c-icon--sort-up', 'c-icon--sort-down'])].freeze
+
+  def sort_icon(field)
+    return SORT_ICONS[params[:order_dir]] if field == params[:order]
+
+    'c-icon--sort bg-gray'
+  end
+
+  def sort_direction(_field)
+    (SORT_DIRECTIONS - [params[:order_dir]]).first
+  end
 end

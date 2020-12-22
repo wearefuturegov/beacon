@@ -126,32 +126,32 @@
   .assessment-grid__title{
       padding-top: 10px;
   }
+}
 
-  .selectable{
-      cursor: pointer;
-      &:hover{
-          background: transparentize($blue, 0.9);
-      }
-      &:focus-within{
-          background: transparentize($yellow, 0.8);
-          border-color: $yellow;
-      }
-      td:last-of-type{
-          padding-right: 35px;
-          position: relative;
-          &:after{
-              position: absolute;
-              content: "";
-              display: block;
-              top: 0;
-              right: 0;
-              height: 100%;
-              width: 30px;
-              background-position: center;
-              background-repeat: no-repeat;
-          }
-      }
-  }
+.selectable{
+    cursor: pointer;
+    &:hover{
+        background: transparentize($blue, 0.9);
+    }
+    &:focus-within{
+        background: transparentize($yellow, 0.8);
+        border-color: $yellow;
+    }
+    td:last-of-type{
+        padding-right: 35px;
+        position: relative;
+        &:after{
+            position: absolute;
+            content: "";
+            display: block;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 30px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
 }
 
 .assessment-checkbox{

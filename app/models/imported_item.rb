@@ -6,24 +6,36 @@ class ImportedItem < ApplicationRecord
   require 'roo'
 
   validates_uniqueness_of :name
-  validates :name, presence: true, allow_blank: false
+  validates :name, presence: true, allow_blank: true
   has_many :contacts
   has_many :rejected_contacts
+  attr_reader :file
+  belongs_to :user, optional: true
 
-  def import(params)
+  def file=(file)
+    @file = file
+    self.name = file.original_filename
+  end
+
+  def import
     contacts_rows = []
-    Roo::Spreadsheet.open(params[:file].path).each_with_index do |row, idx|
+    Roo::Spreadsheet.open(file.path).each_with_index do |row, idx|
       next if idx.zero?
 
       contacts_rows << row
     end
 
-    unique_contacts, not_unique_contacts = unique_and_non_unique_records contacts_rows
+    @unique_contacts, @not_unique_contacts = unique_and_non_unique_records contacts_rows
 
-    process_unique_contacts(unique_contacts)
-    process_non_unique_contacts(not_unique_contacts)
+    ImportedItem.transaction do
+      save!
+      process_unique_contacts(@unique_contacts)
+      process_non_unique_contacts(@not_unique_contacts)
 
-    [unique_contacts, not_unique_contacts]
+      self.imported = @unique_contacts.size
+      self.rejected = @not_unique_contacts.size
+      save!
+    end
   end
 
   private

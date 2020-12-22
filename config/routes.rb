@@ -45,10 +45,11 @@ Rails.application.routes.draw do
   post '/needs/restore_note' => 'needs#restore_note'
   get '/deleted_items' => 'needs#deleted_items', as: 'deleted_items'
 
-  resources :imported_items, only: [:index, :show, :new, :create] do
+  resources :imported_items, only: [:index, :create] do
     resources :contacts, only: [:index]
   end
 
   get '/ready', to: 'application#healthcheck'
   get '/healthz', to: 'application#healthcheck'
+  mount Camden::StyleGuide::Engine => '/style-guide'
 end

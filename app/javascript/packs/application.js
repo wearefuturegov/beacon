@@ -11,6 +11,7 @@ require("jquery");
 require("select2/dist/css/select2");
 require("select2");
 require("../clickable");
+require("../file-field");
 
 global.$ = jQuery;
 
