@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/wearefuturegov/camden-style-guide.git
-  revision: b1dec82028dfb231dcb5db80e3ab0e42848ae588
-  branch: feature/forms
+  revision: 0ac45ca25e2d1e8c2bd9a924ef32ff62526a7592
   specs:
     camden_style_guide (0.3.0)
       rails (~> 6.0.2, >= 6.0.2.2)
