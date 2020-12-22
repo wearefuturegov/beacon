@@ -10,9 +10,7 @@ class ContactsController < ApplicationController
     @params = params.permit(:page, :imported_item_id)
     model = params[:view] == 'Failed' ? RejectedContact : Contact
     @contacts = policy_scope(model)
-    if @imported_item
-      @contacts = @contacts.where(imported_item_id: @params[:imported_item_id])
-    end
+    @contacts = @contacts.where(imported_item_id: @params[:imported_item_id]) if @imported_item
     @contacts = @contacts.page(@params[:page])
     Rails.logger.unknown("User viewed contact list page for contact ID: #{@contacts.map(&:id).join(',')}")
   end
