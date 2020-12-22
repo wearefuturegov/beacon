@@ -4,11 +4,9 @@ And('another contact {string} is not visible to me') do |name|
 end
 
 Then('I can see the permitted contact in the list') do
-  results_table = page.find('.table')
-  expect(results_table).to have_text(@contact.first_name)
+  expect(page).to have_text(@contact.first_name)
 end
 
 And('I can not see the non-visible contact in the list') do
-  results_table = page.find('.table')
-  expect(results_table).not_to have_text(@another_contact.first_name)
+  expect(page).not_to have_text(@another_contact.first_name)
 end
