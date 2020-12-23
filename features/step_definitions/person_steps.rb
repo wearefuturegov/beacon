@@ -220,13 +220,13 @@ end
 When('I search for the resident by part of the {string} {string}') do |_column, query|
   visit 'contacts'
   fill_in('search', with: query)
-  find('search').native.send_keys(:return)
+  find('.search').native.send_keys(:return)
 end
 
 When('I search for the resident by {string}') do |query|
   visit 'contacts'
   fill_in('search', with: query)
-  find('search').native.send_keys(:return)
+  find('.search').native.send_keys(:return)
 end
 
 Then(/^I see the resident in the search results$/) do

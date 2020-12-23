@@ -1,3 +1,4 @@
+@javascript
 Feature: Search user
   As an admin
   I want to be able to search for a user

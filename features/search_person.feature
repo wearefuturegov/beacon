@@ -1,3 +1,4 @@
+@javascript
 Feature: Search person
   As a call centre agent
   I want to be able to search for a person

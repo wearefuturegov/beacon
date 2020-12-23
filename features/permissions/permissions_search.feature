@@ -1,4 +1,4 @@
-@permissions @support_actions
+@permissions @support_actions @javascript
 Feature: Restrict viewing/editing search results to a user based on their role
   As a beacon owner
   I want to restrict what contacts people can search for in beacon

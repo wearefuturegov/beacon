@@ -43,7 +43,7 @@ end
 When('I search for the user by {string}') do |query|
   visit 'users'
   fill_in('search', with: query)
-  click_button('search-submit')
+  find('.search').native.send_keys('return')
 end
 
 Then(/^I see the user in the search results$/) do
