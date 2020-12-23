@@ -1,13 +1,10 @@
-<% if @need.errors.any? || @note&.errors.any? %>
+<% if @need.errors.any? %>
   <div class="error" id="error_explanation">
     <h2><%= pluralize(@need.errors.count + (@note&.errors&.count || 0), "error") %> prohibited from being saved:</h2>
 
     <ul>
       <% @need.errors.full_messages.each do |message| %>
         <li><%= message.downcase %></li>
-      <% end %>
-      <% @note && @note.errors.full_messages.each do |message| %>
-        <li>Note <%= message.downcase %></li>
       <% end %>
     </ul>
   </div>

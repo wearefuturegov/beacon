@@ -7,7 +7,7 @@ When('I (assign)/(have assigned) the support action to me') do
   visit "/needs/#{@need.id}"
   check_email_send
   @user_email = @user_email.present? ? @user_email : @user.email
-  select2 'need_assigned_to', @user_email
+  select @user_email, from: 'need_assigned_to'
   @expected_assignee = @user_email
   page.find('.notice', text: 'Record successfully updated.')
 end
@@ -20,14 +20,14 @@ end
 When('I assign the support action to another user') do
   @another_user = User.create!(email: 'other_user@email.com', invited: Date.today)
   visit "/needs/#{@need.id}"
-  select2 'need_assigned_to', 'other_user@email.com'
+  select 'other_user@email.com', from: 'need_assigned_to'
   @expected_assignee = 'other_user@email.com'
   page.find('.notice', text: 'Record successfully updated.')
 end
 
 When("I change the support action status to 'complete'") do
   visit "/needs/#{@need.id}"
-  select2 'need_status', 'Complete'
+  select 'Complete', from: 'need_status'
   page.find('.notice', text: 'Record successfully updated.')
 end
 
@@ -66,11 +66,11 @@ When("I change someone else's support action status to 'complete'") do
 
   Capybara.using_session('Second_users_session') do
     visit "/needs/#{@need.id}"
-    select2 'need_assigned_to', 'manager@test.com'
+    select 'manager@test.com', from: 'need_assigned_to'
     @expected_assignee = 'manager@test.com'
     page.find('.notice', text: 'Record successfully updated.')
   end
-  select2 'need_status', 'Complete'
+  select 'Complete', from: 'need_status'
 end
 
 Then('I see my support action change was unsuccessful') do

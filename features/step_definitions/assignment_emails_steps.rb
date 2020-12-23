@@ -5,7 +5,7 @@ When('I (assign)/(have assigned) the support action to the role {string}') do |r
   visit "/needs/#{@need.id}"
   check_email_send
   @user_email = @user_email.present? ? @user_email : @user.email
-  select2 'need_assigned_to', role
+  select role, from: 'need_assigned_to'
   @expected_assignee = role
   page.find('.notice', text: 'Record successfully updated.')
 end
@@ -36,7 +36,10 @@ end
 
 def check_email_send
   return unless @send_email == true
-
-  find('#send-email').click
-  expect(find('#send-email').checked?).to eq(true)
+  begin
+    find('label', text: 'Send notification email?').click
+  rescue Capybara::ElementNotFound => e
+    puts e
+    find('#send-email').click
+  end
 end

@@ -16,7 +16,7 @@ Then('I see one call attempt') do
 end
 
 When('I filter needs by category {string}') do |category|
-  select2 'category', category
+  select category, from: 'category'
 end
 
 Then('I see the support action for category {string} in the results') do |category|

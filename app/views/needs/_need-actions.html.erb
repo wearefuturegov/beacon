@@ -1,33 +1,39 @@
-<%= form_with(model: @need, local: true, class: "need-actions-form") do |f| %>
-    <div class="need-actions">
-      <%= f.hidden_field :lock_version, :value => @need.lock_version %>
+<%= form_with(model: @need, local: true, class: "camden-form") do |f| %>
+    <%= f.hidden_field :lock_version, :value => @need.lock_version %>
 
-      <div class="need-actions__field" id="assigned-actions__field">
-      <%= f.label :assigned_to, 'Assigned to', class: 'need-actions__label dropdown-label' %>
-      <%= f.select :assigned_to,
-        options_for_select([['Assigned to me','assigned-to-me'], ['Unassigned', '']], (@need.assigned_to.nil?) ? '' : nil) +
-          grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: nil),
-        {}, { class: "need-actions__select dropdown dropdown-autocomplete" } %>
-      </div>
+    <div class="o-layout">
+        <fieldset class="u-mb o-layout__item u-1-of-3">
+            <%= f.label :assigned_to, 'Assigned to'%>
+            <div class="select-container u-mt-">
+                <%= f.select :assigned_to, options_for_select([['Assigned to me','assigned-to-me'], ['Unassigned', '']], (@need.assigned_to.nil?) ? '' : nil) + grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: nil), { class: 'submit-on-change' } %>
+            </div>
+        </fieldset>
 
-      <div class="need-actions__field" id="priority-actions__field">
-      <%= f.label :is_urgent, 'Priority', class: 'need-actions__label dropdown-label' %>
-      <%= f.select :is_urgent, {
-          "Urgent" => true,
-          "Normal" => false
-      }, {}, { class: @need.is_urgent ? "need-actions__select need-actions__select--red dropdown" : "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity" } %>
-      </div>
+        <fieldset class="u-mb o-layout__item u-1-of-3">
+            <%= f.label :is_urgent, 'Priority'%>
+            <div class="select-container u-mt-">
+                <%= f.select :is_urgent, {
+                    "Urgent" => true,
+                    "Normal" => false
+                }, {}, { class: "submit-on-change", "data-minimum-results-for-search" => "Infinity" } %>
+            </div>
+        </fieldset>
 
-      <div class="need-actions__field" id="status-actions__field">
-      <%= f.label :status, 'Status', class: 'need-actions__label dropdown-label' %>
-      <%= f.select :status, need_statuses, {}, { class: "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity" } %>
-      </div>   
-    </div> 
+        <fieldset class="u-mb o-layout__item u-1-of-3">
+            <%= f.label :status, 'Status'%>
+            <div class="select-container u-mt-">
+                <%= f.select :status, need_statuses, {}, { class: "submit-on-change", "data-minimum-results-for-search" => "Infinity" } %>
+            </div>
+        </fieldset>
+    </div>
 
-    <div class="send-email__field" id="send-email__field">
-      <%= f.check_box :send_email, {class: 'bulk-action-checkbox', checked: false,  id: "send-email"}, 'true', 'false' %>
-      <%= label_tag :send_email, 'Send notification email?', id: "send-email-label"  %>  
-    </div>   
+    <fieldset class="u-mb">
+        <%= f.check_box :send_email, {}, 'true', 'false' %>
+        <%= f.label :send_email, 'Send notification email?'  %>
+    </fieldset>
 
 <% end %>
+
+<!-- FIXME - we ought to consolidate all the javascripts in the packs folder. The intention of a pack is to be a webpack entrypoint, of which we'd probably only need one, which conisists of several javascript files. By having several packs we're losing some of the benefits of webpacks compression and reducing HTTP requests. By having the script tag loading here in the middle of the body, we're slowing the page render time down.
+-->
 <%= javascript_pack_tag 'need-actions', 'data-turbolinks-track': 'reload' %>

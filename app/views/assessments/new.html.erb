@@ -2,87 +2,100 @@
 
 <div class="with-left-sidebar">
 
-<%= render 'shared/side-contact-profile' %>
+    <%= render 'shared/side-contact-profile' %>
 
-  <aside class="with-left-sidebar__right">
-    <header class="panel-header">
-      <h2 class="panel-header__title"><br/></h2>
-    </header>
-    <div class="panel panel--unpadded panel--stroked need--phone-triage">
-      <%= link_to "#{@type.humanize}", contact_path(@contact.id), class: "panel__header-with-arrow" %>
-      <div class="panel__body">
-        <%= render "shared/create-need-errors" %>
+    <aside class="with-left-sidebar__right">
+        <header class="panel-header">
+            <h2 class="panel-header__title">Assessments</h2>
+        </header>
 
-        <%= form_with(model: @need, url: contact_assessments_path, local: true, id: "formAssessment") do |form| %>
-          <input type="hidden" value="<%= @type %>" name="type" hidden="hidden">
-          <div class="need-actions">
-            <div class="need-actions__field" id="teams-actions__field">
-              <%= form.label :user_id, 'Assigned to', class: 'need-actions__label dropdown-label' %>
-              <%= form.select :assigned_to, grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: 'Unassigned'), {}, { class: "need-actions__select dropdown" } %>
+        <section>
+            <header class="bg-black u-p">
+                <h5 class="c-white u-mb0">
+                    <%= link_to contact_path(@contact.id) do -%><i class="bg-white c-icon c-icon--chevron-left u-mr"></i><% end -%>
+                    Schedule an assessment</h5>
+            </header>
+
+            <div class="bg-white u-p">
+                <%= render "shared/create-need-errors" %>
+
+                <%= form_with(model: @need, url: contact_assessments_path, local: true, html: { class: "camden-form" }) do |f| %>
+                    <%= f.hidden_field :lock_version, :value => @need.lock_version %>
+                    <%= hidden_field_tag :type, params[:type] %>
+
+                    <div class="o-layout">
+                        <fieldset class="u-mb o-layout__item u-1-of-3">
+                            <%= f.label :assigned_to, 'Assigned to'%>
+                            <div class="select-container u-mt-">
+                                <%= f.select :assigned_to, options_for_select([['Assigned to me','assigned-to-me'], ['Unassigned', '']], (@need.assigned_to.nil?) ? '' : nil) + grouped_options_for_select(@assigned_to_options, @need.assigned_to, prompt: nil), { class: 'submit-on-change' } %>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="u-mb o-layout__item u-1-of-3">
+                            <%= f.label :is_urgent, 'Priority'%>
+                            <div class="select-container u-mt-">
+                                <%= f.select :is_urgent, {
+                                    "Urgent" => true,
+                                    "Normal" => false
+                                }, {}, { class: "submit-on-change", "data-minimum-results-for-search" => "Infinity" } %>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="u-mb o-layout__item u-1-of-3">
+                            <%= f.label :status, 'Status'%>
+                            <div class="select-container u-mt-">
+                                <%= f.select :status, need_statuses, {}, { class: "submit-on-change", "data-minimum-results-for-search" => "Infinity" } %>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <fieldset class="u-mb">
+                        <h6>Category</h6>
+
+                        <div class="u-mb">
+                            <%= f.radio_button :category, 'triage'%>
+                            <%= f.label :category_triage, "Triage" %>
+                        </div>
+                        <div class="u-mb">
+                            <%= f.radio_button :category, 'check in'%>
+                            <%= f.label :category_check_in, "Check in" %>
+                        </div>
+                        <div class="u-mb">
+                            <%= f.radio_button :category, 'mdt review'%>
+                            <%= f.label :category_mdt_review, "MDT review" %>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="u-mb">
+                        <%= f.label :name, "Description" %>
+                        <div>
+                          <%= f.text_field :name, placeholder: 'Describe how we can help' %>
+                        </div>
+                    </fieldset>
+                    <% if @type == 'log' %>
+                        <%= f.fields_for :notes do |notes_fields| %>
+                            <div class="field">
+                                <%= notes_fields.text_area :body, placeholder: 'Call notes' %>
+                                <%= notes_fields.hidden_field :category %>
+                                <%= notes_fields.hidden_field :user_id %>
+                            </div>
+                        <% end %>
+                    <% elsif @type == 'schedule' %>
+                        <fieldset class="u-mb">
+                            <%= f.label :start_on, "When should the call be scheduled for?" %>
+                            <div>
+                              <%= f.text_field :start_on, autocomplete: 'off', placeholder: 'Date (e.g. 25/04/2020)'  %>
+                            </div>
+                        </fieldset>
+                    <% end %>
+                    <%= f.button class: "c-btn c-btn--primary u-mt" do %>
+                        Save to profile
+                        <i class="c-icon c-icon--chevron-right bg-white"></i>
+                    <% end %>
+                <% end %>
             </div>
-
-            <div class="need-actions__field" id="priority-actions__field">
-              <%= form.label :is_urgent, 'Priority', class: 'need-actions__label dropdown-label' %>
-              <%= form.select :is_urgent, {
-                  "Urgent" => true,
-                  "Normal" => false
-              }, {}, {class: @need.is_urgent ? "need-actions__select need-actions__select--red" : "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity"} %>
-            </div>
-
-            <div class="need-actions__field" id="status-actions__field">
-              <%= form.label :status, 'Status', class: 'need-actions__label' %>
-
-              <% if @type == 'log' %>
-                <%= form.select :status, [%w(Complete complete)], {}, {class: "need-actions__select", readonly: true, "data-minimum-results-for-search" => "Infinity"} %>
-              <% else %>
-                <%= form.select :status, need_statuses, {}, {class: "need-actions__select dropdown", "data-minimum-results-for-search" => "Infinity"} %>
-              <% end %>
-            </div>
-          </div>
-
-          <fieldset class="field-section">
-            <legend class="field-section__title">Category</legend>
-            <div class="radio">
-              <%= form.radio_button :category, 'triage', {:checked => @need[:category] == 'Triage'} %>
-              <%= form.label :category_triage, "Triage", class: "radio__label" %>
-            </div>
-            <div class="radio">
-              <%= form.radio_button :category, 'check in', {:checked => @need[:category] == 'Check in'} %>
-              <%= form.label :category_check_in, "Check in", class: "radio__label" %>
-            </div> 
-            <div class="radio">
-              <%= form.radio_button :category, 'mdt review', {:checked => @need[:category] == 'MDT review'} %>
-              <%= form.label :category_mdt_review, "MDT review", class: "radio__label" %>
-            </div>
-          </fieldset>
-          <br/>
-
-          <div class="field">
-            <%= form.label :name, "Description", class: "field__label" %>
-            <% if @type == 'log' %>
-              <%= form.text_field :name, placeholder: 'Logged assessment' %>
-            <% elsif @type == 'schedule' %>
-              <%= form.text_field :name %>
-            <% end %>
-          </div>
-          <% if @type == 'log' %>
-            <%= fields_for :note, @note do |notes_fields| %>
-              <div class="field">
-                <%= notes_fields.text_area :body, placeholder: 'Call notes' %>
-              </div>              
-            <% end %>
-          <% elsif @type == 'schedule' %>
-            <div class="field">
-              <%= form.label :start_on, "When should the call be scheduled for?", class: "field__label" %>
-              <%= form.text_field :start_on, { autocomplete: 'off' } %>
-            </div>
-          <% end %>
-
-          <%= form.button "Save to profile", class: "button button--primary" %>
-        <% end %>
-        </div>
-      </div>
-  </aside>
+        </section>
+    </aside>
 
 </div>
 
