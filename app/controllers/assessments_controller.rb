@@ -41,7 +41,7 @@ class AssessmentsController < ApplicationController
     @type = %w[log schedule].include?(type_param) ? type_param : 'log'
 
     @need = Need.new
-    @note = Note.new
+    @need.notes.build(category: 'phone_success', user_id: current_user.id)
 
     @need.status = 'complete' if @type == 'log'
     @need.user = current_user if @type == 'log'
@@ -50,6 +50,7 @@ class AssessmentsController < ApplicationController
   def create
     authorize Need
     @type = %w[log schedule].include?(type_param) ? type_param : 'log'
+
     if @type == 'log'
       log_assessment
     else
@@ -68,11 +69,11 @@ class AssessmentsController < ApplicationController
   def update_failure
     Rails.logger.unknown("User updated failed assignment for assessment ID: #{params[:id]}")
     @failure_form = AssessmentFailureForm.new(assessment_failure_params.merge(id: params[:id]))
-    if @failure_form.valid? && @failure_form.save(current_user)
+    if @failure_form.save(current_user)
       redirect_to need_path(@assessment), notice: 'Record successfully updated.'
-      return
+    else
+      render :fail
     end
-    render :fail
   end
 
   def assign
@@ -159,15 +160,13 @@ class AssessmentsController < ApplicationController
 
   def log_assessment
     @need = Need.new(assessment_params.merge(contact_id: @contact.id, start_on: Date.today))
-    notes_permit_params = notes_params.merge(need: @need, category: 'phone_success', user_id: current_user.id)
-    @note = Note.new(notes_permit_params)
-    if @need.valid? && @need.save && (notes_permit_params[:body].empty? || @note.valid? && @need.save && @note.save)
+    if @need.save
       redirect_to contact_path(@contact)
-      return
-    end
+    else
+      @assigned_to_options = construct_assigned_to_options
 
-    @assigned_to_options = construct_assigned_to_options
-    render :new
+      render :new
+    end
   end
 
   def schedule_assessment
@@ -186,7 +185,7 @@ class AssessmentsController < ApplicationController
   end
 
   def assessment_params
-    params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on, :assessment_id, :send_email)
+    params.require(:need).permit(:assigned_to, :name, :is_urgent, :status, :category, :status, :start_on, :assessment_id, :send_email, { :note => [:body, :category, :user_id] })
   end
 
   def assessment_failure_params
@@ -203,10 +202,6 @@ class AssessmentsController < ApplicationController
 
   def assessment_completion_params
     params.require(:assessment_completion_form).permit(:completion_method, :completion_note, :next_check_in_date, :next_check_in_description, :mdt_review_is_urgent, :mdt_review_note)
-  end
-
-  def notes_params
-    params.require(:note).permit(:body)
   end
 
   def contact_params

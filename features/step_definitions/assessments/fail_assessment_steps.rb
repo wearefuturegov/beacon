@@ -20,8 +20,7 @@ When('I submit the failed assessment form') do
 end
 
 Then('the assessment is set to blocked') do
-  status_container = find('#select2-need_status-container')
-  expect(status_container.text).to eq 'Blocked'
+  expect(page).to have_select('Status', selected: 'Blocked')
 end
 
 And('my note is stored against the assessment') do

@@ -19,8 +19,9 @@
             <div class="bg-white u-p">
                 <%= render "shared/create-need-errors" %>
 
-                <%= form_with(model: @need, url: contact_assessments_path, local: true, class: "camden-form") do |f| %>
+                <%= form_with(model: @need, url: contact_assessments_path, local: true, html: { class: "camden-form" }) do |f| %>
                     <%= f.hidden_field :lock_version, :value => @need.lock_version %>
+                    <%= hidden_field_tag :type, params[:type] %>
 
                     <div class="o-layout">
                         <fieldset class="u-mb o-layout__item u-1-of-3">
@@ -72,9 +73,11 @@
                         </div>
                     </fieldset>
                     <% if @type == 'log' %>
-                        <%= f.fields_for :note, @note do |notes_fields| %>
+                        <%= f.fields_for :notes do |notes_fields| %>
                             <div class="field">
                                 <%= notes_fields.text_area :body, placeholder: 'Call notes' %>
+                                <%= notes_fields.hidden_field :category %>
+                                <%= notes_fields.hidden_field :user_id %>
                             </div>
                         <% end %>
                     <% elsif @type == 'schedule' %>

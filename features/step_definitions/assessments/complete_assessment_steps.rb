@@ -94,8 +94,7 @@ When('I choose to see the assessment') do
 end
 
 Then('I can see the assessment has a completed status') do
-  status = page.find('#status-actions__field select').value
-  expect(status).to have_content 'complete'
+  expect(page).to have_select('Status', selected: 'Complete')
 end
 
 Then('I cannot see the option to start the assessment') do

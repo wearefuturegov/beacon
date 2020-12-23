@@ -16,6 +16,7 @@ class Need < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :role, optional: true
   has_many :notes, dependent: :destroy
+  accepts_nested_attributes_for :notes
 
   has_paper_trail
 
