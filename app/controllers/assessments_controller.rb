@@ -173,14 +173,12 @@ class AssessmentsController < ApplicationController
   def schedule_assessment
     @need = Need.new(assessment_params.merge(contact_id: @contact.id))
     @note = Note.new
-    unless @need.valid?
+    unless @need.save
       @assigned_to_options = construct_assigned_to_options
       render :new
-      return
+    else
+      redirect_to contact_path(@contact)
     end
-
-    @need.save
-    redirect_to contact_path(@contact)
   end
 
   def type_param
