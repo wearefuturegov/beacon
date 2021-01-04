@@ -55,4 +55,8 @@ class Contact < ApplicationRecord
   def assigned_to
     role.id.to_s if role
   end
+
+  def under_18?
+    ((Time.zone.now.beginning_of_day - date_of_birth.to_time) / 1.year.seconds).floor < 18
+  end
 end
