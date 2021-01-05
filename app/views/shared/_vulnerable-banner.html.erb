@@ -14,9 +14,3 @@
     This is a shielded person
   </div>
 <% end %>
-<% if @contact.under_18? %>
-  <div class="under-18-banner">
-    <%= image_tag "vulnerable-icon-inverted.svg", alt: "", class: "under-18-banner__icon" %>
-    Under 18!
-  </div>
-<% end %>
