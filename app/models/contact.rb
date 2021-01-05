@@ -57,6 +57,8 @@ class Contact < ApplicationRecord
   end
 
   def under_18?
+    return false if date_of_birth.blank?
+
     ((Time.zone.now.beginning_of_day - date_of_birth.to_time) / 1.year.seconds).floor < 18
   end
 end
