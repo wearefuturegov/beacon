@@ -87,11 +87,53 @@ Capybara.register_driver :selenium do |app|
   )
 end
 
-Capybara.javascript_driver = if ENV['CAPYBARA_JAVASCRIPT_DRIVER']
-                               ENV['CAPYBARA_JAVASCRIPT_DRIVER'].to_sym
-                             else
-                               :selenium
-                             end
+Capybara.register_driver :selenium_chrome_in_container do |app|
+  Capybara::Selenium::Driver.new app, browser: :remote, url: 'http://selenium_chrome:4444/wd/hub', desired_capabilities: :chrome
+end
+
+Capybara.register_driver :headless_selenium_chrome_in_container do |app|
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :remote,
+    url: 'http://selenium_chrome:4444/wd/hub',
+    desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { args: %w[headless disable-gpu] })
+  )
+end
+
+Capybara.register_driver :selenium_firefox_in_container do |app|
+  Capybara::Selenium::Driver.new(app,
+                                 browser: :remote,
+                                 url: 'http://selenium_firefox:4444/wd/hub',
+                                 desired_capabilities: :firefox)
+end
+
+Capybara.register_driver :headless_selenium_firefox_in_container do |app|
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :remote,
+    url: 'http://selenium_firefox:4444/wd/hub',
+    desired_capabilities: Selenium::WebDriver::Remote::Capabilities.firefox(
+      opts: { args: ['-headless'] }
+    )
+  )
+end
+
+if ENV['CAPYBARA_JAVASCRIPT_DRIVER']
+  Capybara.javascript_driver = ENV['CAPYBARA_JAVASCRIPT_DRIVER'].to_sym
+else
+  Capybara.javascript_driver = :selenium
+  # Capybara.javascript_driver = :headless_selenium_chrome_in_container
+  # Capybara.javascript_driver = :headless_selenium_firefox_in_container
+  # Capybara.javascript_driver = :selenium_firefox_in_container
+
+  Capybara.server_host = '0.0.0.0'
+
+  Capybara.server_port = 4000
+
+  Capybara.app_host = 'http://app:4000'
+
+  Capybara.always_include_port = true
+end
 
 if ENV['BROWSER']
   DatabaseCleaner.strategy = :truncation

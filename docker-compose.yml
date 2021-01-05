@@ -18,9 +18,24 @@ services:
       - .:/app
     ports:
       - "3000:3000"
+      - "4000:4000"
       - "35729:35729"
     environment:
       - HOSTNAME=localhost:3000
       - DOCKERIZED=true
     depends_on:
       - postgresql
+
+  selenium_chrome:
+    image: selenium/standalone-chrome-debug
+    logging:
+      driver: none
+    ports:
+      - 5900:5900
+
+  selenium_firefox:
+    image: selenium/standalone-firefox-debug
+    logging:
+      driver: none
+    ports:
+      - 5900:5900
