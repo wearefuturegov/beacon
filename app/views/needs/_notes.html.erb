@@ -26,7 +26,7 @@
           <header class="note__header">
             <strong><%= note.category %></strong>
             <time datetime="<%= note.created_at %>" title="<%= note.created_at %>">
-              <%= time_ago_in_words(note.created_at).humanize %> ago 
+              <%= note.created_at.strftime('%d %b %Y') %>
             </time>
             <% if note.user %>
               by <%= note.user.name_or_email %>
