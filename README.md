@@ -62,7 +62,7 @@ bundle install
 yarn install
 
 # launch postgres server via docker
-docker-compose up -d
+docker-compose up -d postgresql
 
 # run create databases, run migrations and seeds
 rails db:setup
