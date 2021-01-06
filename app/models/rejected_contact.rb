@@ -12,4 +12,8 @@ class RejectedContact < ApplicationRecord
   has_paper_trail
 
   validates_date :date_of_birth, allow_nil: true, allow_blank: true
+
+  def name
+    [first_name, surname].join(' ')
+  end
 end

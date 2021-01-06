@@ -230,10 +230,7 @@ When('I search for the resident by {string}') do |query|
 end
 
 Then(/^I see the resident in the search results$/) do
-  expect(page.find_link('Forename Middlename Surname')).not_to be_nil
-  results_table = page.find('.table')
-  expect(results_table).to have_text('Forename Middlename Surname')
-  expect(results_table).to have_text('AB12 9YZ')
+  expect(page).to have_text('AB12 9YZ')
 end
 
 Then('I see an option to add a person') do

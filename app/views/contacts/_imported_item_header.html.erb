@@ -1,0 +1,15 @@
+<div class="l-space-between">
+    <h2 class="u-mb++">
+        <%= link_to imported_items_path do -%><i class="bg-black c-icon c-icon--chevron-left u-mr"></i><%  end-%>My Imported File
+    </h2>
+
+    <div>
+        <i class="bg-black c-icon c-icon--file c-icon--large u-mr--"></i><%= @imported_item.name %>
+    </div>
+</div>
+
+<%= form_tag imported_item_contacts_path(@imported_item), class: 'camden-form u-mb', method: :get do %>
+    <div class="select-container u-1-of-5">
+        <%= select_tag 'view', options_for_select(%w(Imported Failed), params[:view]), id: 'import-view', onchange: '$("form").submit()' %>
+    </div>
+<% end %>
