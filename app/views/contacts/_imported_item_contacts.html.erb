@@ -1,0 +1,120 @@
+<div class="o-layout o-layout--flush">
+  <div class="o-layout__item u-1-of-10">
+    <div class="u-pb-">
+        First Name
+    </div>
+  </div>
+  <div class="o-layout__item u-1-of-10">
+      <div class="u-pb-">
+          Last Name
+      </div>
+  </div>
+  <div class="o-layout__item u-1-of-10">
+      <div class="u-pb-">
+          DOB
+      </div>
+  </div>
+  <div class="o-layout__item u-1-of-10">
+      <div class="u-pb-">
+         Email
+      </div>
+  </div>
+  <div class="o-layout__item u-1-of-10">
+      <div class="u-pb-">
+         Phone
+      </div>
+  </div>
+  <div class="o-layout__item u-1-of-10">
+      <div class="u-pb-">
+         Address
+      </div>
+  </div>
+  <div class="o-layout__item u-1-of-10">
+      <div class="u-pb-">
+         Postcode
+      </div>
+  </div>
+  <div class="o-layout__item u-1-of-10">
+      <div class="u-pb-">
+          NHS Number
+      </div>
+  </div>
+  <div class="o-layout__item u-1-of-10">
+      <div class="u-pb-">
+          Test & Trace ID
+      </div>
+  </div>
+  <div class="o-layout__item u-1-of-10">
+      <div class="u-pb-">
+          Import Category
+      </div>
+  </div>
+</div>
+
+<% @contacts.each do |contact| %>
+    <% if contact.is_a?(Contact) %>
+      <div class="o-layout o-layout--flush selectable" data-target="<%= contact_path(contact) %>">
+      <% else %>
+      <div class="o-layout o-layout--flush">
+    <% end %>
+        <div class="o-layout__item u-1-of-10">
+            <div class="b-sm__t b-gray u-pb u-pt">
+                <% if params[:view] == 'Failed' %>
+                    <div class="bg-red b-circle c-icon c-icon--medium u-mr">
+                        <i class="bg-white c-icon c-icon--tiny c-icon--cross"></i>
+                    </div>
+                <% else %>
+                    <i class="c-icon c-icon--import bg-green u-mr-"></i>
+                <% end %>
+                <%= contact.first_name %>
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-10">
+            <div class="b-sm__t b-gray u-pb u-pt">
+                <%= contact.surname %>
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-10">
+            <div class="b-sm__t b-gray u-pb u-pt">
+                <%= contact.date_of_birth %>
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-10">
+            <div class="b-sm__t b-gray u-pb u-pt">
+                <%= contact.email %>
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-10">
+            <div class="b-sm__t b-gray u-pb u-pt">
+                <%= contact.telephone %>
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-10">
+            <div class="b-sm__t b-gray u-pb u-pt">
+                <%= contact.address %>
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-10">
+            <div class="b-sm__t b-gray u-pb u-pt">
+                <%= contact.postcode %>
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-10">
+            <div class="b-sm__t b-gray u-pb u-pt">
+                <%= contact.nhs_number %>
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-10">
+            <div class="b-sm__t b-gray u-pb u-pt">
+                <%= contact.test_and_trace_account_id %>
+            </div>
+        </div>
+        <div class="o-layout__item u-1-of-10">
+            <div class="b-sm__t b-gray u-pb u-pt">
+                <% if contact.respond_to?(:lead_service_id) %>
+                  <%= name_for_lead_service contact.lead_service_id %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+<% end %>
