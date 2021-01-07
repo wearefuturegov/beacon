@@ -7,6 +7,12 @@
 
     <div class="content-pane">
 
+      <% if Rails.env.staging? %>
+        <div class="environment-banner">
+          You're logged into Beacon <%= Rails.env.capitalize %>
+        </div>
+      <% end %>
+
       <header class="panel content-header" id="panel-content-header">
         <%= yield :header %>
         <nav class="content-header__actions-right">
