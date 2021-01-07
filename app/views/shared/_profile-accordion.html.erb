@@ -10,6 +10,11 @@
           <%= @contact.name %>
         </dd>
 
+        <dt class="details-list__caption">Business name</dt>
+        <dd class="details-list__value" id="contact_business_name">
+          <%= @contact.business_name %>
+        </dd>
+
         <dt class="details-list__caption">Date of Birth</dt>
         <dd class="details-list__value" id="contact_dob">
           <%= @contact.date_of_birth&.strftime("%-d %B %Y") %>

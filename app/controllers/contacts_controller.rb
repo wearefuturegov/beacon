@@ -150,7 +150,8 @@ class ContactsController < ApplicationController
       :surname,
       :telephone,
       :test_and_trace_account_id,
-      :test_trace_creation_date
+      :test_trace_creation_date,
+      :business_name
     )
   end
 

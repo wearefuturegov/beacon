@@ -21,6 +21,11 @@
     </div>
 
     <div class="field">
+      <%= form.label :business_name, 'Business name (Optional)', class: "field__label" %>
+      <%= form.text_field :business_name %>
+    </div>
+
+    <div class="field">
       <%= form.label :date_of_birth, class: "field__label" %>
       <%= form.text_field :date_of_birth, :value => "#{@contact.date_of_birth&.strftime('%-d/%-m/%Y')}" %>
     </div>

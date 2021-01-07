@@ -19,6 +19,14 @@ Feature: Update person
     Then I see a resident updated message
     And the residents names have been updated
 
+  Scenario: Update business name
+    Given a resident
+    When I edit the residents business name
+    And I save the edit resident form
+    Then I see a resident updated message
+    And the residents business name has been updated
+
+
   Scenario: Person does not answer the phone on attempt 1/2/3
   The feature here is a requirement to capture notes against the person
   or complete the additional information field
