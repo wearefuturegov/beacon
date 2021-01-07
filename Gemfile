@@ -6,7 +6,7 @@ ruby '2.5.8'
 gem 'passwordless', '~> 0.9'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'jbuilder', '~> 2.7'
-gem 'kaminari'
+gem 'kaminari', '>= 1.2.1'
 gem 'paper_trail'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
