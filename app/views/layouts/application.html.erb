@@ -8,15 +8,15 @@
     <div class="content-pane">
       <% if environment_from_hostname == 'staging' %>
         <div class="environment-banner">
-          You're logged into the Beacon <%= environment_from_hostname %> envrionment. There is some personally identifiable information here.
+          You're logged into the Beacon <%= environment_from_hostname %> envrionment. There is some Personally identifiable information (PII) here.
         </div>
       <% elsif environment_from_hostname == "test" %>
         <div class="environment-banner">
-          You're logged into the Beacon <%= environment_from_hostname %> environment. There should be no personally identifiable information here.
+          You're logged into the Beacon <%= environment_from_hostname %> environment. There should be no personally identifiable information (PII) here.
         </div>
       <% elsif environment_from_hostname == "development" %>
         <div class="environment-banner">
-          You're logged into the Beacon <%= environment_from_hostname %> environment. There should be no personally identifiable information here.
+          You're logged into the Beacon <%= environment_from_hostname %> environment. There should be no personally identifiable information (PII) here.
         </div>
       <% end %>
 
