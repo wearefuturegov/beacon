@@ -6,10 +6,17 @@
     <%= render "shared/side-nav" %>
 
     <div class="content-pane">
-
-      <% if Rails.env.staging? %>
+      <% if environment_from_hostname == 'staging' %>
         <div class="environment-banner">
-          You're logged into Beacon <%= Rails.env.capitalize %>
+          You're logged into the Beacon <%= environment_from_hostname %> envrionment. There is some Personally identifiable information (PII) here.
+        </div>
+      <% elsif environment_from_hostname == "test" %>
+        <div class="environment-banner">
+          You're logged into the Beacon <%= environment_from_hostname %> environment. There should be no personally identifiable information (PII) here.
+        </div>
+      <% elsif environment_from_hostname == "development" %>
+        <div class="environment-banner">
+          You're logged into the Beacon <%= environment_from_hostname %> environment. There should be no personally identifiable information (PII) here.
         </div>
       <% end %>
 
@@ -28,7 +35,7 @@
           <%= javascript_pack_tag 'role-switcher' %>
         </nav>
       </header>
-      
+
       <!-- Concurrent Users modal -->
       <div id="concurrent-users-modal">
         <div id="concurrent-users"></div>

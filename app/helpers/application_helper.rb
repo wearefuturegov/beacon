@@ -58,4 +58,11 @@ module ApplicationHelper
   def sort_direction(_field)
     (SORT_DIRECTIONS - [params[:order_dir]]).first
   end
+
+  def environment_from_hostname
+    return 'staging' if ENV['HOSTNAME']&.include?('staging')
+    return 'test' if ENV['HOSTNAME']&.include?('test') # This refers to another staging environment, not an automanted test environment
+    return 'development' if ENV['HOSTNAME']&.include?('localhost')
+    return 'production' if ENV['HOSTNAME']&.include?('production')
+  end
 end
