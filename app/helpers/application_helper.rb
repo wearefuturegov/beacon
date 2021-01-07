@@ -60,14 +60,9 @@ module ApplicationHelper
   end
 
   def environment_from_hostname
-    if ENV['HOSTNAME'].include?('staging')
-      return 'staging'
-    elsif ENV['HOSTNAME'].include?('test')
-      return 'test'
-    elsif ENV['HOSTNAME'].include?('localhost')
-      return 'development'
-    elsif ENV['HOSTNAME'].include?('production')
-      return 'production'
-    end
+    return 'staging' if ENV['HOSTNAME'].include?('staging')
+    return 'test' if ENV['HOSTNAME'].include?('test')
+    return 'development' if ENV['HOSTNAME'].include?('localhost')
+    return 'production' if ENV['HOSTNAME'].include?('production')
   end
 end
