@@ -1,3 +1,5 @@
+@import "variables";
+
 .assessment-operations {
   flex: 1;
   margin-bottom: 15px;
@@ -19,4 +21,8 @@
 @media all and (-ms-high-contrast:none)
 {
 *::-ms-backdrop, .lead-service-dropdown-container { margin-left: 95px !important; } /* IE11 */
+}
+
+.under-18 {
+  color: $red;
 }

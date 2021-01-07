@@ -44,4 +44,24 @@ RSpec.describe Contact, type: :model do
       expect(valid_contact.surname).to eq 'Smith-Williams'
     end
   end
+
+  describe '#under_18?' do
+    before do
+      freeze_time
+    end
+
+    after do
+      unfreeze_time
+    end
+
+    it 'true when dob 18/12/2010' do
+      under_18_contact = build :contact, date_of_birth: Date.new(2010, 12, 18)
+      expect(under_18_contact.under_18?).to be_truthy
+    end
+
+    it 'false when dob 15/01/1989' do
+      over_18_contact = build :contact, date_of_birth: Date.new(1989, 0o1, 15)
+      expect(over_18_contact.under_18?).to be_falsy
+    end
+  end
 end
