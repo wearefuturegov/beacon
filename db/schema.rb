@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_184644) do
+ActiveRecord::Schema.define(version: 2021_01_06_132742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_184644) do
     t.string "test_and_trace_account_id"
     t.date "test_trace_creation_date"
     t.date "isolation_start_date"
+    t.string "business_name"
   end
 
   create_table "imported_items", force: :cascade do |t|

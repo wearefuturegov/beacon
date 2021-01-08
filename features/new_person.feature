@@ -9,7 +9,21 @@ Feature: Add a new person
     When I add the new person details
     And I save the person form
     Then I see a resident created message
-    Examples: 
+    Examples:
+      | role                              |
+      | manager                           |
+      | agent                             |
+      | mdt                               |
+      | council_service_adult_social_care |
+      | council_service_housing           |
+
+  Scenario Outline: Add new business
+    Given I am logged into the system as a "<role>" user
+    And I chosen to add a new person
+    When I add the new person and their business details
+    And I save the person form
+    Then I see a resident created message
+    Examples:
       | role                              |
       | manager                           |
       | agent                             |

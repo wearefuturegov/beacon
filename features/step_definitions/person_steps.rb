@@ -53,6 +53,12 @@ When(/^I edit the residents name$/) do
   fill_in('contact_surname', with: 'TestSurname')
 end
 
+When(/^I edit the residents business name$/) do
+  visit "contacts/#{@contact.id}"
+  click_and_wait('#edit-contact-link', '#contact_first_name')
+  fill_in('contact_business_name', with: 'The Real DJ Experience')
+end
+
 When("I change someone a resident's name concurrently") do
   visit "contacts/#{@contact.id}"
   click_and_wait('#edit-contact-link', '#contact_first_name')
@@ -191,6 +197,10 @@ end
 
 Then(/^the residents names have been updated$/) do
   expect(page.find_by_id('contact_name')).to have_text('TestFirstName TestMiddle Names TestSurname')
+end
+
+Then(/^the residents business name has been updated$/) do
+  expect(page.find_by_id('contact_business_name')).to have_text('The Real DJ Experience')
 end
 
 Then(/^the residents address has been updated$/) do
