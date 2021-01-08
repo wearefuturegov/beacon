@@ -86,17 +86,17 @@
                 </div>
                 <div class="o-layout__item u-1-of-12">
                     <div class="b-sm__t b-gray u-pb u-pt">
-                        <%= imported_item.imported %>
+                        <%= imported_item.imported.nil? ? 'N/A' : imported_item.imported %>
                     </div>
                 </div>
                 <div class="o-layout__item u-1-of-12">
                     <div class="b-sm__t b-gray u-pb u-pt">
-                        <%= imported_item.rejected %>
+                        <%= imported_item.rejected.nil? ? 'N/A' : imported_item.rejected %>
                     </div>
                 </div>
                 <div class="o-layout__item u-4-of-12">
                     <div class="b-sm__t b-gray u-pb u-pt l-space-between">
-                        <%= imported_item.user.try(:name) || '&nbsp'.html_safe %>
+                        <%= imported_item.user.try(:name).blank? ? 'N/A' : imported_item.user.name  %>
                         <i class="c-icon c-icon--chevron-right bg-black u-mr"></i>
                     </div>
                 </div>

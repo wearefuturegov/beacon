@@ -6,6 +6,7 @@ class ImportedItemsController < ApplicationController
     @created_item = ImportedItem.where(id: params[:created_id]).first
     @params = params.permit(:page, :order, :order_dir)
     @imported_items = policy_scope(ImportedItem)
+    @imported_items.sort_by(&:created_at)
     @imported_items = @imported_items.filter_and_sort({}, @params.slice(:order, :order_dir))
     @imported_items = @imported_items.page(@params[:page])
     Rails.logger.unknown("User viewed imported contacts table: #{@imported_items.map(&:id)}")
