@@ -26,7 +26,7 @@ class ImportedItemsController < ApplicationController
       rescue StandardError => e
         logger.error e.message
         logger.error e.backtrace
-        redirect_to imported_items_path(order: params[:order], order_dir: params[:order_dir], created_id: @imported_item.id), notice: 'There was a problem uploading this file'
+        redirect_to imported_items_path(order: 'created_at', order_dir: 'DESC', created_id: @imported_item.id), notice: 'There was a problem uploading this file'
       end
     else
       load_imported_items
