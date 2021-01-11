@@ -1,6 +1,6 @@
 <% content_for :header do %>
   <% unless @params[:imported_item_id].present? %>
-    <%= render partial: "shared/mini-search", locals: { url: contacts_path, text_field_placeholder: "Search people" } %>
+    <%= render partial: "shared/mini-search", locals: { url: search_contacts_path, text_field_placeholder: "Search people" } %>
   <% end %>
 <% end %>
 

@@ -7,20 +7,20 @@ class ContactsController < ApplicationController
   helper_method :name_for_lead_service
 
   def index
-    @params = params.permit(:search, :page, :imported_item_id)
-    if params[:imported_item_id] # Viewing contacts for an import
-      model = params[:view] == 'Failed' ? RejectedContact : Contact
-      @contacts = policy_scope(model)
-      @contacts = @contacts.where(imported_item_id: @params[:imported_item_id]) if @imported_item
-      Rails.logger.unknown("User viewed contact list page for imported item id: #{params[:imported_item_id]} for contact ID: #{@contacts.map(&:id).join(',')}")
-    else # Viewing contacts on 'People' screen
-      @contacts = policy_scope(Contact)
-      @params = params.permit(:search, :page, :imported_item_id)
-      @contacts = @contacts.where(imported_item_id: @params[:imported_item_id]) if @params[:imported_item_id].present?
-      @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id)) if @params[:search].present?
-      Rails.logger.unknown("User viewed contact list page for contact ID: #{@contacts.map(&:id).join(',')}")
-    end
+    @params = params.permit(:page, :imported_item_id)
+    model = params[:view] == 'Failed' ? RejectedContact : Contact
+    @contacts = policy_scope(model)
+    @contacts = @contacts.where(imported_item_id: @params[:imported_item_id]) if @imported_item
     @contacts = @contacts.page(@params[:page])
+    Rails.logger.unknown("User viewed contact list page for contact ID: #{@contacts.map(&:id).join(',')}")
+  end
+
+  def search
+    @params = params.permit(:search, :page, :imported_item_id)
+    @contacts = policy_scope(Contact)
+    @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id)) if params[:search]
+    @contacts = @contacts.page(@params[:page])
+    render :index
   end
 
   def new
