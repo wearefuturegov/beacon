@@ -1,5 +1,5 @@
 <%= form_with url: url, local: true, method: "get" do |f| %>
-    Search by Person's First Name / Last Name / Date of Birth / NHS Number / Postcode / Track & Trace ID
+    <p>Search by Person's First Name / Last Name / Date of Birth / NHS Number / Postcode / Track & Trace ID</p>
     <div class="mini-search">
         <%= f.label :search, "Search query", class: "visually-hidden" %>
         <%= f.text_field :search,
