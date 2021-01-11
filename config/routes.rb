@@ -10,9 +10,6 @@ Rails.application.routes.draw do
     get 'assessments/:id/start', to: 'assessments#start', as: 'start_assessment'
     get 'triage', to: 'triage#edit', as: 'edit_triage'
     put 'triage', to: 'triage#update', as: 'triage'
-    collection do
-      get 'search'
-    end
   end
   # get '/contacts/:id/needs', to: 'contacts#needs'
 
