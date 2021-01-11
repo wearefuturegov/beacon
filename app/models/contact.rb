@@ -28,9 +28,7 @@ class Contact < ApplicationRecord
     or postcode ilike ?
     or nhs_number ilike ?
     or TO_CHAR(date_of_birth, 'DD/MM/YYYY') ilike ?
-    or test_and_trace_account_id ilike ?
-    or address ilike ?",
-                         "%#{sanitize_sql_like(text)}%",
+    or test_and_trace_account_id ilike ?",
                          "%#{sanitize_sql_like(text)}%",
                          "%#{sanitize_sql_like(text)}%",
                          "%#{sanitize_sql_like(text)}%",

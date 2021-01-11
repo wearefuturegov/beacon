@@ -42,12 +42,6 @@ Feature: Search person
     When I search for the resident by part of the "NHS number" "NHS-999999"
     Then I see the resident in the search results
     And I see an option to add a person
-    
-  Scenario: search by Address
-    Given a resident with a complete profile
-    When I search for the resident by part of the "Address" "New Bertr"
-    Then I see the resident in the search results
-    And I see an option to add a person
 
   Scenario: The named person searched for does not exist in the system
     Given a resident with a complete profile
