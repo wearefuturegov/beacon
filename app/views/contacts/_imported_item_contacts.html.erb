@@ -39,6 +39,14 @@
       Import Category
     </div>
   </div>
+  <% if params[:view] == 'Failed' %>
+    <div class="o-layout__item u-1-of-10">
+      <div class="u-pb-">
+        Rejection Reason
+      </div>
+    </div>
+  <% end %>
+
 </div>
 
 <% @contacts.each do |contact| %>
@@ -102,6 +110,17 @@
             <%= contact.needs.first.name %>
           <% else %>
             N/A
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="o-layout__item u-1-of-10">
+      <div class="b-sm__t b-gray u-pb u-pt">
+        <% if params[:view] == 'Failed' %>
+          <% if contact.reason.blank? %>
+            N/A
+          <% else %>
+            <%= contact.reason %>
           <% end %>
         <% end %>
       </div>
