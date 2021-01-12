@@ -31,12 +31,14 @@ It's a rails app backed by a postgresql database.
 Follow these steps to build the database and app
 
 ```
-docker-compose build
-docker-compose run app rails db:setup
+docker-compose build app
+docker-compose run app bin/rails db:setup
 docker-compose up
 ```
 
 The site will now be available on https://localhost:3000
+
+More details on how to use and install Beacon with Docker can be found in the [DOCKER-README]('./DOCKER-README.md')
 
 ### Run tests
 
@@ -60,7 +62,7 @@ bundle install
 yarn install
 
 # launch postgres server via docker
-docker-compose up -d
+docker-compose up -d postgresql
 
 # run create databases, run migrations and seeds
 rails db:setup
