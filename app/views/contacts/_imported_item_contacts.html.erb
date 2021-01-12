@@ -91,10 +91,18 @@
     </div>
     <div class="o-layout__item u-1-of-10">
       <div class="b-sm__t b-gray u-pb u-pt">
-        <% if contact&.needs&.first&.name %>
-          <%= contact.needs.first.name %>
+        <% if params[:view] == 'Failed' %>
+          <% if contact.needs.blank? %>
+            N/A
+          <% else %>
+            <%= contact.needs %>
+          <% end %>
         <% else %>
-          N/A
+          <% if contact&.needs&.first&.name %>
+            <%= contact.needs.first.name %>
+          <% else %>
+            N/A
+          <% end %>
         <% end %>
       </div>
     </div>
