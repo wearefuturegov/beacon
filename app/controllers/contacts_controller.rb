@@ -2,7 +2,7 @@
 
 class ContactsController < ApplicationController
   before_action :set_contact, :set_teams_options, only: %i[edit update show needs add_needs]
-  before_action :roles, only: %i[index]
+  before_action :roles, only: %i[index search]
   before_action :load_imported_item, only: :index, if: proc { params[:imported_item_id] }
   helper_method :name_for_lead_service
 
