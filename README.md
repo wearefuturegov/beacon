@@ -33,6 +33,20 @@ Follow these steps to build the database and app
 ```
 docker-compose build app
 docker-compose run app bin/rails db:setup
+```
+At this point you may get a error:
+```
+error Couldn't find an integrity file
+error Found 1 errors.
+Your Yarn packages are out of date!
+Please run `yarn install --check-files` to update.
+```
+If so, then run the following:
+```
+docker-compose run app yarn install --check-files
+```
+Once you have run this, run `docker-compose run app bin/rails db:setup` again. And then:
+```
 docker-compose up
 ```
 
