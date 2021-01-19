@@ -52,7 +52,7 @@ docker-compose up
 
 The site will now be available on https://localhost:3000
 
-More details on how to use and install Beacon with Docker can be found in the [DOCKER-README]('./DOCKER-README.md')
+More details on how to use and install Beacon with Docker can be found in the [DOCKER-README](DOCKER-README.md)
 
 ### Run tests
 
