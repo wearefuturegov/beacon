@@ -28,7 +28,14 @@ test:
   password: password
 
 production:
-  <<: *default
-  database: i_have_i_need_production
-  username: i_have_i_need
-  password: <%= ENV['I_HAVE_I_NEED_DATABASE_PASSWORD'] %>
+  primary:
+    <<: *default
+    database: i_have_i_need_production
+    username: i_have_i_need
+    password: <%= ENV['I_HAVE_I_NEED_DATABASE_PASSWORD'] %>
+  audit_logs_db:
+    <<: *default
+    database: audit_logs_db_production
+    username: i_have_i_need
+    password: <%= ENV['I_HAVE_I_NEED_DATABASE_PASSWORD'] %>
+    migrations_paths: db/audit_logs_db_migrate
