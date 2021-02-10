@@ -6,7 +6,7 @@ class TriageController < ApplicationController
   before_action :set_contact, only: %i[edit update]
 
   def edit
-    Rails.logger.unknown("User viewed triage edit page for contact ID: #{@contact.id}")
+    AuditLog.create(user_id: current_user.id, message: "User viewed triage edit page for contact ID: #{@contact.id}")
     @contact_needs = create_contact_needs
   end
 
@@ -18,7 +18,7 @@ class TriageController < ApplicationController
 
     render(:edit) && return if @contact.errors.any? || @contact_needs.errors.any? || !@contact.save
 
-    Rails.logger.unknown("User updated triage needs for contact ID: #{@contact.id}")
+    AuditLog.create(user_id: current_user.id, message: "User updated triage needs for contact ID: #{@contact.id}")
     ContactChannel.broadcast_to(@contact, { userEmail: current_user.email, type: 'CHANGED' })
     NeedsCreator.create_needs(@contact, contact_needs_params['needs_list'], contact_needs_params['other_need'])
     session[:triage] = nil

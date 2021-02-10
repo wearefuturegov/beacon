@@ -9,12 +9,12 @@ class UsersController < ApplicationController
     @params = params.permit(:search, :page)
     @users = @params[:search].present? ? User.search(@params[:search]).with_deleted : User.all.with_deleted
     @users = @users.name_order.page(@params[:page])
-    Rails.logger.unknown("User viewed users table: #{@users.map(&:id)}")
+    AuditLog.create(user_id: current_user.id, message: "User viewed users table: #{@users.map(&:id)}")
   end
 
   # GET /users/new
   def new
-    Rails.logger.unknown('User requested to create a new user')
+    AuditLog.create(user_id: current_user.id, message: 'User requested to create a new user')
     authorize User
     @user = User.new
     @roles = Role.all
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     @user.invited = DateTime.now
     if @user.save
       UserSignInMailer.send_invite_email(@user, root_url).deliver
-      Rails.logger.unknown("User invited new user ID: #{@user.id}")
+      AuditLog.create(user_id: current_user.id, message: "User invited new user ID: #{@user.id}")
       redirect_to :users, notice: 'User was successfully created.'
     else
       @roles = Role.all
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
   def edit
     authorize @user
-    Rails.logger.unknown("User requested to edit user ID: #{@user.id}")
+    AuditLog.create(user_id: current_user.id, message: "User requested to edit user ID: #{@user.id}")
     @roles = Role.all
   end
 
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     @user.assign_attributes(user_params.except(:roles))
 
     if @user.save
-      Rails.logger.unknown("User updated another user ID: #{@user.id}")
+      AuditLog.create(user_id: current_user.id, message: "User updated another user ID: #{@user.id}")
       redirect_to :users, notice: 'User was successfully updated.'
     else
       @roles = Role.all
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     authorize user
     user.roles = []
     user.destroy
-    Rails.logger.unknown("User deleted another user ID: #{user.id}")
+    AuditLog.create(user_id: current_user.id, message: "User deleted another user ID: #{user.id}")
     redirect_to users_url, notice: 'User was successfully deleted.'
   end
 
