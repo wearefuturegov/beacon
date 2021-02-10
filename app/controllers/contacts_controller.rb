@@ -7,6 +7,7 @@ class ContactsController < ApplicationController
   helper_method :name_for_lead_service
 
   def index
+    Rails.logger.unknown("VCAP_SERVICES: #{JSON.parse(ENV['VCAP_SERVICES'])}")
     @params = params.permit(:page, :imported_item_id)
     model = params[:view] == 'Failed' ? RejectedContact : Contact
     @contacts = policy_scope(model)
