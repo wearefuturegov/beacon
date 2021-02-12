@@ -35,7 +35,5 @@ production:
     password: <%= ENV['I_HAVE_I_NEED_DATABASE_PASSWORD'] %>
   audit_logs_db:
     <<: *default
-    url: <%= JSON.parse(ENV['VCAP_SERVICES'])["postgres"][1]["credentials"]["uri"] %>
-    # username: i_have_i_need
-    # password: <%= ENV['I_HAVE_I_NEED_DATABASE_PASSWORD'] %>
+    url: <%= ENV['AUDIT_LOGS_DATABASE_URL'] %>
     migrations_paths: db/audit_logs_db_migrate
