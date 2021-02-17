@@ -6,7 +6,7 @@ class AssessmentsController < ApplicationController
 
   # Do Assessment
   def edit
-    AuditLog.create(user_id: current_user.id, message: "User requested to start assessment on contact ID: #{@contact.id}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User requested to start assessment on contact ID: #{@contact.id}")
     redirect_to contact_path(@contact) unless @need.category.downcase.in? Need::ASSESSMENT_CATEGORIES
     @contact_needs = contact_needs(@need.id)
   end
@@ -29,14 +29,14 @@ class AssessmentsController < ApplicationController
       redirect_to assign_assessment_path(@assessment.id), notice: 'Updated assessment'
     end
 
-    AuditLog.create(user_id: current_user.id, message: "User updated assessment ID #{@assessment.id} on contact ID: #{@contact.id}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User updated assessment ID #{@assessment.id} on contact ID: #{@contact.id}")
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = STALE_ERROR_MESSAGE
     render :edit
   end
 
   def new
-    AuditLog.create(user_id: current_user.id, message: 'User requested page: new assessment')
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: 'User requested page: new assessment')
     @assigned_to_options = construct_assigned_to_options
     @type = %w[log schedule].include?(type_param) ? type_param : 'log'
 
@@ -55,18 +55,18 @@ class AssessmentsController < ApplicationController
     else
       schedule_assessment
     end
-    AuditLog.create(user_id: current_user.id, message: "User created a new assessment on contact ID: #{@contact.id}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User created a new assessment on contact ID: #{@contact.id}")
   end
 
   def start; end
 
   def fail
-    AuditLog.create(user_id: current_user.id, message: "User requested fail assignment page for assessment ID: #{params[:id]}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User requested fail assignment page for assessment ID: #{params[:id]}")
     @failure_form = AssessmentFailureForm.new
   end
 
   def update_failure
-    AuditLog.create(user_id: current_user.id, message: "User updated failed assignment for assessment ID: #{params[:id]}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User updated failed assignment for assessment ID: #{params[:id]}")
     @failure_form = AssessmentFailureForm.new(assessment_failure_params.merge(id: params[:id]))
     if @failure_form.valid? && @failure_form.save(current_user)
       redirect_to need_path(@assessment), notice: 'Record successfully updated.'
@@ -76,13 +76,13 @@ class AssessmentsController < ApplicationController
   end
 
   def assign
-    AuditLog.create(user_id: current_user.id, message: "User requested update assignment page for assessment ID: #{params[:id]}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User requested update assignment page for assessment ID: #{params[:id]}")
     @assigned_to_options = construct_assigned_to_options(true)
     @assignment_form = AssessmentAssignmentForm.from_id(params[:id])
   end
 
   def update_assignment
-    AuditLog.create(user_id: current_user.id, message: "User updated assignments for assessment ID: #{params[:id]}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User updated assignments for assessment ID: #{params[:id]}")
     @assignment_form = AssessmentAssignmentForm.new(assessment_assignment_params.merge(id: params[:id]))
     @assignment_form.save
 
@@ -91,7 +91,7 @@ class AssessmentsController < ApplicationController
 
   # Complete
   def complete
-    AuditLog.create(user_id: current_user.id, message: "User request page complete assessment on contact ID: #{@contact.id}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User request page complete assessment on contact ID: #{@contact.id}")
     @completion_form = AssessmentCompletionForm.new(id: params[:id])
     @completion_form.existing_check_in = Need.where(contact_id: @contact.id, category: 'Check in', status: Need.statuses[:to_do]).where.not(id: @assessment.id).first
     @completion_form.existing_mdt_review = Need.where(contact_id: @contact.id, category: 'mdt review', status: Need.statuses[:to_do]).first
@@ -102,7 +102,7 @@ class AssessmentsController < ApplicationController
     @completion_form = AssessmentCompletionForm.new(assessment_completion_params.merge(id: params[:id]))
     @completion_form.existing_check_in = Need.where(contact_id: @contact.id, category: 'Check in', status: Need.statuses[:to_do]).where.not(id: @assessment.id).first
     @completion_form.existing_mdt_review = Need.where(contact_id: @contact.id, category: 'mdt review', status: Need.statuses[:to_do]).first
-    AuditLog.create(user_id: current_user.id, message: "User completed assessment on contact ID: #{@contact.id}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User completed assessment on contact ID: #{@contact.id}")
     if @completion_form.valid? && @completion_form.save(current_user)
       redirect_to contact_path(@contact.id), notice: 'Assessment completed.'
     else

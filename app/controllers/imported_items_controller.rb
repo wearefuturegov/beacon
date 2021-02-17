@@ -9,7 +9,7 @@ class ImportedItemsController < ApplicationController
     @imported_items.sort_by(&:created_at)
     @imported_items = @imported_items.filter_and_sort({}, @params.slice(:order, :order_dir))
     @imported_items = @imported_items.page(@params[:page])
-    AuditLog.create(user_id: current_user.id, message: "User viewed imported contacts table: #{@imported_items.map(&:id)}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User viewed imported contacts table: #{@imported_items.map(&:id)}")
   end
 
   def create
@@ -21,7 +21,7 @@ class ImportedItemsController < ApplicationController
     if @imported_item.valid?
       begin
         @imported_item.import
-        AuditLog.create(user_id: current_user.id, message: "User imported new contacts: Import Record ID #{@imported_item.id}, Successful(#{@imported_item.imported}) / Rejected (#{@imported_item.rejected})")
+        AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User imported new contacts: Import Record ID #{@imported_item.id}, Successful(#{@imported_item.imported}) / Rejected (#{@imported_item.rejected})")
         redirect_to imported_items_path(order: 'created_at', order_dir: 'DESC', created_id: @imported_item.id), notice: 'Successfully imported file'
       rescue StandardError => e
         logger.error e.message
