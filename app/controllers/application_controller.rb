@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   include Passwordless::ControllerHelpers
   # http_basic_authenticate_with name: 'camden', password: 'camden'
-  helper_method :current_user, :current_user_role, :copyright, :council_name, :council_key, :privacy_link, :logo_path, :support_email
+  helper_method :current_user, :current_user_role, :copyright, :council_name, :council_key, :privacy_link, :logo_path, :support_email, :audit_request_data
 
   before_action :set_paper_trail_whodunnit
 
@@ -46,6 +46,27 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= authenticate_by_session(User)
+  end
+
+  def audit_request_data
+    {
+      remote_ip: request.remote_ip,
+      referrer: request.referrer,
+      user_agent: request.env['HTTP_USER_AGENT'],
+      host: request.host,
+      url: request.url,
+      query_string: request.query_string,
+      port: request.port,
+      method: request.method,
+      path_parameters: request.path_parameters,
+      query_parameters: request.query_parameters,
+      request_parameters: request.request_parameters,
+      forwarded_authority: request.forwarded_authority,
+      forwarded_for: request.forwarded_for,
+      forwarded_port: request.forwarded_port,
+      server_name: request.server_name,
+      server_port: request.server_port
+    }
   end
 
   private
