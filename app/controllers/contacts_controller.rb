@@ -20,6 +20,7 @@ class ContactsController < ApplicationController
     @contacts = policy_scope(Contact)
     @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id)) if params[:search]
     @contacts = @contacts.page(@params[:page])
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User searched for: '#{params[:search]}' and the following contacts were displayed: #{@contacts.map(&:id).join(',')} on page #{params[:page]}")
     render :index
   end
 
