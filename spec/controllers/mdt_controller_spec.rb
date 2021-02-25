@@ -3,9 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe MdtController, type: :controller do
+  let(:user){ FactoryBot.create(:user) }
+
   before :each do
     controller.class.skip_before_action :require_user!, raise: false
-    controller.instance_variable_set(:@current_user, {})
+    controller.instance_variable_set(:@current_user, user)
   end
 
   let(:activerecord_relation) do

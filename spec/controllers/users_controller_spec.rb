@@ -3,9 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
+  let(:user){ FactoryBot.create(:user) }
+
   before :each do
     controller.class.skip_before_action :require_user!, raise: false
-    controller.instance_variable_set(:@current_user, {})
+    controller.instance_variable_set(:@current_user, user)
     allow_any_instance_of(controller.class).to receive(:authorize).and_return(nil)
   end
 
