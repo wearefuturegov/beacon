@@ -21,11 +21,19 @@ development:
     migrations_paths: db/audit_logs_db_migrate
 
 test:
-  <<: *default
-  host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
-  database: i_have_i_need_test
-  username: test_local_user
-  password: password
+  primary:
+    <<: *default
+    host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+    database: i_have_i_need_test
+    username: test_local_user
+    password: password
+  audit_logs_db:
+    <<: *default
+    host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+    database: audit_logs_db_test
+    username: test_local_user
+    password: password
+    migrations_paths: db/audit_logs_db_migrate
 
 production:
   primary:
