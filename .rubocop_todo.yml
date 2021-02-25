@@ -68,6 +68,7 @@ Layout/EmptyLineAfterMagicComment:
 Layout/EmptyLinesAroundBlockBody:
   Exclude:
     - 'db/schema.rb'
+    - 'db/audit_logs_db_schema.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -299,6 +300,7 @@ Style/MultilineMemoization:
 Style/NumericLiterals:
   Exclude:
     - 'db/schema.rb'
+    - 'db/audit_logs_db_schema.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -351,6 +353,7 @@ Style/StringLiterals:
     - 'db/migrate/20200328181510_create_passwordless_sessions.passwordless.rb'
     - 'db/migrate/20200328193057_add_tasks_count_to_contacts.rb'
     - 'db/schema.rb'
+    - 'db/audit_logs_db_schema.rb'
     - 'db/seeds.rb'
 
 # Offense count: 15
