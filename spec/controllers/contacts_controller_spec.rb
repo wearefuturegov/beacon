@@ -4,7 +4,7 @@ require 'rails_helper'
 require 'spec_helper'
 
 RSpec.describe ContactsController do
-  let(:user){ FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   before(:each) do
     controller.instance_variable_set(:@current_user, user)

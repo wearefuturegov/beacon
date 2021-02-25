@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe MdtController, type: :controller do
-  let(:user){ FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   before :each do
     controller.class.skip_before_action :require_user!, raise: false
