@@ -14,7 +14,7 @@ class NeedsController < NeedsTableController
     @needs = @needs.filter_and_sort(@params.slice(:category, :assigned_to, :status, :is_urgent), @params.slice(:order, :order_dir))
     @needs = @needs.page(params[:page]) unless request.format == 'csv'
     @assigned_to_options_with_deleted = construct_assigned_to_options(true)
-    Rails.logger.unknown("User viewed needs table: #{@needs.map(&:id)}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User viewed needs table: #{@needs.map(&:id)}")
 
     handle_response_formats
   end
@@ -27,7 +27,7 @@ class NeedsController < NeedsTableController
 
     @items = @items&.page(params[:page])
 
-    Rails.logger.unknown("User viewed deleted items table: #{@items.map(&:id)}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User viewed deleted items table: #{@items.map(&:id)}")
   end
 
   def destroy
@@ -44,19 +44,19 @@ class NeedsController < NeedsTableController
   end
 
   def show
-    Rails.logger.unknown("User viewed need: #{@need.id} show page for contact ID: #{@contact.id}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User viewed need: #{@need.id} show page for contact ID: #{@contact.id}")
     @need.notes.order(created_at: :desc)
     populate_page_data
   end
 
   def edit
-    Rails.logger.unknown("User viewed need: #{@need.id} edit page for contact ID: #{@contact.id}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User viewed need: #{@need.id} edit page for contact ID: #{@contact.id}")
     @delete_prompt = get_delete_prompt @need
   end
 
   def update
     if @need.update(need_params)
-      Rails.logger.unknown("User updated need: #{@need.id} edit page for contact ID: #{@contact.id}")
+      AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User updated need: #{@need.id} edit page for contact ID: #{@contact.id}")
       NeedsAssigneeNotifier.notify_new_assignee(@need)
       respond_to do |format|
         format.html { redirect_to need_path(@need), notice: 'Record successfully updated.' }
@@ -90,7 +90,7 @@ class NeedsController < NeedsTableController
       need.update! to_update
       updated_needs.append(need)
     end
-    Rails.logger.unknown("User updated needs: #{updated_needs.map(&:id)} in bulk")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User updated needs: #{updated_needs.map(&:id)} in bulk")
     NeedsAssigneeNotifier.bulk_notify_new_assignee(updated_needs)
     render json: { status: 'ok' }
   end
@@ -99,7 +99,7 @@ class NeedsController < NeedsTableController
     need = policy_scope(Need).deleted.where(id: params[:id])
     if need.exists?
       need_name = need.first.category
-      Rails.logger.unknown("User restored need '#{params[:id]}'")
+      AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User restored need '#{params[:id]}'")
       need.first.restore(recursive: true)
       redirect_to deleted_items_path(order: 'deleted_at', order_dir: 'DESC'),
                   notice: "Restored '#{need_name}' see <a href='#{need_path(need.first.id)}'>here</a>"
@@ -112,7 +112,7 @@ class NeedsController < NeedsTableController
     note = policy_scope(Note).deleted.where(id: params[:id])
     if note.exists?
       note_name = note.first.category
-      Rails.logger.unknown("User restored note '#{params[:id]}'")
+      AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User restored note '#{params[:id]}'")
       note.first.restore
       redirect_to deleted_items_path(order: 'deleted_at', order_dir: 'DESC'),
                   notice: "Restored '#{note_name}' see <a href='#{need_path(note.first.need_id)}'>here</a>"
@@ -135,7 +135,7 @@ class NeedsController < NeedsTableController
   end
 
   def delete_note(params)
-    Rails.logger.unknown("User deleted note ID: #{params[:id]} on need ID: #{params[:need_id]}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User deleted note ID: #{params[:id]} on need ID: #{params[:need_id]}")
     note = Note.find(params[:id])
     note.destroy
 
@@ -146,7 +146,7 @@ class NeedsController < NeedsTableController
   end
 
   def delete_need(params)
-    Rails.logger.unknown("User deleted need ID: #{params[:id]}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User deleted need ID: #{params[:id]}")
     need = Need.find(params[:id])
     need_name = need.category
 

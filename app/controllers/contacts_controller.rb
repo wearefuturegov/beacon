@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
     @contacts = policy_scope(model)
     @contacts = @contacts.where(imported_item_id: @params[:imported_item_id]) if @imported_item
     @contacts = @contacts.page(@params[:page])
-    Rails.logger.unknown("User viewed contact list page for contact ID: #{@contacts.map(&:id).join(',')}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User viewed contact list page for contact ID: #{@contacts.map(&:id).join(',')}")
   end
 
   def search
@@ -20,6 +20,7 @@ class ContactsController < ApplicationController
     @contacts = policy_scope(Contact)
     @contacts = Contact.search(@params[:search]).where(id: @contacts.select(:id)) if params[:search]
     @contacts = @contacts.page(@params[:page])
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User searched for: '#{params[:search]}' and the following contacts were displayed: #{@contacts.map(&:id).join(',')} on page #{params[:page]}")
     render :index
   end
 
@@ -46,7 +47,7 @@ class ContactsController < ApplicationController
   end
 
   def show
-    Rails.logger.unknown("User viewed contacts details page for contact ID: #{@contact.id}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User viewed contacts details page for contact ID: #{@contact.id}")
     @browser = Browser.new(request.env['HTTP_USER_AGENT'])
 
     @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
@@ -65,7 +66,7 @@ class ContactsController < ApplicationController
   end
 
   def edit
-    Rails.logger.unknown("User viewed contacts edit page for contact ID: #{@contact.id}")
+    AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User viewed contacts edit page for contact ID: #{@contact.id}")
   end
 
   def update

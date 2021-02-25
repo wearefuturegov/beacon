@@ -6,21 +6,42 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
-  database: i_have_i_need_development
-  username: dev_local_user
-  password: password
+  primary:
+    <<: *default
+    host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+    database: i_have_i_need_development
+    username: dev_local_user
+    password: password
+  audit_logs_db:
+    <<: *default
+    host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+    database: audit_logs_db_development
+    username: dev_local_user
+    password: password
+    migrations_paths: db/audit_logs_db_migrate
 
 test:
-  <<: *default
-  host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
-  database: i_have_i_need_test
-  username: test_local_user
-  password: password
+  primary:
+    <<: *default
+    host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+    database: i_have_i_need_test
+    username: test_local_user
+    password: password
+  audit_logs_db:
+    <<: *default
+    host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+    database: audit_logs_db_test
+    username: test_local_user
+    password: password
+    migrations_paths: db/audit_logs_db_migrate
 
 production:
-  <<: *default
-  database: i_have_i_need_production
-  username: i_have_i_need
-  password: <%= ENV['I_HAVE_I_NEED_DATABASE_PASSWORD'] %>
+  primary:
+    <<: *default
+    database: i_have_i_need_production
+    username: i_have_i_need
+    password: <%= ENV['I_HAVE_I_NEED_DATABASE_PASSWORD'] %>
+  audit_logs_db:
+    <<: *default
+    url: <%= ENV['AUDIT_LOGS_DATABASE_URL'] %>
+    migrations_paths: db/audit_logs_db_migrate
