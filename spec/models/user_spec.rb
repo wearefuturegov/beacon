@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to be_versioned }
 
   it '#name' do
-    user = build :user, first_name: 'John', last_name: 'Doe'
+    user = build :user, first_name: 'john', last_name: 'doe'
 
     expect(user.name).to eq 'John Doe'
   end

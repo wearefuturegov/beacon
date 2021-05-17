@@ -4,6 +4,7 @@ class Contact < ApplicationRecord
   require 'activerecord-import/base'
   require 'activerecord-import/active_record/adapters/postgresql_adapter'
   include CleanData
+  include NameFormatter
 
   before_validation :strip_whitespace_from_all_text_and_strings
 
@@ -39,7 +40,7 @@ class Contact < ApplicationRecord
                  }
 
   def name
-    [first_name, middle_names, surname].join(' ')
+    format_name([first_name, middle_names, surname].join(' '))
   end
 
   def support_actions_count

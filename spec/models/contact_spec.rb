@@ -16,7 +16,7 @@ RSpec.describe Contact, type: :model do
   it { is_expected.to be_versioned }
 
   it '#name' do
-    contact = build :contact, first_name: 'John', middle_names: 'Ryan', surname: 'Doe'
+    contact = build :contact, first_name: 'JOHN', middle_names: 'RYAN', surname: 'DOE'
 
     expect(contact.name).to eq 'John Ryan Doe'
   end

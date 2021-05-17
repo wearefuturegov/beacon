@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   include PgSearch::Model
+  include NameFormatter
   acts_as_paranoid
 
   has_many :notes
@@ -33,7 +34,7 @@ class User < ApplicationRecord
   end
 
   def name
-    deleted? ? [first_name, last_name, '[X]'].join(' ') : [first_name, last_name].join(' ')
+    format_name(deleted? ? [first_name, last_name, '[X]'].join(' ') : [first_name, last_name].join(' '))
   end
 
   def name_or_email
