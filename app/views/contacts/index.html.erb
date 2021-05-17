@@ -45,7 +45,7 @@
               <td><%= contact.address %></td>
               <td><%= contact.postcode %></td>
               <td><%= contact.test_and_trace_account_id %></td>
-              <td><%= contact.date_of_birth %></td>
+              <td><%= contact.date_of_birth.to_s(:default) %></td>
               <td><%= name_for_lead_service contact.lead_service_id %></td>
             </tr>
           <% end %>
@@ -53,7 +53,7 @@
         </table>
       <% end %>
       <%= render "shared/pagination", model: @contacts %>
-   <% else %>
-     <p class="no-results">No matches</p>
-   <% end %>
+  <% else %>
+    <p class="no-results">No matches</p>
+  <% end %>
 </section>

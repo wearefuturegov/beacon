@@ -27,7 +27,7 @@
 
     <div class="field">
       <%= form.label :date_of_birth, class: "field__label" %>
-      <%= form.text_field :date_of_birth, :value => "#{@contact.date_of_birth&.strftime('%-d/%-m/%Y')}" %>
+      <%= form.text_field :date_of_birth, :value => "#{@contact.date_of_birth&.to_s(:default)}" %>
     </div>
 
     <div class="field field--span-two-cols">
