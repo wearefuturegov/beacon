@@ -17,7 +17,7 @@
 
         <dt class="details-list__caption">Date of Birth</dt>
         <dd class="details-list__value" id="contact_dob">
-          <%= @contact.date_of_birth&.strftime("%-d %B %Y") %>
+          <%= short_date_formatter(@contact.date_of_birth) %>
           <% if @contact.under_18? %>
             <span class='under-18'> (Under 18)</span>
           <% end %>
