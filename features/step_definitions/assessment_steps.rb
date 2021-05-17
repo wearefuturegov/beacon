@@ -21,7 +21,7 @@ Then('I see the schedule assessment form') do
 end
 
 Then('I see the log assessment form') do
-  expect(page).to have_css('.panel__header-with-arrow', text: 'Log')
+  expect(page).to have_css('.panel__header-with-arrow', text: 'New call')
   expect(page).not_to have_field('need[start_on]')
   expect(page).to have_field('note[body]')
 end
