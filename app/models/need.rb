@@ -41,7 +41,9 @@ class Need < ApplicationRecord
                    'Repairs': 'repairs',
                    'Household tasks': 'household tasks',
                    'Dog walking': 'dog walking',
-                   'Other': 'other' }
+                   'Other': 'other',
+                   'Inbound': 'inbound',
+                   'Outbound': 'outbound' }
 
   validates :category, presence: true
   validates :name, presence: true
