@@ -27,9 +27,9 @@ Then('I see the log assessment form') do
 end
 
 And('I enter valid details') do
-  page.find('label', text: 'Triage').click
   page.find('#need_name').fill_in(with: 'A task description')
   if @assessment_type == 'log'
+    page.find('label', text: 'Inbound').click
     page.find('#note_body').fill_in(with: 'Some call notes')
   elsif @assessment_type == 'schedule'
     @scheduled_date = (Date.today + 1.day)
@@ -45,10 +45,11 @@ Then('I see the saved assessment details on the contact') do
   if @assessment_type == 'log'
     completed_link = find('#toggle-visibility-completed-assessment')
     expect(completed_link).to have_content('1 x completed')
+    expect(assessment_row).to have_content('Inbound')
   elsif @assessment_type == 'schedule'
     assessments_table = find('.assessments-table')
     assessment_row = assessments_table.find('tbody tr')
-    expect(assessment_row).to have_content('Triage')
+    expect(assessment_row).to have_content('Outbound')
     expect(assessment_row).to have_content("#{@scheduled_date.strftime('%-d %B %Y')} (Future)")
   end
 end
