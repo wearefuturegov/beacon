@@ -39,27 +39,26 @@
               <% end %>
             </div>
           </div>
-
-          <fieldset class="field-section">
-            <legend class="field-section__title">Category</legend>
-            <div class="radio">
-              <%= form.radio_button :category, 'inbound', {:checked => @need[:category] == 'Inbound'} %>
-              <%= form.label :category_inbound, "Inbound", class: "radio__label" %>
-            </div>
-            <div class="radio">
-              <%= form.radio_button :category, 'outbound', {:checked => @need[:category] == 'Outbound'} %>
-              <%= form.label :category_outbound, "Outbound", class: "radio__label" %>
-            </div>
-          </fieldset>
-          <br/>
-
           <% if @type == 'log' %>
+            <fieldset class="field-section">
+              <legend class="field-section__title">Category</legend>
+              <div class="radio">
+                <%= form.radio_button :category, 'inbound', {:checked => @need[:category] == 'Inbound'} %>
+                <%= form.label :category_inbound, "Inbound", class: "radio__label" %>
+              </div>
+              <div class="radio">
+                <%= form.radio_button :category, 'outbound', {:checked => @need[:category] == 'Outbound'} %>
+                <%= form.label :category_outbound, "Outbound", class: "radio__label" %>
+              </div>
+            </fieldset>
+            <br/>
             <%= fields_for :note, @note do |notes_fields| %>
               <div class="field">
                 <%= notes_fields.text_area :body, placeholder: 'Call notes' %>
               </div>              
             <% end %>
           <% elsif @type == 'schedule' %>
+            <%= form.hidden_field :category, value: 'outbound' %>
             <div class="field">
               <%= form.label :name, "What is this call going to be about?", class: "field__label" %>
               <%= form.text_field :name %>
