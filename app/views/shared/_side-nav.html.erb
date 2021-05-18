@@ -32,9 +32,6 @@
                 <%= link_to_unless_current "Future", root_path(:start_on => "any_time", :status => "to_do", :order => "start_on", :order_dir => "asc", :category => "triages-and-check-ins", :start_on => "after_today"), class: "main-menu__submenu-link" do %>
                   <span class="main-menu__submenu-current">Future</span>
                 <% end %>
-                <%= link_to_unless_current "In Progress", root_path(:status => "in_progress", :order => "created_at", :order_dir => "asc"), class: "main-menu__submenu-link" do %>
-                  <span class="main-menu__submenu-current">In Progress</span>
-                <% end %>
               </ul>
           <% else %>
               <%= link_to_unless_current "Needs", root_path(:status => "to_do"), class: "main-menu__link" do %>
