@@ -22,15 +22,15 @@
 
         <li class="main-menu__item">
           <% if policy(Need).display_support_actions? %>
-              <%= link_to_unless_current "Triage and check-ins", root_path(:status => "to_do", :order => "assigned_to", :order_dir => "desc", :assigned_to => "Unassigned", :category => "triages-and-check-ins"), class: "main-menu__link" do %>
-              <span class="main-menu__current">Triage and check-ins</span>
+              <%= link_to_unless_current "Calls", root_path(:status => "to_do", :order => "assigned_to", :order_dir => "desc", :assigned_to => "Unassigned", :category => "triages-and-check-ins"), class: "main-menu__link" do %>
+              <span class="main-menu__current">Calls</span>
               <% end %>
               <ul class="main-menu__submenu">
+                <%= link_to_unless_current 'Past', root_path(start_on: 'any_time', status: 'complete', order: 'start_on', order_dir: 'asc', category: 'triages-and-check-ins', start_on: 'after_today'), class: 'main-menu__submenu-link' do %>
+                  <span class='main-menu__submenu-current'>Past</span>
+                <% end %>
                 <%= link_to_unless_current "Future", root_path(:start_on => "any_time", :status => "to_do", :order => "start_on", :order_dir => "asc", :category => "triages-and-check-ins", :start_on => "after_today"), class: "main-menu__submenu-link" do %>
                   <span class="main-menu__submenu-current">Future</span>
-                <% end %>
-                <%= link_to_unless_current "In Progress", root_path(:status => "in_progress", :order => "created_at", :order_dir => "asc"), class: "main-menu__submenu-link" do %>
-                  <span class="main-menu__submenu-current">In Progress</span>
                 <% end %>
               </ul>
           <% else %>
