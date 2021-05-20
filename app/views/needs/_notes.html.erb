@@ -12,7 +12,7 @@
     </fieldset>
     <%= form.label :body, 'Additional notes (optional)' %>
     <%= form.text_field :body, class: "notes__field", placeholder: "Add notes here" %>
-    <%= form.submit "Add update", class: "button notes__button" %>
+    <%= form.submit "Save update to call", class: "button notes__button" %>
   <% end %>
 
   <% if @need.notes.without_deleted.length > 0 %>
@@ -20,12 +20,12 @@
       <% @need.notes.without_deleted.order(:id).reverse.each do |note| %>
         <article class="note">
           <header class="note__header">
-            <strong><%= note.category %></strong>
+            <strong><%= note.category %></strong><br/>
             <time datetime="<%= note.created_at %>" title="<%= note.created_at %>">
               <%= note.created_at.strftime('%d %b %Y') %>
             </time>
             <% if note.user %>
-              by <%= note.user.name_or_email %>
+              <span>by <%= note.user.name_or_email %></span>
             <% end %>
             
             <% if policy(note).edit? %>
