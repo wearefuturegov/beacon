@@ -64,4 +64,76 @@ RSpec.describe Contact, type: :model do
       expect(over_18_contact.under_18?).to be_falsy
     end
   end
+
+  describe '#valid_telephone_number?' do
+    it 'valid when starts with 0' do
+      valid_telephone = build :contact, telephone: '0123'
+      expect(valid_telephone.valid_telephone_number?).to be_truthy
+    end
+
+    it 'valid when starts with +' do
+      valid_telephone = build :contact, telephone: '+44123'
+      expect(valid_telephone.valid_telephone_number?).to be_truthy
+    end
+
+    it 'invalid when starts with not 0 or +' do
+      invalid_telephone = build :contact, telephone: '123'
+      expect(invalid_telephone.valid_telephone_number?).to be_falsy
+    end
+  end
+
+  describe '#valid_mobile_number?' do
+    it 'valid when starts with 0' do
+      valid_mobile = build :contact, mobile: '0123'
+      expect(valid_mobile.valid_mobile_number?).to be_truthy
+    end
+
+    it 'valid when starts with +' do
+      valid_mobile = build :contact, mobile: '+44123'
+      expect(valid_mobile.valid_mobile_number?).to be_truthy
+    end
+
+    it 'invalid when starts with not 0 or +' do
+      invalid_mobile = build :contact, mobile: '123'
+      expect(invalid_mobile.valid_mobile_number?).to be_falsy
+    end
+  end
+
+  it 'prepends a zero to telephone if needed' do
+    contact = build :contact, telephone: '123'
+
+    contact.save
+
+    expect(contact.telephone).to eq('0123')
+  end
+
+  it 'prepends a zero to mobile if needed' do
+    contact = build :contact, mobile: '123'
+
+    contact.save
+
+    expect(contact.mobile).to eq('0123')
+  end
+
+  it 'doesn\'t change telephone if it starts with 0 or +' do
+    contact = build :contact, telephone: '0123'
+    contact1 = build :contact, telephone: '+44'
+
+    contact.save
+    contact1.save
+
+    expect(contact.telephone).to eq('0123')
+    expect(contact1.telephone).to eq('+44')
+  end
+
+  it 'doesn\'t change mobile if it starts with 0 or +' do
+    contact = build :contact, mobile: '0123'
+    contact1 = build :contact, mobile: '+44'
+
+    contact.save
+    contact1.save
+
+    expect(contact.mobile).to eq('0123')
+    expect(contact1.mobile).to eq('+44')
+  end
 end
