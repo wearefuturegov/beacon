@@ -1,7 +1,5 @@
 @import "variables";
 
-
-
 .notes{
     .notes__form{
         padding: 35px;
@@ -53,4 +51,14 @@
         margin-top: 10px;
         margin-bottom: 0px;
     }
+}
+
+#select2-note_category-container {
+  .select2-selection__placeholder {
+    // Putting a magnifying glass into select2's placeholder lookup
+    background-image: url(asset_path('search.svg'));
+    background-size: contain;
+    background-repeat: no-repeat;
+    color: transparent;
+  }
 }
