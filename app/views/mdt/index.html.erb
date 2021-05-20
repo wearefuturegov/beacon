@@ -30,7 +30,7 @@
         <th>Assigned to</th>
         <th>
           <div class="sortable">
-          Last contacted
+          Last contact
           <div class="sortable__controls">
             <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'last_phoned_date', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
             <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'last_phoned_date', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>

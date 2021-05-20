@@ -78,11 +78,12 @@ Feature: Restrict viewing/editing support action access to a user based on their
       | food_delivery_manager |
 
   @edit
+  @javascript
   Scenario Outline: Can add notes to a support action I have access to edit
     Given I am logged into the system as a "<role>" user
     And a support action is assigned to me
     And I go to the contact page for that support action
-    And I add a "Note" note "<note>"
+    And I add a "Other" note "<note>"
     When I submit the form to create the note
     Then the list of notes contains "<note>"
     Examples:

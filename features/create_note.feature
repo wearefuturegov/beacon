@@ -12,24 +12,24 @@ Feature: Create note
     When I add a "<category>" note "<text>"
     And I submit the form to create the note
     Then the list of notes contains "<text>"
-    And the note category is "category"
+    And the note category is "<category>"
     Examples:
-      | support_action                | category        | text                              |
-      | Financial support             | Successful Call | Resident does not require help    |
-      | Financial support             | Failed Call     | Tried twice with no answer        |
-      | Financial support             | Left Message    | Left the helpline number          |
-      | Groceries and cooked meals    | Failed Call     | Number not recognised             |
-      | Physical and mental wellbeing | Note            | Resident requested weekly call    |
-      | Financial support             | Successful Call | Resident concerned about the rent |
-      | Staying social                | Note            | Resident joined online group      |
-      | Prescription pickups          | Note            | Resident gets free prescriptions  |
-      | Book drops and entertainment  | Successful Call | Would like some novels            |
-      | Dog walking                   | Note            | Dog is lively                     |
+      | support_action                | category             | text                              |
+      | Financial support             | Adhering to guidance | Resident does not require help    |
+      | Financial support             | Other                | Tried twice with no answer        |
+      | Financial support             | Other                | Left the helpline number          |
+      | Groceries and cooked meals    | Adhering to guidanc  | Number not recognised             |
+      | Physical and mental wellbeing | Other                | Resident requested weekly call    |
+      | Financial support             | Other                | Resident concerned about the rent |
+      | Staying social                | Other                | Resident joined online group      |
+      | Prescription pickups          | Adhering to guidance | Resident gets free prescriptions  |
+      | Book drops and entertainment  | Other                | Would like some novels            |
+      | Dog walking                   | Other                | Dog is lively                     |
 
-  Scenario: Add a Successful call to a Dog walking
+  Scenario: Add a Advice with traveling to a Dog walking
     Given a resident with a "Dog walking" support action
-    When I add a "Successful Call" note "Resident confirmed required help"
+    When I add a "Advice with traveling" note "Resident confirmed required help"
     And I submit the form to create the note
     Then the list of notes contains "Resident confirmed required help"
-    And the note category is "Successful Call"
+    And the note category is "Advice with traveling"
     And the last note is at the top

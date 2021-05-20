@@ -6,11 +6,12 @@ Feature: List needs
   Background:
     * I am logged into the system
 
+  @javascript
   Scenario: View last contacted date
     Given a unique resident
     When I add needs "Dog walking"
     And I submit the add needs form
-    And I add a "Successful Call" note "Phone call text"
+    And I add a "Other" note "Phone call text"
     And I submit the form to create the note
     When I view any needs list row for that resident
     Then I see the last contacted date is today
