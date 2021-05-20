@@ -33,10 +33,3 @@ Feature: Create note
     Then the list of notes contains "Resident confirmed required help"
     And the note category is "Successful Call"
     And the last note is at the top
-
-  Scenario: Add a Successful call to a Dog walking with a blank note
-    Given a resident with a "Dog walking" support action
-    When I add a "Successful Call" note ""
-    And I submit the form to create the note
-    Then the list of notes contains "No details captured"
-    And the note category is "Successful Call"

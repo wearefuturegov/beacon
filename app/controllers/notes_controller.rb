@@ -7,7 +7,6 @@ class NotesController < ApplicationController
     @need = Need.find(params[:need_id])
     authorize @need, :update?
     params = note_params
-    params.merge!(body: 'No details captured') if note_params[:body].blank?
     @need.notes.create!(params.merge(user: current_user))
     AuditLog.create(request_data: audit_request_data, user_id: current_user.id, message: "User created a note on need ID: #{@need.id}")
     redirect_to need_path(@need)
