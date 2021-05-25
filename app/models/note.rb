@@ -8,11 +8,15 @@ class Note < ApplicationRecord
   belongs_to :user, optional: true
 
   CALL_TITLES = [
-    'Adhering to guidance',
-    'Advice with traveling',
-    'Food banks - signposted',
-    'Food banks - reffered',
-    'Other'
+    'Advice and Guidance',
+    'Welfare and Benefits',
+    'Emergency financial support',
+    'Food Support & Vouchers',
+    'Business & Business Grants',
+    'Vaccination',
+    'CEV Referral',
+    'Test & Trace Outbound Call',
+    'Other (Specify)'
   ].freeze
 
   scope :filter_need_not_destroyed, -> { joins(:need).where('needs.deleted_at IS NULL') }
