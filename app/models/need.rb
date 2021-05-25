@@ -53,6 +53,8 @@ class Need < ApplicationRecord
     return unless start_on.nil? && ASSESSMENT_CATEGORIES.include?(category.to_s.downcase) ||
                   start_on.nil? && category.nil?
 
+    return if ['inbound', 'outbound'].include?(category.to_s.downcase)
+
     errors.add(:start_on, 'must be provided')
   end
 
