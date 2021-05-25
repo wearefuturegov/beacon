@@ -5,6 +5,8 @@ class Contact < ApplicationRecord
   require 'activerecord-import/active_record/adapters/postgresql_adapter'
   include CleanData
   include NameFormatter
+  before_save :update_telephone
+  before_save :update_mobile
 
   before_validation :strip_whitespace_from_all_text_and_strings
 
@@ -59,5 +61,27 @@ class Contact < ApplicationRecord
     return false if date_of_birth.blank?
 
     ((Time.zone.now.beginning_of_day - date_of_birth.to_time) / 1.year.seconds).floor < 18
+  end
+
+  def valid_telephone_number?
+    telephone.nil? || telephone.starts_with?('0') || telephone.starts_with?('+')
+  end
+
+  def valid_mobile_number?
+    mobile.nil? || mobile.starts_with?('0') || mobile.starts_with?('+')
+  end
+
+  private
+
+  def update_telephone
+    return if valid_telephone_number?
+
+    self.telephone = telephone.prepend('0')
+  end
+
+  def update_mobile
+    return if valid_mobile_number?
+
+    self.mobile = mobile.prepend('0')
   end
 end
