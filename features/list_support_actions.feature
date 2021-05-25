@@ -11,8 +11,9 @@ Feature: List needs
     Given a unique resident
     When I add needs "Dog walking"
     And I submit the add needs form
-    And I add a "Other" note "Phone call text"
-    And I submit the form to create the note
+    And I choose to log an assessment
+    When I enter valid details
+    When I save the assessment
     When I view any needs list row for that resident
     Then I see the last contacted date is today
 

@@ -211,10 +211,10 @@ class Need < ApplicationRecord
 
   def self.base_query
     sql = "LEFT JOIN (select c.id, max(nt.created_at) as last_phoned_date from contacts c
-          left join needs n on n.contact_id = c.id
-          left join notes nt on nt.need_id = n.id where n.category in ('phone_success', 'phone_message', 'phone_failure', 'inbound', 'outbound') and nt.deleted_at IS NULL
-          group by c.id) as contact_aggregation
-          on contact_aggregation.id = contacts.id"
+               left join needs n on n.contact_id = c.id
+               left join notes nt on nt.need_id = n.id where nt.deleted_at IS NULL and n.status = 'complete'
+               group by c.id) as contact_aggregation
+               on contact_aggregation.id = contacts.id"
 
     Need.joins(:contact, sql)
         .where(assessment_id: nil)
