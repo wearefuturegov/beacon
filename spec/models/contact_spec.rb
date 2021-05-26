@@ -145,4 +145,13 @@ RSpec.describe Contact, type: :model do
     expect(contact.telephone).to eq(nil)
     expect(contact.mobile).to eq(nil)
   end
+
+  it 'doesn\'t update phone number fields if blank' do
+    contact = build :contact, mobile: '', telephone: ''
+
+    contact.save
+
+    expect(contact.telephone).to eq('')
+    expect(contact.mobile).to eq('')
+  end
 end
