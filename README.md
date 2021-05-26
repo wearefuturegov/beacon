@@ -112,6 +112,10 @@ Suitable for 12-factor app hosting like [Heroku](http://heroku.com).
 
 It has a `Procfile` that will automatically run pending rails migrations on every deploy, to reduce downtime.
 
+## Adding new categories manually
+
+Navigate to the note model (`app/models/note.rb`) and within the `CALL_TITLE` constant add the new category string.
+
 ## Roadmap
 
 Coming soon...
