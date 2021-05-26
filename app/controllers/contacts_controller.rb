@@ -61,8 +61,13 @@ class ContactsController < ApplicationController
                         .uncompleted.assessments.not_pending
                         .sort { |a, b| Need.sort_created_and_start_date(a, b) }
 
+
     @completed_assessments = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
                              .completed.assessments.not_pending.order_by_completed_on(:desc)
+
+    @past_call_count = @completed_assessments.count
+    @scheduled_call_count = @open_assessments.count
+
   end
 
   def edit
