@@ -13,9 +13,10 @@ class Note < ApplicationRecord
     'Emergency financial support',
     'Food Support & Vouchers',
     'Business & Business Grants',
-    'Vaccination',
+    'Vaccination and Vaccination Bus Enquiries',
     'CEV Referral',
     'Test & Trace Outbound Call',
+    'LFT and PCR testing',
     'Other (Specify)'
   ].freeze
 
