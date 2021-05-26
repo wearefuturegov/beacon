@@ -136,4 +136,13 @@ RSpec.describe Contact, type: :model do
     expect(contact.mobile).to eq('0123')
     expect(contact1.mobile).to eq('+44')
   end
+
+  it 'doesn\'t update phone number fields if nil' do
+    contact = build :contact, mobile: nil, telephone: nil
+
+    contact.save
+
+    expect(contact.telephone).to eq(nil)
+    expect(contact.mobile).to eq(nil)
+  end
 end

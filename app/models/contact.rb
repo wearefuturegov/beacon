@@ -74,13 +74,13 @@ class Contact < ApplicationRecord
   private
 
   def update_telephone
-    return if valid_telephone_number?
+    return if telephone.blank? || valid_telephone_number?
 
     self.telephone = telephone.prepend('0')
   end
 
   def update_mobile
-    return if valid_mobile_number?
+    return if mobile.blank? || valid_mobile_number?
 
     self.mobile = mobile.prepend('0')
   end
