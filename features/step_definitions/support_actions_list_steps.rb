@@ -10,11 +10,6 @@ Then('I see the last contacted date is today') do
   expect(last_contacted_column).to have_content(Date.today.strftime('%-d %B %Y'))
 end
 
-Then('I see one call attempt') do
-  call_attempt_column = @resident_row.find('td.column-call-attempts')
-  expect(call_attempt_column).to have_content(1)
-end
-
 When('I filter needs by category {string}') do |category|
   select2 'category', category
 end
