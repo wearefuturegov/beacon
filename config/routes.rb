@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   post '/needs/restore_need' => 'needs#restore_need'
   post '/needs/restore_note' => 'needs#restore_note'
   get '/deleted_items' => 'needs#deleted_items', as: 'deleted_items'
+  
+  resources :note_categories, only: [:index, :new, :create, :edit, :update, :destroy]
 
   resources :imported_items, only: [:index, :create] do
     resources :contacts, only: [:index]
