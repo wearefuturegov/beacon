@@ -159,7 +159,7 @@ class AssessmentsController < ApplicationController
 
   def log_assessment
     @need = Need.new(assessment_params.merge(contact_id: @contact.id, start_on: Date.today))
-    @need.name = "#{@need.category} call - #{Time.zone.now.strftime('%d/%m/%y')}"
+    @need.name = "#{@need.category} call - #{Time.zone.now.strftime('%d/%m/%Y')}"
 
     notes_permit_params = notes_params.merge(need: @need, category: 'phone_success', user_id: current_user.id)
 
