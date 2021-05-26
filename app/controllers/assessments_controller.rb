@@ -161,7 +161,7 @@ class AssessmentsController < ApplicationController
     @need = Need.new(assessment_params.merge(contact_id: @contact.id, start_on: Date.today))
     @need.name = "#{@need.category} call - #{Time.zone.now.strftime('%d/%m/%Y')}"
 
-    notes_permit_params = notes_params.merge(need: @need, category: 'phone_success', user_id: current_user.id)
+    notes_permit_params = notes_params.merge(need: @need, user_id: current_user.id)
 
     @note = Note.new(notes_permit_params)
 
@@ -212,7 +212,7 @@ class AssessmentsController < ApplicationController
   end
 
   def notes_params
-    params.require(:note).permit(:body)
+    params.require(:note).permit(:body, :category)
   end
 
   def contact_params

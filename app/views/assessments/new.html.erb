@@ -54,6 +54,15 @@
             <br/>
             <%= fields_for :note, @note do |notes_fields| %>
               <div class="field">
+                <fieldset class="field-section">
+                  <legend class="field-section__title">
+                    <%= notes_fields.label :category, 'Choose a note subject', class: "field__label" %>
+                  </legend>
+                  <%= notes_fields.select :category, Note::CALL_TITLES, {include_blank: ''}, class: 'note_categories' %>
+                  
+                </fieldset>
+      
+                
                 <%= notes_fields.text_area :body, placeholder: 'Call notes' %>
               </div>              
             <% end %>
@@ -80,3 +89,4 @@
 <%= javascript_pack_tag 'assessments' %>
 <%= javascript_pack_tag 'assessment_datepicker' %>
 <%= javascript_pack_tag 'users_viewing_page.js' %>
+<%= javascript_pack_tag 'notes' %>
