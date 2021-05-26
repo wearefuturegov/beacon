@@ -2,8 +2,8 @@
   
   <%= form_with(model: [@need, @need.notes.build], local: true, class: "notes__form") do |form| %>
     <h3 class="notes__title">Call notes</h3>
-    <fieldset class="field-section field-section--four-cols">
-      <legend>
+    <fieldset class="field-section">
+      <legend class="field-section__title">
         <%= form.label :category, 'Choose a note subject', class: "field__label" %>
       </legend>
       
