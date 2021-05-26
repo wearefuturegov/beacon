@@ -60,7 +60,8 @@ RSpec.describe AssessmentsController do
       allow(@need).to receive(:new).and_return(@test_need)
       allow(@test_need).to receive(:save).and_return(true)
       allow(@test_need).to receive(:valid?).and_return(true)
-      allow(@test_need).to receive_messages([:status=, :user=])
+      allow(@test_need).to receive(:category).and_return('test category')
+      allow(@test_need).to receive_messages([:status=, :user=, :name=])
 
       @test_note = double('Note')
       allow(@note).to receive(:new).and_return(@test_note)

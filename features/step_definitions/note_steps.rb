@@ -25,7 +25,7 @@ When('I add a {string} note {string}') do |category, content|
 end
 
 And(/^I submit the form to create the note$/) do
-  click_button('Add update')
+  click_button('Save update to call')
 end
 
 Then('the list of notes contains {string}') do |content|
@@ -42,10 +42,5 @@ And('the last note is at the top') do
 end
 
 def choose_note_type_from(category)
-  note_types = { 'Successful Call': 'category_phone_success',
-                 'Left Message': 'category_phone_message',
-                 'Failed Call': 'category_phone_failure',
-                 'Note': 'category_general' }
-  radio_id = note_types.fetch(category.to_sym)
-  page.find("label[for=#{radio_id}]").click
+  select2_note 'note_category', category
 end

@@ -7,6 +7,15 @@ module Select2Helper
     @results_container = find("#select2-#{select_id}-results")
     @results_container.find("li[id$='#{@hidden_select_value}']").click
   end
+
+  def select2_note(select_id, val)
+    return if val == 'Unassigned'
+
+    @hidden_select_value = find("##{select_id} option", text: val.to_s)[:value]
+    find("##{select_id} + .select2.select2-container.select2-container--default").click
+    @results_container = find("#select2-#{select_id}-results")
+    @results_container.find("li[id$='#{@hidden_select_value}']").click
+  end
 end
 
 World(Select2Helper)

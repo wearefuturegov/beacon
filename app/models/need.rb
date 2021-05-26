@@ -24,7 +24,7 @@ class Need < ApplicationRecord
                  food_service_type: :string
 
   ASSESSMENT_START_CATEGORIES = ['triage', 'check in'].freeze
-  ASSESSMENT_CATEGORIES = ['triage', 'check in', 'mdt review'].freeze
+  ASSESSMENT_CATEGORIES = ['triage', 'check in', 'mdt review', 'inbound', 'outbound'].freeze
 
   enum category: { 'Triage': 'triage',
                    'MDT review': 'mdt review',
@@ -41,7 +41,9 @@ class Need < ApplicationRecord
                    'Repairs': 'repairs',
                    'Household tasks': 'household tasks',
                    'Dog walking': 'dog walking',
-                   'Other': 'other' }
+                   'Other': 'other',
+                   'Inbound': 'inbound',
+                   'Outbound': 'outbound' }
 
   validates :category, presence: true
   validates :name, presence: true
@@ -50,6 +52,8 @@ class Need < ApplicationRecord
   def start_required_for_assessment
     return unless start_on.nil? && ASSESSMENT_CATEGORIES.include?(category.to_s.downcase) ||
                   start_on.nil? && category.nil?
+
+    return if ['inbound', 'outbound'].include?(category.to_s.downcase)
 
     errors.add(:start_on, 'must be provided')
   end
@@ -209,10 +213,10 @@ class Need < ApplicationRecord
 
   def self.base_query
     sql = "LEFT JOIN (select c.id, max(nt.created_at) as last_phoned_date from contacts c
-          left join needs n on n.contact_id = c.id
-          left join notes nt on nt.need_id = n.id where nt.category like 'phone_%' and nt.deleted_at IS NULL
-          group by c.id) as contact_aggregation
-          on contact_aggregation.id = contacts.id"
+               left join needs n on n.contact_id = c.id
+               left join notes nt on nt.need_id = n.id where nt.deleted_at IS NULL and n.status = 'complete'
+               group by c.id) as contact_aggregation
+               on contact_aggregation.id = contacts.id"
 
     Need.joins(:contact, sql)
         .where(assessment_id: nil)

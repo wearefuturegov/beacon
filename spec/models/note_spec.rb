@@ -7,8 +7,4 @@ RSpec.describe Note, type: :model do
     it { is_expected.to belong_to(:need) }
     it { is_expected.to belong_to(:user).optional(true) }
   end
-
-  describe 'validations' do
-    it { is_expected.to validate_presence_of :body }
-  end
 end
