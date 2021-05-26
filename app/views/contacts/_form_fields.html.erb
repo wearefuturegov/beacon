@@ -1,17 +1,16 @@
-
 <%= form.hidden_field :lock_version, :value => contact.lock_version %>
 <fieldset class="field-section field-section--two-cols">
   <div class="field">
     <%= form.label :first_name, class: "field__label" %>
-    <%= form.text_field :first_name, id: "contact_first_name" %>
+    <%= form.text_field :first_name, id: "contact_first_name", value: titleize_formatter(contact.first_name) %>
   </div>
   <div class="field">
     <%= form.label :middle_names, class: "field__label" %>
-    <%= form.text_field :middle_names %>
+    <%= form.text_field :middle_names, value: titleize_formatter(contact.middle_names) %>
   </div>
   <div class="field">
     <%= form.label :surname, class: "field__label" %>
-    <%= form.text_field :surname %>
+    <%= form.text_field :surname, value: titleize_formatter(contact.surname) %>
   </div>
   <div class="field">
     <%= form.label :business_name, 'Business name (Optional)', class: "field__label" %>
