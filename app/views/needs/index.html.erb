@@ -52,15 +52,6 @@
           </div>
           </div>
         </th>
-        <th>
-          <div class="sortable">
-          Call attempts
-          <div class="sortable__controls">
-            <%= link_to_unless_current image_tag("sort-asc.svg", alt: "sort ascending"), @params.merge(order: 'call_attempts', order_dir: 'ASC') do %><%= image_tag "sort-asc-grey.svg", alt: "sorted ascending" %><% end %>
-            <%= link_to_unless_current image_tag("sort-desc.svg", alt: "sort descending"), @params.merge(order: 'call_attempts', order_dir: 'DESC') do %><%= image_tag "sort-desc-grey.svg", alt: "sorted descending" %><% end %>
-          </div>
-          </div>
-        </th>
       </tr>
       </thead>
       <tbody>
@@ -95,17 +86,14 @@
           <td>
             <%= n.last_phoned_date&.strftime("%-d %B %Y") %>
           </td>
-          <td class="column-call-attempts">
-            <%= n.call_attempts %>
-          </td>
           <td>
-          <% if n.assessment_start? %>
-            <% if policy(n).start_assessment? %>
-              <%= link_to "Start #{n.category}", contact_start_assessment_path(contact_id: n.contact_id, id: n), class: "button button--blue button-link", id:"edit-assessment-btn" %>
-            <% else %>
-              <button class="button button--disabled button-link" title="You need to assign this to yourself">Start <%= n.category %></button>
+            <% if n.assessment_start? %>
+              <% if policy(n).start_assessment? %>
+                <%= link_to "Start #{n.category}", contact_start_assessment_path(contact_id: n.contact_id, id: n), class: "button button--blue button-link", id:"edit-assessment-btn" %>
+              <% else %>
+                <button class="button button--disabled button-link" title="You need to assign this to yourself">Start <%= n.category %></button>
+              <% end %>
             <% end %>
-          <% end %>
           </td>
         </tr>
       <% end %>
@@ -117,5 +105,3 @@
   <% end %>
   <%= javascript_pack_tag 'bulk-actions', 'data-turbolinks-track': 'reload' %>
 </div>
-
-
