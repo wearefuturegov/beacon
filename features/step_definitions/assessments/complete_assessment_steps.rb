@@ -61,8 +61,8 @@ When('I schedule a check in for tomorrow') do
 end
 
 Then('I should see the future check in') do
-  page.find('button#check-in').click
-  check_in_row = page.find('.need--check-in')
+  page.find('button#scheduled').click
+  check_in_row = page.find('.need--scheduled')
   expect(check_in_row).to have_content("#{(DateTime.now + 1.days).strftime('%-d %B %Y')} (Future)")
 end
 

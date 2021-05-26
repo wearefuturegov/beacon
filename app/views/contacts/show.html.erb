@@ -12,10 +12,9 @@
     <header class="panel-header" id="needs-panel">
       <% if policy(Need).create? %>
         <div class="left">
-          <button class="tablink" id="triage">Past calls (<%= @past_call_count %>)</button>
-          <button class="tablink" id="check-in">
-            Scheduled calls <% if @open_assessments.any? %><span class="panel-header__badge"><%= @scheduled_call_count %></span><% end %>
-          
+          <button class="tablink" id="past">Past calls (<%= @past_call_count %>)</button>
+          <button class="tablink" id="scheduled">
+            Scheduled calls <% if @scheduled_call_count.positive? %>(<%= @scheduled_call_count %>)<% end %>
           </button>
         </div>
         <div class="assessment-operations right">
@@ -36,7 +35,7 @@
       <% end %>
     </header>
     <div class="panel panel--unpadded">
-      <%= render partial: "assessments", locals: { open_assessments: @open_assessments } %>
+      <%= render partial: "assessments", locals: { open_assessments: @assessments } %>
     </div>
 
 
@@ -50,7 +49,7 @@
       <% end %>
     </header>
 
-    <div class="panel panel--unpadded">  
+    <div class="panel panel--unpadded outstanding">  
       <%= render "needs-table" %>
     </div>
 

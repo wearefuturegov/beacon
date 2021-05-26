@@ -19,6 +19,7 @@ Feature: Complete an assessment
     And I am on the assessment completion page
     Then I should see the date of the next check in
 
+  @javascript
   Scenario: Schedule a future check in
     Given I have assigned needs "Groceries and cooked meals" to "Unassigned" for the assessment
     And I am on the assessment completion page

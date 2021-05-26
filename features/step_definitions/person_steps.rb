@@ -164,7 +164,7 @@ end
 
 Then('the residents list of needs contains {string}') do |support_action|
   visit "/contacts/#{@contact.id}" unless @contact.nil?
-  expect(page.first('.needs-table')).to have_text(support_action)
+  expect(page.first('.outstanding')).to have_text(support_action)
 end
 
 Then(/^I see a resident updated message$/) do
