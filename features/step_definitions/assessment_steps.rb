@@ -41,6 +41,10 @@ When('I save the assessment') do
   click_button('Save update to call')
 end
 
+When('I save the scheduled assessment') do
+  click_button('Schedule call')
+end
+
 Then('I see the saved assessment details on the contact') do
   if @assessment_type == 'log'
     assessment_row = find('.need--past')

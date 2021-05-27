@@ -78,7 +78,11 @@
             </div>
           <% end %>
 
-          <%= form.button "Save update to call", class: "button button--primary" %>
+          <% if @type == 'schedule' %>
+            <%= form.button "Schedule call", class: "button button--primary" %>
+          <% else %>
+            <%= form.button "Save update to call", class: "button button--primary" %>
+          <% end %>
         <% end %>
         </div>
       </div>
