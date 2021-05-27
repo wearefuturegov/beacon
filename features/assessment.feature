@@ -23,7 +23,7 @@ Feature: Add assessment
     And I am on their profile page
     And I choose to schedule an assessment
     And I enter valid details
-    When I save the assessment
+    When I save the scheduled assessment
     Then I see the saved assessment details on the contact
 
   @javascript
