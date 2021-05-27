@@ -166,7 +166,7 @@ class AssessmentsController < ApplicationController
     @note = Note.new(notes_permit_params)
 
     if @need.valid? && @need.save && (notes_permit_params[:body].empty? || @note.valid? && @need.save && @note.save)
-      redirect_to contact_path(@contact)
+      redirect_to need_path(@need)
       return
     end
 

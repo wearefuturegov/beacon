@@ -60,6 +60,7 @@ RSpec.describe AssessmentsController do
       allow(@need).to receive(:new).and_return(@test_need)
       allow(@test_need).to receive(:save).and_return(true)
       allow(@test_need).to receive(:valid?).and_return(true)
+      allow(@test_need).to receive(:to_param).and_return(1)
       allow(@test_need).to receive(:category).and_return('test category')
       allow(@test_need).to receive_messages([:status=, :user=, :name=])
 
@@ -71,13 +72,13 @@ RSpec.describe AssessmentsController do
 
     it 'redirects to the contacts show page when successful' do
       post :create, params: { contact_id: 1, type: 'log', need: { category: 'triage' }, note: { body: 'test' } }
-      expect(response).to redirect_to controller: :contacts, action: :show, id: 1
+      expect(response).to redirect_to controller: :needs, action: :show, id: 1
     end
 
     it 'saves the note when the assessment is being logged' do
       expect(@test_note).to receive(:save).and_return(true)
       post :create, params: { contact_id: 1, type: 'log', need: { category: 'triage' }, note: { body: 'test' } }
-      expect(response).to redirect_to controller: :contacts, action: :show, id: 1
+      expect(response).to redirect_to controller: :needs, action: :show, id: 1
     end
 
     it 'tests the need has a start_on date when it is being scheduled' do
