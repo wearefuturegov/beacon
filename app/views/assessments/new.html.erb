@@ -63,7 +63,7 @@
                 </fieldset>
       
                 
-                <%= notes_fields.text_area :body, placeholder: 'Call notes' %>
+                <%= notes_fields.text_field :body, placeholder: 'Additional notes (optional)' %>
               </div>              
             <% end %>
           <% elsif @type == 'schedule' %>
@@ -78,7 +78,7 @@
             </div>
           <% end %>
 
-          <%= form.button "Save to profile", class: "button button--primary" %>
+          <%= form.button "Save update to call", class: "button button--primary" %>
         <% end %>
         </div>
       </div>

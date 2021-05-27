@@ -14,6 +14,7 @@ Feature: List needs
     And I choose to log an assessment
     When I enter valid details
     When I save the assessment
+    And I am on their profile page
     When I view any needs list row for that resident
     Then I see the last contacted date is today
 

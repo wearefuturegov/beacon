@@ -38,7 +38,7 @@ And('I enter valid details') do
 end
 
 When('I save the assessment') do
-  click_button('Save to profile')
+  click_button('Save update to call')
 end
 
 Then('I see the saved assessment details on the contact') do

@@ -33,4 +33,5 @@ Feature: Add assessment
     And I choose to log an assessment
     And I enter valid details
     When I save the assessment
+    And I am on their profile page
     Then I see the saved assessment details on the contact
