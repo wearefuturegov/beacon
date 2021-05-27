@@ -21,17 +21,18 @@ And('the contact has other needs that I cannot see in the list') do
 end
 
 Then('I can see the other needs for that contact') do
-  needs_panel_header = find('.panel-header__title', text: 'Needs')
-  needs_section = needs_panel_header.first(:xpath, '../following-sibling::div[@class="panel panel--unpadded"]')
   expect(needs_section).to have_content(@other_need_identifier)
 end
 
 Then('I can not see the other needs for that contact') do
-  needs_panel_header = find('.panel-header__title', text: 'Needs')
-  needs_section = needs_panel_header.first(:xpath, '../following-sibling::div[@class="panel panel--unpadded"]')
   expect(needs_section).not_to have_content(@other_need_identifier)
 end
 
 Then('I go to the url for that other support action') do
   visit "/needs/#{@other_need.id}"
+end
+
+def needs_section
+  needs_panel_header = find('.panel-header__title', text: 'Needs')
+  needs_panel_header.first(:xpath, '../following-sibling::div[@class="panel panel--unpadded outstanding"]')
 end

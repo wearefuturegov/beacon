@@ -43,10 +43,7 @@ end
 
 Then('I see the saved assessment details on the contact') do
   if @assessment_type == 'log'
-    completed_link = find('#toggle-visibility-completed-assessment')
-    assessments_table = find('.needs-table.completed')
-    assessment_row = assessments_table.find('tbody tr')
-    expect(completed_link).to have_content('1 x completed')
+    assessment_row = find('.need--past')
     expect(assessment_row).to have_content('Inbound')
   elsif @assessment_type == 'schedule'
     expect(page).to have_content('Outbound')

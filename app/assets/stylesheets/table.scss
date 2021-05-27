@@ -107,6 +107,7 @@
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
+    margin-bottom: 0px;
     thead{
         border-bottom: 1px solid transparentize($text, 0.8);
         th{

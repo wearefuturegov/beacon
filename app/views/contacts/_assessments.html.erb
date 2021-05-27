@@ -9,7 +9,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @open_assessments.each do |n| %>
+  <% @assessments.each do |n| %>
     <%= render partial: 'assessment_row', locals: {n: n} %>
   <% end %>
   </tbody>

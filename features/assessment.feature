@@ -26,6 +26,7 @@ Feature: Add assessment
     When I save the assessment
     Then I see the saved assessment details on the contact
 
+  @javascript
   Scenario: Successfully log an assessment
     Given a resident
     And I am on their profile page
