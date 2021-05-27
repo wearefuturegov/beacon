@@ -8,15 +8,16 @@ class Note < ApplicationRecord
   belongs_to :user, optional: true
 
   CALL_TITLES = [
-    'Advice and Guidance',
-    'Welfare and Benefits',
-    'Emergency financial support',
+    'Advice & Guidance',
+    'Welfare & Benefits',
+    'Emergency Financial Support',
     'Food Support & Vouchers',
     'Business & Business Grants',
-    'Vaccination and Vaccination Bus Enquiries',
+    'Vaccination & Vaccination Bus Enquiries',
     'CEV Referral',
     'Test & Trace Outbound Call',
-    'LFT and PCR testing',
+    'Test & Trace Support Payment',
+    'LFT & PCR Testing',
     'Other (Specify)'
   ].freeze
 
