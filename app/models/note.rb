@@ -10,13 +10,14 @@ class Note < ApplicationRecord
   CALL_TITLES = [
     'Advice and Guidance',
     'Welfare and Benefits',
-    'Emergency financial support',
+    'Emergency Financial Support',
     'Food Support & Vouchers',
     'Business & Business Grants',
     'Vaccination and Vaccination Bus Enquiries',
     'CEV Referral',
     'Test & Trace Outbound Call',
-    'LFT and PCR testing',
+    'Test & Trace Support Payment',
+    'LFT and PCR Testing',
     'Other (Specify)'
   ].freeze
 
