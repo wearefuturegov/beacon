@@ -60,7 +60,7 @@ RSpec.describe Contact, type: :model do
     end
 
     it 'false when dob 15/01/1989' do
-      over_18_contact = build :contact, date_of_birth: Date.new(1989, 01, 15)
+      over_18_contact = build :contact, date_of_birth: Date.new(1989, 0o1, 15)
       expect(over_18_contact.under_18?).to be_falsy
     end
   end
