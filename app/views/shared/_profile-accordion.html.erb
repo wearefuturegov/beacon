@@ -52,12 +52,12 @@
 
           <dt class="details-list__caption">Test & Trace Creation Date</dt>
           <dd class="details-list__value" id="test_trace_creation_date">
-            <%= @contact.test_trace_creation_date %>
+            <%= short_date_formatter(@contact.test_trace_creation_date) %>
           </dd>
 
           <dt class="details-list__caption">Isolation Start Date</dt>
           <dd class="details-list__value" id="isolation_start_date">
-            <%= @contact.isolation_start_date %>
+            <%= short_date_formatter(@contact.isolation_start_date) %>
           </dd>
       </dl>
     </div>

@@ -66,12 +66,12 @@
 
     <div class="field">
       <%= form.label :test_trace_creation_date, 'Test & Trace Creation Date', class: "field__label" %>
-      <%= form.text_field :test_trace_creation_date, placeholder: 'Eg: 17/12/2020', :value => "#{@contact.test_trace_creation_date&.strftime('%-d/%-m/%Y')}" %>
+      <%= form.text_field :test_trace_creation_date, placeholder: 'Eg: 17/12/2020', :value => "#{short_date_formatter(@contact.test_trace_creation_date)}" %>
     </div>
 
     <div class="field">
       <%= form.label :isolation_start_date, 'Isolation Start Date', class: "field__label" %>
-      <%= form.text_field :isolation_start_date, placeholder: 'Eg: 17/12/2020', :value => "#{@contact.isolation_start_date&.strftime('%-d/%-m/%Y')}" %>
+      <%= form.text_field :isolation_start_date, placeholder: 'Eg: 17/12/2020', :value => "#{short_date_formatter(@contact.isolation_start_date)}" %>
     </div>
   </div>
 
