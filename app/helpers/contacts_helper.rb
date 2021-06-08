@@ -6,7 +6,7 @@ module ContactsHelper
   end
 
   def short_date_formatter(date)
-    date&.to_s(:default)
+    date&.strftime('%d/%m/%Y')
   end
 
   def titleize_formatter(name)
