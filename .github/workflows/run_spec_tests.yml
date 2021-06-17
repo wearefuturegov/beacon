@@ -14,6 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup database
-      run: docker-compose run -e RAILS_ENV=test app rails db:create db:migrate
+      run: docker-compose run -e RAILS_ENV=test app bundle exec rails db:create db:migrate
     - name: Run tests
       run: docker-compose run -e RAILS_ENV=test app rspec
