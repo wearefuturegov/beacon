@@ -8,6 +8,7 @@ RUN apt-get update -qq && apt-get install -y nodejs postgresql-client yarn
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 && apt-get install -y nodejs
 RUN gem install bundler -v 2.1.4
+RUN gem install foreman
 ENV RAILS_ENV development
 ENV DATABASE_HOST postgresql
 WORKDIR /app
