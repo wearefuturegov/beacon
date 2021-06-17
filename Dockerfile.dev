@@ -17,7 +17,7 @@ COPY package.json yarn.lock /app/
 RUN bundle
 RUN yarn install --check-files
 COPY . /app
-RUN rake camden_style_guide:webpacker:compile
+RUN bundle exec rake camden_style_guide:webpacker:compile
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
