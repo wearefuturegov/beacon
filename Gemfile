@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '2.6.7'
 
 gem 'passwordless', '~> 0.9'
 gem 'bootsnap', '>= 1.4.2', require: false
