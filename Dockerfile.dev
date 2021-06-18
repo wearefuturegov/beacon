@@ -5,8 +5,6 @@ ENV BUNDLER_VERSION=2.1.4
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client yarn
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-&& apt-get install -y nodejs
 RUN gem install bundler -v 2.1.4
 RUN gem install foreman
 ENV RAILS_ENV development
