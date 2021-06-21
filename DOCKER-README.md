@@ -125,7 +125,7 @@ you can run directly in the container normal rails commands by running from with
 
 `docker-compose exec app <shell>`
 
-In the `Dockerfile.dev` on line 1 [ruby:2.5.8](https://github.com/wearefuturegov/beacon/blob/master/Dockerfile.dev#L1) we specifiy a base `Debian` image. As such the default shell is `bash`
+In the `Dockerfile.dev` on line 1 [ruby:2.6.1](https://github.com/wearefuturegov/beacon/blob/master/Dockerfile.dev#L1) we specifiy a base `Debian` image. As such the default shell is `bash`
 
 Alpine Linux variants have `BusyBox ash` as the default SHELL. `bash` has to be installed
 

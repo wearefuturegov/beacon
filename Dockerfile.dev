@@ -1,9 +1,12 @@
-FROM ruby:2.5.8
+FROM ruby:2.6.7
+
+ENV BUNDLER_VERSION=2.1.4
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client yarn
 RUN gem install bundler -v 2.1.4
+RUN gem install foreman
 ENV RAILS_ENV development
 ENV DATABASE_HOST postgresql
 WORKDIR /app
@@ -13,7 +16,7 @@ COPY package.json yarn.lock /app/
 RUN bundle
 RUN yarn install --check-files
 COPY . /app
-RUN rake camden_style_guide:webpacker:compile
+RUN bundle exec rake camden_style_guide:webpacker:compile
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
