@@ -32,4 +32,5 @@ Feature: Create note
     And I submit the form to create the note
     Then the list of notes contains "Resident confirmed required help"
     And the note category is "Advice & Guidance"
+    And the time and date the note was created is present
     And the last note is at the top

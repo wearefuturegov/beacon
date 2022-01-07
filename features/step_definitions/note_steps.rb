@@ -36,6 +36,10 @@ And('the note category is {string}') do |category|
   expect(page).to have_content(category)
 end
 
+And('the time and date the note was created is present') do
+  expect(page).to have_content(@last_note.created_at.strftime('%H:%M on %d %b %Y'))
+end
+
 And('the last note is at the top') do
   top_entry = page.find('.notes__list > article.note:nth-child(1)')
   expect(top_entry).to have_content(@last_note)
