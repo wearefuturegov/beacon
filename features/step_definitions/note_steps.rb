@@ -21,6 +21,7 @@ When('I add a {string} note {string}') do |category, content|
   visit "/needs/#{@contact.needs.first.id}"
   choose_note_type_from(category)
   @last_note = content
+  @saved_time = Time.now
   fill_in('note_body', with: content)
 end
 
@@ -37,7 +38,7 @@ And('the note category is {string}') do |category|
 end
 
 And('the time and date the note was created is present') do
-  expect(page).to have_content(@last_note.created_at.strftime('%H:%M on %d %b %Y'))
+  expect(page).to have_content(@saved_time.strftime('%H:%M on %d %b %Y'))
 end
 
 And('the last note is at the top') do
