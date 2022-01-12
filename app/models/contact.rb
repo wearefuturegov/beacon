@@ -35,7 +35,7 @@ class Contact < ApplicationRecord
                          "%#{sanitize_sql_like(text)}%", # first_name
                          "%#{sanitize_sql_like(text)}%", # middle_names
                          "%#{sanitize_sql_like(text)}%", # surname
-                         "%#{sanitize_sql_like(text)}%", # postcode - try ?x with similar to, then replace
+                         "%#{sanitize_sql_like(text)}%", # postcode
                          "%#{sanitize_sql_like(text)}%", # nhs_number
                          "%#{sanitize_sql_like(text)}%", # date_of_birth
                          "%#{sanitize_sql_like(text)}%") # test_and_trace_account_id
