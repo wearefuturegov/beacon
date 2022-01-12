@@ -17,7 +17,7 @@
 
   <% if @need.notes.without_deleted.length > 0 %>
     <div class="notes__list">
-      <% @need.notes.without_deleted.order(:id).reverse.each do |note| %>
+      <% @need.notes.without_deleted.order(created_at: :desc).each do |note| %>
         <article class="note">
           <header class="note__header">
             <strong><%= notes_category_helper note.category %></strong><br/>
