@@ -28,17 +28,17 @@ class Contact < ApplicationRecord
                    where("first_name ilike ?
     or middle_names ilike ?
     or surname ilike ?
-    or postcode ilike ?
+    or REPLACE (postcode, ' ', '') ilike REPLACE (?, ' ', '')
     or nhs_number ilike ?
     or TO_CHAR(date_of_birth, 'DD/MM/YYYY') ilike ?
     or test_and_trace_account_id ilike ?",
-                         "%#{sanitize_sql_like(text)}%",
-                         "%#{sanitize_sql_like(text)}%",
-                         "%#{sanitize_sql_like(text)}%",
-                         "%#{sanitize_sql_like(text)}%",
-                         "%#{sanitize_sql_like(text)}%",
-                         "%#{sanitize_sql_like(text)}%",
-                         "%#{sanitize_sql_like(text)}%")
+                         "%#{sanitize_sql_like(text)}%", # first_name
+                         "%#{sanitize_sql_like(text)}%", # middle_names
+                         "%#{sanitize_sql_like(text)}%", # surname
+                         "%#{sanitize_sql_like(text)}%", # postcode - try ?x with similar to, then replace
+                         "%#{sanitize_sql_like(text)}%", # nhs_number
+                         "%#{sanitize_sql_like(text)}%", # date_of_birth
+                         "%#{sanitize_sql_like(text)}%") # test_and_trace_account_id
                  }
 
   def name

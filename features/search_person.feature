@@ -25,11 +25,23 @@ Feature: Search person
     Then I see the resident in the search results
     And I see an option to add a person
     
-  Scenario: Search by Postcode
+  Scenario: Search by postcode with whitespace
     Given a resident with a complete profile
     When I search for the resident by part of the "Postcode" "B12 9"
     Then I see the resident in the search results
     And I see an option to add a person
+
+  Scenario: Search by postcode with No whitespace
+    Given a resident with a complete profile
+    When I search for the resident by part of the "Postcode" "B129"
+    Then I see the resident in the search results
+    And I see an option to add a person
+
+  Scenario: Search by postcode in lowercase
+    Given a resident with a complete profile
+    When I search for the resident by part of the "Postcode" "b129"
+    Then I see the resident in the search results
+    And I see an option to add a person    
 
   Scenario: Search by Year of Birth
     Given a resident with a complete profile
