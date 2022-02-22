@@ -52,7 +52,7 @@ class ContactsController < ApplicationController
 
     @open_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
                   .uncompleted.not_assessments.not_pending
-                  .sort { |a, b| Need.sort_created_and_start_date(a, b) }
+                  .order(created_at: :desc)
 
     @completed_needs = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
                        .completed.not_assessments.not_pending
