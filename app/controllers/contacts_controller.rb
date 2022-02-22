@@ -60,11 +60,10 @@ class ContactsController < ApplicationController
     # We want past calls ordered by created date (most recent first), and
     # scheduled calls ordered by start_on, with calls scheduled in the future last
     assessments = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope)
-                   .assessments
+                  .assessments
     past_assessments = assessments.where('start_on <= ?', DateTime.now).order(created_at: :desc)
     future_assessments = assessments.where('start_on > ?', DateTime.now).order(start_on: :asc)
     @assessments = past_assessments + future_assessments
-
 
     @past_call_count = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope).completed.assessments.not_pending.count
     @scheduled_call_count = policy_scope(@contact.needs, policy_scope_class: ContactNeedsPolicy::Scope).uncompleted.assessments.not_pending.count
