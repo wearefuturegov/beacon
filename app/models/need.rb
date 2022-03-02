@@ -271,18 +271,6 @@ class Need < ApplicationRecord
     read_attribute('last_phoned_date')
   end
 
-  # This sort method is to first sort future needs (where start_on > today) to the bottom of the list
-  # and then sort by created_at
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def self.sort_created_and_start_date(first, second)
-    return first.start_on <=> second.start_on if first.start_on && second.start_on
-    return -1 if first.start_on.nil? && !second.start_on.nil? && second.start_on > DateTime.now
-    return 1 if second.start_on.nil? && !first.start_on.nil? && first.start_on > DateTime.now
-
-    first.created_at <=> second.created_at
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
   private
 
   def set_status
